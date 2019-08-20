@@ -46,6 +46,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 
+  # Coverage
+  gem "simplecov", require: false
+
   # Utils
   gem "minitest-reporters"
 end
