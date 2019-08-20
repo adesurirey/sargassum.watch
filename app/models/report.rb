@@ -26,4 +26,12 @@ class Report < ApplicationRecord
   validates :session_id, presence: true
 
   scope :infested, -> { where.not(level: :low) }
+
+  def lon_lat
+    [longitude, latitude]
+  end
+
+  def numeric_level
+    self.class.levels[level]
+  end
 end
