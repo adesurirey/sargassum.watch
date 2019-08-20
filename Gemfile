@@ -1,51 +1,51 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby "2.6.3"
 
-gem 'rails', '~> 6.0.0'
+gem "rails", "~> 6.0.0"
 
 # Server
-gem 'puma', '~> 3.11'
+gem "puma", "~> 3.11"
 
 # DB & adapters
-gem 'pg', '>= 0.18', '< 2.0'
+gem "pg", ">= 0.18", "< 2.0"
 
 # Frontend
-gem 'jbuilder', '~> 2.7'
-gem 'sass-rails', '~> 5'
-gem 'webpacker', '~> 4.0'
+gem "jbuilder", "~> 2.7"
+gem "sass-rails", "~> 5"
+gem "webpacker", "~> 4.0"
 
 # Rails utils
-gem 'bootsnap', '>= 1.4.2', require: false
+gem "bootsnap", ">= 1.4.2", require: false
 
 group :development, :test do
   # Debugging tools
-  gem 'pry-byebug'
-  gem 'pry-rails'
+  gem "pry-byebug"
+  gem "pry-rails"
 
   # Linters
-  gem 'rubocop', require: false
+  gem "rubocop", require: false
 end
 
 group :development do
   # Debugging tools
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
+  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "web-console", ">= 3.3.0"
 
   # Spring speeds up development by keeping your application running in the background.
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
   # System testing
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
+  gem "capybara", ">= 2.15"
+  gem "selenium-webdriver"
+  gem "webdrivers"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
