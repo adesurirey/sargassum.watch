@@ -12,9 +12,9 @@ gem 'puma', '~> 3.11'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Frontend
+gem 'jbuilder', '~> 2.7'
 gem 'sass-rails', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem 'jbuilder', '~> 2.7'
 
 # Rails utils
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -30,8 +30,8 @@ end
 
 group :development do
   # Debugging tools
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 
   # Spring speeds up development by keeping your application running in the background.
   gem 'spring'
