@@ -49,6 +49,10 @@ group :test do
   # Coverage
   gem "simplecov", require: false
 
+  # Guard
+  gem "guard"
+  gem "guard-minitest"
+
   # Utils
   gem "minitest-reporters"
 end
