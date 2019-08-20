@@ -35,7 +35,8 @@ group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "web-console", ">= 3.3.0"
 
-  # Spring speeds up development by keeping your application running in the background.
+  # Utils
+  gem "annotate"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 end
