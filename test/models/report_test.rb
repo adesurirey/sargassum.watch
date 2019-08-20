@@ -94,16 +94,46 @@ class ReportTest < ActiveSupport::TestCase
     assert_empty Report.not_geocoded
   end
 
-  test "should filter reports in a given km radius" do
+  test "should filter reports in a given km perimeter" do
     report = create(:report, :sugiton)
 
     results = Report.near(report.geocoder_coordinates, 1)
     assert_equal 1, results.size
     assert_equal report, results.first
 
-    results = Report.near([43.210767, 5.45597], 1)
+    results = Report.near(coordinates_array(:sugiton_beach, :geocoder), 1)
     assert_equal 1, results.size
     assert_equal report, results.first
+  end
+
+  test "should find a nearby report created by same user on same day" do
+    report = create(:report, :sugiton, :critical)
+
+    coords = coordinates_hash(:sugiton_beach)
+
+    result = Report.find_or_initialize_by(
+      longitude:  coords[:longitude],
+      latitude:   coords[:latitude],
+      session_id: report.session_id,
+      level:      :low,
+    )
+
+    assert_equal report, result
+  end
+
+  test "should initialize a new record" do
+    report = create(:report, :sugiton, :critical)
+
+    coords = coordinates_hash(:morgiou)
+
+    result = Report.find_or_initialize_by(
+      longitude:  coords[:longitude],
+      latitude:   coords[:latitude],
+      session_id: report.session_id,
+      level:      :low,
+    )
+
+    assert result.new_record?
   end
 
   private

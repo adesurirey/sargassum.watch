@@ -37,8 +37,8 @@ FactoryBot.define do
     end
 
     trait :sugiton do
-      latitude { 43.210479 }
-      longitude { 5.4468282 }
+      latitude { 43.217595 }
+      longitude { 5.4557003 }
     end
   end
 end

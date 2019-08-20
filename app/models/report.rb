@@ -18,6 +18,9 @@
 #
 
 class Report < ApplicationRecord
+  MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
+  MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
+
   enum level: {
     low:      0,
     moderate: 1,
@@ -32,6 +35,23 @@ class Report < ApplicationRecord
   scope :infested, -> { where.not(level: :low) }
 
   reverse_geocoded_by :latitude, :longitude
+
+  class << self
+    def find_or_initialize_by(attributes)
+      current_for(attributes.slice(:session_id, :latitude, :longitude)) || new(attributes)
+    end
+
+    private
+
+    def current_for(session_id:, latitude:, longitude:)
+      where(
+        session_id: session_id,
+        created_at: MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME..,
+      )
+        .near([latitude, longitude], MIN_DISTANCE_FROM_LAST_REPORT_IN_KM, units: :km)
+        .first
+    end
+  end
 
   def geo_json_coordinates
     [longitude, latitude]

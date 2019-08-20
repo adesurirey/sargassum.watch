@@ -8,6 +8,8 @@ require "rails/test_help"
 
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 
+require "test_coordinates_helper"
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors)
@@ -15,6 +17,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   include FactoryBot::Syntax::Methods
+  include TestCoordinatesHelper
 
   def teardown
     Rails.cache.clear
