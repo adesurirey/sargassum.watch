@@ -42,6 +42,8 @@ Metrics/LineLength:
 
 Style/BlockDelimiters:
   EnforcedStyle: semantic
+  Exclude:
+    - 'Gemfile'
 
 Style/SignalException:
   EnforcedStyle: semantic
