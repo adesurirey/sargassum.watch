@@ -1,0 +1,7 @@
+inherit_from: ../.rubocop.yml
+
+Metrics/LineLength:
+  Max: 140
+
+Style/ClassAndModuleChildren:
+  Enabled: false
