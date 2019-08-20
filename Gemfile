@@ -13,6 +13,9 @@ gem "puma", "~> 3.11"
 # DB & adapters
 gem "pg", ">= 0.18", "< 2.0"
 
+# Structural
+gem "draper"
+
 # Frontend
 gem "jbuilder", "~> 2.7"
 gem "sass-rails", "~> 5"
@@ -58,8 +61,8 @@ group :test do
   gem "guard-minitest"
 
   # Utils
-  gem "minitest-reporters"
   gem "faker"
+  gem "minitest-reporters"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
