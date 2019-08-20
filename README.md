@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adesurirey/sargassum.watch.svg?branch=master)](https://travis-ci.org/adesurirey/sargassum.watch)
+
 # README
 
 This README would normally document whatever steps are necessary to get the

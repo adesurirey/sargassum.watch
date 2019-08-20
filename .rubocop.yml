@@ -17,6 +17,7 @@ AllCops:
     - 'lib/tasks/auto_annotate_models.rake'
     - 'tmp/*'
     - 'node_modules/**/*'
+    - 'vendor/**/*'
 
 GlobalVars:
   AllowedVariables:
