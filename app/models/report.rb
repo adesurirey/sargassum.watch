@@ -12,6 +12,10 @@
 #  updated_at :datetime         not null
 #  session_id :string           not null
 #
+# Indexes
+#
+#  index_reports_on_latitude_and_longitude  (latitude,longitude)
+#
 
 class Report < ApplicationRecord
   enum level: {
@@ -27,8 +31,14 @@ class Report < ApplicationRecord
 
   scope :infested, -> { where.not(level: :low) }
 
-  def lon_lat
+  reverse_geocoded_by :latitude, :longitude
+
+  def geo_json_coordinates
     [longitude, latitude]
+  end
+
+  def geocoder_coordinates
+    [latitude, longitude]
   end
 
   def numeric_level
