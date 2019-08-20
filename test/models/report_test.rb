@@ -63,6 +63,19 @@ class ReportTest < ActiveSupport::TestCase
     assert_not reports.any?(&:low?)
   end
 
+  test "should return a valid geoJSON coordinates array" do
+    report = build(:report)
+
+    assert_equal report.longitude, report.lon_lat.first
+    assert_equal report.latitude, report.lon_lat.last
+  end
+
+  test "should return level enum as numeric" do
+    report = build(:report)
+
+    assert_kind_of Integer, report.numeric_level
+  end
+
   private
 
   def map_errors(record, attribute)
