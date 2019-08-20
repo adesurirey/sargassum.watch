@@ -12,6 +12,10 @@
 #  updated_at :datetime         not null
 #  session_id :string           not null
 #
+# Indexes
+#
+#  index_reports_on_latitude_and_longitude  (latitude,longitude)
+#
 
 FactoryBot.define do
   factory :report do
@@ -30,6 +34,11 @@ FactoryBot.define do
 
     trait :critical do
       level  { :critical }
+    end
+
+    trait :sugiton do
+      latitude { 43.210479 }
+      longitude { 5.4468282 }
     end
   end
 end

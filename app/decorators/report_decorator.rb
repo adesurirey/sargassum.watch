@@ -12,7 +12,7 @@ class ReportDecorator < Draper::Decorator
       type:       "Feature",
       geometry:   {
         type:        "Point",
-        coordinates: lon_lat,
+        coordinates: geo_json_coordinates,
       },
       properties: {
         id:         id,
