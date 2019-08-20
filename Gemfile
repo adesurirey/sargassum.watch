@@ -28,6 +28,9 @@ group :development, :test do
 
   # Linters
   gem "rubocop", require: false
+
+  # Auto-generated factories
+  gem "factory_bot_rails"
 end
 
 group :development do
