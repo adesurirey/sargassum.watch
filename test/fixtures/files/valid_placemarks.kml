@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
-    <name>2019 - Beaches without sargassum</name>
-    <description>Directory of beaches without sargassum</description>
+    <name>Valid placemarks</name>
+    <description>Directory of valid placemarks</description>
     <Style id="icon-1502-0288D1-normal">
       <IconStyle>
         <color>ffd18802</color>

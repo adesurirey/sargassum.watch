@@ -11,9 +11,9 @@ module Assets
 
       def initialize(node_set, attributes = {})
         @node = node_set
-        @name = extract_name
-        @created_at = extract_date
-        @latitude, @longitude, _elevation = extract_coordinates
+        @name = parse_name
+        @created_at = parse_date
+        @latitude, @longitude, _elevation = parse_coordinates
 
         @attributes = attributes.merge!(
           longitude:  @longitude,
@@ -24,13 +24,13 @@ module Assets
 
       private
 
-      def extract_name
+      def parse_name
         @node.css("name")&.text.tap do |name|
           error(:blank_name) if name.blank?
         end
       end
 
-      def extract_date
+      def parse_date
         @name[DATE_REGEX]&.to_datetime.tap do |date|
           error(:blank_date) if date.blank?
         end
@@ -38,7 +38,7 @@ module Assets
         error(:invalid_date)
       end
 
-      def extract_coordinates
+      def parse_coordinates
         coord_string = @node.at_css("coordinates")&.text.tap do |string|
           error(:blank_coordinates) if string.blank?
         end
