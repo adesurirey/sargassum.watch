@@ -6,8 +6,9 @@ module Assets
     attr_reader :name
     attr_reader :placemarks
 
-    def initialize(file_path)
+    def initialize(file_path, custom_placemark_attributes = {})
       @document = Nokogiri::XML(File.open(file_path))
+      @custom_placemark_attributes = custom_placemark_attributes
       @errors = []
 
       @name = parse_name
@@ -22,7 +23,7 @@ module Assets
 
     def parse_placemarks
       @document.css("Placemark").map do |placemark|
-        Placemark.new(placemark).to_h
+        Placemark.new(placemark, @custom_placemark_attributes).attributes
       rescue Placemark::InvalidNodeError => e
         @errors << e.message
         next

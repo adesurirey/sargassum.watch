@@ -7,20 +7,19 @@ module Assets
 
       DATE_REGEX = %r{\d{2}/\d{2}/\d{4}}.freeze
 
-      def initialize(node_set)
+      attr_reader :attributes
+
+      def initialize(node_set, attributes = {})
         @node = node_set
         @name = extract_name
         @created_at = extract_date
         @latitude, @longitude, _elevation = extract_coordinates
-      end
 
-      def to_h
-        {
-          name:       @name,
+        @attributes = attributes.merge!(
           longitude:  @longitude,
           latitude:   @latitude,
           created_at: @created_at,
-        }
+        )
       end
 
       private
@@ -52,9 +51,9 @@ module Assets
         when :blank_name
           fail InvalidNodeError, "No name found"
         when :blank_date
-          fail InvalidNodeError, "No date found in name: #{@name}"
+          fail InvalidNodeError, "No date found in name: #{@name.strip}"
         when :invalid_date
-          fail InvalidNodeError, "Invalid date in name: #{@name}"
+          fail InvalidNodeError, "Invalid date in name: #{@name.strip}"
         when :blank_coordinates
           fail InvalidNodeError, "No coordinates found"
         end
