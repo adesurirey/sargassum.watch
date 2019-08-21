@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Folder>
+      <name>2019 - Beaches without sargassum</name>
+
+      <!-- only valid placemark -->
+      <Placemark>
+        <name>01/01/2019 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- date not found -->
+      <Placemark>
+        <name>Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- date unrecognized format -->
+      <Placemark>
+        <name>01/01/219 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- date does not exists in calendar -->
+      <Placemark>
+        <name>31/02/2019 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- name not found -->
+      <Placemark>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- name blank -->
+      <Placemark>
+        <name></name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- coordinates blank -->
+      <Placemark>
+        <name>01/01/2019 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+          </coordinates>
+        </Point>
+      </Placemark>
+
+      <!-- coordinates not found -->
+      <Placemark>
+        <name>01/01/2019 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
