@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>2019 - Beaches without sargassum</name>
+    <description>Directory of beaches without sargassum</description>
+    <Style id="icon-1502-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1502-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1502-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1502-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1502-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0F9D58-normal">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0F9D58-highlight">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0F9D58">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0F9D58-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0F9D58-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>2019</name>
+      <Placemark>
+        <name><![CDATA[01/01/2019 Anses d'Arlet - Martinique]]></name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/yc2GJJptf9UJWCEnIK49v1SH6nfxMMvg6iwmx7DNQH2IpTBEap6awyFt1tNx5PBI__e_p8GRKV1JsKcfjhy97eTYmLEMTYqa2JJSnQ05OXYeuZsBfUhX5We-hdC0kD1zaOthHQ" height="200" width="auto" /><br><br>wc<br><br><img src="https://lh4.googleusercontent.com/NTQeNXEa8-3zM-betjMZRqzUgTUfm10iokeMj0_GehvPbTzFLiDOxamG75cXL3pNlTFCcyz3bL23ifW-WmSk7A-wFeSF_oMVt0ePZAxd5sQEgOr_TOjAsjEmDRXkwg_O08MXyA" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/yc2GJJptf9UJWCEnIK49v1SH6nfxMMvg6iwmx7DNQH2IpTBEap6awyFt1tNx5PBI__e_p8GRKV1JsKcfjhy97eTYmLEMTYqa2JJSnQ05OXYeuZsBfUhX5We-hdC0kD1zaOthHQ https://lh4.googleusercontent.com/NTQeNXEa8-3zM-betjMZRqzUgTUfm10iokeMj0_GehvPbTzFLiDOxamG75cXL3pNlTFCcyz3bL23ifW-WmSk7A-wFeSF_oMVt0ePZAxd5sQEgOr_TOjAsjEmDRXkwg_O08MXyA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -61.0841083,14.4986926,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>01/01/2019 Riu dunamar - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh" height="200" width="auto" /><br><br>@Megan Baugh<br><br><img src="https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0" height="200" width="auto" />]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/PcVHSim6h0K3cvzfq5nfY3O7WwSL7pCvHbZpAeOIPY2f_0-PycBHyMIwCqjkgXhJIioNm3azLzB2CN8hjMxpoLysvb9HiY1gecwcIxyaXizF-LdNzkLVcv-fJaVGN4BWfEYh https://lh6.googleusercontent.com/3PqD5lrAZHZhHtjGbHoqs9H1J5UlRYYOD__aKD126TsDdKz5oFpS3KbWJyeDaJdAQcruksW5q1dr2RXcg1SrxERe0wEJlJPj4__EVqrHAXbPXHqnYGW1nWtaPjClX-gbCjTL_F0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.8118681,21.3038107,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>01/01/2019 Holbox - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/BCdBl5dHiJhtIGPmrW1sfsiwfVfHfpfT0S_xws95-aRHa651Pe_rpYDMj5dooc6t3nb6F77ETCwIhutv7xpKwMLEIqeSFpThTmqmBJH2dLjrnYO_zUD9f0tyWMujH4J5AKa1gg" height="200" width="auto" /><br><br>@Lesley Wilson‎]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/BCdBl5dHiJhtIGPmrW1sfsiwfVfHfpfT0S_xws95-aRHa651Pe_rpYDMj5dooc6t3nb6F77ETCwIhutv7xpKwMLEIqeSFpThTmqmBJH2dLjrnYO_zUD9f0tyWMujH4J5AKa1gg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.3790532,21.5262089,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 The Carmen Hotel - Playa del Carmen - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/sB_tqWnh67vJck8oOYj4YhLHkbdyNqLDujSBS-3Xn699ozSqreV906TbTwPkMF53YHsBc5GNmWTWbY-AoXeYp4gonIp6xWNA_QA87-dDuKYL7jfFyK6_3pdJgIIX7oi88eyFtmc" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/sB_tqWnh67vJck8oOYj4YhLHkbdyNqLDujSBS-3Xn699ozSqreV906TbTwPkMF53YHsBc5GNmWTWbY-AoXeYp4gonIp6xWNA_QA87-dDuKYL7jfFyK6_3pdJgIIX7oi88eyFtmc</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.071879,20.6250166,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Hotel Hard Rock Cancun -  Riviera Maya
+</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/s-BLOtzQIUc8rJiYQ5Y3m9nrIUgrEG-ICw__ZMlGJ1NJxIYIESzzySzK4Ck6lH_nUQdrCTC7YFXBal9ciVFvhxD27SFDUaj5-45W7Y0eOz4iyQF5kGQBlzdsOcZImbpWDMENpkU" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/s-BLOtzQIUc8rJiYQ5Y3m9nrIUgrEG-ICw__ZMlGJ1NJxIYIESzzySzK4Ck6lH_nUQdrCTC7YFXBal9ciVFvhxD27SFDUaj5-45W7Y0eOz4iyQF5kGQBlzdsOcZImbpWDMENpkU</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7685508,21.0894808,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Live Aqua Beach Resort Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/aoO45DMSUmIGY0ud9oPeZWFv6XAW-4iKB3eoLVVrCV5RE3sFLGAK7JydU1Zc5o4luaKCYNYYNh3VNALIpyT-pIx4pYeZhewshmbSUshJSD3qnIg7aS3nFpEgwKGwDb9Wpqx3" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/aoO45DMSUmIGY0ud9oPeZWFv6XAW-4iKB3eoLVVrCV5RE3sFLGAK7JydU1Zc5o4luaKCYNYYNh3VNALIpyT-pIx4pYeZhewshmbSUshJSD3qnIg7aS3nFpEgwKGwDb9Wpqx3</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7609799,21.1072767,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Ixchel Beach Hotel - Isla Mujeres - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/xHwVa6DFsdFBXiOBR4rmVBajdGEPR95A9vj3unMpacXkQaxDaxbePncrj4aG9OlzL99QtwqCB74nFz3ZqQklRZeQx3rncCtTa4dP45B6ZCmQFGmQzGRvpi-Vf1pTjzcO22Er" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/xHwVa6DFsdFBXiOBR4rmVBajdGEPR95A9vj3unMpacXkQaxDaxbePncrj4aG9OlzL99QtwqCB74nFz3ZqQklRZeQx3rncCtTa4dP45B6ZCmQFGmQzGRvpi-Vf1pTjzcO22Er</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7520568,21.259426,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Hyatt Ziva Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/zpGDwXQk1AarcSTVtJ1cOImEnrgyVXCV9hyVpbL2iSOM48TOHbKw9-Z0YO0Nr2TnKJ7-kJEagOiq6ELuWYEoZha7OLFacvoigD0ZT9CRP1kqttLWc65a6Cq2q-yKSDI_h0rWsQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/zpGDwXQk1AarcSTVtJ1cOImEnrgyVXCV9hyVpbL2iSOM48TOHbKw9-Z0YO0Nr2TnKJ7-kJEagOiq6ELuWYEoZha7OLFacvoigD0ZT9CRP1kqttLWc65a6Cq2q-yKSDI_h0rWsQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7427466,21.1367372,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Hotel Krystal Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/p6jblvKcm_2StggmNMB7PdB-v0T6l_af4OcJpr3NVkl8gy4-qG4bIlLm2v08Z6yR--DWWcqYNwDzyKS9dLOLZfYEsqN65flrfKMnd7s5nkBWlihLn2QI2lNOFdA6cW1qbPebdQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/p6jblvKcm_2StggmNMB7PdB-v0T6l_af4OcJpr3NVkl8gy4-qG4bIlLm2v08Z6yR--DWWcqYNwDzyKS9dLOLZfYEsqN65flrfKMnd7s5nkBWlihLn2QI2lNOFdA6cW1qbPebdQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7438286,21.133763,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Cancun Beach Palace - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/Wd-7jDcaN9tK28IIymong8hIqksIDdZ4MRnMurWCa1UhfafuWwDMQEgSqf7JpFD7sQ706WQceMf_9cxmJT3MKFZ1zTvX8bPrk6pAjwezQGR9J3L2N5mB5shdqdEJs6U61qIrvA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/Wd-7jDcaN9tK28IIymong8hIqksIDdZ4MRnMurWCa1UhfafuWwDMQEgSqf7JpFD7sQ706WQceMf_9cxmJT3MKFZ1zTvX8bPrk6pAjwezQGR9J3L2N5mB5shdqdEJs6U61qIrvA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7578093,21.1136796,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 El Cid Puerto Morelos - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/J1On_pzx--afUH4QU5hoN5223ObuN5YFVAJZDgHRDV1at0G-xsvjjbDX77THhRLwvLS3I2SsV_KgVwzy7eIbEiid2M0L6Wtw-2LSOOmWobsKPePD-cxbP348kg9AIlmQusgochc" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/J1On_pzx--afUH4QU5hoN5223ObuN5YFVAJZDgHRDV1at0G-xsvjjbDX77THhRLwvLS3I2SsV_KgVwzy7eIbEiid2M0L6Wtw-2LSOOmWobsKPePD-cxbP348kg9AIlmQusgochc</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.888064,20.8338649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 The Royal Sands Phase 1 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/aAKhAG_zQJ9SAhHM-APpscz-Q5pd-bJlVpP5PZ61D13ofOdhHinXE11cuXgpVwx9jsq7J5U5Aq07nJop9kg8wvBcCJS37twjbc0otqHd5z_e2bNuzmHphesjuLTwVA0slNauveo" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/aAKhAG_zQJ9SAhHM-APpscz-Q5pd-bJlVpP5PZ61D13ofOdhHinXE11cuXgpVwx9jsq7J5U5Aq07nJop9kg8wvBcCJS37twjbc0otqHd5z_e2bNuzmHphesjuLTwVA0slNauveo</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7650218,21.0981908,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 The Royal Sands Phase 2 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/9Lev8Ox8ZGXXjCXuLklRY-PzGH8jqLxv8cfZEgC5tF2Io5z4U2aYJdyIWc61TmBPFjeiUPzQGLaw6QTqOzlsrgF2p_oQzhZJQcoMYkYfEfW6rFxQEhyrlIvSSqnbP0231jMkoV0" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/9Lev8Ox8ZGXXjCXuLklRY-PzGH8jqLxv8cfZEgC5tF2Io5z4U2aYJdyIWc61TmBPFjeiUPzQGLaw6QTqOzlsrgF2p_oQzhZJQcoMYkYfEfW6rFxQEhyrlIvSSqnbP0231jMkoV0</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7646596,21.0990916,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 The Royal Caribbean Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/SniVJ2a2Ls59DrPnjdJk_Fo3RWSQk_EzcoBpCIj442w8HNi6qELHweYSQdRSaOFSTj8UUCBQkaOFOqzP71tuIc6VRZ0R5iWzAq9HFOHy4PPYxF8ioJUDkg4dZrc3vWukO3mbLnA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/SniVJ2a2Ls59DrPnjdJk_Fo3RWSQk_EzcoBpCIj442w8HNi6qELHweYSQdRSaOFSTj8UUCBQkaOFOqzP71tuIc6VRZ0R5iWzAq9HFOHy4PPYxF8ioJUDkg4dZrc3vWukO3mbLnA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7747588,21.0723595,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 The Royal Islander Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/SbxSaXXRI9meR0dzijBEJ75gC2fedyJhWSUlQFk8Qjz6oq88r6s9RWT5kY0UBUonuWroaHE5gE8YENBcJbNe86-LvedCo79Q67TAzKiJMQhn1sqOlv6XFeb0l0sLKmIkQY1tcVQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/SbxSaXXRI9meR0dzijBEJ75gC2fedyJhWSUlQFk8Qjz6oq88r6s9RWT5kY0UBUonuWroaHE5gE8YENBcJbNe86-LvedCo79Q67TAzKiJMQhn1sqOlv6XFeb0l0sLKmIkQY1tcVQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.775388,21.070534,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 InterContinental Presidente Cozumel - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/xsyMA2NpL065RSiZxXlGQc2_l0JtoZh_taPq3BtdHSl1INXQZFHVSMCeFWXuqxy-nhcJ1Xoj60tJAXFH-ive-16xlmExMu6pqUc_3-pKFL8paMuYAbOnpT7WFyQnvMxjk5csNIM" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/xsyMA2NpL065RSiZxXlGQc2_l0JtoZh_taPq3BtdHSl1INXQZFHVSMCeFWXuqxy-nhcJ1Xoj60tJAXFH-ive-16xlmExMu6pqUc_3-pKFL8paMuYAbOnpT7WFyQnvMxjk5csNIM</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.9830033,20.4650644,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Pebbles Beach - Barbados</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/YbNc5dSYORIX-hH94MMsha-8QhXmNHaNkw3SmAK4eC2xZANzO2160XA3SmddiMYnA76Af4ltd6LHzlQ1j9q5xhOu6nOu1CYS7wB_nOKS6us703fkGNh-VayzaESAKuhjqzn9pA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/YbNc5dSYORIX-hH94MMsha-8QhXmNHaNkw3SmAK4eC2xZANzO2160XA3SmddiMYnA76Af4ltd6LHzlQ1j9q5xhOu6nOu1CYS7wB_nOKS6us703fkGNh-VayzaESAKuhjqzn9pA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -59.6103189,13.081332,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Daytona Beach, Florida</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/zMiebf-d-_Nhw6u95RQUcPRA6dh23Xcewjauft_v3TNIuwKs03HUYk6bb1CiOhiEWc0WEEPAcsZz1Yhr505zsPQH0kCZ1VckDO6ubmlmxMw3UTr6yaNRI0BJqPGVsYbFM_6ykSw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/zMiebf-d-_Nhw6u95RQUcPRA6dh23Xcewjauft_v3TNIuwKs03HUYk6bb1CiOhiEWc0WEEPAcsZz1Yhr505zsPQH0kCZ1VckDO6ubmlmxMw3UTr6yaNRI0BJqPGVsYbFM_6ykSw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.968139,29.1519542,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>02/01/2019 Bois Jolan - Guadeloupe</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/NhAJK7CK_mR9k-yq-HPxd782IN7COqaN2BeJofI6eRMTBgEzkl0Lvfq7rmcTZo7JGbZeF2v8C4WDuyFLlxxpn5kTAobXVg2-Q_fZAitVXrtQjUVs99wdjnHzgDf5cegcvx7z" height="200" width="auto" /><br><br>@Mickael Mijo‎]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/NhAJK7CK_mR9k-yq-HPxd782IN7COqaN2BeJofI6eRMTBgEzkl0Lvfq7rmcTZo7JGbZeF2v8C4WDuyFLlxxpn5kTAobXVg2-Q_fZAitVXrtQjUVs99wdjnHzgDf5cegcvx7z</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -61.3495613,16.2361059,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 The Carmen Hotel - Playa del Carmen - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/g1m9tYNWDOB-XoPOjiGFFtiyOysBtVdGNuWrPa5YAuszO-rWsKzOh4B-bjdo9DIsW5kAGNbU05mZTviD7ad9gVh5xwkznf0Vde48w-PPh_EBRdoNovCEC-5tBwWnIP64MvZa" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/g1m9tYNWDOB-XoPOjiGFFtiyOysBtVdGNuWrPa5YAuszO-rWsKzOh4B-bjdo9DIsW5kAGNbU05mZTviD7ad9gVh5xwkznf0Vde48w-PPh_EBRdoNovCEC-5tBwWnIP64MvZa</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.0719109,20.6249772,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Smathers Beach Key West - USA</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/RJbUoxY2tSf88SxPjfePurOIW6TY4TFS0upSK0YQqeQVvNP8KJLyA_ZryfNLRL6X_ImD10zHKcpqhAnYsH3WCnp_LzJ5Z7bkDHlp9HIxX-81wTUKiTVR6WU0wRdH3ObadfFzCw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/RJbUoxY2tSf88SxPjfePurOIW6TY4TFS0upSK0YQqeQVvNP8KJLyA_ZryfNLRL6X_ImD10zHKcpqhAnYsH3WCnp_LzJ5Z7bkDHlp9HIxX-81wTUKiTVR6WU0wRdH3ObadfFzCw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -81.7715488,24.5512782,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Hotel Hard Rock Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/L6tEOV5InM8Rs4qAQx9u3AGEtOGSCKHyvzqX_5_kOyQo7BPCkGZb7YyM3yE8G9e_mVYPyMydw4aVd-TN6Gdpv8fyDHEADZ_BnAQUAxxR3qyVJzcgTosZlOjzsGSMpzg1Vrun" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/L6tEOV5InM8Rs4qAQx9u3AGEtOGSCKHyvzqX_5_kOyQo7BPCkGZb7YyM3yE8G9e_mVYPyMydw4aVd-TN6Gdpv8fyDHEADZ_BnAQUAxxR3qyVJzcgTosZlOjzsGSMpzg1Vrun</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7685555,21.0894321,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Live Aqua Beach Resort Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/1KM3gEAL2X4F9Ly3RDmOAEJJIrZA_ZMep9IcUcan-o9GqNvcn7tP9GSKAWEYGTesRVx9xDhoBF-9lrmpzZsLcfZM59QS_KjvLMApcadcIdCPqFsKWf84DsvCtQqGU9GHAHVt" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/1KM3gEAL2X4F9Ly3RDmOAEJJIrZA_ZMep9IcUcan-o9GqNvcn7tP9GSKAWEYGTesRVx9xDhoBF-9lrmpzZsLcfZM59QS_KjvLMApcadcIdCPqFsKWf84DsvCtQqGU9GHAHVt</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7609611,21.1073143,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Ixchel Beach Hotel - Isla Mujeres - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/yFz-AiaSXLA2Ic3E7kjm0ShksLU_5dbG0hv7UXlk37ZKzIfhxlEpQdEOHJ7j85RcWSa6EXMh2b-XObD3bAFCnb6DvKZk-rJrl08t7-FlYsUPpX4_pcT2a8EDQ8eZA4yvMxpoYws" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/yFz-AiaSXLA2Ic3E7kjm0ShksLU_5dbG0hv7UXlk37ZKzIfhxlEpQdEOHJ7j85RcWSa6EXMh2b-XObD3bAFCnb6DvKZk-rJrl08t7-FlYsUPpX4_pcT2a8EDQ8eZA4yvMxpoYws</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7520307,21.2594626,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Hyatt Ziva Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/wSjv9syQgXjgKrRpu0omwdSFAq2xttixRjShlcTfxbVhIaP_0Cc4Xobf9Wvw0qt2zqVUTe8t1qyBSkq5vkrqLydcBaxmocYhsOiNv8IR7BULuFEWtkK02lcRb-B5fhmSh7BzhuA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/wSjv9syQgXjgKrRpu0omwdSFAq2xttixRjShlcTfxbVhIaP_0Cc4Xobf9Wvw0qt2zqVUTe8t1qyBSkq5vkrqLydcBaxmocYhsOiNv8IR7BULuFEWtkK02lcRb-B5fhmSh7BzhuA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.742701,21.1367422,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Hotel Krystal Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/glDdCuBFel4tk7oDwT6L7B995z3UaO1CI2-sMDw66CJUtsRawaNnptymaa_nxQX-LyXGgyUlme-2DFrw-6o2FDLO91sOzsubzXNuAeGLghVo4YBryGwkSmwFc1yatOoeuVhCyw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/glDdCuBFel4tk7oDwT6L7B995z3UaO1CI2-sMDw66CJUtsRawaNnptymaa_nxQX-LyXGgyUlme-2DFrw-6o2FDLO91sOzsubzXNuAeGLghVo4YBryGwkSmwFc1yatOoeuVhCyw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7438758,21.133763,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>03/01/2019 Punta Esmeralda Playa del Carmen - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/AhEpze1AV1Hs0w3NRXejR3ffV4CxxgF8zlVd3RZ2oOBidl7IBHTAk8VCsl3HZ5OxLdnM6ORyP6KN48OZhPwbidn46PBQKrcouoK1fzNwK6dfrxQQEdeSLLSkt8MZFhNjazy35oY" height="200" width="auto" /><br><br>@Chantal Lamarche]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/AhEpze1AV1Hs0w3NRXejR3ffV4CxxgF8zlVd3RZ2oOBidl7IBHTAk8VCsl3HZ5OxLdnM6ORyP6KN48OZhPwbidn46PBQKrcouoK1fzNwK6dfrxQQEdeSLLSkt8MZFhNjazy35oY</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.0498957,20.6474789,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Hotel Hard Rock Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/GFlQ15bn_YCYeLi8SxHgDuEDq42gAhTTsAyjWPKcSi63MwXsI6hespGAwE4Pn7qXxnpzbS2Snm-_tEL2pqtDlmb92nSPkTKaJu5eHxzQdr0xnE5VXMsJOt_wMjW6uaxi-684Kg" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/GFlQ15bn_YCYeLi8SxHgDuEDq42gAhTTsAyjWPKcSi63MwXsI6hespGAwE4Pn7qXxnpzbS2Snm-_tEL2pqtDlmb92nSPkTKaJu5eHxzQdr0xnE5VXMsJOt_wMjW6uaxi-684Kg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7685653,21.089389,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Bois Jolan - Guadeloupe</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/T7HnnegrzLg6Mb8ncA9mVN51_W1VpelZIgXJUVA4YfuzzfbCdeXx--XPvfgo6l2RbvApxA7uOFnXJEEEDvUJ0gYho6vpKAJTT5xzZ4T45P1WWbg-0vGRDUA3mKpRL2pqQQFwgA" height="200" width="auto" /><br><br>@Charlotte Legay‎]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/T7HnnegrzLg6Mb8ncA9mVN51_W1VpelZIgXJUVA4YfuzzfbCdeXx--XPvfgo6l2RbvApxA7uOFnXJEEEDvUJ0gYho6vpKAJTT5xzZ4T45P1WWbg-0vGRDUA3mKpRL2pqQQFwgA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -61.3496297,16.2360983,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Hyatt Ziva Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/DrzNlQNP_IDqrSgEtDkhgCl2yy3R1ThGZ8yo5x7-O3LnUvbY76FpWqY9ph0pC4Gpw4qwEtKF0mTtJRQNKm6ii7_vrVpjhYQ-cd3n3axmVLN-0MXa-ZcfvZY2h-jFfTt7sUEU" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/DrzNlQNP_IDqrSgEtDkhgCl2yy3R1ThGZ8yo5x7-O3LnUvbY76FpWqY9ph0pC4Gpw4qwEtKF0mTtJRQNKm6ii7_vrVpjhYQ-cd3n3axmVLN-0MXa-ZcfvZY2h-jFfTt7sUEU</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7426527,21.1367422,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 InterContinental Presidente Cozumel - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/8-GyIUvAofRwYVmflzf-g-KfROTHncXu7osyw6lmnJhVGpTlV1SuL3k5AJsmkBdfwg76SLzL3xMympLNlDHHNRbTdEPxPNcjv1exv50sf6iB3Tollqk06fViHcjW7Uob_FqgZg" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/8-GyIUvAofRwYVmflzf-g-KfROTHncXu7osyw6lmnJhVGpTlV1SuL3k5AJsmkBdfwg76SLzL3xMympLNlDHHNRbTdEPxPNcjv1exv50sf6iB3Tollqk06fViHcjW7Uob_FqgZg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.9829462,20.4650643,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Hotel Krystal Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/yyu26iewHpHMszh2vLpRxTPClKNDizWjEiTXe2JZAOvlBsaf65fpyJGa18RS8upUBM1dtZ9RZqzkP8G6s6y_WMHTkHCiGS4GSBZam1VEOeCX_SgymORTo5MfGj1Uy5aZQuJpTg" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/yyu26iewHpHMszh2vLpRxTPClKNDizWjEiTXe2JZAOvlBsaf65fpyJGa18RS8upUBM1dtZ9RZqzkP8G6s6y_WMHTkHCiGS4GSBZam1VEOeCX_SgymORTo5MfGj1Uy5aZQuJpTg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7439268,21.133758,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Cancun Beach Palace - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/K5Umz9UyAcO0x3caFIbtnXCBmpUCLnemcVACwQwTQZLwYUwvIK0tiloy8FjBrGHlu_9rNGA-rNUgFKkRNTiqKNKIHGUCaF79SX1BuOAOZMtpk2Tq-u33YKMCPUQVIxLXaTqH" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/K5Umz9UyAcO0x3caFIbtnXCBmpUCLnemcVACwQwTQZLwYUwvIK0tiloy8FjBrGHlu_9rNGA-rNUgFKkRNTiqKNKIHGUCaF79SX1BuOAOZMtpk2Tq-u33YKMCPUQVIxLXaTqH</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.757828,21.1136296,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 The Royal Sands Phase 1 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/eU7Dsb_TE8eefwt6vZwKCRm1110yXOogOcA2DlbQjn0qUKsB4Tllf8ZZV4w8al4BP8ZXMIeI3PNDX62Ewipiz322KVydST_VrRQCiF8oz_7nfsY0R8GNFh389YvlADD7weTk" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/eU7Dsb_TE8eefwt6vZwKCRm1110yXOogOcA2DlbQjn0qUKsB4Tllf8ZZV4w8al4BP8ZXMIeI3PNDX62Ewipiz322KVydST_VrRQCiF8oz_7nfsY0R8GNFh389YvlADD7weTk</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7650352,21.0981557,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 The Royal Sands Phase 2 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/ftoqvkxE1-XHv1Gx29OI6TvX7v_PmTwlOpfB8h4CDfm387EbIb6oJEUelUahitTEhDx0BfrrSAT8laELeKgH0TEUzAdpw5lVUH1SychHRpr8pUgKppRLDAM4jCwfvywba4CSKQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/ftoqvkxE1-XHv1Gx29OI6TvX7v_PmTwlOpfB8h4CDfm387EbIb6oJEUelUahitTEhDx0BfrrSAT8laELeKgH0TEUzAdpw5lVUH1SychHRpr8pUgKppRLDAM4jCwfvywba4CSKQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7646785,21.0990441,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 The Royal Caribbean Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/OCCy3Mhmm1tct2N8j3WTEzFVW2b5fB1KV4L_5wbF6WZyOqeLsOTKPjd0WnywRuBBQxY1zJnofVhhvi2QyxoyeBabrQ635vRc80ozg-XRpx_1UrisP-4t1vBdrs5j-xYC2ucMGRU" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/OCCy3Mhmm1tct2N8j3WTEzFVW2b5fB1KV4L_5wbF6WZyOqeLsOTKPjd0WnywRuBBQxY1zJnofVhhvi2QyxoyeBabrQ635vRc80ozg-XRpx_1UrisP-4t1vBdrs5j-xYC2ucMGRU</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7747615,21.072312,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 The Royal Islander Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/xSqG9nPJWmCzk7BH79v1knAcEsB5daC66C9j3iiK0veYs3YzyG7es56g4PeqBuAcZBwjtgnT2c4AARse50J_8kqQnVCrVxgrfgOU7qfF9O8LYhyfatiS53aWsf_fLHlY0r452i4" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/xSqG9nPJWmCzk7BH79v1knAcEsB5daC66C9j3iiK0veYs3YzyG7es56g4PeqBuAcZBwjtgnT2c4AARse50J_8kqQnVCrVxgrfgOU7qfF9O8LYhyfatiS53aWsf_fLHlY0r452i4</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7753987,21.0704814,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Viva Wyndham Maya - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/HIoQNZSpfDrfhetC8aB_X_gfiLnis0GU0qvsSmkJ1XEDqzWDWRXS8ufmgeoC-UQO-PoKF_IPHMaMiUamDzunPmbf2AkmZV6RSCQfjPUpQndi2oaTsidkXzKfTrwGaE1wLPg" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/HIoQNZSpfDrfhetC8aB_X_gfiLnis0GU0qvsSmkJ1XEDqzWDWRXS8ufmgeoC-UQO-PoKF_IPHMaMiUamDzunPmbf2AkmZV6RSCQfjPUpQndi2oaTsidkXzKfTrwGaE1wLPg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.0874289,20.6058007,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 Treasure Cay Abaco Bahamas</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/DR5m_vPYb6MxYhG87DVVuOwPDmaj2gz4ydJqiknR62UTtaCLy12vnnsb-GwRO5AmzwLWSLF8eZHzqeXIWRb24IL9gJ5EPDzPKfhJNTqG9Mg7bZwheHIzGmFFpMjIhbl0Qp1cOQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/DR5m_vPYb6MxYhG87DVVuOwPDmaj2gz4ydJqiknR62UTtaCLy12vnnsb-GwRO5AmzwLWSLF8eZHzqeXIWRb24IL9gJ5EPDzPKfhJNTqG9Mg7bZwheHIzGmFFpMjIhbl0Qp1cOQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -77.2801672,26.6776564,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>04/01/2019 40 Cañones beach Mahahual - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/U_eik5y2qwE6P0XSy_qebPy9xdBXjB8uzu4Pz6wwRdCdTpEPZzabz1p3dSg9N3yOWMBLq-KV18e2PntyDyTVGf5mYbAtO-1U232HA7soLGWQlXxPxI5ZnCANmKntyNUi-6UW" height="200" width="auto" /><br><br>@lizgraco<br>•]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/U_eik5y2qwE6P0XSy_qebPy9xdBXjB8uzu4Pz6wwRdCdTpEPZzabz1p3dSg9N3yOWMBLq-KV18e2PntyDyTVGf5mYbAtO-1U232HA7soLGWQlXxPxI5ZnCANmKntyNUi-6UW</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -87.7083925,18.714119,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Treasure Cay Abaco Bahamas</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/HVz1pgYkj5TD2WPEn5hueiFaZISSwSu-y2wNjP7sEfhS7OuSWten-HBoJ14oiGz1JDUXVnLj3VqWKkNVMLdc_nn5WdX-oq7x0G9m4TN9J7TVKC4TnASvJhbJTx_svnOqiB_Bhw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/HVz1pgYkj5TD2WPEn5hueiFaZISSwSu-y2wNjP7sEfhS7OuSWten-HBoJ14oiGz1JDUXVnLj3VqWKkNVMLdc_nn5WdX-oq7x0G9m4TN9J7TVKC4TnASvJhbJTx_svnOqiB_Bhw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -77.2802433,26.6776792,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Hotel Hard Rock Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/1ovSTuSQQ1qLldV0Jxtv8FpNLOqC_j8kSmJ4kpSsGaL62za23ZH6B2Sz-oDMR_TPydGI3_9j1z9CAVJyQoxtgxWaHsI8_WrJy4YOPClYNqDZIoIO7UE1b9O1iah_10GN0TSr3-4" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/1ovSTuSQQ1qLldV0Jxtv8FpNLOqC_j8kSmJ4kpSsGaL62za23ZH6B2Sz-oDMR_TPydGI3_9j1z9CAVJyQoxtgxWaHsI8_WrJy4YOPClYNqDZIoIO7UE1b9O1iah_10GN0TSr3-4</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7685653,21.089389,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Live Aqua Beach Resort Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/KQF6r2A2OEWFLmHE8XK2uOWL0kyfnbjRhLbQHw_mlzI1ypCTP60GoU9tD7-es5_WZSLH0bX7xoxjBZ-AKV3C93sqWVfb0il-1_aifupJc-Wt3qDXOHjn-1FmLeF-JQD1EtgynA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/KQF6r2A2OEWFLmHE8XK2uOWL0kyfnbjRhLbQHw_mlzI1ypCTP60GoU9tD7-es5_WZSLH0bX7xoxjBZ-AKV3C93sqWVfb0il-1_aifupJc-Wt3qDXOHjn-1FmLeF-JQD1EtgynA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.760945,21.1073519,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Ixchel Beach Hotel - Isla Mujeres - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/8KNak6US4atiHSYy61MMdrJfxxoAhdu8rc_6QAes4-DuEMTlSUt0gCI09mYStwJz-uSXgLZFbRYJZYO-iWSJsUUmOP6fybUH-1VQhUiDKXLeBUMvYx7By58qA2GE3Cn-NKix" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/8KNak6US4atiHSYy61MMdrJfxxoAhdu8rc_6QAes4-DuEMTlSUt0gCI09mYStwJz-uSXgLZFbRYJZYO-iWSJsUUmOP6fybUH-1VQhUiDKXLeBUMvYx7By58qA2GE3Cn-NKix</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7519977,21.2595051,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Hyatt Ziva Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/t9WE6-yJaUap3L6tQx613QoOrBPIiNxVMOAKaIjenA8HUAcDUKg3oCjl0gR81UFyf-AN_9rldLbUVJmFcr_l73BLiVbIINTVNJoK-JNBuZiX3heu0eCsLgMR4WmKuM3aMxKjHtY" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/t9WE6-yJaUap3L6tQx613QoOrBPIiNxVMOAKaIjenA8HUAcDUKg3oCjl0gR81UFyf-AN_9rldLbUVJmFcr_l73BLiVbIINTVNJoK-JNBuZiX3heu0eCsLgMR4WmKuM3aMxKjHtY</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7426017,21.1367397,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Hotel Krystal Cancún - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/pf9ZbEFWC1bA0jk5by5vGS9_Z-njLdEuwZC51qmuqIVIcPmGYl8Gty7UVWABHPyiYBi4Q9f0Kx8MVvK1yio9OUQODFmDVSpE5hbtYqUfD_PYGC8HE0E7V-65hQE99sPorckWOvE" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/pf9ZbEFWC1bA0jk5by5vGS9_Z-njLdEuwZC51qmuqIVIcPmGYl8Gty7UVWABHPyiYBi4Q9f0Kx8MVvK1yio9OUQODFmDVSpE5hbtYqUfD_PYGC8HE0E7V-65hQE99sPorckWOvE</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7439751,21.1337455,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Cancun Beach Palace - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/M43dKblKVshzl96hxOMYfj_G4p37CNFl9Gfp0hGlDasiD7QMl9scTMR-iskETA-BCdyrf1abhQQDBNgjICgbn5YwFObLZg_ZdoLEgQPl2To8ga2gyZrF5I3yVeTh5u3Tu85b" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/M43dKblKVshzl96hxOMYfj_G4p37CNFl9Gfp0hGlDasiD7QMl9scTMR-iskETA-BCdyrf1abhQQDBNgjICgbn5YwFObLZg_ZdoLEgQPl2To8ga2gyZrF5I3yVeTh5u3Tu85b</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7578468,21.1135796,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 The Royal Sands Phase 1 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/O3DUJLgWIcz5-jNRWMAutKDxnGASRui4us6dkfI6DGsa8ffq47hVHuD82puowIC8-F4xt2Ja2-wJek21kpRY3xx06lyzlHNgM-S0y3V-x71-jDYwJtkRIKsas8DK9_KfriGPYg" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/O3DUJLgWIcz5-jNRWMAutKDxnGASRui4us6dkfI6DGsa8ffq47hVHuD82puowIC8-F4xt2Ja2-wJek21kpRY3xx06lyzlHNgM-S0y3V-x71-jDYwJtkRIKsas8DK9_KfriGPYg</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7650512,21.0981232,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 The Royal Sands Phase 2 - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/GRQnN0MaXP3Wilb1CVoXhlZqiLwErY71mcz363CE4LG9btyDVbC3MLdXExMh5u4FwQIWIcZl1c4_usY5bPsG1TYrASJ0AqnvHSuXfKM2hCQ7IhT6qnndlBYFupXRH_HqK8GZAQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/GRQnN0MaXP3Wilb1CVoXhlZqiLwErY71mcz363CE4LG9btyDVbC3MLdXExMh5u4FwQIWIcZl1c4_usY5bPsG1TYrASJ0AqnvHSuXfKM2hCQ7IhT6qnndlBYFupXRH_HqK8GZAQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7647026,21.0989941,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 The Royal Caribbean Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/OpzvoyKrTU-nKKezBZv4RMa-9xYbAkkEUANvEEz0CxkmIVII1lYvxkSh4fLkNZ014ITQkDhmaGW179CJZMVtIemsmdWbi3cf5GWzMUIG2daoc_RQ5Z-qdcJ0LHX9lHygHKOCDQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/OpzvoyKrTU-nKKezBZv4RMa-9xYbAkkEUANvEEz0CxkmIVII1lYvxkSh4fLkNZ014ITQkDhmaGW179CJZMVtIemsmdWbi3cf5GWzMUIG2daoc_RQ5Z-qdcJ0LHX9lHygHKOCDQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7747722,21.072277,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 The Royal Islander Cancun - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/QpiX1_3a7d2a7Q3VAWv0Z7MuCBk4wQlLZN6ghOAVY2nwaM6Zz0MsV6jTUwKvaduFLCx_qv2FtP6BcR-A3QX4wAI0CZ5KruBdCjPZKLTECJAa91eIq_oPyiSTNRDxkGIEUA0t" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/QpiX1_3a7d2a7Q3VAWv0Z7MuCBk4wQlLZN6ghOAVY2nwaM6Zz0MsV6jTUwKvaduFLCx_qv2FtP6BcR-A3QX4wAI0CZ5KruBdCjPZKLTECJAa91eIq_oPyiSTNRDxkGIEUA0t</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.7754105,21.0704288,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 InterContinental Presidente Cozumel - Riviera Maya</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/dKP_8KW72oxalWfFrH8gZGCuVhSbMf83565hKjYLoky2CkQBnrKK6EV5Huxh_Vcj7dCdk3sKTMaHaazs0sf6qsQphjSg-ComELmuE0fG3jKhya65A8NHAHb0FgX8ui4McGnO_oM" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/dKP_8KW72oxalWfFrH8gZGCuVhSbMf83565hKjYLoky2CkQBnrKK6EV5Huxh_Vcj7dCdk3sKTMaHaazs0sf6qsQphjSg-ComELmuE0fG3jKhya65A8NHAHb0FgX8ui4McGnO_oM</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -86.9828903,20.4650622,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Pebbles Beach - Barbados</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/_n-q-xQLxtQ9RUeAcrBinytI4R3PXExP5OESEmf09lz3CMltOw4BNNtEEaWyiMIunxNosuxNr1ozUt7lBJukg-MRD4x3hb2aKKRKlTFaTX4S1v46WayfroirUnTuv0xLFEhU" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/_n-q-xQLxtQ9RUeAcrBinytI4R3PXExP5OESEmf09lz3CMltOw4BNNtEEaWyiMIunxNosuxNr1ozUt7lBJukg-MRD4x3hb2aKKRKlTFaTX4S1v46WayfroirUnTuv0xLFEhU</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -59.6103068,13.081392,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Daytona Beach, Florida</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/i9-NpqgVs48z2srGLsmB4XO-RYbNnRQUJGRSDb0gnolN9Y6xj1O-fJmkO0s2StkKfi0sBARXFwcGdjg8NGGON70vDs8u3jdJHTilFdVuSZchQKWXvFzqdh_jcfv_9_kJVlXpFQ" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/i9-NpqgVs48z2srGLsmB4XO-RYbNnRQUJGRSDb0gnolN9Y6xj1O-fJmkO0s2StkKfi0sBARXFwcGdjg8NGGON70vDs8u3jdJHTilFdVuSZchQKWXvFzqdh_jcfv_9_kJVlXpFQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.9681591,29.1520105,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Fort Lauderdale Beach Courtyard by Marriott - USA</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/ZLBolK-eXM4FhbFUzT8xf_b4xA-_d2Mpq2XTfR4zUGndqdw48KHT31JuKeIJ8OHWnvEyHoYWzIvUq8HrKqQpCVklVorG56K0zNyutlH5FkjGBc_nC6HB-JAU9XLPlOkg32mXhw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/ZLBolK-eXM4FhbFUzT8xf_b4xA-_d2Mpq2XTfR4zUGndqdw48KHT31JuKeIJ8OHWnvEyHoYWzIvUq8HrKqQpCVklVorG56K0zNyutlH5FkjGBc_nC6HB-JAU9XLPlOkg32mXhw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.1039424,26.1174634,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Ebb Tide Resort Pompano beach - USA</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/MeOeE_A2EArRZ-EqK-CfeiUjRKm_GI_k66po0WvLxUSsxdzEt2jWFkPSFnmNZoGKdEj_7rosTYXoTnfasc3Sk8tTrX6_8qQKnoLZ2ZPhzNnMNHI2AHpEBU4PJKxZNVYiNIvn" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/MeOeE_A2EArRZ-EqK-CfeiUjRKm_GI_k66po0WvLxUSsxdzEt2jWFkPSFnmNZoGKdEj_7rosTYXoTnfasc3Sk8tTrX6_8qQKnoLZ2ZPhzNnMNHI2AHpEBU4PJKxZNVYiNIvn</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.0887026,26.2290439,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Hollywood Beach Florida Walkabout Beach Resort - USA</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/ysQQpWVU9ivVdd1B2xWhq6IXqrl_DZF5NkK9fY3aYP-HRVqBCXJRCssmdtstSYGA4hNxZ4vePlz1Au1K9pXzPvc2Z3vA7oIcS0b6g3MUaC1v_lE_taeZ8g0JyubGbLn9bARR5A" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/ysQQpWVU9ivVdd1B2xWhq6IXqrl_DZF5NkK9fY3aYP-HRVqBCXJRCssmdtstSYGA4hNxZ4vePlz1Au1K9pXzPvc2Z3vA7oIcS0b6g3MUaC1v_lE_taeZ8g0JyubGbLn9bARR5A</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.1141523,26.0276724,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Windjammer Resort Hotel Lauderdale-by-the-sea Florida- USA</name>
+        <description><![CDATA[<img src="https://lh3.googleusercontent.com/BuT0ZziTpKSD_yIfobaeOj4dHodIbXWZzljyD4mme3m4AbHWdWu92otivs_I_gmkk_7iYfmg_HzD1f1rTuNCioRxr2GVvmDD2uh1LxoWGfsuyyqaNVEO1kx7gkL8Zq9DWguPXA" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh3.googleusercontent.com/BuT0ZziTpKSD_yIfobaeOj4dHodIbXWZzljyD4mme3m4AbHWdWu92otivs_I_gmkk_7iYfmg_HzD1f1rTuNCioRxr2GVvmDD2uh1LxoWGfsuyyqaNVEO1kx7gkL8Zq9DWguPXA</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.0948513,26.187183,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Jupiter Inlet beach Florida - USA</name>
+        <description><![CDATA[<img src="https://lh6.googleusercontent.com/vbDoMdIEjDdvhKfGcri1Cl9dJGfCGQm6rvXchir26kYXt7aQY9WKHaWgqbiR4jA7Sy2Lot4yNbr0uLZve-G_117cwbauj5nm4Uq_1GLB7HTOqTW4AiMtxYfLAon3BoJ7QVbnuw" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh6.googleusercontent.com/vbDoMdIEjDdvhKfGcri1Cl9dJGfCGQm6rvXchir26kYXt7aQY9WKHaWgqbiR4jA7Sy2Lot4yNbr0uLZve-G_117cwbauj5nm4Uq_1GLB7HTOqTW4AiMtxYfLAon3BoJ7QVbnuw</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.0711287,26.9403051,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>05/01/2019 Miami Beach at Sands Pointe Condominium - USA</name>
+        <description><![CDATA[<img src="https://lh5.googleusercontent.com/oM1qrjt9TDhjY_NKFBxl5fPllOszjU5xw1Py-H8MdsrA_Y4CHSUyYPv7-W-ECB1x3ESfuc60HYarBM9qWUmLKd2F-SIK10uvejAfgRpAoW7tFHRz0STr6HhRk2NAQ8PZCKr_4uI" height="200" width="auto" /><br><br>wc]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh5.googleusercontent.com/oM1qrjt9TDhjY_NKFBxl5fPllOszjU5xw1Py-H8MdsrA_Y4CHSUyYPv7-W-ECB1x3ESfuc60HYarBM9qWUmLKd2F-SIK10uvejAfgRpAoW7tFHRz0STr6HhRk2NAQ8PZCKr_4uI</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            -80.1200621,25.9321752,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
