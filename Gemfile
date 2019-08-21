@@ -24,6 +24,7 @@ gem "webpacker", "~> 4.0"
 
 # Rails utils
 gem "bootsnap", ">= 1.4.2", require: false
+gem "colorize"
 
 group :development, :test do
   # Debugging tools
