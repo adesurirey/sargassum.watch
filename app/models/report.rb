@@ -65,14 +65,12 @@ class Report < ApplicationRecord
     end
   end
 
-  # NOTE:
-  # - data hash is Nominatim-specific
-  # - address hash is ordered by accuracy, first key is often a precise place name
-  #
   reverse_geocoded_by :latitude, :longitude do |report, results|
     next unless results.any?
 
+    # Nominatim-specific result handling.
     address = results.first.data["address"]
+    # First key in hash is often a precise place name.
     report.name = address[address.keys.first] if address.present?
   end
 
