@@ -19,10 +19,15 @@ class ReportDecoratorTest < Draper::TestCase
     assert feature.key?(:properties)
 
     assert_equal "Feature", feature[:type]
-    assert_equal "Point", feature[:geometry][:type]
-    assert_equal report.geo_json_coordinates, feature[:geometry][:coordinates]
-    assert_equal report.id, feature[:properties][:id]
-    assert_equal report.numeric_level, feature[:properties][:level]
-    assert_equal report.created_ago, feature[:properties][:createdAgo]
+
+    geometry = feature[:geometry]
+    assert_equal "Point", geometry[:type]
+    assert_equal report.geo_json_coordinates, geometry[:coordinates]
+
+    properties = feature[:properties]
+    assert_equal report.id, properties[:id]
+    assert_equal report.name, properties[:name]
+    assert_equal report.numeric_level, properties[:level]
+    assert_equal report.created_ago, properties[:createdAgo]
   end
 end

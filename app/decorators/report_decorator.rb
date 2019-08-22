@@ -16,6 +16,7 @@ class ReportDecorator < Draper::Decorator
       },
       properties: {
         id:         id,
+        name:       name,
         level:      numeric_level,
         createdAgo: created_ago,
       },
