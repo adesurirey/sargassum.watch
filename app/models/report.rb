@@ -19,6 +19,8 @@
 #
 
 class Report < ApplicationRecord
+  include CoordinatesConcern
+
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
@@ -63,14 +65,6 @@ class Report < ApplicationRecord
 
     address = results.first.data["address"]
     report.name = address[address.keys.first] if address.present?
-  end
-
-  def geo_json_coordinates
-    [longitude, latitude]
-  end
-
-  def geocoder_coordinates
-    [latitude, longitude]
   end
 
   def numeric_level
