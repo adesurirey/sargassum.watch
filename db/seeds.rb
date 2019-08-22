@@ -6,6 +6,10 @@ Report.delete_all
 
 puts "Seeding reports..."
 
+# WARNING:
+# Required kml files are not commited in this repository,
+# add your own files to db/data/ or ask for it to the owner of the repo.
+#
 def file_path(file_name)
   Rails.root.join("db", "data", file_name)
 end
