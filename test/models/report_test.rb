@@ -88,11 +88,19 @@ class ReportTest < ActiveSupport::TestCase
     assert_kind_of Integer, report.numeric_level
   end
 
-  test "should be geocoded" do
-    create(:report)
+  test "should not be geocoded" do
+    report = build(:report)
+    init_name = report.name
 
-    assert_not_empty Report.geocoded
-    assert_empty Report.not_geocoded
+    assert report.save
+    assert_equal init_name, report.name, "FACTORIES SHOULD NOT TRIGGER GEOCODER".light_red
+  end
+
+  test "should be reverse geocoded with most accurate place name" do
+    report = build(:report, :sugiton, name: nil)
+
+    assert report.save
+    assert_equal "Sentier des Treize Contours", report.name
   end
 
   test "should filter reports in a given km perimeter" do
