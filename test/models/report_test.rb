@@ -50,11 +50,17 @@ class ReportTest < ActiveSupport::TestCase
     report = Report.new
 
     assert_not report.valid?
-
-    assert_includes map_errors(report, :latitude), :blank
-    assert_includes map_errors(report, :longitude), :blank
+    assert_includes map_errors(report, :latitude), :not_a_number
+    assert_includes map_errors(report, :longitude), :not_a_number
     assert_includes map_errors(report, :level), :blank
     assert_includes map_errors(report, :session_id), :blank
+
+    report.latitude = 180
+    report.longitude = -200
+
+    assert_not report.valid?
+    assert_includes map_errors(report, :latitude), :less_than_or_equal_to
+    assert_includes map_errors(report, :longitude), :greater_than_or_equal_to
   end
 
   test "should be ordered by ascendant updated_at" do

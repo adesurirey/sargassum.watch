@@ -30,8 +30,8 @@ class Report < ApplicationRecord
     critical: 2,
   }
 
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  validates :latitude, numericality: LATITUDE_NUMERICALITY
+  validates :longitude, numericality: LONGITUDE_NUMERICALITY
   validates :level, presence: true
   validates :session_id, presence: true
 
