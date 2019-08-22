@@ -75,10 +75,6 @@ class Report < ApplicationRecord
     report.name = address[address.keys.first] if address.present?
   end
 
-  def numeric_level
-    self.class.levels[level]
-  end
-
   private
 
   def should_geocode?

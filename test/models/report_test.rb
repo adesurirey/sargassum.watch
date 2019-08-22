@@ -90,12 +90,6 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal report.longitude, report.geocoder_coordinates.last
   end
 
-  test "should return level enum as numeric" do
-    report = build(:report)
-
-    assert_kind_of Integer, report.numeric_level
-  end
-
   test "should not trigger a geocoder lookup when name is set" do
     report = build(:report)
     init_name = report.name
