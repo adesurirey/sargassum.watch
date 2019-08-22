@@ -125,20 +125,18 @@ class ReportTest < ActiveSupport::TestCase
 
   test "should find a nearby report created by same user on same day" do
     report = create(:report, :sugiton, :critical)
-
     coords = coordinates_hash(:sugiton_beach)
-
     result = Report.find_or_initialize_by(
-      longitude:  coords[:longitude],
-      latitude:   coords[:latitude],
-      session_id: report.session_id,
-      level:      :clear,
+      "longitude"  => coords[:longitude],
+      "latitude"   => coords[:latitude],
+      "session_id" => report.session_id,
+      "level"      => "clear",
     )
 
     assert_equal report, result
   end
 
-  test "should initialize a new record" do
+  test "should initialize a valid new record" do
     report = create(:report, :sugiton, :critical)
 
     coords = coordinates_hash(:morgiou)
@@ -151,6 +149,7 @@ class ReportTest < ActiveSupport::TestCase
     )
 
     assert result.new_record?
+    assert result.valid?
   end
 
   private

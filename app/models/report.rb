@@ -46,13 +46,15 @@ class Report < ApplicationRecord
       [:id, :name, :level, :latitude, :longitude, :updated_at]
     end
 
-    def find_or_initialize_by(attributes)
-      current_for(attributes.slice(:session_id, :latitude, :longitude)) || new(attributes)
+    def find_or_initialize_by(params)
+      current_for(params) || new(params)
     end
 
     private
 
-    def current_for(session_id:, latitude:, longitude:)
+    def current_for(params)
+      session_id, latitude, longitude = params.values_at("session_id", "latitude", "longitude")
+
       where(
         session_id: session_id,
         created_at: MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME..,
