@@ -68,4 +68,70 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 10, body["features"].size
     assert_equal 2, body["features"].sample["properties"]["level"]
   end
+
+  test "index should only return reports updated within 24 hours" do
+    first = create(:report, updated_at: Time.current - 23.hours)
+    last = create(:report, updated_at: Time.current)
+    create(:report, updated_at: Time.current - 2.days)
+
+    get reports_path(range: "last_24_hours"), headers: json_headers
+    assert_response :success
+
+    assert_equal 2, body["features"].size
+    assert_equal first.id, body["features"].first["properties"]["id"]
+    assert_equal last.id, body["features"].last["properties"]["id"]
+  end
+
+  test "index should only return reports updated within 7 days" do
+    first = create(:report, updated_at: Time.current - 6.days)
+    last = create(:report, updated_at: Time.current)
+    create(:report, updated_at: Time.current - 7.days)
+
+    get reports_path(range: "last_7_days"), headers: json_headers
+    assert_response :success
+
+    assert_equal 2, body["features"].size
+    assert_equal first.id, body["features"].first["properties"]["id"]
+    assert_equal last.id, body["features"].last["properties"]["id"]
+  end
+
+  test "index should only return reports updated within 30 days" do
+    first = create(:report, updated_at: Time.current - 29.days)
+    last = create(:report, updated_at: Time.current)
+    create(:report, updated_at: Time.current - 30.days)
+
+    get reports_path(range: "last_30_days"), headers: json_headers
+    assert_response :success
+
+    assert_equal 2, body["features"].size
+    assert_equal first.id, body["features"].first["properties"]["id"]
+    assert_equal last.id, body["features"].last["properties"]["id"]
+  end
+
+  test "index should only return reports updated within 12 months" do
+    first = create(:report, updated_at: Time.current - 11.months)
+    last = create(:report, updated_at: Time.current)
+    create(:report, updated_at: Time.current - 2.years)
+
+    get reports_path(range: "last_12_months"), headers: json_headers
+    assert_response :success
+
+    assert_equal 2, body["features"].size
+    assert_equal first.id, body["features"].first["properties"]["id"]
+    assert_equal last.id, body["features"].last["properties"]["id"]
+  end
+
+  test "index should only return critical reports within 24 hours" do
+    first = create(:report, :critical, updated_at: Time.current - 23.hours)
+    last = create(:report, :critical, updated_at: Time.current)
+    create(:report, :critical, updated_at: Time.current - 2.days)
+    create(:report, :moderate, updated_at: Time.current - 2.hours)
+
+    get reports_path(range: "last_24_hours", level: "critical"), headers: json_headers
+    assert_response :success
+
+    assert_equal 2, body["features"].size
+    assert_equal first.id, body["features"].first["properties"]["id"]
+    assert_equal last.id, body["features"].last["properties"]["id"]
+  end
 end
