@@ -1,7 +1,7 @@
 inherit_from: ../.rubocop.yml
 
 Metrics/ClassLength:
-  Max: 150
+  Max: 250
 
 Metrics/LineLength:
   Max: 140
