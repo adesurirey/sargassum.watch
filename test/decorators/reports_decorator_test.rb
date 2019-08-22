@@ -4,7 +4,7 @@ require "test_helper"
 
 class ReportsDecoratorTest < Draper::TestCase
   test "should format collection as a valid geoJSON" do
-    create_list(:report, 10, :low)
+    create_list(:report, 10, :clear)
     create_list(:report, 10, :moderate)
     create_list(:report, 10, :critical)
 

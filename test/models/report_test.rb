@@ -22,10 +22,10 @@ require "test_helper"
 
 class ReportTest < ActiveSupport::TestCase
   test "should be valid" do
-    low = Report.new(
+    clear = Report.new(
       latitude:   Faker::Address.latitude,
       longitude:  Faker::Address.longitude,
-      level:      :low,
+      level:      :clear,
       session_id: SecureRandom.hex,
     )
     moderate = Report.new(
@@ -41,7 +41,7 @@ class ReportTest < ActiveSupport::TestCase
       session_id: SecureRandom.hex,
     )
 
-    assert low.valid?
+    assert clear.valid?
     assert moderate.valid?
     assert critical.valid?
   end
@@ -58,14 +58,14 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test "should only return infested reports" do
-    create_list(:report, 2, :low)
+    create_list(:report, 2, :clear)
     create_list(:report, 2, :moderate)
     create_list(:report, 2, :critical)
 
     reports = Report.infested
 
     assert_equal 4, reports.size
-    assert_not reports.any?(&:low?)
+    assert_not reports.any?(&:clear?)
   end
 
   test "should return a valid geoJSON coordinates array" do
@@ -124,7 +124,7 @@ class ReportTest < ActiveSupport::TestCase
       longitude:  coords[:longitude],
       latitude:   coords[:latitude],
       session_id: report.session_id,
-      level:      :low,
+      level:      :clear,
     )
 
     assert_equal report, result
@@ -139,7 +139,7 @@ class ReportTest < ActiveSupport::TestCase
       longitude:  coords[:longitude],
       latitude:   coords[:latitude],
       session_id: report.session_id,
-      level:      :low,
+      level:      :clear,
     )
 
     assert result.new_record?
