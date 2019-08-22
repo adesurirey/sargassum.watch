@@ -23,4 +23,8 @@ class ReportDecorator < Draper::Decorator
       },
     }
   end
+
+  def numeric_level
+    self.class.levels[level]
+  end
 end

@@ -30,4 +30,10 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.numeric_level, properties[:level]
     assert_equal report.created_ago, properties[:createdAgo]
   end
+
+  test "should return level enum as numeric" do
+    report = build(:report).decorate
+
+    assert_kind_of Integer, report.numeric_level
+  end
 end
