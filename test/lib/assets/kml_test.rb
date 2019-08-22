@@ -26,6 +26,7 @@ class Assets::KMLTest < ActiveSupport::TestCase
 
     assert_equal custom_attributes[:level], kml.placemarks.first[:level]
     assert_equal custom_attributes[:session_id], kml.placemarks.first[:session_id]
+    assert kml.placemarks.first[:name].present?
     assert kml.placemarks.first[:created_at].present?
     assert kml.placemarks.first[:latitude].present?
     assert kml.placemarks.first[:longitude].present?

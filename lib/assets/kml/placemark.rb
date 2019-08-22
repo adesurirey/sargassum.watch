@@ -6,6 +6,7 @@ module Assets
       InvalidNodeError = Class.new(StandardError)
 
       DATE_REGEX = %r{\d{2}/\d{2}/\d{4}}.freeze
+      NBSP = " "
 
       attr_reader :attributes
 
@@ -16,10 +17,19 @@ module Assets
         @latitude, @longitude, _elevation = parse_coordinates
 
         @attributes = attributes.merge!(
+          name:       formatted_name,
           longitude:  @longitude,
           latitude:   @latitude,
           created_at: @created_at,
         )
+      end
+
+      def formatted_name
+        @name.gsub(DATE_REGEX, "")
+             .tr(NBSP, "")
+             .split("-")
+             .first
+             .strip
       end
 
       private
