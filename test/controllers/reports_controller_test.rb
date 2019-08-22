@@ -32,4 +32,40 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_kind_of Integer, properties["level"]
     assert_kind_of String, properties["createdAgo"]
   end
+
+  test "index should only return clear reports" do
+    create_list(:report, 10, :clear)
+    create_list(:report, 10, :moderate)
+    create_list(:report, 10, :critical)
+
+    get reports_path(level: "clear"), headers: json_headers
+    assert_response :success
+
+    assert_equal 10, body["features"].size
+    assert_equal 0, body["features"].sample["properties"]["level"]
+  end
+
+  test "index should only return moderate reports" do
+    create_list(:report, 10, :clear)
+    create_list(:report, 10, :moderate)
+    create_list(:report, 10, :critical)
+
+    get reports_path(level: "moderate"), headers: json_headers
+    assert_response :success
+
+    assert_equal 10, body["features"].size
+    assert_equal 1, body["features"].sample["properties"]["level"]
+  end
+
+  test "index should only return critical reports" do
+    create_list(:report, 10, :clear)
+    create_list(:report, 10, :moderate)
+    create_list(:report, 10, :critical)
+
+    get reports_path(level: "critical"), headers: json_headers
+    assert_response :success
+
+    assert_equal 10, body["features"].size
+    assert_equal 2, body["features"].sample["properties"]["level"]
+  end
 end
