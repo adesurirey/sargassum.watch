@@ -33,9 +33,9 @@ class Report < ApplicationRecord
   validates :level, presence: true
   validates :session_id, presence: true
 
-  scope :infested, -> { where.not(level: :low) }
+  before_create :reverse_geocode, if: :should_geocode?
 
-  reverse_geocoded_by :latitude, :longitude
+  scope :infested, -> { where.not(level: :low) }
 
   class << self
     def find_or_initialize_by(attributes)
@@ -54,6 +54,17 @@ class Report < ApplicationRecord
     end
   end
 
+  # NOTE:
+  # - data hash is Nominatim-specific
+  # - address hash is ordered by accuracy, first key is often a precise place name
+  #
+  reverse_geocoded_by :latitude, :longitude do |report, results|
+    next unless results.any?
+
+    address = results.first.data["address"]
+    report.name = address[address.keys.first] if address.present?
+  end
+
   def geo_json_coordinates
     [longitude, latitude]
   end
@@ -64,5 +75,11 @@ class Report < ApplicationRecord
 
   def numeric_level
     self.class.levels[level]
+  end
+
+  private
+
+  def should_geocode?
+    name.blank?
   end
 end
