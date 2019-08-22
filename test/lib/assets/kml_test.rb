@@ -15,7 +15,7 @@ class Assets::KMLTest < ActiveSupport::TestCase
 
   test "should accept custom placemark attributes" do
     custom_attributes = {
-      level:      :low,
+      level:      :clear,
       session_id: SecureRandom.hex,
     }
 

@@ -40,10 +40,10 @@ end
 start_time = Time.zone.now
 
 seed_form_file!("2019_beaches_with_sargassum.kml", :infested)
-seed_form_file!("2019_beaches_without_sargassum.kml", :low)
+seed_form_file!("2019_beaches_without_sargassum.kml", :clear)
 
 seed_form_file!("2018_beaches_with_sargassum.kml", :infested)
-seed_form_file!("2018_beaches_without_sargassum.kml", :low)
+seed_form_file!("2018_beaches_without_sargassum.kml", :clear)
 
 elapsed_time = (Time.zone.now - start_time).round
 
@@ -51,6 +51,6 @@ puts " "
 puts "Done in #{elapsed_time} seconds."
 puts ""
 puts "#{Report.count} reports created in #{elapsed_time} seconds".underline
-puts "#{Report.low.count} low reports"
+puts "#{Report.clear.count} clear reports"
 puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.critical.count} critical reports"

@@ -25,7 +25,7 @@ class Report < ApplicationRecord
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
   enum level: {
-    low:      0,
+    clear:    0,
     moderate: 1,
     critical: 2,
   }
@@ -37,7 +37,7 @@ class Report < ApplicationRecord
 
   before_create :reverse_geocode, if: :should_geocode?
 
-  scope :infested, -> { where.not(level: :low) }
+  scope :infested, -> { where.not(level: :clear) }
 
   class << self
     def find_or_initialize_by(attributes)

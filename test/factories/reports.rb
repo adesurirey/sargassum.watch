@@ -26,8 +26,8 @@ FactoryBot.define do
     level { :critical }
     session_id { SecureRandom.hex }
 
-    trait :low do
-      level  { :low }
+    trait :clear do
+      level  { :clear }
     end
 
     trait :moderate do
