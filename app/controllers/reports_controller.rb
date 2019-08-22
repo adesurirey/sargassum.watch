@@ -9,10 +9,9 @@ class ReportsController < ApplicationController
   def create
     @report = Report.find_or_initialize_by(report_params)
 
-    if @report.persisted? && @report.update(report_params)
-      render json: @report.decorate.as_geo_json, status: :ok
-    elsif @report.save
-      render json: @report.decorate.as_geo_json, status: :created
+    if @report.save
+      status = @report.id_previously_changed? ? :created : :ok
+      render json: @report.decorate.as_geo_json, status: status
     else
       render json: { errors: @report.errors.as_json }, status: :unprocessable_entity
     end

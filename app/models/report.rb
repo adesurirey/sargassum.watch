@@ -47,13 +47,13 @@ class Report < ApplicationRecord
     end
 
     def find_or_initialize_by(params)
-      current_for(params) || new(params)
+      current_with(params) || new(params)
     end
 
     private
 
-    def current_for(params)
-      session_id, latitude, longitude = params.values_at("session_id", "latitude", "longitude")
+    def current_with(params)
+      session_id, latitude, longitude = params.values_at(:session_id, :latitude, :longitude)
 
       where(
         session_id: session_id,
@@ -61,6 +61,7 @@ class Report < ApplicationRecord
       )
         .near([latitude, longitude], MIN_DISTANCE_FROM_LAST_REPORT_IN_KM, units: :km)
         .first
+        .tap { |report| report&.assign_attributes(params) }
     end
   end
 
