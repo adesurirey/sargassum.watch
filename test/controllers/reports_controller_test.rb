@@ -33,38 +33,23 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_kind_of String, properties["createdAgo"]
   end
 
-  test "index should only return clear reports" do
+  test "index should filter reports by level" do
     create_list(:report, 10, :clear)
     create_list(:report, 10, :moderate)
     create_list(:report, 10, :critical)
 
     get reports_path(level: "clear"), headers: json_headers
     assert_response :success
-
     assert_equal 10, body["features"].size
     assert_equal 0, body["features"].sample["properties"]["level"]
-  end
-
-  test "index should only return moderate reports" do
-    create_list(:report, 10, :clear)
-    create_list(:report, 10, :moderate)
-    create_list(:report, 10, :critical)
 
     get reports_path(level: "moderate"), headers: json_headers
     assert_response :success
-
     assert_equal 10, body["features"].size
     assert_equal 1, body["features"].sample["properties"]["level"]
-  end
-
-  test "index should only return critical reports" do
-    create_list(:report, 10, :clear)
-    create_list(:report, 10, :moderate)
-    create_list(:report, 10, :critical)
 
     get reports_path(level: "critical"), headers: json_headers
     assert_response :success
-
     assert_equal 10, body["features"].size
     assert_equal 2, body["features"].sample["properties"]["level"]
   end
@@ -135,27 +120,33 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal last.id, body["features"].last["properties"]["id"]
   end
 
-  test "create should create a report" do
+  test "create should create new reports" do
     clear = report_params { coordinates_hash(:sugiton).merge(level: "clear") }
-    assert_difference "Report.clear.count", 1 do
-      post reports_path, params: clear, headers: json_headers
+    assert_difference "Report.count", 1 do
+      assert_difference "Report.clear.count", 1 do
+        post reports_path, params: clear, headers: json_headers
+      end
     end
     assert_response :created
 
     moderate = report_params { coordinates_hash(:morgiou).merge(level: "moderate") }
-    assert_difference "Report.moderate.count", 1 do
-      post reports_path, params: moderate, headers: json_headers
+    assert_difference "Report.count", 1 do
+      assert_difference "Report.moderate.count", 1 do
+        post reports_path, params: moderate, headers: json_headers
+      end
     end
     assert_response :created
 
     critical = report_params { coordinates_hash(:podestat).merge(level: "critical") }
-    assert_difference "Report.critical.count", 1 do
-      post reports_path, params: critical, headers: json_headers
+    assert_difference "Report.count", 1 do
+      assert_difference "Report.critical.count", 1 do
+        post reports_path, params: critical, headers: json_headers
+      end
     end
     assert_response :created
   end
 
-  test "create should return report as geoJSON feature" do
+  test "create should return created report as a geoJSON feature" do
     params = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
     post reports_path, params: params, headers: json_headers
 
@@ -182,7 +173,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal id, body["properties"]["id"]
   end
 
-  test "create should return unprocessable errors" do
+  test "create should return unprocessable entity errors" do
     params = report_params { coordinates_hash(:sugiton) }
 
     assert_no_difference "Report.count" do
