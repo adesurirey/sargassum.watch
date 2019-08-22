@@ -2,7 +2,7 @@
 
 class ReportsController < ApplicationController
   def index
-    @reports = Report.where(filters).decorate
+    @reports = Report.where(filters).select(Report.geo_attributes).decorate
     render json: @reports.as_geo_json
   end
 

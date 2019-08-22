@@ -42,6 +42,10 @@ class Report < ApplicationRecord
   scope :infested, -> { where.not(level: :clear) }
 
   class << self
+    def geo_attributes
+      [:id, :name, :level, :latitude, :longitude, :updated_at]
+    end
+
     def find_or_initialize_by(attributes)
       current_for(attributes.slice(:session_id, :latitude, :longitude)) || new(attributes)
     end
