@@ -8,6 +8,7 @@
 #  latitude   :float            not null
 #  level      :integer          not null
 #  longitude  :float            not null
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  session_id :string           not null
@@ -19,6 +20,7 @@
 
 FactoryBot.define do
   factory :report do
+    name { Faker::Address.street_name }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
     level { :critical }
@@ -37,6 +39,7 @@ FactoryBot.define do
     end
 
     trait :sugiton do
+      name { "Calanque de Sugiton" }
       latitude { 43.217595 }
       longitude { 5.4557003 }
     end

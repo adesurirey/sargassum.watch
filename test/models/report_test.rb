@@ -8,6 +8,7 @@
 #  latitude   :float            not null
 #  level      :integer          not null
 #  longitude  :float            not null
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  session_id :string           not null
