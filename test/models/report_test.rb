@@ -57,6 +57,14 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes map_errors(report, :session_id), :blank
   end
 
+  test "should be ordered by ascendant updated_at" do
+    create_list(:report, 10)
+    report = Report.first.tap(&:touch)
+
+    assert_not_equal report, Report.first
+    assert_equal report, Report.last
+  end
+
   test "should only return infested reports" do
     create_list(:report, 2, :clear)
     create_list(:report, 2, :moderate)

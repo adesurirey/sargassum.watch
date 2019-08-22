@@ -37,6 +37,8 @@ class Report < ApplicationRecord
 
   before_create :reverse_geocode, if: :should_geocode?
 
+  default_scope { order(updated_at: :asc) }
+
   scope :infested, -> { where.not(level: :clear) }
 
   class << self
