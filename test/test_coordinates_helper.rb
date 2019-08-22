@@ -10,6 +10,7 @@ module TestCoordinatesHelper
     sugiton:       { latitude: 43.217595, longitude: 5.4557003 },
     sugiton_beach: { latitude: 43.210767, longitude: 5.4568787 },
     morgiou:       { latitude: 43.212772, longitude: 5.4449099 },
+    podestat:      { latitude: 43.2103943, longitude: 5.3814709 },
   }.freeze
 
   def coordinates_array(id, format)

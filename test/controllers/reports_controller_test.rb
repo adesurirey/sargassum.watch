@@ -134,4 +134,67 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal first.id, body["features"].first["properties"]["id"]
     assert_equal last.id, body["features"].last["properties"]["id"]
   end
+
+  test "create should create a report" do
+    clear = report_params { coordinates_hash(:sugiton).merge(level: "clear") }
+    assert_difference "Report.clear.count", 1 do
+      post reports_path, params: clear, headers: json_headers
+    end
+    assert_response :created
+
+    moderate = report_params { coordinates_hash(:morgiou).merge(level: "moderate") }
+    assert_difference "Report.moderate.count", 1 do
+      post reports_path, params: moderate, headers: json_headers
+    end
+    assert_response :created
+
+    critical = report_params { coordinates_hash(:podestat).merge(level: "critical") }
+    assert_difference "Report.critical.count", 1 do
+      post reports_path, params: critical, headers: json_headers
+    end
+    assert_response :created
+  end
+
+  test "create should return report as geoJSON feature" do
+    params = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
+    post reports_path, params: params, headers: json_headers
+
+    assert_response :success
+    assert_equal %w[type geometry properties], body.keys
+    assert_equal "Feature", body["type"]
+    assert_kind_of Integer, body["properties"]["id"]
+    assert_not_nil body["properties"]["name"]
+  end
+
+  test "create should update users report already created at same place within 24h" do
+    moderate = report_params { coordinates_hash(:sugiton).merge(level: "moderate") }
+    post reports_path, params: moderate, headers: json_headers
+    assert_response :created
+    id = body["properties"]["id"]
+
+    critical = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
+    assert_no_difference "Report.count" do
+      assert_difference "Report.critical.count", 1 do
+        post reports_path, params: critical, headers: json_headers
+      end
+    end
+    assert_response :ok
+    assert_equal id, body["properties"]["id"]
+  end
+
+  test "create should return unprocessable errors" do
+    params = report_params { coordinates_hash(:sugiton) }
+
+    assert_no_difference "Report.count" do
+      post reports_path, params: params, headers: json_headers
+    end
+    assert_response :unprocessable_entity
+    assert_equal "can't be blank", body["errors"]["level"].first
+  end
+
+  private
+
+  def report_params
+    { report: yield }
+  end
 end
