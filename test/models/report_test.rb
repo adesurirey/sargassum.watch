@@ -117,36 +117,45 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal report, results.first
   end
 
-  test "should find a nearby report created by same user on same day" do
+  test "should find a nearby report created by same user on same day and update it" do
     report = create(:report, :sugiton, :critical)
     coords = coordinates_hash(:sugiton_beach)
-    result = Report.find_or_initialize_by(
-      "longitude"  => coords[:longitude],
-      "latitude"   => coords[:latitude],
-      "session_id" => report.session_id,
-      "level"      => "clear",
+    params = report_params(
+      longitude:  coords[:longitude],
+      latitude:   coords[:latitude],
+      session_id: report.session_id,
+      level:      "clear",
     )
 
+    result = Report.find_or_initialize_by(params)
+
     assert_equal report, result
+    assert result.level_changed?
   end
 
-  test "should initialize a valid new record" do
+  test "should initialize a valid new record from params" do
     report = create(:report, :sugiton, :critical)
-
     coords = coordinates_hash(:morgiou)
-
-    result = Report.find_or_initialize_by(
+    params = report_params(
       longitude:  coords[:longitude],
       latitude:   coords[:latitude],
       session_id: report.session_id,
       level:      :clear,
     )
 
+    result = Report.find_or_initialize_by(params)
+
     assert result.new_record?
     assert result.valid?
   end
 
   private
+
+  def report_params(attributes)
+    ActionController::Parameters
+      .new(report: attributes)
+      .require(:report).permit(:level, :longitude, :latitude, :session_id)
+  end
 
   def map_errors(record, attribute)
     record.errors.details[attribute].map { |e| e[:error] }
