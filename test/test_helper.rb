@@ -9,6 +9,7 @@ require "rails/test_help"
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 
 require "test_coordinates_helper"
+require "test_headers_helper"
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -18,8 +19,17 @@ class ActiveSupport::TestCase
 
   include FactoryBot::Syntax::Methods
   include TestCoordinatesHelper
+  include TestHeadersHelper
+end
+
+class ActionDispatch::IntegrationTest
+  include TestHeadersHelper
 
   def teardown
     Rails.cache.clear
+  end
+
+  def body
+    response.parsed_body
   end
 end
