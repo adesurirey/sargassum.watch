@@ -20,7 +20,6 @@ class ActiveSupport::TestCase
 
   include FactoryBot::Syntax::Methods
   include TestCoordinatesHelper
-  include TestHeadersHelper
 end
 
 class ActionDispatch::IntegrationTest
