@@ -8,6 +8,7 @@ require "rails/test_help"
 
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 
+require "test_geocoder_stubs"
 require "test_coordinates_helper"
 require "test_headers_helper"
 
@@ -33,3 +34,6 @@ class ActionDispatch::IntegrationTest
     response.parsed_body
   end
 end
+
+require "webmock/minitest"
+WebMock.disable_net_connect!(allow_localhost: true)

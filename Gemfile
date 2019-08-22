@@ -58,12 +58,13 @@ group :test do
   # Coverage
   gem "simplecov", require: false
 
-  # Guard
-  gem "guard"
-  gem "guard-minitest"
+  # Mocks
+  gem "webmock"
 
   # Utils
   gem "faker"
+  gem "guard"
+  gem "guard-minitest"
   gem "minitest-reporters"
 end
 

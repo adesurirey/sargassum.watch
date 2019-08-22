@@ -96,12 +96,12 @@ class ReportTest < ActiveSupport::TestCase
     assert_kind_of Integer, report.numeric_level
   end
 
-  test "should not be geocoded" do
+  test "should not trigger a geocoder lookup when name is set" do
     report = build(:report)
     init_name = report.name
 
     assert report.save
-    assert_equal init_name, report.name, "FACTORIES SHOULD NOT TRIGGER GEOCODER".light_red
+    assert_equal init_name, report.name
   end
 
   test "should be reverse geocoded with most accurate place name" do
