@@ -34,6 +34,30 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_kind_of String, properties["updatedAt"]
   end
 
+  test "index should return geoJSON from cache" do
+    create_list(:report, 10, :clear)
+    get reports_path, headers: json_headers
+    etag = response.headers["etag"]
+
+    get reports_path, headers: json_headers
+    assert_equal etag, response.headers["etag"]
+
+    create(:report)
+
+    get reports_path, headers: json_headers
+    assert_not_equal etag, response.headers["etag"]
+  end
+
+  test "index should regenerate cached geoJSON" do
+    create_list(:report, 10, :clear)
+    get reports_path, headers: json_headers
+    etag = response.headers["etag"]
+    create(:report)
+
+    get reports_path, headers: json_headers
+    assert_not_equal etag, response.headers["etag"]
+  end
+
   test "create should create new reports" do
     clear = report_params { coordinates_hash(:sugiton).merge(level: "clear") }
     assert_difference "Report.count", 1 do
@@ -101,5 +125,13 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   def report_params
     { report: yield }
+  end
+
+  def assert_same_http_header(name, msg = nil, &block)
+    assert_same_http_header_after_each(name, [-> {}], msg, &block)
+  end
+
+  def assert_different_http_header(name, msg = nil, &block)
+    assert_different_http_header_after_each(name, [-> {}], msg, &block)
   end
 end

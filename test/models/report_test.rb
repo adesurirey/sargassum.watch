@@ -155,13 +155,16 @@ class ReportTest < ActiveSupport::TestCase
     assert result.valid?
   end
 
-  test "should return a cache key" do
-    reports = create_list(:report, 10)
-    last = reports.first.tap(&:touch)
+  test "should return all as geoJSON" do
+    create_list(:report, 10, :clear)
+    create_list(:report, 10, :moderate)
+    create_list(:report, 10, :critical)
 
-    expected = { serializer: "reports", stat_record: last.updated_at }
+    geo_json = Report.cached_geo_json
+    assert_kind_of String, geo_json
 
-    assert_equal expected, Report.cache_key(Report.all)
+    geo_json = JSON.parse geo_json
+    assert_equal 30, geo_json["features"].size
   end
 
   test "should update geoJSON cache" do
