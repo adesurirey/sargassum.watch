@@ -155,6 +155,15 @@ class ReportTest < ActiveSupport::TestCase
     assert result.valid?
   end
 
+  test "should return a cache key" do
+    reports = create_list(:report, 10)
+    last = reports.first.tap(&:touch)
+
+    expected = { serializer: "reports", stat_record: last.updated_at }
+
+    assert_equal expected, Report.cache_key(Report.all)
+  end
+
   private
 
   def report_params(attributes)

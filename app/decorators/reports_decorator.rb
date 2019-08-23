@@ -7,4 +7,8 @@ class ReportsDecorator < Draper::CollectionDecorator
       features: map(&:as_geo_json),
     }
   end
+
+  def to_geo_json
+    as_geo_json.to_json
+  end
 end

@@ -2,18 +2,23 @@
 
 class ReportsController < ApplicationController
   def index
-    @reports = Report.all.select(Report.geo_attributes).decorate
-    render json: @reports.as_geo_json
+    reports = Report.all.select(Report.geo_attributes)
+
+    geo_json = Rails.cache.fetch(Report.cache_key(reports)) do
+      reports.decorate.to_geo_json
+    end
+
+    render json: geo_json
   end
 
   def create
-    @report = Report.find_or_initialize_by(report_params)
+    report = Report.find_or_initialize_by(report_params)
 
-    if @report.save
-      status = @report.id_previously_changed? ? :created : :ok
-      render json: @report.decorate.as_geo_json, status: status
+    if report.save
+      status = report.id_previously_changed? ? :created : :ok
+      render json: report.decorate.as_geo_json, status: status
     else
-      render json: { errors: @report.errors.as_json }, status: :unprocessable_entity
+      render json: { errors: report.errors.as_json }, status: :unprocessable_entity
     end
   end
 

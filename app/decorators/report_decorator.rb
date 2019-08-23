@@ -20,6 +20,10 @@ class ReportDecorator < Draper::Decorator
     }
   end
 
+  def to_geo_json
+    as_geo_json.to_json
+  end
+
   def numeric_level
     self.class.levels[level]
   end

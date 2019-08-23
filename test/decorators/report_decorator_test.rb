@@ -32,6 +32,11 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.updated_at.httpdate, properties[:updatedAt]
   end
 
+  test "should return json" do
+    report = create(:report).decorate
+    assert_kind_of String, report.to_geo_json
+  end
+
   test "should return level enum as numeric" do
     report = build(:report).decorate
 
