@@ -1,7 +1,11 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
+import 'typeface-open-sans';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactMapGL from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+
+import withTheme from './withTheme';
 
 const propTypes = {
   mapboxApiAccessToken: PropTypes.string.isRequired,
@@ -46,6 +50,6 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default withTheme(Map);
 
 Map.propTypes = propTypes;
