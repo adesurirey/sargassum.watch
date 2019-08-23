@@ -164,6 +164,42 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal expected, Report.cache_key(Report.all)
   end
 
+  test "should update geoJSON cache" do
+    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+      create(:report)
+    end
+
+    report = build(:report, :critical)
+
+    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+      assert report.save
+    end
+
+    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+      assert report.clear!
+    end
+  end
+
+  test "should not update geoJSON cache" do
+    report = create(:report)
+    assert_no_enqueued_jobs only: CreateReportsGeoJsonCacheJob do
+      assert report.touch
+    end
+
+    report = build(:report, :critical)
+    Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
+    assert_no_enqueued_jobs only: CreateReportsGeoJsonCacheJob do
+      assert report.save
+      assert report.clear!
+      assert Report.create(build(:report).attributes)
+    end
+
+    Report.set_callback(:save, :after, :create_geo_json_cache, raise: false)
+    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+      create(:report)
+    end
+  end
+
   private
 
   def report_params(attributes)
