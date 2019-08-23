@@ -1,0 +1,16 @@
+{
+  "extends": ["react-app", "prettier"],
+  "plugins": ["prettier"],
+  "globals": {
+    "gon": false
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react/prop-types": [
+      1,
+      {
+        "skipUndeclared": true
+      }
+    ]
+  }
+}
