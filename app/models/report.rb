@@ -46,6 +46,10 @@ class Report < ApplicationRecord
       [:id, :name, :level, :latitude, :longitude, :updated_at]
     end
 
+    def cache_key(reports)
+      { serializer: "reports", stat_record: reports.maximum(:updated_at) }
+    end
+
     def find_or_initialize_by(params)
       current_with(params) || new(params)
     end

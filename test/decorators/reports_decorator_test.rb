@@ -18,4 +18,11 @@ class ReportsDecoratorTest < Draper::TestCase
     assert_equal "FeatureCollection", geo_json[:type]
     assert_equal reports.first.as_geo_json, geo_json[:features].first
   end
+
+  test "should return json" do
+    create_list(:report, 10)
+
+    reports = Report.all.decorate
+    assert_kind_of String, reports.to_geo_json
+  end
 end
