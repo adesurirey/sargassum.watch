@@ -5,6 +5,7 @@ require "simplecov" if ENV.key?("COVERAGE")
 
 require_relative "../config/environment"
 require "rails/test_help"
+require "minitest/mock"
 
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 

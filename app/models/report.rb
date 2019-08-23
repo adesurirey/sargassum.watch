@@ -21,6 +21,8 @@
 class Report < ApplicationRecord
   include CoordinatesConcern
 
+  GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at].freeze
+
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
@@ -44,12 +46,12 @@ class Report < ApplicationRecord
   scope :infested, -> { where.not(level: :clear) }
 
   class << self
-    def geo_attributes
-      [:id, :name, :level, :latitude, :longitude, :updated_at]
-    end
+    def cached_geo_json
+      reports = all.select(GEO_ATTRIBUTES)
 
-    def cache_key(reports)
-      { serializer: "reports", stat_record: reports.maximum(:updated_at) }
+      Rails.cache.fetch(cache_key(reports)) do
+        reports.decorate.to_geo_json
+      end
     end
 
     def find_or_initialize_by(params)
@@ -57,6 +59,10 @@ class Report < ApplicationRecord
     end
 
     private
+
+    def cache_key(reports)
+      { serializer: "reports", stat_record: reports.maximum(:updated_at) }
+    end
 
     def current_with(params)
       session_id, latitude, longitude = params.values_at(:session_id, :latitude, :longitude)

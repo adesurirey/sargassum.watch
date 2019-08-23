@@ -2,13 +2,7 @@
 
 class ReportsController < ApplicationController
   def index
-    reports = Report.all.select(Report.geo_attributes)
-
-    geo_json = Rails.cache.fetch(Report.cache_key(reports)) do
-      reports.decorate.to_geo_json
-    end
-
-    render json: geo_json
+    render json: Report.cached_geo_json
   end
 
   def create
