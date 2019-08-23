@@ -17,6 +17,10 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "draper"
 gem "geocoder"
 
+# Background jobs
+gem "sidekiq"
+gem "sidekiq-failures", "~> 1.0"
+
 # Frontend
 gem "jbuilder", "~> 2.7"
 gem "sass-rails", "~> 5"
@@ -36,6 +40,9 @@ group :development, :test do
 
   # Auto-generated factories
   gem "factory_bot_rails"
+
+  # Secrets
+  gem "dotenv-rails"
 end
 
 group :development do
