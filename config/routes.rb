@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'pages#home'
+
   resources :reports, only: [:index, :create], defaults: { format: :json }
 
   # Sidekiq Web UI, only for admins.
