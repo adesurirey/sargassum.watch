@@ -3,11 +3,6 @@
 class ReportDecorator < Draper::Decorator
   delegate_all
 
-  def created_ago
-    # Uses updated_at as users can edit a record up to 24H after creation.
-    "#{h.time_ago_in_words(updated_at)} #{I18n.t('ago')}"
-  end
-
   def as_geo_json
     {
       type:       "Feature",
@@ -19,12 +14,17 @@ class ReportDecorator < Draper::Decorator
         id:         id,
         name:       name,
         level:      numeric_level,
-        createdAgo: created_ago,
+        updatedAt:  updated_at.httpdate,
+        updatedAgo: updated_ago,
       },
     }
   end
 
   def numeric_level
     self.class.levels[level]
+  end
+
+  def updated_ago
+    "#{h.time_ago_in_words(updated_at)} #{I18n.t('ago')}"
   end
 end
