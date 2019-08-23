@@ -37,6 +37,8 @@ class Report < ApplicationRecord
 
   before_create :reverse_geocode, if: :should_geocode?
 
+  after_save :create_geo_json_cache
+
   default_scope { order(updated_at: :asc) }
 
   scope :infested, -> { where.not(level: :clear) }
@@ -82,5 +84,9 @@ class Report < ApplicationRecord
 
   def should_geocode?
     name.blank?
+  end
+
+  def create_geo_json_cache
+    CreateReportsGeoJsonCacheJob.perform_later
   end
 end
