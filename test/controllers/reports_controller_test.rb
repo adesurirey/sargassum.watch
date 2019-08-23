@@ -30,7 +30,8 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_kind_of Integer, properties["id"]
     assert_kind_of String, properties["name"]
     assert_kind_of Integer, properties["level"]
-    assert_kind_of String, properties["createdAgo"]
+    assert_kind_of String, properties["updatedAgo"]
+    assert_kind_of String, properties["updatedAt"]
   end
 
   test "create should create new reports" do
