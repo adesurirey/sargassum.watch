@@ -20,6 +20,7 @@ module Assets
           name:       formatted_name,
           longitude:  @longitude,
           latitude:   @latitude,
+          updated_at: @created_at,
           created_at: @created_at,
         )
       end
