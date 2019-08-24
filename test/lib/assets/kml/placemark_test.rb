@@ -10,8 +10,11 @@ class Assets::KML::PlacemarkTest < ActiveSupport::TestCase
     assert_kind_of Hash, placemark.attributes
     assert_kind_of String, placemark.attributes[:name]
     assert_kind_of DateTime, placemark.attributes[:created_at]
+    assert_kind_of DateTime, placemark.attributes[:updated_at]
     assert_kind_of Float, placemark.attributes[:latitude]
     assert_kind_of Float, placemark.attributes[:longitude]
+
+    assert_equal placemark.attributes[:created_at], placemark.attributes[:updated_at]
   end
 
   test "should cleanup name and remove dates from it" do
