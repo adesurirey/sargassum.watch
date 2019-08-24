@@ -66,6 +66,21 @@ class Map extends Component {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
 
+  offset = offset => {
+    const map = this.getMap();
+    const {
+      viewport: { latitude, longitude },
+    } = this.state;
+
+    map &&
+      map.flyTo({
+        center: [longitude, latitude],
+        offset: [0, offset],
+        speed: 0.8,
+        curve: 0,
+      });
+  };
+
   onViewportChange = viewport => this.setState({ viewport });
 
   onLoaded = () => {
@@ -95,7 +110,9 @@ class Map extends Component {
 
     return (
       <div className={classes.root}>
-        <ResponsiveDrawer>Here comes the controls</ResponsiveDrawer>
+        <ResponsiveDrawer bottomDrawerProps={{ offsetMap: this.offset }}>
+          Here comes the controls
+        </ResponsiveDrawer>
 
         <div className={classes.map}>
           <ReactMapGL

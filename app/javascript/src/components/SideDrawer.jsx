@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Drawer } from '@material-ui/core';
 
 const propTypes = {
-  children: node,
+  children: node.isRequired,
 };
 
 const width = 240;
