@@ -4,7 +4,7 @@ import { node, object } from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-import SideDrawer from './SideDrawer';
+import LeftDrawer from './LeftDrawer';
 import BottomDrawer from './BottomDrawer';
 
 const propTypes = {
@@ -23,7 +23,7 @@ const ResponsiveDrawer = ({ children, bottomDrawerProps }) => {
   return matches ? (
     <BottomDrawer {...bottomDrawerProps}>{children}</BottomDrawer>
   ) : (
-    <SideDrawer>{children}</SideDrawer>
+    <LeftDrawer>{children}</LeftDrawer>
   );
 };
 
