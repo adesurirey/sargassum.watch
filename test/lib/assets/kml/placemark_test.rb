@@ -28,8 +28,8 @@ class Assets::KML::PlacemarkTest < ActiveSupport::TestCase
     node = Nokogiri::XML(valid_kml).css("Placemark")
     placemark = Assets::KML::Placemark.new(node)
 
-    assert_equal (-61.0841083), placemark.attributes[:longitude]
-    assert_equal (14.4986926), placemark.attributes[:latitude]
+    assert_equal(-61.0841083, placemark.attributes[:longitude])
+    assert_equal(14.4986926, placemark.attributes[:latitude])
   end
 
   test "should correctly parse date" do

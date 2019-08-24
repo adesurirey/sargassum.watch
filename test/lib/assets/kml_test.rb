@@ -13,23 +13,34 @@ class Assets::KMLTest < ActiveSupport::TestCase
     assert kml.placemarks.all?
   end
 
-  test "should accept custom placemark attributes" do
+  test "should merge custom placemark attributes" do
     custom_attributes = {
       level:      :clear,
       session_id: SecureRandom.hex,
     }
 
     kml = Assets::KML.new(
-      file_fixture("invalid_placemarks.kml"),
+      file_fixture("valid_placemarks.kml"),
       custom_attributes,
     )
 
-    assert_equal custom_attributes[:level], kml.placemarks.first[:level]
-    assert_equal custom_attributes[:session_id], kml.placemarks.first[:session_id]
-    assert kml.placemarks.first[:name].present?
-    assert kml.placemarks.first[:created_at].present?
-    assert kml.placemarks.first[:latitude].present?
-    assert kml.placemarks.first[:longitude].present?
+    first = kml.placemarks.first
+    last = kml.placemarks.last
+
+    assert_equal custom_attributes[:level], first[:level]
+    assert_equal custom_attributes[:session_id], first[:session_id]
+    assert first[:name].present?
+    assert first[:updated_at].present?
+    assert first[:latitude].present?
+    assert first[:longitude].present?
+
+    assert_equal custom_attributes[:level], first[:level]
+    assert_equal custom_attributes[:session_id], first[:session_id]
+
+    assert_not_equal first[:name], last[:name]
+    assert_not_equal first[:latitude], last[:latitude]
+    assert_not_equal first[:longitude], last[:longitude]
+    assert_not_equal first[:updated_at], last[:updated_at]
   end
 
   test "should ignore invalid placemarks and store errors" do
