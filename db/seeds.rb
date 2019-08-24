@@ -28,23 +28,24 @@ end
 def seed_form_file!(file_name, level)
   file_path = Rails.root.join("db", "data", file_name)
   attributes = {
-    level:      level == :infested ? [:moderate, :critical].sample : level,
+    level:      level,
     session_id: file_path.basename.to_s,
   }
-  kml = Assets::KML.new(file_path, attributes)
 
+  kml = Assets::KML.new(file_path, attributes)
   Report.create!(kml.placemarks)
+
   report_parser_results(kml)
 end
 
 start_time = Time.zone.now
 
 # Reports for 2019
-seed_form_file!("2019_beaches_with_sargassum.kml", :infested)
+seed_form_file!("2019_beaches_with_sargassum.kml", :critical)
 seed_form_file!("2019_beaches_without_sargassum.kml", :clear)
 
 # Reports for 2018
-seed_form_file!("2018_beaches_with_sargassum.kml", :infested)
+seed_form_file!("2018_beaches_with_sargassum.kml", :moderate)
 seed_form_file!("2018_beaches_without_sargassum.kml", :clear)
 
 elapsed_time = (Time.zone.now - start_time).round
