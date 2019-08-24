@@ -14,7 +14,6 @@ const height = 40;
 const useStyles = makeStyles(theme => ({
   root: {
     height,
-    cursor: 'pointer',
   },
   paper: {
     paddingLeft: theme.spacing(2),
