@@ -19,6 +19,10 @@ let theme = createMuiTheme({
     fontFamily,
     fontSize: 16,
   },
+
+  shape: {
+    borderRadius: 8,
+  },
 });
 
 theme = responsiveFontSizes(theme);
