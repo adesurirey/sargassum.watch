@@ -1,14 +1,15 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import 'typeface-open-sans';
 
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { object } from 'prop-types';
 import ReactMapGL, { Popup } from 'react-map-gl';
 import axios from 'axios';
 
-import withTheme from './withTheme';
-import heatmapLayerFactory from './layers/heatmapLayerFactory';
-import pointsLayerFactory from './layers/pointsLayerFactory';
+import { withStyles } from '@material-ui/styles';
+
+import ResponsiveDrawer from './ResponsiveDrawer';
+import heatmapLayerFactory from '../layers/heatmapLayerFactory';
+import pointsLayerFactory from '../layers/pointsLayerFactory';
 
 const HEATMAP_LAYER_ID = 'reports-heatmap';
 const POINTS_LAYER_ID = 'reports-points';
@@ -20,8 +21,20 @@ const heatmapLayer = heatmapLayerFactory(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
 const pointsLayer = pointsLayerFactory(POINTS_LAYER_ID, HEATMAP_SOURCE_ID);
 
 const propTypes = {
-  mapboxApiAccessToken: string.isRequired,
+  classes: object.isRequired,
 };
+
+const styles = theme => ({
+  root: {
+    height: '100vh',
+    width: '100vw',
+    display: 'flex',
+  },
+
+  map: {
+    flexGrow: 1,
+  },
+});
 
 class Map extends Component {
   state = {
@@ -77,35 +90,43 @@ class Map extends Component {
   onPopupClose = () => this.setState({ popup: null });
 
   render() {
+    const { classes } = this.props;
     const { viewport, settings, popup } = this.state;
 
     return (
-      <ReactMapGL
-        ref={this.mapRef}
-        {...this.props}
-        {...viewport}
-        {...settings}
-        width="100%"
-        height="100vh"
-        mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
-        onViewportChange={this.onViewportChange}
-        onLoad={this.onLoaded}
-        onClick={this.onClick}
-      >
-        {popup && (
-          <Popup
-            latitude={popup.latitude}
-            longitude={popup.longitude}
-            onClose={this.onPopupClose}
+      <div className={classes.root}>
+        <ResponsiveDrawer>Here comes the controls</ResponsiveDrawer>
+
+        <div className={classes.map}>
+          <ReactMapGL
+            ref={this.mapRef}
+            {...viewport}
+            {...settings}
+            width="100%"
+            height="100%"
+            attributionControl={false}
+            mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
+            mapboxApiAccessToken={gon.mapboxApiAccessToken}
+            onViewportChange={this.onViewportChange}
+            onLoad={this.onLoaded}
+            onClick={this.onClick}
           >
-            {popup.text}
-          </Popup>
-        )}
-      </ReactMapGL>
+            {popup && (
+              <Popup
+                latitude={popup.latitude}
+                longitude={popup.longitude}
+                onClose={this.onPopupClose}
+              >
+                {popup.text}
+              </Popup>
+            )}
+          </ReactMapGL>
+        </div>
+      </div>
     );
   }
 }
 
-export default withTheme(Map);
+export default withStyles(styles)(Map);
 
 Map.propTypes = propTypes;
