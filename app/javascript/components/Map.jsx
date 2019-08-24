@@ -2,13 +2,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'typeface-open-sans';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactMapGL from 'react-map-gl';
+import { string } from 'prop-types';
+import ReactMapGL, { Popup } from 'react-map-gl';
 import axios from 'axios';
 
 import withTheme from './withTheme';
-import heatmapLayer from './layers/heatmap';
-import pointsLayer from './layers/points';
+import heatmapLayerFactory from './layers/heatmapLayerFactory';
+import pointsLayerFactory from './layers/pointsLayerFactory';
 
 const HEATMAP_LAYER_ID = 'reports-heatmap';
 const POINTS_LAYER_ID = 'reports-points';
@@ -16,8 +16,11 @@ const POINTS_LAYER_ID = 'reports-points';
 const HEATMAP_SOURCE_ID = 'reports-source';
 const INSERT_BEFORE_LAYER_ID = 'waterway-label';
 
+const heatmapLayer = heatmapLayerFactory(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
+const pointsLayer = pointsLayerFactory(POINTS_LAYER_ID, HEATMAP_SOURCE_ID);
+
 const propTypes = {
-  mapboxApiAccessToken: PropTypes.string.isRequired,
+  mapboxApiAccessToken: string.isRequired,
 };
 
 class Map extends Component {
@@ -41,6 +44,9 @@ class Map extends Component {
       minPitch: 0,
       maxPitch: 85,
     },
+    popup: null,
+  };
+
   mapRef = React.createRef();
 
   getMap = () => {
@@ -49,11 +55,8 @@ class Map extends Component {
 
   onViewportChange = viewport => this.setState({ viewport });
 
-  handleMapLoaded = () => {
+  onLoaded = () => {
     const map = this.getMap();
-
-    const heatmap = heatmapLayer(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
-    const points = pointsLayer(POINTS_LAYER_ID, HEATMAP_SOURCE_ID);
 
     axios
       .get('/reports', { headers: { accept: 'application/json' } })
@@ -61,13 +64,20 @@ class Map extends Component {
         this.setState({ reports });
 
         map.addSource(HEATMAP_SOURCE_ID, { type: 'geojson', data: reports });
-        map.addLayer(heatmap, INSERT_BEFORE_LAYER_ID);
-        map.addLayer(points, INSERT_BEFORE_LAYER_ID);
+        map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
+        map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
       })
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState(({ viewport: { latitude, longitude } }) => ({
+          popup: { text: 'Error while loading data 💩', latitude, longitude },
+        })),
+      );
   };
+
+  onPopupClose = () => this.setState({ popup: null });
+
   render() {
-    const { viewport, settings } = this.state;
+    const { viewport, settings, popup } = this.state;
 
     return (
       <ReactMapGL
@@ -77,8 +87,21 @@ class Map extends Component {
         {...settings}
         width="100%"
         height="100vh"
-        mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8"
-      />
+        mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
+        onViewportChange={this.onViewportChange}
+        onLoad={this.onLoaded}
+        onClick={this.onClick}
+      >
+        {popup && (
+          <Popup
+            latitude={popup.latitude}
+            longitude={popup.longitude}
+            onClose={this.onPopupClose}
+          >
+            {popup.text}
+          </Popup>
+        )}
+      </ReactMapGL>
     );
   }
 }
