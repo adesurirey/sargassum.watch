@@ -8,22 +8,26 @@ module Assets
       DATE_REGEX = %r{\d{2}/\d{2}/\d{4}}.freeze
       NBSP = " "
 
-      attr_reader :attributes
-
-      def initialize(node_set, attributes = {})
+      def initialize(node_set, custom_attributes = {})
         @node = node_set
+        @custom_attributes = custom_attributes
+
         @name = parse_name
         @created_at = parse_date
         @longitude, @latitude, _elevation = parse_coordinates
+      end
 
-        @attributes = attributes.merge!(
+      def attributes
+        @custom_attributes.merge(
           name:       formatted_name,
           longitude:  @longitude,
           latitude:   @latitude,
-          updated_at: @created_at,
           created_at: @created_at,
+          updated_at: @created_at,
         )
       end
+
+      private
 
       def formatted_name
         @name.gsub(DATE_REGEX, "")
@@ -32,8 +36,6 @@ module Assets
              .first
              .strip
       end
-
-      private
 
       def parse_name
         @node.css("name")&.text.tap do |name|
