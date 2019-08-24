@@ -21,6 +21,22 @@ class Assets::KML::PlacemarkTest < ActiveSupport::TestCase
     assert_equal "Anses d'Arlet", placemark.attributes[:name]
   end
 
+  test "should correctly parse coordinates" do
+    node = Nokogiri::XML(valid_kml).css("Placemark")
+    placemark = Assets::KML::Placemark.new(node)
+
+    assert_equal (-61.0841083), placemark.attributes[:longitude]
+    assert_equal (14.4986926), placemark.attributes[:latitude]
+  end
+
+  test "should correctly parse date" do
+    node = Nokogiri::XML(valid_kml).css("Placemark")
+    placemark = Assets::KML::Placemark.new(node)
+
+    assert_equal "01/01/2019".to_datetime, placemark.attributes[:created_at]
+    assert_equal "01/01/2019".to_datetime, placemark.attributes[:updated_at]
+  end
+
   private
 
   def valid_kml

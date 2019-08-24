@@ -14,7 +14,7 @@ module Assets
         @node = node_set
         @name = parse_name
         @created_at = parse_date
-        @latitude, @longitude, _elevation = parse_coordinates
+        @longitude, @latitude, _elevation = parse_coordinates
 
         @attributes = attributes.merge!(
           name:       formatted_name,
