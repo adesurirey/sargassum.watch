@@ -7,6 +7,8 @@ import { MaximizeRounded } from '@material-ui/icons';
 
 import BottomDrawerToggler from './BottomDrawerToggler';
 
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 const height = 400;
 const onOpenMapOffset = -height / 2;
 const onCloseMapOffset = -onOpenMapOffset / 26;
@@ -54,6 +56,8 @@ const BottomDrawer = ({ children, offsetMap }) => {
           paper: classes.paper,
         }}
         anchor="bottom"
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
         ModalProps={{
           BackdropProps: {
             invisible: true,
