@@ -3,7 +3,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
 import { object } from 'prop-types';
-import MapGL, { Popup } from 'react-map-gl';
+import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
 
@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/styles';
 
 import ResponsiveDrawer from './ResponsiveDrawer';
 import GeocoderContainer from './GeocoderContainer';
+import SmartPopup from './SmartPopup';
 import heatmapLayerFactory from '../layers/heatmapLayerFactory';
 import pointsLayerFactory from '../layers/pointsLayerFactory';
 
@@ -110,6 +111,28 @@ class Map extends Component {
       );
   };
 
+  onClick = ({ features }) => {
+    const feature = features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
+
+    if (feature) {
+      const {
+        geometry: {
+          coordinates: [longitude, latitude],
+        },
+        properties,
+      } = feature;
+
+      this.setState({
+        popup: {
+          variant: 'point',
+          latitude,
+          longitude,
+          ...properties,
+        },
+      });
+    }
+  };
+
   onPopupClose = () => this.setState({ popup: null });
 
   render() {
@@ -147,15 +170,7 @@ class Map extends Component {
             onViewportChange={this.handleViewportChange}
           />
 
-          {popup && (
-            <Popup
-              latitude={popup.latitude}
-              longitude={popup.longitude}
-              onClose={this.onPopupClose}
-            >
-              {popup.text}
-            </Popup>
-          )}
+          {popup && <SmartPopup {...popup} onClose={this.onPopupClose} />}
         </MapGL>
       </div>
     );
