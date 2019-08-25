@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     borderBottomWidth: 1,
     borderBottomColor: theme.palette.grey[200],
     fontSize: '1.125rem',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%',
       background: 'transparent',
       borderBottomWidth: 0,
