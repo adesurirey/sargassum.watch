@@ -14,6 +14,7 @@ class ReportDecorator < Draper::Decorator
         id:         id,
         name:       name,
         level:      numeric_level,
+        humanLevel: level,
         updatedAt:  updated_at.httpdate,
         updatedAgo: updated_ago,
       },
