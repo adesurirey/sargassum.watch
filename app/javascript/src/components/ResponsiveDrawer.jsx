@@ -18,7 +18,7 @@ const defaultProps = {
 
 const ResponsiveDrawer = ({ children, bottomDrawerProps }) => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return matches ? (
     <BottomDrawer {...bottomDrawerProps}>{children}</BottomDrawer>

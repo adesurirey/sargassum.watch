@@ -1,7 +1,7 @@
 .mapboxgl-ctrl-geocoder,
 .mapboxgl-ctrl-geocoder .suggestions {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: $shadow !important;
+  border-radius: $border-radius !important;
 }
 
 .mapboxgl-ctrl-geocoder {
@@ -15,13 +15,17 @@
   background-color: #fff;
   border-radius: 8px;
 
-  @media (min-width: 1279.95px) {
+  @media (min-width: $breakpoint-sm) {
     box-shadow: none !important;
   }
 
   &--input {
     height: 100% !important;
-    padding: 6px 35px;
+    padding: $spacing $spacing * 5 !important;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing $spacing * 6 !important;
+    }
   }
 
   &--icon {
@@ -32,6 +36,12 @@
   &--pin-right > * {
     top: 0 !important;
     height: 100%;
+  }
+
+  &--icon-search {
+    @media (min-width: $breakpoint-sm) {
+      width: 24px !important;
+    }
   }
 
   &--icon-close {

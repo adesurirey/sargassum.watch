@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/styles';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import GeocoderContainer from './GeocoderContainer';
 import SmartPopup from './SmartPopup';
+import ZoomControl from './ZoomControl';
 import heatmapLayerFactory from '../layers/heatmapLayerFactory';
 import pointsLayerFactory from '../layers/pointsLayerFactory';
 
@@ -92,11 +93,10 @@ class Map extends Component {
       });
   };
 
-  handleViewportChange = viewport => {
+  handleViewportChange = viewport =>
     this.setState({
       viewport: { ...this.state.viewport, ...viewport },
     });
-  };
 
   onLoaded = () => {
     const map = this.getMap();
@@ -181,6 +181,8 @@ class Map extends Component {
           />
 
           {popup && <SmartPopup {...popup} onClose={this.onPopupClose} />}
+
+          <ZoomControl />
         </MapGL>
       </div>
     );
