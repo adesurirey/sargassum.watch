@@ -28,6 +28,7 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.id, properties[:id]
     assert_equal report.name, properties[:name]
     assert_equal report.numeric_level, properties[:level]
+    assert_equal report.level, properties[:humanLevel]
     assert_equal report.updated_ago, properties[:updatedAgo]
     assert_equal report.updated_at.httpdate, properties[:updatedAt]
   end
