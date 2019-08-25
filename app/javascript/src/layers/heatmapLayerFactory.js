@@ -1,3 +1,5 @@
+import theme from '../theme';
+
 export default (id, source) => {
   const MAX_ZOOM_LEVEL = 9;
 
@@ -38,13 +40,13 @@ export default (id, source) => {
         0,
         'rgba(255, 198, 91, 0)',
         0.25,
-        'rgb(255, 198, 91)',
+        theme.palette.level.moderate.light,
         0.5,
-        'rgb(230, 126, 34)',
+        theme.palette.level.moderate.main,
         0.75,
-        'rgb(252, 81, 84)',
+        theme.palette.level.critical.light,
         1,
-        'rgb(252, 16, 21)',
+        theme.palette.level.critical.main,
       ],
       // Adjust the heatmap radius by zoom level
       'heatmap-radius': [
