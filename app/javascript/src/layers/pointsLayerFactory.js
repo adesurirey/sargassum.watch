@@ -1,3 +1,5 @@
+import theme from '../theme';
+
 export default (id, source) => {
   const MIN_ZOOM_LEVEL = 7;
 
@@ -23,11 +25,11 @@ export default (id, source) => {
         ['linear'],
         ['get', 'level'],
         0,
-        'rgb(30, 221, 136)',
+        theme.palette.level.clear.main,
         1,
-        'rgb(230, 126, 34)',
+        theme.palette.level.moderate.main,
         2,
-        'rgb(252, 16, 21)',
+        theme.palette.level.critical.main,
       ],
       'circle-stroke-color': 'white',
       'circle-stroke-width': 1,
