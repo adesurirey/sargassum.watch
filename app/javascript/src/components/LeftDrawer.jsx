@@ -10,7 +10,7 @@ const propTypes = {
 
 const width = 400;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     flexShrink: 0,
     width,
@@ -18,9 +18,15 @@ const useStyles = makeStyles({
 
   paper: {
     width,
+    paddingTop: theme.spacing(8),
+    background: theme.palette.grey[100],
     border: 0,
   },
-});
+
+  container: {
+    flex: 1,
+  },
+}));
 
 const LeftDrawer = ({ children }) => {
   const classes = useStyles();
@@ -33,7 +39,12 @@ const LeftDrawer = ({ children }) => {
       anchor="left"
       variant="permanent"
     >
-      <Grid container direction="column" alignItems="center">
+      <Grid
+        className={classes.container}
+        container
+        direction="column"
+        alignItems="center"
+      >
         <Grid item>{children}</Grid>
       </Grid>
     </Drawer>

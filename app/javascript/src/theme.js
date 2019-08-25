@@ -7,15 +7,9 @@ let theme = createMuiTheme({
     background: {
       default: '#fff',
     },
-
-    common: {
-      white: '#fff',
-      black: '#333',
-    },
   },
 
   typography: {
-    useNextVariants: true,
     fontFamily,
     fontSize: 16,
   },
