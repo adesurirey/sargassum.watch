@@ -1,13 +1,16 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
 import { object } from 'prop-types';
-import ReactMapGL, { Popup } from 'react-map-gl';
+import MapGL, { Popup } from 'react-map-gl';
+import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
 
 import { withStyles } from '@material-ui/styles';
 
 import ResponsiveDrawer from './ResponsiveDrawer';
+import GeocoderContainer from './GeocoderContainer';
 import heatmapLayerFactory from '../layers/heatmapLayerFactory';
 import pointsLayerFactory from '../layers/pointsLayerFactory';
 
@@ -61,6 +64,7 @@ class Map extends Component {
   };
 
   mapRef = React.createRef();
+  geocoderContainerRef = React.createRef();
 
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
@@ -81,7 +85,11 @@ class Map extends Component {
       });
   };
 
-  onViewportChange = viewport => this.setState({ viewport });
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport },
+    });
+  };
 
   onLoaded = () => {
     const map = this.getMap();
@@ -110,35 +118,45 @@ class Map extends Component {
 
     return (
       <div className={classes.root}>
+        <GeocoderContainer forwardRef={this.geocoderContainerRef} />
+
         <ResponsiveDrawer bottomDrawerProps={{ offsetMap: this.offset }}>
           Here comes the controls
         </ResponsiveDrawer>
 
-        <div className={classes.map}>
-          <ReactMapGL
-            ref={this.mapRef}
-            {...viewport}
-            {...settings}
-            width="100%"
-            height="100%"
-            attributionControl={false}
-            mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
+        <MapGL
+          ref={this.mapRef}
+          className={classes.map}
+          {...viewport}
+          {...settings}
+          width="100%"
+          height="100%"
+          attributionControl={false}
+          mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
+          mapboxApiAccessToken={gon.mapboxApiAccessToken}
+          onViewportChange={this.handleViewportChange}
+          onLoad={this.onLoaded}
+          onClick={this.onClick}
+        >
+          <Geocoder
             mapboxApiAccessToken={gon.mapboxApiAccessToken}
-            onViewportChange={this.onViewportChange}
-            onLoad={this.onLoaded}
-            onClick={this.onClick}
-          >
-            {popup && (
-              <Popup
-                latitude={popup.latitude}
-                longitude={popup.longitude}
-                onClose={this.onPopupClose}
-              >
-                {popup.text}
-              </Popup>
-            )}
-          </ReactMapGL>
-        </div>
+            mapRef={this.mapRef}
+            containerRef={this.geocoderContainerRef}
+            placeholder="Find a beach"
+            clearAndBlurOnEsc
+            onViewportChange={this.handleViewportChange}
+          />
+
+          {popup && (
+            <Popup
+              latitude={popup.latitude}
+              longitude={popup.longitude}
+              onClose={this.onPopupClose}
+            >
+              {popup.text}
+            </Popup>
+          )}
+        </MapGL>
       </div>
     );
   }

@@ -16,11 +16,14 @@ const onCloseMapOffset = -onOpenMapOffset / 26;
 const useStyles = makeStyles(theme => ({
   paper: {
     height,
-    padding: theme.spacing(1),
+    background: theme.palette.grey[100],
   },
-
   icon: {
     marginBottom: -theme.spacing(3),
+  },
+  iconContainer: {
+    paddingTop: theme.spacing(1),
+    background: theme.palette.common.white,
   },
 }));
 
@@ -69,11 +72,20 @@ const BottomDrawer = ({ children, offsetMap }) => {
         onClose={onClose}
       >
         <Grid container spacing={1} direction="column" alignItems="center">
-          <MaximizeRounded
-            className={classes.icon}
-            color="disabled"
-            fontSize="large"
-          />
+          <Grid
+            className={classes.iconContainer}
+            container
+            spacing={1}
+            justify="center"
+          >
+            <Grid item>
+              <MaximizeRounded
+                className={classes.icon}
+                color="disabled"
+                fontSize="large"
+              />
+            </Grid>
+          </Grid>
           <Grid item>{children}</Grid>
         </Grid>
       </SwipeableDrawer>
