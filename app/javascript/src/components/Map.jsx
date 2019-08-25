@@ -18,6 +18,8 @@ import pointsLayerFactory from '../layers/pointsLayerFactory';
 const HEATMAP_LAYER_ID = 'reports-heatmap';
 const POINTS_LAYER_ID = 'reports-points';
 
+const interactiveLayerIds = [POINTS_LAYER_ID];
+
 const HEATMAP_SOURCE_ID = 'reports-source';
 const INSERT_BEFORE_LAYER_ID = 'waterway-label';
 
@@ -71,6 +73,10 @@ class Map extends Component {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
 
+  getCursor = ({ isHovering, isDragging }) => {
+    return isHovering ? 'pointer' : 'grab';
+  };
+
   offset = offset => {
     const map = this.getMap();
     const {
@@ -111,8 +117,10 @@ class Map extends Component {
       );
   };
 
-  onClick = ({ features }) => {
-    const feature = features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
+  onClick = event => {
+    const feature =
+      event.features &&
+      event.features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
 
     if (feature) {
       const {
@@ -157,6 +165,8 @@ class Map extends Component {
           attributionControl={false}
           mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
           mapboxApiAccessToken={gon.mapboxApiAccessToken}
+          getCursor={this.getCursor}
+          interactiveLayerIds={interactiveLayerIds}
           onViewportChange={this.handleViewportChange}
           onLoad={this.onLoaded}
           onClick={this.onClick}
