@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
-import { Drawer, Grid, Typography } from '@material-ui/core';
+import { Drawer, ButtonBase, Grid, Typography } from '@material-ui/core';
 import { ExpandLess } from '@material-ui/icons';
 
 const propTypes = {
@@ -30,22 +30,22 @@ const BottomDrawerToggler = ({ onOpen }) => {
   return (
     <Drawer
       className={classes.root}
-      classes={{ paper: classes.paper }}
       PaperProps={{ elevation: 16 }}
       variant="permanent"
       anchor="bottom"
-      onClick={onOpen}
     >
-      <Grid container spacing={2}>
-        <Grid item>
-          <ExpandLess color="action" fontSize="small" />
+      <ButtonBase className={classes.paper} disableTouchRipple onClick={onOpen}>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ExpandLess color="action" fontSize="small" />
+          </Grid>
+          <Grid item>
+            <Typography color="textSecondary" variant="caption" noWrap>
+              Press to display filters
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography color="textSecondary" variant="caption" noWrap>
-            Press to display filters
-          </Typography>
-        </Grid>
-      </Grid>
+      </ButtonBase>
     </Drawer>
   );
 };
