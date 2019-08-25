@@ -47,7 +47,7 @@ let theme = createMuiTheme({
 
   typography: {
     fontFamily,
-    fontSize: 16,
+    htmlFontSize: 16,
 
     h1,
     h2: h1,
