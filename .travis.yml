@@ -20,7 +20,6 @@ script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
   - SECRET_KEY_BASE=a RAILS_ENV=production bundle exec rake assets:precompile
-  - bundle exec rake test
-  - bundle exec rake test:system
+  - COVERAGE=true bundle exec rake test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
