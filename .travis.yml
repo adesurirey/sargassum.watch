@@ -11,6 +11,9 @@ before_install:
 addons:
   postgresql: '9.6'
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - psql -c 'create database sargassum_watch_test;' -U postgres
 script:
   - bundle exec rubocop
@@ -19,3 +22,5 @@ script:
   - SECRET_KEY_BASE=a RAILS_ENV=production bundle exec rake assets:precompile
   - bundle exec rake test
   - bundle exec rake test:system
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
