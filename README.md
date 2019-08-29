@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/adesurirey/sargassum.watch.svg?branch=master)](https://travis-ci.org/adesurirey/sargassum.watch)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e102ea6b103b7ea3b5e9/maintainability)](https://codeclimate.com/github/adesurirey/sargassum.watch/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e102ea6b103b7ea3b5e9/test_coverage)](https://codeclimate.com/github/adesurirey/sargassum.watch/test_coverage)
 
 # README
 
