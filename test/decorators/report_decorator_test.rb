@@ -3,11 +3,6 @@
 require "test_helper"
 
 class ReportDecoratorTest < Draper::TestCase
-  test "should return updated_ago in a fomatted string" do
-    report = create(:report).decorate
-    assert_equal "less than a minute ago", report.updated_ago
-  end
-
   test "should return a valid geoJSON feature" do
     report = create(:report).decorate
 
@@ -29,7 +24,6 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.name, properties[:name]
     assert_equal report.numeric_level, properties[:level]
     assert_equal report.level, properties[:humanLevel]
-    assert_equal report.updated_ago, properties[:updatedAgo]
     assert_equal report.updated_at.httpdate, properties[:updatedAt]
   end
 

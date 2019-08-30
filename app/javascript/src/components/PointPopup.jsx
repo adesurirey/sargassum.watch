@@ -8,6 +8,7 @@ import { Typography, Grid } from '@material-ui/core';
 import { AccessTime, Lens } from '@material-ui/icons';
 
 import PopupContainer from './PopupContainer';
+import SmartTimeAgo from './SmartTimeAgo';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -27,10 +28,10 @@ const useStyles = makeStyles(theme => ({
 const propTypes = {
   name: string.isRequired,
   humanLevel: string.isRequired,
-  updatedAgo: string.isRequired,
+  updatedAt: string.isRequired,
 };
 
-const PointPopup = ({ name, updatedAgo, humanLevel, ...popupProps }) => {
+const PointPopup = ({ name, updatedAt, humanLevel, ...popupProps }) => {
   const classes = useStyles();
 
   return (
@@ -56,7 +57,7 @@ const PointPopup = ({ name, updatedAgo, humanLevel, ...popupProps }) => {
             fontSize="small"
             color="disabled"
           />
-          <Typography variant="caption">{updatedAgo}</Typography>
+          <SmartTimeAgo date={updatedAt} />
         </Grid>
       </PopupContainer>
     </Popup>
