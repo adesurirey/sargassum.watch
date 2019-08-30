@@ -9,8 +9,8 @@ import axios from 'axios';
 
 import { withStyles } from '@material-ui/styles';
 
-import ResponsiveDrawer from './ResponsiveDrawer';
 import GeocoderContainer from './GeocoderContainer';
+import Controls from './Controls';
 import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
 import heatmapLayerFactory from '../layers/heatmapLayerFactory';
@@ -152,9 +152,7 @@ class Map extends Component {
       <div className={classes.root}>
         <GeocoderContainer forwardRef={this.geocoderContainerRef} />
 
-        <ResponsiveDrawer bottomDrawerProps={{ offsetMap: this.offset }}>
-          Here comes the controls
-        </ResponsiveDrawer>
+        <Controls offsetMap={this.offset} />
 
         <MapGL
           ref={this.mapRef}

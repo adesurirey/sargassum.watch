@@ -22,18 +22,16 @@ const useStyles = makeStyles(theme => ({
     marginBottom: -theme.spacing(3),
   },
   iconContainer: {
-    paddingTop: theme.spacing(1),
+    marginBottom: -theme.spacing(2),
+    zIndex: 2,
     background: theme.palette.common.white,
+    textAlign: 'center',
   },
 }));
 
 const propTypes = {
   children: node.isRequired,
-  offsetMap: func,
-};
-
-const defaultProps = {
-  offsetMap: () => null,
+  offsetMap: func.isRequired,
 };
 
 const BottomDrawer = ({ children, offsetMap }) => {
@@ -71,22 +69,19 @@ const BottomDrawer = ({ children, offsetMap }) => {
         onOpen={onOpen}
         onClose={onClose}
       >
-        <Grid container spacing={1} direction="column" alignItems="center">
-          <Grid
-            className={classes.iconContainer}
-            container
-            spacing={1}
-            justify="center"
-          >
-            <Grid item>
-              <MaximizeRounded
-                className={classes.icon}
-                color="disabled"
-                fontSize="large"
-              />
+        <Grid container spacing={1}>
+          <Grid className={classes.iconContainer} item xs={12}>
+            <MaximizeRounded
+              className={classes.icon}
+              color="disabled"
+              fontSize="large"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container spacing={1}>
+              {children}
             </Grid>
           </Grid>
-          <Grid item>{children}</Grid>
         </Grid>
       </SwipeableDrawer>
     </>
@@ -96,4 +91,3 @@ const BottomDrawer = ({ children, offsetMap }) => {
 export default BottomDrawer;
 
 BottomDrawer.propTypes = propTypes;
-BottomDrawer.defaultProps = defaultProps;
