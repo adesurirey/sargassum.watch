@@ -16,7 +16,6 @@ class ReportDecorator < Draper::Decorator
         level:      numeric_level,
         humanLevel: level,
         updatedAt:  updated_at.httpdate,
-        updatedAgo: updated_ago,
       },
     }
   end
@@ -27,9 +26,5 @@ class ReportDecorator < Draper::Decorator
 
   def numeric_level
     self.class.levels[level]
-  end
-
-  def updated_ago
-    "#{h.time_ago_in_words(updated_at)} #{I18n.t('ago')}"
   end
 end
