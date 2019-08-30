@@ -19,8 +19,6 @@ import pointsLayerFactory from '../layers/pointsLayerFactory';
 const HEATMAP_LAYER_ID = 'reports-heatmap';
 const POINTS_LAYER_ID = 'reports-points';
 
-const interactiveLayerIds = [POINTS_LAYER_ID];
-
 const HEATMAP_SOURCE_ID = 'reports-source';
 const INSERT_BEFORE_LAYER_ID = 'waterway-label';
 
@@ -45,7 +43,6 @@ const styles = theme => ({
 
 class Map extends Component {
   state = {
-    reports: null,
     viewport: {
       latitude: 20.827873989993776,
       longitude: -73.86145304236818,
@@ -64,6 +61,8 @@ class Map extends Component {
       minPitch: 0,
       maxPitch: 85,
     },
+    reports: null,
+    interactiveLayerIds: [],
     popup: null,
   };
 
@@ -76,6 +75,17 @@ class Map extends Component {
 
   getCursor = ({ isHovering, isDragging }) => {
     return isHovering ? 'pointer' : 'grab';
+  };
+
+  initLayers = () => {
+    const { reports } = this.state;
+    const map = this.getMap();
+
+    map.addSource(HEATMAP_SOURCE_ID, { type: 'geojson', data: reports });
+    map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
+    map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
+
+    this.setState({ interactiveLayerIds: [pointsLayer.id] });
   };
 
   offset = offset => {
@@ -93,29 +103,20 @@ class Map extends Component {
       });
   };
 
-  handleViewportChange = viewport =>
+  onLoaded = () =>
+    axios
+      .get('/reports', { headers: { accept: 'application/json' } })
+      .then(({ data: reports }) => this.setState({ reports }, this.initLayers))
+      .catch(error =>
+        this.setState(({ viewport: { latitude, longitude } }) => ({
+          popup: { text: 'Error while loading data 🐛', latitude, longitude },
+        })),
+      );
+
+  onViewportChange = viewport =>
     this.setState({
       viewport: { ...this.state.viewport, ...viewport },
     });
-
-  onLoaded = () => {
-    const map = this.getMap();
-
-    axios
-      .get('/reports', { headers: { accept: 'application/json' } })
-      .then(({ data: reports }) => {
-        this.setState({ reports });
-
-        map.addSource(HEATMAP_SOURCE_ID, { type: 'geojson', data: reports });
-        map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
-        map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
-      })
-      .catch(error =>
-        this.setState(({ viewport: { latitude, longitude } }) => ({
-          popup: { text: 'Error while loading data 💩', latitude, longitude },
-        })),
-      );
-  };
 
   onClick = event => {
     const feature =
@@ -145,7 +146,7 @@ class Map extends Component {
 
   render() {
     const { classes } = this.props;
-    const { viewport, settings, popup } = this.state;
+    const { viewport, settings, interactiveLayerIds, popup } = this.state;
 
     return (
       <div className={classes.root}>
@@ -167,7 +168,7 @@ class Map extends Component {
           mapboxApiAccessToken={gon.mapboxApiAccessToken}
           getCursor={this.getCursor}
           interactiveLayerIds={interactiveLayerIds}
-          onViewportChange={this.handleViewportChange}
+          onViewportChange={this.onViewportChange}
           onLoad={this.onLoaded}
           onClick={this.onClick}
         >
@@ -177,7 +178,7 @@ class Map extends Component {
             containerRef={this.geocoderContainerRef}
             placeholder="Find a beach"
             clearAndBlurOnEsc
-            onViewportChange={this.handleViewportChange}
+            onViewportChange={this.onViewportChange}
           />
 
           {popup && <SmartPopup {...popup} onClose={this.onPopupClose} />}
