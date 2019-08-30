@@ -1,5 +1,5 @@
 import React from 'react';
-import { node, object } from 'prop-types';
+import { node, shape, func } from 'prop-types';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -9,11 +9,9 @@ import BottomDrawer from './BottomDrawer';
 
 const propTypes = {
   children: node.isRequired,
-  bottomDrawerProps: object,
-};
-
-const defaultProps = {
-  bottomDrawerProps: {},
+  bottomDrawerProps: shape({
+    offsetMap: func.isRequired,
+  }).isRequired,
 };
 
 const ResponsiveDrawer = ({ children, bottomDrawerProps }) => {
@@ -30,4 +28,3 @@ const ResponsiveDrawer = ({ children, bottomDrawerProps }) => {
 export default ResponsiveDrawer;
 
 ResponsiveDrawer.propTypes = propTypes;
-ResponsiveDrawer.defaultProps = defaultProps;
