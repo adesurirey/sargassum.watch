@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 400,
+    width: 380,
     zIndex: theme.zIndex.drawer + 1,
     height: theme.spacing(8),
     padding: theme.spacing(1),
