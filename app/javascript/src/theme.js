@@ -15,17 +15,17 @@ let theme = createMuiTheme({
     },
 
     primary: {
-      light: 'rgb(46, 147, 255)',
       main: 'rgb(0, 123, 255)',
-      dark: 'rgb(0, 101, 209)',
       contrastText: '#fff',
+    },
+
+    secondary: {
+      main: '#fff',
     },
 
     level: {
       clear: {
-        light: 'rgb(70, 227, 157)',
         main: 'rgb(30, 221, 136)',
-        dark: 'rgb(25, 181, 112)',
         contrastText: '#333',
       },
 
@@ -51,6 +51,10 @@ let theme = createMuiTheme({
 
     h1,
     h2: h1,
+
+    button: {
+      textTransform: 'none',
+    },
   },
 
   shape: {

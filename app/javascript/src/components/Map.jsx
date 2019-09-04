@@ -25,6 +25,35 @@ const INSERT_BEFORE_LAYER_ID = 'waterway-label';
 const heatmapLayer = heatmapLayerFactory(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
 const pointsLayer = pointsLayerFactory(POINTS_LAYER_ID, HEATMAP_SOURCE_ID);
 
+const featureCollection = features => ({ type: 'FeatureCollection', features });
+
+const intervals = [
+  { id: 3, value: 7, unit: 'day' },
+  { id: 2, value: 30, unit: 'day' },
+  { id: 1, value: 12, unit: 'month' },
+];
+
+const intervalStartTime = ({ value, unit }) => {
+  const date = new Date();
+
+  if (unit === 'day') {
+    date.setDate(date.getDate() - value);
+  } else if (unit === 'month') {
+    date.setMonth(date.getMonth() - value);
+  }
+
+  return date.getTime();
+};
+
+const featuresInInterval = (features, interval) => {
+  const startTime = intervalStartTime(interval);
+
+  return features.filter(({ properties: { updatedAt } }) => {
+    const featureDate = new Date(updatedAt);
+    return featureDate.getTime() >= startTime;
+  });
+};
+
 const propTypes = {
   classes: object.isRequired,
 };
@@ -61,6 +90,7 @@ class Map extends Component {
       minPitch: 0,
       maxPitch: 85,
     },
+    interval: intervals[0],
     reports: null,
     interactiveLayerIds: [],
     popup: null,
@@ -77,15 +107,28 @@ class Map extends Component {
     return isHovering ? 'pointer' : 'grab';
   };
 
-  initLayers = () => {
-    const { reports } = this.state;
+  initMapData = () => {
+    const { reports, interval } = this.state;
     const map = this.getMap();
 
-    map.addSource(HEATMAP_SOURCE_ID, { type: 'geojson', data: reports });
+    const features = featuresInInterval(reports.features, interval);
+
+    map.addSource(HEATMAP_SOURCE_ID, {
+      type: 'geojson',
+      data: featureCollection(features),
+    });
+
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
     this.setState({ interactiveLayerIds: [pointsLayer.id] });
+  };
+
+  setMapData = features => {
+    const map = this.getMap();
+
+    map &&
+      map.getSource(HEATMAP_SOURCE_ID).setData(featureCollection(features));
   };
 
   offset = offset => {
@@ -106,7 +149,7 @@ class Map extends Component {
   onLoaded = () =>
     axios
       .get('/reports', { headers: { accept: 'application/json' } })
-      .then(({ data: reports }) => this.setState({ reports }, this.initLayers))
+      .then(({ data: reports }) => this.setState({ reports }, this.initMapData))
       .catch(error =>
         this.setState(({ viewport: { latitude, longitude } }) => ({
           popup: { text: 'Error while loading data 🐛', latitude, longitude },
@@ -144,15 +187,37 @@ class Map extends Component {
 
   onPopupClose = () => this.setState({ popup: null });
 
+  onIntervalChange = interval => {
+    this.setState({ interval }, () => {
+      const { reports, interval } = this.state;
+
+      reports &&
+        this.setMapData(featuresInInterval(reports.features, interval));
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { viewport, settings, interactiveLayerIds, popup } = this.state;
+    const {
+      viewport,
+      settings,
+      interactiveLayerIds,
+      popup,
+      interval,
+    } = this.state;
 
     return (
       <div className={classes.root}>
         <GeocoderContainer forwardRef={this.geocoderContainerRef} />
 
-        <Controls offsetMap={this.offset} />
+        <Controls
+          offsetMap={this.offset}
+          intervalControlsProps={{
+            intervals,
+            selectedInterval: interval,
+            onIntervalChange: this.onIntervalChange,
+          }}
+        />
 
         <MapGL
           ref={this.mapRef}
