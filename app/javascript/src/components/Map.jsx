@@ -6,7 +6,6 @@ import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
-import _isEqual from 'lodash/isEqual';
 import _uniqBy from 'lodash/uniqBy';
 
 import { withStyles } from '@material-ui/styles';
@@ -53,7 +52,7 @@ const intervalStartTime = ({ value, unit }) => {
   return date.getTime();
 };
 
-const getFeaturesInInterval = (features, interval) => {
+const featuresInInterval = (features, interval) => {
   const startTime = intervalStartTime(interval);
 
   return features.filter(({ properties: { updatedAt } }) => {
@@ -98,9 +97,8 @@ class Map extends Component {
       minPitch: 0,
       maxPitch: 85,
     },
-    geoJSON: null,
+    features: [],
     interval: intervals[0],
-    featuresInInterval: [],
     renderedFeatures: [],
     interactiveLayerIds: [],
     popup: null,
@@ -108,14 +106,6 @@ class Map extends Component {
 
   mapRef = React.createRef();
   geocoderContainerRef = React.createRef();
-
-  componentDidUpdate(_, prevState) {
-    const { featuresInInterval } = this.state;
-
-    if (!_isEqual(featuresInInterval, prevState.featuresInInterval)) {
-      this.setRenderedFeatures();
-    }
-  }
 
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
@@ -125,51 +115,48 @@ class Map extends Component {
     return isHovering ? 'pointer' : 'grab';
   };
 
-  initMapData = () => {
-    const { geoJSON, interval } = this.state;
-    const map = this.getMap();
+  getFeaturesInInterval() {
+    const { features, interval } = this.state;
 
-    const featuresInInterval = getFeaturesInInterval(
-      geoJSON.features,
-      interval,
-    );
+    return featuresInInterval(features, interval);
+  }
+
+  initMapData = () => {
+    const map = this.getMap();
 
     map.addSource(HEATMAP_SOURCE_ID, {
       type: 'geojson',
-      data: featureCollection(featuresInInterval),
+      data: featureCollection(this.getFeaturesInInterval()),
     });
 
     map.addLayer(permanentLayer);
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
-    this.setState({
-      featuresInInterval,
-      interactiveLayerIds: [pointsLayer.id],
+    map.on('idle', this.setRenderedFeatures);
+
+    this.setState({ interactiveLayerIds: [pointsLayer.id] });
+  };
+
+  setRenderedFeatures = () => {
+    const map = this.getMap();
+
+    const features = map.queryRenderedFeatures({
+      layers: [PERMANENT_LAYER_ID],
     });
+
+    features &&
+      this.setState({
+        renderedFeatures: _uniqBy(features, 'properties.id'),
+      });
   };
 
   setMapData = features => {
     const map = this.getMap();
+    const source = map && map.getSource(HEATMAP_SOURCE_ID);
 
-    map &&
-      map.getSource(HEATMAP_SOURCE_ID).setData(featureCollection(features));
+    source && source.setData(featureCollection(features));
   };
-
-  setRenderedFeatures() {
-    const map = this.getMap();
-
-    map.on('idle', () => {
-      const features = map.queryRenderedFeatures({
-        layers: [PERMANENT_LAYER_ID],
-      });
-
-      features &&
-        this.setState({
-          renderedFeatures: _uniqBy(features, 'properties.id'),
-        });
-    });
-  }
 
   offset = offset => {
     const map = this.getMap();
@@ -189,7 +176,9 @@ class Map extends Component {
   onLoaded = () =>
     axios
       .get('/reports', { headers: { accept: 'application/json' } })
-      .then(({ data: geoJSON }) => this.setState({ geoJSON }, this.initMapData))
+      .then(({ data: { features } }) =>
+        this.setState({ features }, this.initMapData),
+      )
       .catch(error =>
         this.setState(({ viewport: { latitude, longitude } }) => ({
           popup: { text: 'Error while loading data 🐛', latitude, longitude },
@@ -228,18 +217,9 @@ class Map extends Component {
   onPopupClose = () => this.setState({ popup: null });
 
   onIntervalChange = interval => {
-    this.setState({ interval }, () => {
-      const { geoJSON, interval } = this.state;
-
-      if (geoJSON) {
-        const featuresInInterval = getFeaturesInInterval(
-          geoJSON.features,
-          interval,
-        );
-        this.setMapData(featuresInInterval);
-        this.setState({ featuresInInterval });
-      }
-    });
+    this.setState({ interval }, () =>
+      this.setMapData(this.getFeaturesInInterval()),
+    );
   };
 
   render() {
