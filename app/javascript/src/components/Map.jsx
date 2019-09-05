@@ -92,6 +92,7 @@ class Map extends Component {
     },
     interval: intervals[0],
     reports: null,
+    renderedFeatures: [],
     interactiveLayerIds: [],
     popup: null,
   };
@@ -202,6 +203,7 @@ class Map extends Component {
       viewport,
       settings,
       interactiveLayerIds,
+      renderedFeatures,
       popup,
       interval,
     } = this.state;
@@ -217,6 +219,7 @@ class Map extends Component {
             selectedInterval: interval,
             onIntervalChange: this.onIntervalChange,
           }}
+          chartProps={{ features: renderedFeatures }}
         />
 
         <MapGL
