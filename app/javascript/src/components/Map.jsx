@@ -6,6 +6,7 @@ import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
+import _isEqual from 'lodash/isEqual';
 
 import { withStyles } from '@material-ui/styles';
 
@@ -45,7 +46,7 @@ const intervalStartTime = ({ value, unit }) => {
   return date.getTime();
 };
 
-const featuresInInterval = (features, interval) => {
+const getFeaturesInInterval = (features, interval) => {
   const startTime = intervalStartTime(interval);
 
   return features.filter(({ properties: { updatedAt } }) => {
@@ -90,8 +91,9 @@ class Map extends Component {
       minPitch: 0,
       maxPitch: 85,
     },
+    geoJSON: null,
     interval: intervals[0],
-    reports: null,
+    featuresInInterval: [],
     renderedFeatures: [],
     interactiveLayerIds: [],
     popup: null,
@@ -109,20 +111,26 @@ class Map extends Component {
   };
 
   initMapData = () => {
-    const { reports, interval } = this.state;
+    const { geoJSON, interval } = this.state;
     const map = this.getMap();
 
-    const features = featuresInInterval(reports.features, interval);
+    const featuresInInterval = getFeaturesInInterval(
+      geoJSON.features,
+      interval,
+    );
 
     map.addSource(HEATMAP_SOURCE_ID, {
       type: 'geojson',
-      data: featureCollection(features),
+      data: featureCollection(featuresInInterval),
     });
 
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
-    this.setState({ interactiveLayerIds: [pointsLayer.id] });
+    this.setState({
+      featuresInInterval,
+      interactiveLayerIds: [pointsLayer.id],
+    });
   };
 
   setMapData = features => {
@@ -150,7 +158,7 @@ class Map extends Component {
   onLoaded = () =>
     axios
       .get('/reports', { headers: { accept: 'application/json' } })
-      .then(({ data: reports }) => this.setState({ reports }, this.initMapData))
+      .then(({ data: geoJSON }) => this.setState({ geoJSON }, this.initMapData))
       .catch(error =>
         this.setState(({ viewport: { latitude, longitude } }) => ({
           popup: { text: 'Error while loading data 🐛', latitude, longitude },
@@ -190,10 +198,16 @@ class Map extends Component {
 
   onIntervalChange = interval => {
     this.setState({ interval }, () => {
-      const { reports, interval } = this.state;
+      const { geoJSON, interval } = this.state;
 
-      reports &&
-        this.setMapData(featuresInInterval(reports.features, interval));
+      if (geoJSON) {
+        const featuresInInterval = getFeaturesInInterval(
+          geoJSON.features,
+          interval,
+        );
+        this.setMapData(featuresInInterval);
+        this.setState({ featuresInInterval });
+      }
     });
   };
 
