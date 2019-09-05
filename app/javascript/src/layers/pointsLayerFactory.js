@@ -15,9 +15,9 @@ export default (id, source) => {
         ['linear'],
         ['zoom'],
         MIN_ZOOM_LEVEL,
-        ['interpolate', ['linear'], ['get', 'level'], 0, 1, 2, 4],
+        4,
         16,
-        ['interpolate', ['linear'], ['get', 'level'], 0, 10, 2, 50],
+        30,
       ],
       // Color circle by report level
       'circle-color': [
