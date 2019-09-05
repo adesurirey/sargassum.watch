@@ -7,6 +7,7 @@ import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
 import _isEqual from 'lodash/isEqual';
+import _uniqBy from 'lodash/uniqBy';
 
 import { withStyles } from '@material-ui/styles';
 
@@ -108,6 +109,14 @@ class Map extends Component {
   mapRef = React.createRef();
   geocoderContainerRef = React.createRef();
 
+  componentDidUpdate(_, prevState) {
+    const { featuresInInterval } = this.state;
+
+    if (!_isEqual(featuresInInterval, prevState.featuresInInterval)) {
+      this.setRenderedFeatures();
+    }
+  }
+
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
@@ -146,6 +155,21 @@ class Map extends Component {
     map &&
       map.getSource(HEATMAP_SOURCE_ID).setData(featureCollection(features));
   };
+
+  setRenderedFeatures() {
+    const map = this.getMap();
+
+    map.on('idle', () => {
+      const features = map.queryRenderedFeatures({
+        layers: [PERMANENT_LAYER_ID],
+      });
+
+      features &&
+        this.setState({
+          renderedFeatures: _uniqBy(features, 'properties.id'),
+        });
+    });
+  }
 
   offset = offset => {
     const map = this.getMap();
