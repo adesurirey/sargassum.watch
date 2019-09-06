@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { arrayOf, shape, number, string, oneOf } from 'prop-types';
 import {
   ResponsiveContainer,
@@ -97,6 +97,19 @@ const Chart = ({ features, interval }) => {
   );
 };
 
-export default Chart;
+const featuresUnchanged = (
+  { features: prevFeatures },
+  { features: nextFeatures },
+) => {
+  if (prevFeatures.length > 0 && nextFeatures.length > 0) {
+    return prevFeatures[0].properties.id === nextFeatures[0].properties.id;
+  }
+
+  return prevFeatures.length === nextFeatures.length;
+};
+
+// New interval prop is received before new features prop,
+// don't update unless rendered features has change.
+export default memo(Chart, featuresUnchanged);
 
 Chart.propTypes = propTypes;
