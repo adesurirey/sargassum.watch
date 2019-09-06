@@ -35,9 +35,9 @@ const permanentLayer = permanentLayerFactory(
 const featureCollection = features => ({ type: 'FeatureCollection', features });
 
 const intervals = [
-  { id: 3, value: 7, unit: 'day' },
+  { id: 1, value: 7, unit: 'day' },
   { id: 2, value: 30, unit: 'day' },
-  { id: 1, value: 12, unit: 'month' },
+  { id: 3, value: 12, unit: 'month' },
 ];
 
 const intervalStartTime = ({ value, unit }) => {
@@ -244,7 +244,7 @@ class Map extends Component {
             selectedInterval: interval,
             onIntervalChange: this.onIntervalChange,
           }}
-          chartProps={{ features: renderedFeatures }}
+          chartProps={{ features: renderedFeatures, interval }}
         />
 
         <MapGL
