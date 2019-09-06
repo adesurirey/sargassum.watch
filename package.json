@@ -20,6 +20,7 @@
     "react-map-gl": "^5.0.10",
     "react-map-gl-geocoder": "^2.0.9",
     "react-timeago": "^4.4.0",
+    "recharts": "^1.7.1",
     "typeface-open-sans": "^0.0.75"
   },
   "scripts": {
