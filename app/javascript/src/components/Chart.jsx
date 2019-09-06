@@ -17,7 +17,7 @@ const propTypes = {
   features: arrayOf(
     shape({
       properties: shape({
-        level: number.isRequired,
+        humanLevel: string.isRequired,
         updatedAt: string.isRequired,
       }).isRequired,
     }),
@@ -62,7 +62,7 @@ const Chart = ({ features, interval }) => {
 
   const data = Object.entries(groupedFeatures).map(([date, features]) => ({
     name: date,
-    ..._countBy(features, 'properties.level'),
+    ..._countBy(features, 'properties.humanLevel'),
   }));
 
   return (
@@ -71,27 +71,16 @@ const Chart = ({ features, interval }) => {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="0"
-          stackId="1"
-          stroke={theme.palette.level.clear.main}
-          fill={theme.palette.level.clear.main}
-        />
-        <Area
-          type="monotone"
-          dataKey="1"
-          stackId="1"
-          stroke={theme.palette.level.moderate.main}
-          fill={theme.palette.level.moderate.main}
-        />
-        <Area
-          type="monotone"
-          dataKey="2"
-          stackId="1"
-          stroke={theme.palette.level.critical.main}
-          fill={theme.palette.level.critical.main}
-        />
+        {['clear', 'moderate', 'critical'].map(humanLevel => (
+          <Area
+            key={humanLevel}
+            type="monotone"
+            dataKey={humanLevel}
+            stackId="1"
+            stroke={theme.palette.level[humanLevel].main}
+            fill={theme.palette.level[humanLevel].main}
+          />
+        ))}
       </AreaChart>
     </ResponsiveContainer>
   );
