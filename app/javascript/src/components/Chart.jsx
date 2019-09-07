@@ -18,6 +18,8 @@ import _isEqualWith from 'lodash/isEqualWith';
 import { useTheme } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
+import { getIteratee } from '../utils/interval';
+
 const propTypes = {
   features: arrayOf(
     shape({
@@ -31,34 +33,6 @@ const propTypes = {
     unit: oneOf(['day', 'month']).isRequired,
     value: number.isRequired,
   }),
-};
-
-const getFeatureDate = feature => new Date(feature.properties.updatedAt);
-
-const getFirstDayOfMonth = feature => {
-  const updatedAt = getFeatureDate(feature);
-  const firstDay = new Date(updatedAt.getFullYear(), updatedAt.getMonth(), 1);
-
-  return firstDay.getTime();
-};
-
-const getFirstMinuteOfDay = feature => {
-  const updatedAt = getFeatureDate(feature);
-
-  const firstMinute = new Date(
-    updatedAt.getFullYear(),
-    updatedAt.getMonth(),
-    updatedAt.getDate(),
-  );
-
-  return firstMinute.getTime();
-};
-
-const getIteratee = interval => {
-  if (interval.unit === 'day') {
-    return getFirstMinuteOfDay;
-  }
-  return getFirstDayOfMonth;
 };
 
 const Chart = ({ features, interval }) => {
