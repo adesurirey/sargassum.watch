@@ -94,7 +94,7 @@ const Chart = ({ features, interval }) => {
   return (
     <Grid item xs={12}>
       <ResponsiveContainer height={200}>
-        <AreaChart data={data} margin={{ left: -4 }}>
+        <AreaChart data={data} margin={{ left: -4, top: 4 }}>
           {data.map(tick => (
             <ReferenceLine
               key={tick.time}
@@ -102,7 +102,7 @@ const Chart = ({ features, interval }) => {
               stroke={theme.palette.grey[200]}
             />
           ))}
-          <YAxis domain={[0, 'dataMax']} hide />
+          <YAxis domain={[0, 'dataMax + 1']} hide />
           <XAxis
             dataKey="time"
             type="number"
@@ -120,7 +120,7 @@ const Chart = ({ features, interval }) => {
           {['clear', 'moderate', 'critical'].map(humanLevel => (
             <Area
               key={humanLevel}
-              type="monotone"
+              type="linear"
               dataKey={humanLevel}
               stackId="1"
               stroke={theme.palette.level[humanLevel].main}
