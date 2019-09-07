@@ -24,33 +24,7 @@ import {
   permanentLayer,
 } from '../layers';
 import { featureCollection } from '../utils/geoJSON';
-
-const intervals = [
-  { id: 1, value: 7, unit: 'day' },
-  { id: 2, value: 30, unit: 'day' },
-  { id: 3, value: 12, unit: 'month' },
-];
-
-const intervalStartTime = ({ value, unit }) => {
-  const date = new Date();
-
-  if (unit === 'day') {
-    date.setDate(date.getDate() - value);
-  } else if (unit === 'month') {
-    date.setMonth(date.getMonth() - value);
-  }
-
-  return date.getTime();
-};
-
-const featuresInInterval = (features, interval) => {
-  const startTime = intervalStartTime(interval);
-
-  return features.filter(({ properties: { updatedAt } }) => {
-    const featureDate = new Date(updatedAt);
-    return featureDate.getTime() >= startTime;
-  });
-};
+import { intervals, featuresInInterval } from '../utils/interval';
 
 const propTypes = {
   classes: object.isRequired,
