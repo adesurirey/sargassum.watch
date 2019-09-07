@@ -10,6 +10,10 @@ import _uniqBy from 'lodash/uniqBy';
 
 import { withStyles } from '@material-ui/styles';
 
+import GeocoderContainer from './GeocoderContainer';
+import Controls from './Controls';
+import SmartPopup from './SmartPopup';
+import ZoomControl from './ZoomControl';
 import {
   SOURCE_ID,
   POINTS_LAYER_ID,
@@ -19,12 +23,7 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
-import GeocoderContainer from './GeocoderContainer';
-import Controls from './Controls';
-import SmartPopup from './SmartPopup';
-import ZoomControl from './ZoomControl';
-
-const featureCollection = features => ({ type: 'FeatureCollection', features });
+import { featureCollection } from '../utils/geoJSON';
 
 const intervals = [
   { id: 1, value: 7, unit: 'day' },
