@@ -91,9 +91,19 @@ const Chart = ({ features, interval }) => {
           dataKey="time"
           type="number"
           domain={['dataMin', today.getTime()]}
+          interval="preserveStartEnd"
+          tickCount={3}
           tickFormatter={timeFormatter}
+          tickLine={false}
         />
-        <YAxis />
+        <YAxis
+          domain={[0, 'dataMax']}
+          interval="preserveEnd"
+          tickCount={3}
+          tickLine={false}
+          orientation="right"
+        />
+        />
         <Tooltip labelFormatter={timeFormatter} />
         {['clear', 'moderate', 'critical'].map(humanLevel => (
           <Area
