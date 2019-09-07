@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { node, func } from 'prop-types';
+import { node, func, object } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
 import { SwipeableDrawer, Grid } from '@material-ui/core';
@@ -32,9 +32,10 @@ const useStyles = makeStyles(theme => ({
 const propTypes = {
   children: node.isRequired,
   offsetMap: func.isRequired,
+  chartProps: object.isRequired,
 };
 
-const BottomDrawer = ({ children, offsetMap }) => {
+const BottomDrawer = ({ children, offsetMap, chartProps }) => {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
 
@@ -50,7 +51,7 @@ const BottomDrawer = ({ children, offsetMap }) => {
 
   return (
     <>
-      <BottomDrawerToggler onOpen={onOpen} />
+      <BottomDrawerToggler onOpen={onOpen} chartProps={chartProps} />
 
       <SwipeableDrawer
         classes={{

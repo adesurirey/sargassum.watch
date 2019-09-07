@@ -1,5 +1,5 @@
 import React from 'react';
-import { node, shape, func } from 'prop-types';
+import { node, shape, object, func } from 'prop-types';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import BottomDrawer from './BottomDrawer';
 const propTypes = {
   children: node.isRequired,
   bottomDrawerProps: shape({
+    chartProps: object.isRequired,
     offsetMap: func.isRequired,
   }).isRequired,
 };
