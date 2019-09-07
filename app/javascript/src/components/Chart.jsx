@@ -4,6 +4,7 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
+  ReferenceLine,
   XAxis,
   YAxis,
   Tooltip,
@@ -13,6 +14,7 @@ import _countBy from 'lodash/countBy';
 import _sortBy from 'lodash/sortBy';
 
 import { useTheme } from '@material-ui/styles';
+import { Grid } from '@material-ui/core';
 
 const propTypes = {
   features: arrayOf(
@@ -63,60 +65,70 @@ const Chart = ({ features, interval }) => {
   const iteratee = getIteratee(interval);
   const groupedFeatures = _groupBy(features, iteratee);
 
-  const data = Object.entries(groupedFeatures).map(([time, features]) => ({
+  let data = Object.entries(groupedFeatures).map(([time, features]) => ({
     time,
+    clear: 0,
+    moderate: 0,
+    critical: 0,
     ..._countBy(features, 'properties.humanLevel'),
   }));
 
-  const chronologicalData = _sortBy(data, 'time');
+  data = _sortBy(data, 'time');
 
   const today = new Date();
 
   const timeFormatter = time => {
     const date = new Date(parseInt(time));
+    const options = { month: 'short' };
 
     if (interval.unit === 'month') {
-      return date.toLocaleDateString('default', { month: 'short' });
+      options.year = '2-digit';
+    } else {
+      options.day = 'numeric';
     }
-    return date.toLocaleDateString('default', {
-      day: 'numeric',
-      month: 'short',
-    });
+
+    return date.toLocaleDateString('default', options);
   };
 
   return (
-    <ResponsiveContainer height={200}>
-      <AreaChart data={chronologicalData}>
-        <XAxis
-          dataKey="time"
-          type="number"
-          domain={['dataMin', today.getTime()]}
-          interval="preserveStartEnd"
-          tickCount={3}
-          tickFormatter={timeFormatter}
-          tickLine={false}
-        />
-        <YAxis
-          domain={[0, 'dataMax']}
-          interval="preserveEnd"
-          tickCount={3}
-          tickLine={false}
-          orientation="right"
-        />
-        />
-        <Tooltip labelFormatter={timeFormatter} />
-        {['clear', 'moderate', 'critical'].map(humanLevel => (
-          <Area
-            key={humanLevel}
-            type="monotone"
-            dataKey={humanLevel}
-            stackId="1"
-            stroke={theme.palette.level[humanLevel].main}
-            fill={theme.palette.level[humanLevel].main}
+    <Grid item xs={12}>
+      <ResponsiveContainer height={200}>
+        <AreaChart data={data}>
+          {data.map(tick => (
+            <ReferenceLine
+              key={tick.time}
+              x={tick.time}
+              stroke={theme.palette.grey[200]}
+            />
+          ))}
+          <YAxis domain={[0, 'dataMax']} hide />
+          <XAxis
+            dataKey="time"
+            type="number"
+            domain={['dataMin', today.getTime()]}
+            interval="preserveStartEnd"
+            tickCount={3}
+            tickLine={false}
+            tickFormatter={timeFormatter}
+            axisLine={{ stroke: theme.palette.grey[200] }}
           />
-        ))}
-      </AreaChart>
-    </ResponsiveContainer>
+          <Tooltip
+            labelFormatter={timeFormatter}
+            cursor={{ stroke: theme.palette.grey[400] }}
+          />
+          {['clear', 'moderate', 'critical'].map(humanLevel => (
+            <Area
+              key={humanLevel}
+              type="monotone"
+              dataKey={humanLevel}
+              stackId="1"
+              stroke={theme.palette.level[humanLevel].main}
+              fill={theme.palette.level[humanLevel].main}
+            />
+          ))}
+        </AreaChart>
+      </ResponsiveContainer>
+    </Grid>
   );
 };
 
