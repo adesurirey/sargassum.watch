@@ -1,47 +1,36 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, object } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
 import { Drawer, ButtonBase, Grid, Typography } from '@material-ui/core';
-import { ExpandLess } from '@material-ui/icons';
+
+import Chart from './Chart';
 
 const propTypes = {
   onOpen: func.isRequired,
+  chartProps: object.isRequired,
 };
 
-const height = 40;
-
 const useStyles = makeStyles(theme => ({
-  root: {
-    height,
-  },
   paper: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    padding: theme.spacing(1),
     border: 0,
   },
 }));
 
-const BottomDrawerToggler = ({ onOpen }) => {
+const BottomDrawerToggler = ({ onOpen, chartProps }) => {
   const classes = useStyles();
 
   return (
-    <Drawer
-      className={classes.root}
-      PaperProps={{ elevation: 16 }}
-      variant="permanent"
-      anchor="bottom"
-    >
+    <Drawer PaperProps={{ elevation: 16 }} variant="permanent" anchor="bottom">
       <ButtonBase className={classes.paper} disableTouchRipple onClick={onOpen}>
         <Grid container spacing={2}>
-          <Grid item>
-            <ExpandLess color="action" fontSize="small" />
+          <Grid item xs={2} sm={1}>
+            <Chart tiny height={20} {...chartProps} />
           </Grid>
           <Grid item>
             <Typography color="textSecondary" variant="caption" noWrap>
-              Press to display filters
+              Tap to see evolution over time
             </Typography>
           </Grid>
         </Grid>

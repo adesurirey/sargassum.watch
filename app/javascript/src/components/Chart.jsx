@@ -1,23 +1,12 @@
 import React, { memo } from 'react';
-import { arrayOf, shape, number, string, oneOf } from 'prop-types';
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  ReferenceLine,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-} from 'recharts';
+import { arrayOf, shape, number, string, oneOf, bool } from 'prop-types';
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
 import _sortBy from 'lodash/sortBy';
 import _isEqualWith from 'lodash/isEqualWith';
 
-import { useTheme } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
-
+import TinyChart from './TinyChart';
+import BigChart from './BigChart';
 import { getIteratee } from '../utils/interval';
 
 const propTypes = {
@@ -33,11 +22,14 @@ const propTypes = {
     unit: oneOf(['day', 'month']).isRequired,
     value: number.isRequired,
   }),
+  tiny: bool.isRequired,
 };
 
-const Chart = ({ features, interval }) => {
-  const theme = useTheme();
+const defaultProps = {
+  tiny: false,
+};
 
+const Chart = ({ features, interval, tiny, ...containerProps }) => {
   const iteratee = getIteratee(interval);
   const groupedFeatures = _groupBy(features, iteratee);
 
@@ -51,62 +43,11 @@ const Chart = ({ features, interval }) => {
 
   data = _sortBy(data, 'time');
 
-  const today = new Date();
+  if (tiny) {
+    return <TinyChart data={data} {...containerProps} />;
+  }
 
-  const timeFormatter = time => {
-    const date = new Date(parseInt(time));
-    const options = { month: 'short' };
-
-    if (interval.unit === 'month') {
-      options.year = '2-digit';
-    } else {
-      options.day = 'numeric';
-    }
-
-    return date.toLocaleDateString('default', options);
-  };
-
-  return (
-    <Grid item xs={12}>
-      <ResponsiveContainer height={160}>
-        <AreaChart data={data} margin={{ left: -4, top: 4 }}>
-          {data.map(tick => (
-            <ReferenceLine
-              key={tick.time}
-              x={tick.time}
-              stroke={theme.palette.grey[200]}
-            />
-          ))}
-          <YAxis domain={[0, 'dataMax + 1']} hide />
-          <XAxis
-            dataKey="time"
-            type="number"
-            domain={['dataMin', today.getTime()]}
-            interval="preserveStartEnd"
-            tickCount={3}
-            tickLine={false}
-            tickFormatter={timeFormatter}
-            axisLine={{ stroke: theme.palette.grey[200] }}
-          />
-          <Tooltip
-            labelFormatter={timeFormatter}
-            cursor={{ stroke: theme.palette.grey[400] }}
-          />
-          <Legend iconType="circle" />
-          {['clear', 'moderate', 'critical'].map(humanLevel => (
-            <Area
-              key={humanLevel}
-              type="linear"
-              dataKey={humanLevel}
-              stackId="1"
-              stroke={theme.palette.level[humanLevel].main}
-              fill={theme.palette.level[humanLevel].main}
-            />
-          ))}
-        </AreaChart>
-      </ResponsiveContainer>
-    </Grid>
-  );
+  return <BigChart data={data} interval={interval} {...containerProps} />;
 };
 
 const featuresUnchanged = (
@@ -125,3 +66,4 @@ const featuresUnchanged = (
 export default memo(Chart, featuresUnchanged);
 
 Chart.propTypes = propTypes;
+Chart.defaultProps = defaultProps;
