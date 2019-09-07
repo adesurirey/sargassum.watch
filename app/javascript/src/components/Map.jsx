@@ -10,27 +10,19 @@ import _uniqBy from 'lodash/uniqBy';
 
 import { withStyles } from '@material-ui/styles';
 
+import {
+  SOURCE_ID,
+  POINTS_LAYER_ID,
+  PERMANENT_LAYER_ID,
+  INSERT_BEFORE_LAYER_ID,
+  heatmapLayer,
+  pointsLayer,
+  permanentLayer,
+} from '../layers';
 import GeocoderContainer from './GeocoderContainer';
 import Controls from './Controls';
 import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
-import heatmapLayerFactory from '../layers/heatmapLayerFactory';
-import pointsLayerFactory from '../layers/pointsLayerFactory';
-import permanentLayerFactory from '../layers/permanentLayerFactory';
-
-const HEATMAP_LAYER_ID = 'reports-heatmap';
-const POINTS_LAYER_ID = 'reports-points';
-const PERMANENT_LAYER_ID = 'reports-permanent';
-
-const HEATMAP_SOURCE_ID = 'reports-source';
-const INSERT_BEFORE_LAYER_ID = 'waterway-label';
-
-const heatmapLayer = heatmapLayerFactory(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
-const pointsLayer = pointsLayerFactory(POINTS_LAYER_ID, HEATMAP_SOURCE_ID);
-const permanentLayer = permanentLayerFactory(
-  PERMANENT_LAYER_ID,
-  HEATMAP_SOURCE_ID,
-);
 
 const featureCollection = features => ({ type: 'FeatureCollection', features });
 
@@ -124,7 +116,7 @@ class Map extends Component {
   initMapData = () => {
     const map = this.getMap();
 
-    map.addSource(HEATMAP_SOURCE_ID, {
+    map.addSource(SOURCE_ID, {
       type: 'geojson',
       data: featureCollection(this.getFeaturesInInterval()),
     });
@@ -153,7 +145,7 @@ class Map extends Component {
 
   setMapData = features => {
     const map = this.getMap();
-    const source = map && map.getSource(HEATMAP_SOURCE_ID);
+    const source = map && map.getSource(SOURCE_ID);
 
     source && source.setData(featureCollection(features));
   };
