@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
+import _sortBy from 'lodash/sortBy';
 
 import { useTheme } from '@material-ui/styles';
 
@@ -28,30 +29,32 @@ const propTypes = {
   }),
 };
 
-const updatedAt = feature => new Date(feature.properties.updatedAt);
+const getFeatureDate = feature => new Date(feature.properties.updatedAt);
 
-const getMonth = feature => {
-  return updatedAt(feature).getMonth() + 1;
+const getFirstDayOfMonth = feature => {
+  const updatedAt = getFeatureDate(feature);
+  const firstDay = new Date(updatedAt.getFullYear(), updatedAt.getMonth(), 1);
+
+  return firstDay.getTime();
 };
 
-const getDate = feature => {
-  return updatedAt(feature).getDate();
-};
+const getFirstMinuteOfDay = feature => {
+  const updatedAt = getFeatureDate(feature);
 
-const getDay = feature => {
-  return updatedAt(feature).getDay();
+  const firstMinute = new Date(
+    updatedAt.getFullYear(),
+    updatedAt.getMonth(),
+    updatedAt.getDate(),
+  );
+
+  return firstMinute.getTime();
 };
 
 const getIteratee = interval => {
-  const { unit, value } = interval;
-
-  if (unit === 'day' && value === 7) {
-    return getDay;
-  } else if (unit === 'day' && value === 30) {
-    return getDate;
-  } else if (unit === 'month') {
-    return getMonth;
+  if (interval.unit === 'day') {
+    return getFirstMinuteOfDay;
   }
+  return getFirstDayOfMonth;
 };
 
 const Chart = ({ features, interval }) => {
@@ -60,17 +63,38 @@ const Chart = ({ features, interval }) => {
   const iteratee = getIteratee(interval);
   const groupedFeatures = _groupBy(features, iteratee);
 
-  const data = Object.entries(groupedFeatures).map(([date, features]) => ({
-    name: date,
+  const data = Object.entries(groupedFeatures).map(([time, features]) => ({
+    time,
     ..._countBy(features, 'properties.humanLevel'),
   }));
 
+  const chronologicalData = _sortBy(data, 'time');
+
+  const today = new Date();
+
+  const timeFormatter = time => {
+    const date = new Date(parseInt(time));
+
+    if (interval.unit === 'month') {
+      return date.toLocaleDateString('default', { month: 'short' });
+    }
+    return date.toLocaleDateString('default', {
+      day: 'numeric',
+      month: 'short',
+    });
+  };
+
   return (
     <ResponsiveContainer height={200}>
-      <AreaChart data={data}>
-        <XAxis dataKey="name" />
+      <AreaChart data={chronologicalData}>
+        <XAxis
+          dataKey="time"
+          type="number"
+          domain={['dataMin', today.getTime()]}
+          tickFormatter={timeFormatter}
+        />
         <YAxis />
-        <Tooltip />
+        <Tooltip labelFormatter={timeFormatter} />
         {['clear', 'moderate', 'critical'].map(humanLevel => (
           <Area
             key={humanLevel}
