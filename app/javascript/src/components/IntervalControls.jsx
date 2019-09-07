@@ -25,9 +25,9 @@ const IntervalControls = ({
       {intervals.map(interval => (
         <Grid item key={interval.id}>
           <IntervalControl
-            {...interval}
+            interval={interval}
             active={selectedInterval.id === interval.id}
-            onClick={() => onIntervalChange(interval)}
+            onClick={onIntervalChange}
           />
         </Grid>
       ))}
