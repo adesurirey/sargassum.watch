@@ -94,7 +94,7 @@ const Chart = ({ features, interval }) => {
   return (
     <Grid item xs={12}>
       <ResponsiveContainer height={200}>
-        <AreaChart data={data}>
+        <AreaChart data={data} margin={{ left: -4 }}>
           {data.map(tick => (
             <ReferenceLine
               key={tick.time}
