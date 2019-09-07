@@ -52,3 +52,6 @@ export const featuresInInterval = (features, interval) => {
     return featureDate.getTime() >= startTime;
   });
 };
+
+export const toString = ({ value, unit }) =>
+  `${value} ${unit}${value > 1 && 's'}`;
