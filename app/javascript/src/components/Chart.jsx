@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
 } from 'recharts';
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
@@ -93,7 +94,7 @@ const Chart = ({ features, interval }) => {
 
   return (
     <Grid item xs={12}>
-      <ResponsiveContainer height={200}>
+      <ResponsiveContainer height={160}>
         <AreaChart data={data} margin={{ left: -4, top: 4 }}>
           {data.map(tick => (
             <ReferenceLine
@@ -117,6 +118,7 @@ const Chart = ({ features, interval }) => {
             labelFormatter={timeFormatter}
             cursor={{ stroke: theme.palette.grey[400] }}
           />
+          <Legend iconType="circle" />
           {['clear', 'moderate', 'critical'].map(humanLevel => (
             <Area
               key={humanLevel}
