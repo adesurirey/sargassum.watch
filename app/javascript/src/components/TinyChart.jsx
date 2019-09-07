@@ -3,6 +3,7 @@ import { arrayOf, shape, number, string } from 'prop-types';
 import { ResponsiveContainer, AreaChart, Area, YAxis } from 'recharts';
 
 import { useTheme } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 
 const propTypes = {
   data: arrayOf(
@@ -15,8 +16,22 @@ const propTypes = {
   ).isRequired,
 };
 
+const useStyles = makeStyles(theme => ({
+  placeholder: {
+    height: '100%',
+    borderBottomStyle: 'solid',
+    borderBottomWidth: 1,
+    borderBottomColor: theme.palette.grey[300],
+  },
+}));
+
 const TinyChart = ({ data, ...containerProps }) => {
   const theme = useTheme();
+  const classes = useStyles();
+
+  if (!data.length) {
+    return <div className={classes.placeholder} {...containerProps} />;
+  }
 
   return (
     <ResponsiveContainer {...containerProps}>
