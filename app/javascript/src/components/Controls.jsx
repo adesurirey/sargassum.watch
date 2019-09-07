@@ -16,7 +16,7 @@ const Controls = ({
   chartProps,
   ...bottomDrawerProps
 }) => (
-  <ResponsiveDrawer bottomDrawerProps={bottomDrawerProps}>
+  <ResponsiveDrawer bottomDrawerProps={{ chartProps, ...bottomDrawerProps }}>
     <ControlsPanel title="Sargassum monitoring">
       <IntervalControls {...intervalControlsProps} />
       <Chart {...chartProps} />
