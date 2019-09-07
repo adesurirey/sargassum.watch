@@ -12,6 +12,7 @@ import {
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
 import _sortBy from 'lodash/sortBy';
+import _isEqualWith from 'lodash/isEqualWith';
 
 import { useTheme } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
@@ -137,7 +138,7 @@ const featuresUnchanged = (
   { features: nextFeatures },
 ) => {
   if (prevFeatures.length > 0 && nextFeatures.length > 0) {
-    return prevFeatures[0].properties.id === nextFeatures[0].properties.id;
+    return _isEqualWith(prevFeatures, nextFeatures, 'properties.id');
   }
 
   return prevFeatures.length === nextFeatures.length;
