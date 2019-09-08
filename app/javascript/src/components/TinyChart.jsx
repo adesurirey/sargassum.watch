@@ -30,7 +30,12 @@ const TinyChart = ({ data, ...containerProps }) => {
   const classes = useStyles();
 
   if (!data.length) {
-    return <div className={classes.placeholder} {...containerProps} />;
+    return (
+      <div
+        className={classes.placeholder}
+        style={{ height: containerProps.height }}
+      />
+    );
   }
 
   return (
