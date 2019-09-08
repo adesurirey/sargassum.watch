@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { Component, Suspense, lazy } from 'react';
+import React, { PureComponent, Suspense, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
@@ -43,7 +43,7 @@ const styles = theme => ({
   },
 });
 
-class Map extends Component {
+class Map extends PureComponent {
   state = {
     viewport: {
       latitude: 20.827873989993776,
