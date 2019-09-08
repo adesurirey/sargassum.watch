@@ -18,9 +18,11 @@ const propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    border: 0,
+  },
   paper: {
     padding: theme.spacing(1),
-    border: 0,
   },
 }));
 
@@ -30,7 +32,12 @@ const BottomDrawerToggler = ({ onOpen, chartProps: { interval, ...rest } }) => {
   const text = `Last ${toString(interval)} reported sargassum`;
 
   return (
-    <Drawer PaperProps={{ elevation: 16 }} variant="permanent" anchor="bottom">
+    <Drawer
+      classes={{ paper: classes.root }}
+      PaperProps={{ elevation: 16 }}
+      variant="permanent"
+      anchor="bottom"
+    >
       <ButtonBase className={classes.paper} disableTouchRipple onClick={onOpen}>
         <Grid container spacing={2}>
           <Grid item xs={2} sm={1}>
