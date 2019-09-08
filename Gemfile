@@ -22,6 +22,7 @@ gem "sidekiq"
 gem "sidekiq-failures", "~> 1.0"
 
 # Frontend
+gem "autoprefixer-rails"
 gem "jbuilder", "~> 2.7"
 gem "sass-rails", "~> 5"
 gem "webpacker", "~> 4.0"
