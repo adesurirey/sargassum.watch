@@ -146,7 +146,12 @@ class Map extends Component {
       )
       .catch(error =>
         this.setState(({ viewport: { latitude, longitude } }) => ({
-          popup: { text: 'Error while loading data 🐛', latitude, longitude },
+          popup: {
+            title: '🐛',
+            text: 'Oops… something wrong happened',
+            latitude,
+            longitude,
+          },
         })),
       );
 
@@ -162,7 +167,7 @@ class Map extends Component {
 
     const { popup } = this.state;
 
-    if (popup) {
+    if (popup && popup.variant === 'point') {
       this.setState({ popup: null });
     }
 

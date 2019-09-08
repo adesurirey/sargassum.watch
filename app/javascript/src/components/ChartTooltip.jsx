@@ -1,11 +1,10 @@
 import React from 'react';
 import { bool, string, arrayOf, shape, number, oneOf } from 'prop-types';
-import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
+import Tooltip from './Tooltip';
 import SmartTimeAgo from './SmartTimeAgo';
 import LegendPoint from './LegendPoint';
 
@@ -30,20 +29,7 @@ const defaultProps = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: fade(theme.palette.common.white, 0.9),
-  },
-  content: {
     width: 140,
-    padding: theme.spacing(1),
-    '&:last-child': {
-      paddingBottom: theme.spacing(1),
-    },
-  },
-  header: {
-    background: fade(
-      theme.palette.text.primary,
-      theme.palette.action.hoverOpacity,
-    ),
   },
   point: {
     marginRight: theme.spacing(1),
@@ -62,39 +48,33 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
   const data = payload.reverse();
 
   return (
-    <Card className={classes.root}>
-      <CardContent className={clsx(classes.content, classes.header)}>
-        <SmartTimeAgo
-          variant="h3"
-          date={parseInt(label)}
-          dateOptions={dateOptions}
-        />
-      </CardContent>
-      <CardContent className={classes.content}>
-        {data.map(({ dataKey, value }) => (
-          <Grid
-            key={dataKey}
-            container
-            justify="space-between"
-            alignItems="center"
-          >
-            <Grid item>
-              <Grid container alignItems="center">
-                <LegendPoint
-                  humanLevel={dataKey}
-                  className={classes.point}
-                  size="inherit"
-                />
-                <Typography variant="caption">{dataKey}</Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="caption">{value}</Typography>
+    <Tooltip
+      className={classes.root}
+      title={<SmartTimeAgo date={parseInt(label)} dateOptions={dateOptions} />}
+    >
+      {data.map(({ dataKey, value }) => (
+        <Grid
+          key={dataKey}
+          container
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            <Grid container alignItems="center">
+              <LegendPoint
+                humanLevel={dataKey}
+                className={classes.point}
+                size="inherit"
+              />
+              <Typography variant="caption">{dataKey}</Typography>
             </Grid>
           </Grid>
-        ))}
-      </CardContent>
-    </Card>
+          <Grid item>
+            <Typography variant="caption">{value}</Typography>
+          </Grid>
+        </Grid>
+      ))}
+    </Tooltip>
   );
 };
 

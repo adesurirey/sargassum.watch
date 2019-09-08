@@ -6,11 +6,13 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid } from '@material-ui/core';
 import { AccessTime } from '@material-ui/icons';
 
-import PopupContainer from './PopupContainer';
-import LegendPoint from './LegendPoint';
+import Tooltip from './Tooltip';
 import SmartTimeAgo from './SmartTimeAgo';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    width: 160,
+  },
   gutterBottom: {
     marginBottom: '0.35em',
   },
@@ -21,34 +23,26 @@ const useStyles = makeStyles(theme => ({
 
 const propTypes = {
   name: string.isRequired,
-  humanLevel: string.isRequired,
   updatedAt: string.isRequired,
 };
 
-const PointPopup = ({ name, updatedAt, humanLevel, ...popupProps }) => {
+const PointPopup = ({ name, updatedAt, ...popupProps }) => {
   const classes = useStyles();
 
   return (
-    <Popup {...popupProps}>
-      <PopupContainer>
-        <Typography variant="h3" gutterBottom>
-          {name}
-        </Typography>
-
-        <Grid container alignItems="center" className={classes.gutterBottom}>
-          <LegendPoint humanLevel={humanLevel} className={classes.icon} />
-          <Typography variant="caption">{humanLevel}</Typography>
-        </Grid>
-
+    <Popup {...popupProps} closeButton={false} closeOnClick>
+      <Tooltip className={classes.root} title={name}>
         <Grid container alignItems="center">
           <AccessTime
             className={classes.icon}
             fontSize="small"
             color="disabled"
           />
-          <SmartTimeAgo date={updatedAt} />
+          <Typography variant="caption">
+            <SmartTimeAgo date={updatedAt} />
+          </Typography>
         </Grid>
-      </PopupContainer>
+      </Tooltip>
     </Popup>
   );
 };

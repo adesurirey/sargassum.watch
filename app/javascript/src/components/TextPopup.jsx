@@ -4,20 +4,27 @@ import { Popup } from 'react-map-gl';
 
 import { Typography } from '@material-ui/core';
 
-import PopupContainer from './PopupContainer';
+import Tooltip from './Tooltip';
 
 const propTypes = {
   text: string.isRequired,
+  title: string,
 };
 
-const TextPopup = ({ text, ...popupProps }) => (
-  <Popup {...popupProps}>
-    <PopupContainer>
-      <Typography>{text}</Typography>
-    </PopupContainer>
+const defaultProps = {
+  text: string.isRequired,
+  title: null,
+};
+
+const TextPopup = ({ title, text, ...popupProps }) => (
+  <Popup {...popupProps} closeButton={false} closeOnClick={false}>
+    <Tooltip title={title}>
+      <Typography variant="caption">{text}</Typography>
+    </Tooltip>
   </Popup>
 );
 
 export default TextPopup;
 
 TextPopup.propTypes = propTypes;
+TextPopup.defaultProps = defaultProps;
