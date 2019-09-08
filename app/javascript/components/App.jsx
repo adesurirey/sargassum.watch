@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 
 import withTheme from '../styles/withTheme';
-import Map from './Map';
+import Spinner from './Spinner';
 
-const App = () => <Map />;
+const Map = lazy(() => import('./Map'));
+
+const App = () => (
+  <Suspense fallback={<Spinner fullscreen />}>
+    <Map />
+  </Suspense>
+);
 
 export default withTheme(App);
