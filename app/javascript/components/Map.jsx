@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
@@ -10,10 +10,6 @@ import _uniqBy from 'lodash/uniqBy';
 
 import { withStyles } from '@material-ui/styles';
 
-import GeocoderContainer from './GeocoderContainer';
-import Controls from './Controls';
-import SmartPopup from './SmartPopup';
-import ZoomControl from './ZoomControl';
 import {
   SOURCE_ID,
   POINTS_LAYER_ID,
@@ -25,6 +21,11 @@ import {
 } from '../layers';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
+import Controls from './Controls';
+import SmartPopup from './SmartPopup';
+import ZoomControl from './ZoomControl';
+
+const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 
 const propTypes = {
   classes: object.isRequired,
@@ -211,7 +212,9 @@ class Map extends Component {
 
     return (
       <div className={classes.root}>
-        <GeocoderContainer forwardRef={this.geocoderContainerRef} />
+        <Suspense>
+          <GeocoderContainer forwardRef={this.geocoderContainerRef} />
+        </Suspense>
 
         <Controls
           offsetMap={this.offset}
