@@ -213,7 +213,7 @@ class Map extends Component {
     return (
       <div className={classes.root}>
         <Suspense>
-          <GeocoderContainer forwardRef={this.geocoderContainerRef} />
+          <GeocoderContainer ref={this.geocoderContainerRef} />
         </Suspense>
 
         <Controls
