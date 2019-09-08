@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { arrayOf, shape, number, string, oneOf, bool } from 'prop-types';
+import { arrayOf, shape, string, bool } from 'prop-types';
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
 import _sortBy from 'lodash/sortBy';
@@ -8,6 +8,7 @@ import _isEqualWith from 'lodash/isEqualWith';
 import TinyChart from './TinyChart';
 import BigChart from './BigChart';
 import { getIteratee } from '../utils/interval';
+import { interval } from '../utils/propTypes';
 
 const propTypes = {
   features: arrayOf(
@@ -18,10 +19,7 @@ const propTypes = {
       }).isRequired,
     }),
   ).isRequired,
-  interval: shape({
-    unit: oneOf(['day', 'month']).isRequired,
-    value: number.isRequired,
-  }),
+  interval,
   tiny: bool.isRequired,
 };
 
