@@ -1,4 +1,4 @@
-import theme from '../theme';
+import theme from '../styles/theme';
 
 export default (id, source) => {
   const MIN_ZOOM_LEVEL = 7;

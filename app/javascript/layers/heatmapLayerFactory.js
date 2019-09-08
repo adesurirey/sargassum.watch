@@ -1,4 +1,4 @@
-import theme from '../theme';
+import theme from '../styles/theme';
 
 export default (id, source) => {
   const MAX_ZOOM_LEVEL = 9;
