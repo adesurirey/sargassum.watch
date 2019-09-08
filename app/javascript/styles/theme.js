@@ -1,3 +1,4 @@
+import 'typeface-open-sans';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const fontFamily = '"Open Sans", "Helvetica", "Arial", sans-serif';

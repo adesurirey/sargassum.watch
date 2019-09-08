@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'map', media: 'all' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <%= Gon::Base.render_data %>
@@ -16,7 +16,6 @@
   <body>
     <%= yield %>
 
-    <%= javascript_pack_tag 'application' %>
-    <%= javascript_pack_tag 'src' %>
+    <%= javascript_pack_tag 'map' %>
   </body>
 </html>

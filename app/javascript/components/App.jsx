@@ -1,8 +1,6 @@
-import 'typeface-open-sans';
-
 import React from 'react';
 
-import withTheme from '../withTheme';
+import withTheme from '../styles/withTheme';
 import Map from './Map';
 
 const App = () => <Map />;
