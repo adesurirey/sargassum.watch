@@ -1,5 +1,4 @@
 import React from 'react';
-import { arrayOf, shape, number, string, oneOf } from 'prop-types';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -15,20 +14,11 @@ import { useTheme } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
 import ChartTooltip from './ChartTooltip';
+import { data, interval } from '../utils/propTypes';
 
 const propTypes = {
-  data: arrayOf(
-    shape({
-      time: string.isRequired,
-      clear: number.isRequired,
-      moderate: number.isRequired,
-      critical: number.isRequired,
-    }),
-  ).isRequired,
-  interval: shape({
-    unit: oneOf(['day', 'month']).isRequired,
-    value: number.isRequired,
-  }),
+  data,
+  interval,
 };
 
 const BigChart = ({ data, interval }) => {

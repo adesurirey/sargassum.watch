@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, func, number, oneOf, bool } from 'prop-types';
+import { func, bool } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -7,12 +7,10 @@ import { Button } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 import { toString } from '../utils/interval';
+import { interval } from '../utils/propTypes';
 
 const propTypes = {
-  interval: shape({
-    value: number.isRequired,
-    unit: oneOf(['day', 'month']).isRequired,
-  }).isRequired,
+  interval,
   active: bool,
   onClick: func.isRequired,
 };

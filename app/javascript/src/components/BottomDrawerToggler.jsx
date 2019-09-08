@@ -1,20 +1,16 @@
 import React from 'react';
-import { func, shape, oneOf, number } from 'prop-types';
+import { func, shape } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
 import { Drawer, ButtonBase, Grid, Typography } from '@material-ui/core';
 
 import Chart from './Chart';
 import { toString } from '../utils/interval';
+import { interval } from '../utils/propTypes';
 
 const propTypes = {
   onOpen: func.isRequired,
-  chartProps: shape({
-    interval: shape({
-      unit: oneOf(['day', 'month']).isRequired,
-      value: number.isRequired,
-    }).isRequired,
-  }).isRequired,
+  chartProps: shape({ interval }).isRequired,
 };
 
 const useStyles = makeStyles(theme => ({

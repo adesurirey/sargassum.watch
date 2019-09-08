@@ -1,19 +1,13 @@
 import React from 'react';
-import { arrayOf, shape, number, string } from 'prop-types';
 import { ResponsiveContainer, AreaChart, Area, YAxis } from 'recharts';
 
 import { useTheme } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/styles';
 
+import { data } from '../utils/propTypes';
+
 const propTypes = {
-  data: arrayOf(
-    shape({
-      time: string.isRequired,
-      clear: number.isRequired,
-      moderate: number.isRequired,
-      critical: number.isRequired,
-    }),
-  ).isRequired,
+  data,
 };
 
 const useStyles = makeStyles(theme => ({
