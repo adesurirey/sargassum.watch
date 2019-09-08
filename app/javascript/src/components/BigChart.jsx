@@ -14,6 +14,8 @@ import {
 import { useTheme } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
+import ChartTooltip from './ChartTooltip';
+
 const propTypes = {
   data: arrayOf(
     shape({
@@ -34,7 +36,7 @@ const BigChart = ({ data, interval }) => {
 
   const today = new Date();
 
-  const timeFormatter = time => {
+  const tickFormatter = time => {
     const date = new Date(parseInt(time));
     const options = { month: 'short' };
 
@@ -50,7 +52,7 @@ const BigChart = ({ data, interval }) => {
   return (
     <Grid item xs={12}>
       <ResponsiveContainer height={160}>
-        <AreaChart data={data} margin={{ left: -4, top: 4 }}>
+        <AreaChart data={data} margin={{ left: 4, right: 4, top: 4 }}>
           {data.map(tick => (
             <ReferenceLine
               key={tick.time}
@@ -66,12 +68,12 @@ const BigChart = ({ data, interval }) => {
             interval="preserveStartEnd"
             tickCount={3}
             tickLine={false}
-            tickFormatter={timeFormatter}
+            tickFormatter={tickFormatter}
             axisLine={{ stroke: theme.palette.grey[200] }}
           />
           <Tooltip
-            labelFormatter={timeFormatter}
             cursor={{ stroke: theme.palette.grey[400] }}
+            content={<ChartTooltip unit={interval.unit} />}
           />
           <Legend iconType="circle" />
           {['clear', 'moderate', 'critical'].map(humanLevel => (
