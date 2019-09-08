@@ -15,7 +15,7 @@ let theme = createMuiTheme({
     },
 
     primary: {
-      main: 'rgb(0, 123, 255)',
+      main: 'rgba(0, 123, 255)',
       contrastText: '#fff',
     },
 
@@ -25,21 +25,21 @@ let theme = createMuiTheme({
 
     level: {
       clear: {
-        main: 'rgb(30, 221, 136)',
+        main: 'rgba(30, 221, 136, 1)',
         contrastText: '#333',
       },
 
       moderate: {
-        light: 'rgb(255, 198, 91)',
-        main: 'rgb(230, 126, 34)',
-        dark: 'rgb(208, 104, 17)',
+        light: 'rgba(255, 198, 91, 1)',
+        main: 'rgba(238, 136, 75, 1)',
+        dark: 'rgba(208, 104, 17, 1)',
         contrastText: '#fff',
       },
 
       critical: {
-        light: 'rgb(252, 81, 84)',
-        main: 'rgb(252, 16, 21)',
-        dark: 'rgb(207, 14, 18)',
+        light: 'rgba(252, 92, 120, 1)',
+        main: 'rgba(253, 56, 91, 1)',
+        dark: 'rgba(207, 46, 75, 1)',
         contrastText: '#fff',
       },
     },

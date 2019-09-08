@@ -42,11 +42,11 @@ export default (id, source) => {
         0.25,
         theme.palette.level.moderate.light,
         0.5,
-        theme.palette.level.moderate.main,
+        theme.palette.level.moderate.dark,
         0.75,
         theme.palette.level.critical.light,
         1,
-        theme.palette.level.critical.main,
+        theme.palette.level.critical.dark,
       ],
       // Adjust the heatmap radius by zoom level
       'heatmap-radius': [
