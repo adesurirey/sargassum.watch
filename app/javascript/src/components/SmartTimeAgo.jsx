@@ -9,8 +9,6 @@ import {
 } from 'prop-types';
 import TimeAgo from 'react-timeago';
 
-import { Typography } from '@material-ui/core';
-
 const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
 
 const propTypes = {
@@ -48,11 +46,7 @@ const SmartTimeAgo = ({ date: time, now, dateOptions, ...typographyProps }) => {
     return date.toLocaleDateString('default', options);
   };
 
-  return (
-    <Typography variant="caption" {...typographyProps}>
-      <TimeAgo date={date} formatter={formatter} />
-    </Typography>
-  );
+  return <TimeAgo date={date} formatter={formatter} />;
 };
 
 export default SmartTimeAgo;

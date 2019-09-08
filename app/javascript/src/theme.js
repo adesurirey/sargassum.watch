@@ -57,7 +57,7 @@ let theme = createMuiTheme({
     h3: {
       fontWeight: 700,
       fontSize: '0.8rem',
-      lineHeight: '1',
+      lineHeight: '1.1',
     },
 
     button: {
