@@ -4,7 +4,7 @@ const fontFamily = '"Open Sans", "Helvetica", "Arial", sans-serif';
 
 const h1 = {
   fontWeight: 700,
-  fontSize: '1rem',
+  fontSize: '1.1rem',
   lineHeight: '1.3',
 };
 
@@ -49,8 +49,16 @@ let theme = createMuiTheme({
     fontFamily,
     htmlFontSize: 16,
 
+    // Section titles
     h1,
     h2: h1,
+
+    // Tooltips and popups titles
+    h3: {
+      fontWeight: 700,
+      fontSize: '0.8rem',
+      lineHeight: '1',
+    },
 
     button: {
       textTransform: 'none',

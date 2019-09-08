@@ -1,27 +1,21 @@
 import React from 'react';
 import { string } from 'prop-types';
 import { Popup } from 'react-map-gl';
-import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid } from '@material-ui/core';
-import { AccessTime, Lens } from '@material-ui/icons';
+import { AccessTime } from '@material-ui/icons';
 
 import PopupContainer from './PopupContainer';
+import LegendPoint from './LegendPoint';
 import SmartTimeAgo from './SmartTimeAgo';
 
 const useStyles = makeStyles(theme => ({
+  gutterBottom: {
+    marginBottom: '0.35em',
+  },
   icon: {
     marginRight: theme.spacing(1),
-  },
-  clear: {
-    color: theme.palette.level.clear.main,
-  },
-  moderate: {
-    color: theme.palette.level.moderate.main,
-  },
-  critical: {
-    color: theme.palette.level.critical.main,
   },
 }));
 
@@ -37,18 +31,13 @@ const PointPopup = ({ name, updatedAt, humanLevel, ...popupProps }) => {
   return (
     <Popup {...popupProps}>
       <PopupContainer>
-        <Typography variant="h2" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           {name}
         </Typography>
 
-        <Grid container alignItems="center">
-          <Lens
-            className={clsx(classes.icon, classes[humanLevel])}
-            fontSize="small"
-          />
-          <Typography variant="caption" gutterBottom>
-            {humanLevel}
-          </Typography>
+        <Grid container alignItems="center" className={classes.gutterBottom}>
+          <LegendPoint humanLevel={humanLevel} className={classes.icon} />
+          <Typography variant="caption">{humanLevel}</Typography>
         </Grid>
 
         <Grid container alignItems="center">
