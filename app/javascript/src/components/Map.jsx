@@ -160,6 +160,12 @@ class Map extends Component {
       event.features &&
       event.features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
 
+    const { popup } = this.state;
+
+    if (popup) {
+      this.setState({ popup: null });
+    }
+
     if (feature) {
       const {
         geometry: {
