@@ -1,13 +1,10 @@
 import React, { memo } from 'react';
 import { arrayOf, shape, string, bool } from 'prop-types';
-import _groupBy from 'lodash/groupBy';
-import _countBy from 'lodash/countBy';
-import _sortBy from 'lodash/sortBy';
 import _isEqualWith from 'lodash/isEqualWith';
 
 import TinyChart from './TinyChart';
 import BigChart from './BigChart';
-import { getIteratee } from '../utils/interval';
+import { featuresPerInterval } from '../utils/interval';
 import { interval } from '../utils/propTypes';
 
 const propTypes = {
@@ -28,24 +25,13 @@ const defaultProps = {
 };
 
 const Chart = ({ features, interval, tiny, ...containerProps }) => {
-  const iteratee = getIteratee(interval);
-  const groupedFeatures = _groupBy(features, iteratee);
+  const data = featuresPerInterval(features, interval);
 
-  let data = Object.entries(groupedFeatures).map(([time, features]) => ({
-    time,
-    clear: 0,
-    moderate: 0,
-    critical: 0,
-    ..._countBy(features, 'properties.humanLevel'),
-  }));
-
-  data = _sortBy(data, 'time');
-
-  if (tiny) {
-    return <TinyChart data={data} {...containerProps} />;
-  }
-
-  return <BigChart data={data} interval={interval} {...containerProps} />;
+  return tiny ? (
+    <TinyChart data={data} {...containerProps} />
+  ) : (
+    <BigChart data={data} interval={interval} {...containerProps} />
+  );
 };
 
 const featuresUnchanged = (

@@ -15,6 +15,7 @@ import { Grid } from '@material-ui/core';
 
 import ChartTooltip from './ChartTooltip';
 import { data, interval } from '../utils/propTypes';
+import { getTickFormatter } from '../utils/interval';
 
 const propTypes = {
   data,
@@ -25,31 +26,12 @@ const BigChart = ({ data, interval }) => {
   const theme = useTheme();
 
   const today = new Date();
-
-  const tickFormatter = time => {
-    const date = new Date(parseInt(time));
-    const options = { month: 'short' };
-
-    if (interval.unit === 'month') {
-      options.year = '2-digit';
-    } else {
-      options.day = 'numeric';
-    }
-
-    return date.toLocaleDateString('default', options);
-  };
+  const tickFormatter = getTickFormatter(interval);
 
   return (
     <Grid item xs={12}>
       <ResponsiveContainer height={160}>
         <AreaChart data={data} margin={{ left: 4, right: 4, top: 4 }}>
-          {data.map(tick => (
-            <ReferenceLine
-              key={tick.time}
-              x={tick.time}
-              stroke={theme.palette.grey[200]}
-            />
-          ))}
           <YAxis domain={[0, 'dataMax + 1']} hide />
           <XAxis
             dataKey="time"
@@ -61,6 +43,13 @@ const BigChart = ({ data, interval }) => {
             tickFormatter={tickFormatter}
             axisLine={{ stroke: theme.palette.grey[200] }}
           />
+          {data.map(tick => (
+            <ReferenceLine
+              key={tick.time}
+              x={tick.time}
+              stroke={theme.palette.grey[200]}
+            />
+          ))}
           <Tooltip
             cursor={{ stroke: theme.palette.grey[400] }}
             content={<ChartTooltip unit={interval.unit} />}

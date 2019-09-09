@@ -18,7 +18,7 @@ const propTypes = {
       value: number.isRequired,
     }),
   ),
-  unit: oneOf(['day', 'month']).isRequired,
+  unit: oneOf(['day', 'week', 'month']).isRequired,
 };
 
 const defaultProps = {

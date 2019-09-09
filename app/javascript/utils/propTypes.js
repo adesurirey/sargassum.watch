@@ -11,6 +11,6 @@ export const data = arrayOf(
 
 export const interval = shape({
   id: number.isRequired,
-  unit: oneOf(['day', 'month']).isRequired,
+  unit: oneOf(['day', 'week', 'month']).isRequired,
   value: number.isRequired,
 }).isRequired;
