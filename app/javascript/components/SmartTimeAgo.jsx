@@ -16,7 +16,6 @@ const propTypes = {
   now: instanceOf(Date),
   dateOptions: shape({
     weekday: oneOf(['long', 'short', 'narrow']),
-    era: oneOf(['long', 'short', 'narrow']),
     day: oneOf(['numeric', '2-digit']),
     hour: oneOf(['numeric', '2-digit']),
     minute: oneOf(['numeric', '2-digit']),

@@ -7,6 +7,7 @@ import { Grid, Typography } from '@material-ui/core';
 import Tooltip from './Tooltip';
 import SmartTimeAgo from './SmartTimeAgo';
 import LegendPoint from './LegendPoint';
+import { tooltipDateOptions } from '../utils/interval';
 
 const propTypes = {
   active: bool,
@@ -44,7 +45,7 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
     return null;
   }
 
-  const dateOptions = unit === 'month' ? { month: 'long' } : undefined;
+  const dateOptions = tooltipDateOptions(unit);
   const data = payload.reverse();
 
   return (

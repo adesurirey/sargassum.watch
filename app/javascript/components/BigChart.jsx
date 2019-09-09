@@ -25,7 +25,6 @@ const propTypes = {
 const BigChart = ({ data, interval }) => {
   const theme = useTheme();
 
-  const today = new Date();
   const tickFormatter = getTickFormatter(interval);
 
   return (
@@ -36,7 +35,7 @@ const BigChart = ({ data, interval }) => {
           <XAxis
             dataKey="time"
             type="number"
-            domain={['dataMin', today.getTime()]}
+            domain={['dataMin', 'dataMax']}
             interval="preserveStartEnd"
             tickCount={3}
             tickLine={false}
