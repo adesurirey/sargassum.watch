@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { PureComponent, Suspense, lazy } from 'react';
+import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
@@ -214,9 +214,7 @@ class Map extends PureComponent {
 
     return (
       <div className={classes.root}>
-        <Suspense>
-          <GeocoderContainer ref={this.geocoderContainerRef} />
-        </Suspense>
+        <GeocoderContainer ref={this.geocoderContainerRef} />
 
         <Controls
           offsetMap={this.offset}

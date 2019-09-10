@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, memo } from 'react';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -31,4 +31,4 @@ const GeocoderContainer = forwardRef((_, ref) => {
   return <div ref={ref} className={classes.root} />;
 });
 
-export default GeocoderContainer;
+export default memo(GeocoderContainer, () => true);
