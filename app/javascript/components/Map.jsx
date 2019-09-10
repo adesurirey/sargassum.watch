@@ -194,9 +194,11 @@ class Map extends PureComponent {
   onPopupClose = () => this.setState({ popup: null });
 
   onIntervalChange = interval => {
-    this.setState({ interval }, () =>
-      this.setMapData(this.getFeaturesInInterval()),
-    );
+    if (this.state.interval.id !== interval.id) {
+      this.setState({ interval }, () =>
+        this.setMapData(this.getFeaturesInInterval()),
+      );
+    }
   };
 
   render() {
