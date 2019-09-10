@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { string } from 'prop-types';
 import { Popup } from 'react-map-gl';
 
@@ -12,6 +12,7 @@ import SmartTimeAgo from './SmartTimeAgo';
 const useStyles = makeStyles(theme => ({
   root: {
     width: 160,
+    cursor: 'default',
   },
   gutterBottom: {
     marginBottom: '0.35em',
@@ -47,6 +48,6 @@ const PointPopup = ({ name, updatedAt, ...popupProps }) => {
   );
 };
 
-export default PointPopup;
+export default memo(PointPopup, () => true);
 
 PointPopup.propTypes = propTypes;

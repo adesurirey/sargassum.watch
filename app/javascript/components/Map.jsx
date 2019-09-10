@@ -139,6 +139,8 @@ class Map extends PureComponent {
       });
   };
 
+  removePopup = () => this.setState({ popup: null });
+
   onLoaded = () =>
     axios
       .get('/reports', { headers: { accept: 'application/json' } })
@@ -162,15 +164,14 @@ class Map extends PureComponent {
     });
 
   onClick = event => {
+    const { popup } = this.state;
+    if (popup && popup.variant === 'point') {
+      this.removePopup();
+    }
+
     const feature =
       event.features &&
       event.features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
-
-    const { popup } = this.state;
-
-    if (popup && popup.variant === 'point') {
-      this.setState({ popup: null });
-    }
 
     if (feature) {
       const {
@@ -190,8 +191,6 @@ class Map extends PureComponent {
       });
     }
   };
-
-  onPopupClose = () => this.setState({ popup: null });
 
   onIntervalChange = interval => {
     if (this.state.interval.id !== interval.id) {
@@ -251,7 +250,7 @@ class Map extends PureComponent {
             onViewportChange={this.onViewportChange}
           />
 
-          {popup && <SmartPopup {...popup} onClose={this.onPopupClose} />}
+          {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
 
           <ZoomControl />
         </MapGL>
