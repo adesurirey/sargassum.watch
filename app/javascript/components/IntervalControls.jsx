@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { func, arrayOf, object } from 'prop-types';
 
 import { Grid } from '@material-ui/core';
@@ -32,6 +32,10 @@ const IntervalControls = ({
   </Grid>
 );
 
-export default IntervalControls;
+export default memo(
+  IntervalControls,
+  (prevProps, nexProps) =>
+    prevProps.selectedInterval.id === nexProps.selectedInterval.id,
+);
 
 IntervalControls.propTypes = propTypes;
