@@ -1,3 +1,14 @@
+// For a given date, get the ISO week number
+// ref.: https://stackoverflow.com/a/6117889/8352929
+const getWeek = d => {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+
+  return [d.getUTCFullYear(), weekNo];
+};
+
 const setToBeginOfDay = date => {
   date.setHours(0, 0, 0, 0);
   return date;
@@ -37,4 +48,10 @@ const advanceInTime = (startDate, unit, value) => {
   return clone.getTime();
 };
 
-export { setToBeginOfDay, setToLastMonday, setToBeginOfMonth, advanceInTime };
+export {
+  getWeek,
+  setToBeginOfDay,
+  setToLastMonday,
+  setToBeginOfMonth,
+  advanceInTime,
+};
