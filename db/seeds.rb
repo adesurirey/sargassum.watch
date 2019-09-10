@@ -8,10 +8,6 @@ puts "Cleaning db..."
 
 Report.delete_all
 
-puts "Disabling geoJSON cache creation callback..."
-
-Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
-
 puts "Seeding reports..."
 
 def report_parser_results(kml) # rubocop:disable Metrics/AbcSize
@@ -33,6 +29,7 @@ def seed_form_file!(file_name, level)
   }
 
   kml = Assets::KML.new(file_path, attributes)
+  Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
   Report.create!(kml.placemarks)
 
   report_parser_results(kml)
