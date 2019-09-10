@@ -234,7 +234,7 @@ class Map extends PureComponent {
           width="100%"
           height="100%"
           attributionControl={false}
-          mapStyle="mapbox://styles/adesurirey/cjzh0ooac2mjn1cnnb0ogzus8?optimize=true"
+          mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
           mapboxApiAccessToken={gon.mapboxApiAccessToken}
           getCursor={this.getCursor}
           interactiveLayerIds={interactiveLayerIds}
