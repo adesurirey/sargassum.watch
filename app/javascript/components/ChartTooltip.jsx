@@ -44,7 +44,7 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
     return null;
   }
 
-  const title = tickFormatter(label, unit);
+  const title = tickFormatter(label, unit, 'long');
   const data = payload.reverse();
 
   return (
