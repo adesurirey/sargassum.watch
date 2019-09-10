@@ -31,15 +31,17 @@ module Assets
 
       def formatted_name
         @name.gsub(DATE_REGEX, "")
-             .tr(NBSP, "")
              .split("-")
              .first
              .strip
       end
 
       def parse_name
-        @node.css("name")&.text.tap do |name|
-          error(:blank_name) if name.blank?
+        name = @node.css("name")&.text
+        error(:blank_name) if name.blank?
+
+        name.tr(NBSP, " ").strip.tap do |cleaned|
+          error(:blank_name) if cleaned.blank?
         end
       end
 
