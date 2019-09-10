@@ -1,16 +1,18 @@
-import React from 'react';
-import { bool } from 'prop-types';
+import React, { useState, useRef, useEffect } from 'react';
+import { bool, number } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CircularProgress, Fade } from '@material-ui/core';
 
 const propTypes = {
   fullscreen: bool,
+  delay: number,
 };
 
 const defaultProps = {
   fullscreen: false,
+  delay: 1000,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.grey[300],
+    background: theme.palette.grey[50],
+    color: theme.palette.grey[400],
   },
 
   fullscreen: {
@@ -29,12 +32,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Spinner = ({ fullscreen }) => {
+const Spinner = ({ fullscreen, delay }) => {
+  const [loading, setLoading] = useState(false);
+  const timerRef = useRef();
   const classes = useStyles();
+
+  useEffect(
+    () => () => {
+      clearTimeout(timerRef.current);
+    },
+    [],
+  );
+
+  timerRef.current = setTimeout(() => {
+    setLoading(true);
+  }, delay);
 
   return (
     <div className={clsx(classes.root, fullscreen && classes.fullscreen)}>
-      <CircularProgress color="inherit" />
+      <Fade in={loading} unmountOnExit>
+        <CircularProgress color="inherit" />
+      </Fade>
     </div>
   );
 };

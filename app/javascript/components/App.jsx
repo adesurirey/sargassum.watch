@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 const Map = lazy(() => import('./Map'));
 
 const App = () => (
-  <Suspense fallback={<Spinner fullscreen />}>
+  <Suspense fallback={<Spinner delay={100} fullscreen />}>
     <Map />
   </Suspense>
 );
