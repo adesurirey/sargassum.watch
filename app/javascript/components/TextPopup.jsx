@@ -9,6 +9,7 @@ import Tooltip from './Tooltip';
 const propTypes = {
   text: string.isRequired,
   title: string,
+  cursor: 'default',
 };
 
 const defaultProps = {
