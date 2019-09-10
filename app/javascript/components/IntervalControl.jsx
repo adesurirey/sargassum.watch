@@ -47,6 +47,7 @@ const IntervalControl = ({ interval, active, onClick }) => {
 
   return (
     <Button
+      aria-pressed={active}
       className={clsx(classes.root, active && classes.active)}
       onClick={handleClick}
     >
