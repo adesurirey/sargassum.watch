@@ -18,7 +18,7 @@ const IntervalControls = ({
   onIntervalChange,
 }) => (
   <Grid item xs={12}>
-    <Grid container justify="space-evenly">
+    <Grid container justify="space-evenly" role="group">
       {intervals.map(interval => (
         <Grid item key={interval.id}>
           <IntervalControl
