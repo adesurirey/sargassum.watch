@@ -21,18 +21,6 @@ const toString = ({ value, unit }) => `${value} ${unit}${value > 1 && 's'}`;
 
 const featureDate = feature => new Date(feature.properties.updatedAt);
 
-const tooltipDateOptions = unit => {
-  switch (unit) {
-    case 'day':
-    case 'week':
-      return { weekday: 'short', day: 'numeric', month: 'long' };
-    case 'month':
-      return { month: 'long' };
-    default:
-      throw new Error(`Unknown interval unit: ${unit}`);
-  }
-};
-
 const intervalStartDate = ({ value, unit }) => {
   const start = new Date();
 
@@ -129,18 +117,24 @@ const intervalEndFormatter = unit => {
   }
 };
 
-const tickFormatter = (time, unit) => {
+const tickFormatter = (time, unit, format) => {
   const date = new Date(parseInt(time));
-  const options = { month: 'short' };
+  let options = { month: 'short' };
 
   switch (unit) {
     case 'day':
       options.day = 'numeric';
+      if (format === 'long') {
+        options.weekday = 'long';
+      }
       break;
     case 'week':
       return `week ${getWeek(date)[1]}`;
     case 'month':
       options.year = 'numeric';
+      if (format === 'long') {
+        options.month = 'long';
+      }
       break;
     default:
       throw new Error(`Unknown interval unit: ${unit}`);
@@ -149,7 +143,7 @@ const tickFormatter = (time, unit) => {
   return date.toLocaleDateString('default', options);
 };
 
-const getTickFormatter = interval => time => {
+const getTickFormatter = (interval, format = 'short') => time => {
   const date = new Date(parseInt(time));
   const intervalStart = intervalStartDate(interval);
 
@@ -163,7 +157,6 @@ const getTickFormatter = interval => time => {
 export {
   intervals,
   toString,
-  tooltipDateOptions,
   featuresInInterval,
   featuresPerInterval,
   tickFormatter,
