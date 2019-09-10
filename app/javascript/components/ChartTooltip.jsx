@@ -5,9 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
 
 import Tooltip from './Tooltip';
-import SmartTimeAgo from './SmartTimeAgo';
 import LegendPoint from './LegendPoint';
-import { tooltipDateOptions } from '../utils/interval';
+import { tickFormatter } from '../utils/interval';
 
 const propTypes = {
   active: bool,
@@ -45,14 +44,11 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
     return null;
   }
 
-  const dateOptions = tooltipDateOptions(unit);
+  const title = tickFormatter(label, unit);
   const data = payload.reverse();
 
   return (
-    <Tooltip
-      className={classes.root}
-      title={<SmartTimeAgo date={parseInt(label)} dateOptions={dateOptions} />}
-    >
+    <Tooltip className={classes.root} title={title}>
       {data.map(({ dataKey, value }) => (
         <Grid
           key={dataKey}

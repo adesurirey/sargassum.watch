@@ -4,6 +4,7 @@ import _countBy from 'lodash/countBy';
 import _sortBy from 'lodash/sortBy';
 
 import {
+  getWeek,
   setToBeginOfDay,
   setToLastMonday,
   setToBeginOfMonth,
@@ -19,25 +20,6 @@ const intervals = [
 const toString = ({ value, unit }) => `${value} ${unit}${value > 1 && 's'}`;
 
 const featureDate = feature => new Date(feature.properties.updatedAt);
-
-const getTickFormatter = interval => time => {
-  const date = new Date(parseInt(time));
-  const options = { month: 'short' };
-
-  switch (interval.unit) {
-    case 'day':
-    case 'week':
-      options.day = 'numeric';
-      break;
-    case 'month':
-      options.year = '2-digit';
-      break;
-    default:
-      throw new Error(`Unknown interval unit: ${interval.unit}`);
-  }
-
-  return date.toLocaleDateString('default', options);
-};
 
 const tooltipDateOptions = unit => {
   switch (unit) {
@@ -134,11 +116,56 @@ const featuresPerInterval = (features, interval) => {
   return _sortBy(data, 'time');
 };
 
+const intervalEndFormatter = unit => {
+  switch (unit) {
+    case 'day':
+      return 'today';
+    case 'week':
+      return 'this week';
+    case 'month':
+      return 'this month';
+    default:
+      throw new Error(`Unknown interval unit: ${unit}`);
+  }
+};
+
+const tickFormatter = (time, unit) => {
+  const date = new Date(parseInt(time));
+  const options = { month: 'short' };
+
+  switch (unit) {
+    case 'day':
+      options.day = 'numeric';
+      break;
+    case 'week':
+      return `week ${getWeek(date)[1]}`;
+    case 'month':
+      options.year = 'numeric';
+      break;
+    default:
+      throw new Error(`Unknown interval unit: ${unit}`);
+  }
+
+  return date.toLocaleDateString('default', options);
+};
+
+const getTickFormatter = interval => time => {
+  const date = new Date(parseInt(time));
+  const intervalStart = intervalStartDate(interval);
+
+  if (intervalStart.getTime() < date.getTime()) {
+    return intervalEndFormatter(interval.unit);
+  }
+
+  return tickFormatter(time, interval.unit);
+};
+
 export {
   intervals,
   toString,
-  getTickFormatter,
   tooltipDateOptions,
   featuresInInterval,
   featuresPerInterval,
+  tickFormatter,
+  getTickFormatter,
 };
