@@ -19,6 +19,7 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
+import { sargassumCenter, sargassumBbox } from '../utils/geography';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import Controls from './Controls';
@@ -46,8 +47,7 @@ const styles = theme => ({
 class Map extends PureComponent {
   state = {
     viewport: {
-      latitude: 20.827873989993776,
-      longitude: -73.86145304236818,
+      ...sargassumCenter,
       zoom: 3,
     },
     settings: {
@@ -247,6 +247,16 @@ class Map extends PureComponent {
             containerRef={this.geocoderContainerRef}
             placeholder="Find a beach"
             clearAndBlurOnEsc
+            bbox={[
+              sargassumBbox.sw.lng,
+              sargassumBbox.sw.lat,
+              sargassumBbox.ne.lng,
+              sargassumBbox.ne.lat,
+            ]}
+            proximity={{
+              longitude: viewport.longitude,
+              latitude: viewport.latitude,
+            }}
             onViewportChange={this.onViewportChange}
           />
 
