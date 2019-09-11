@@ -4,7 +4,6 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
-import Geocoder from 'react-map-gl-geocoder';
 import axios from 'axios';
 import _uniqBy from 'lodash/uniqBy';
 
@@ -19,10 +18,11 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
-import { sargassumCenter, sargassumBbox } from '../utils/geography';
+import { sargassumCenter } from '../utils/geography';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import Controls from './Controls';
+import Geocoder from './Geocoder';
 import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
 
@@ -242,22 +242,11 @@ class Map extends PureComponent {
           onClick={this.onClick}
         >
           <Geocoder
-            mapboxApiAccessToken={gon.mapboxApiAccessToken}
             mapRef={this.mapRef}
             containerRef={this.geocoderContainerRef}
-            placeholder="Find a beach"
-            clearAndBlurOnEsc
-            bbox={[
-              sargassumBbox.sw.lng,
-              sargassumBbox.sw.lat,
-              sargassumBbox.ne.lng,
-              sargassumBbox.ne.lat,
-            ]}
-            proximity={{
-              longitude: viewport.longitude,
-              latitude: viewport.latitude,
-            }}
-            onViewportChange={this.onViewportChange}
+            longitude={viewport.longitude}
+            latitude={viewport.latitude}
+            onChange={this.onViewportChange}
           />
 
           {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
