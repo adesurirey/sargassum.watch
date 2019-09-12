@@ -69,6 +69,7 @@ class Map extends PureComponent {
     renderedFeatures: [],
     interactiveLayerIds: [],
     popup: null,
+    geolocating: false,
   };
 
   mapRef = React.createRef();
@@ -206,6 +207,10 @@ class Map extends PureComponent {
     }
   };
 
+  onReportClick = () => {
+    this.setState({ geolocating: true });
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -215,6 +220,7 @@ class Map extends PureComponent {
       renderedFeatures,
       popup,
       interval,
+      geolocating,
     } = this.state;
 
     return (
@@ -255,7 +261,7 @@ class Map extends PureComponent {
             onChange={this.onViewportChange}
           />
 
-          <ReportButton />
+          <ReportButton loading={geolocating} onClick={this.onReportClick} />
 
           {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
 
