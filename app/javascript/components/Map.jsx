@@ -127,8 +127,13 @@ class Map extends PureComponent {
   offset = offset => {
     const map = this.getMap();
     const {
+      popup,
       viewport: { latitude, longitude },
     } = this.state;
+
+    if (popup && popup.variant === 'point') {
+      this.removePopup();
+    }
 
     map &&
       map.flyTo({
