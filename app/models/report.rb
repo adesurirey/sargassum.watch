@@ -32,6 +32,7 @@ class Report < ApplicationRecord
     critical: 2,
   }
 
+  validate :timestamps_are_past
   validates :latitude, numericality: LATITUDE_NUMERICALITY
   validates :longitude, numericality: LONGITUDE_NUMERICALITY
   validates :level, presence: true
@@ -87,6 +88,11 @@ class Report < ApplicationRecord
   end
 
   private
+
+  def timestamps_are_past
+    errors.add(:created_at) if created_at.present? && created_at > Time.current
+    errors.add(:updated_at) if updated_at.present? && updated_at > Time.current
+  end
 
   def should_geocode?
     name.blank?

@@ -63,6 +63,15 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes map_errors(report, :longitude), :greater_than_or_equal_to
   end
 
+  test "should not be in the future" do
+    future = 3.days.from_now
+    report = build(:report, created_at: future, updated_at: future)
+
+    assert_not report.valid?
+    assert_includes map_errors(report, :created_at), :invalid
+    assert_includes map_errors(report, :updated_at), :invalid
+  end
+
   test "should be ordered by ascendant updated_at" do
     create_list(:report, 10)
     report = Report.first.tap(&:touch)
