@@ -4,9 +4,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL from 'react-map-gl';
-import axios from 'axios';
 import _uniqBy from 'lodash/uniqBy';
-
 import { withStyles } from '@material-ui/styles';
 
 import {
@@ -21,6 +19,8 @@ import {
 import { sargassumCenter } from '../utils/geography';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
+import Api from '../utils/Api';
+
 import Controls from './Controls';
 import Geocoder from './Geocoder';
 import ReportButton from './ReportButton';
@@ -28,6 +28,7 @@ import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
+const api = new Api();
 
 const propTypes = {
   classes: object.isRequired,
@@ -154,8 +155,8 @@ class Map extends PureComponent {
   };
 
   onLoaded = () =>
-    axios
-      .get('/reports', { headers: { accept: 'application/json' } })
+    api
+      .getAll()
       .then(({ data: { features } }) =>
         this.setState({ features }, this.initMapData),
       )
