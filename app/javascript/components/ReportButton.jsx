@@ -57,6 +57,8 @@ const ReportButton = ({ isLoading }) => {
       size="medium"
       aria-label={title}
       onClick={() => console.log('clicked report')}
+      disabled={!geolocatable}
+      disabled={!!navigator.geolocation}
     >
       {label}
       <MyLocationRounded
