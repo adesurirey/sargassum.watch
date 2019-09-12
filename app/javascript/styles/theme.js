@@ -7,7 +7,7 @@ const fontFamily = '"Open Sans", "Helvetica", "Arial", sans-serif';
 
 const h1 = {
   fontWeight: 700,
-  fontSize: '1.1rem',
+  fontSize: '1rem',
   lineHeight: '1.3',
 };
 
