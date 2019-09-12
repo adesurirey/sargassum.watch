@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: theme.palette.grey[50],
     color: theme.palette.grey[400],
   },
 

@@ -1,5 +1,7 @@
 import 'typeface-open-sans';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import indigo from '@material-ui/core/colors/indigo';
 
 const fontFamily = '"Open Sans", "Helvetica", "Arial", sans-serif';
 
@@ -12,12 +14,11 @@ const h1 = {
 let theme = createMuiTheme({
   palette: {
     background: {
-      default: '#fff',
+      default: grey[50],
     },
 
     primary: {
-      main: 'rgba(0, 123, 255, 1)',
-      contrastText: '#fff',
+      main: indigo.A700,
     },
 
     secondary: {
