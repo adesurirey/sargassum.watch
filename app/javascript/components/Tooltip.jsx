@@ -28,10 +28,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   header: {
-    background: fade(
-      theme.palette.text.primary,
-      theme.palette.action.hoverOpacity,
-    ),
+    background: theme.palette.action.hover,
   },
 }));
 

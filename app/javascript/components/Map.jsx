@@ -126,16 +126,23 @@ class Map extends PureComponent {
     source && source.setData(featureCollection(features));
   };
 
-  offset = offset => {
-    const map = this.getMap();
-    const {
-      popup,
-      viewport: { latitude, longitude },
-    } = this.state;
+  dismissPopup() {
+    const { popup } = this.state;
 
     if (popup && popup.variant === 'point') {
       this.removePopup();
     }
+  }
+
+  removePopup = () => this.setState({ popup: null });
+
+  offset = offset => {
+    this.dismissPopup();
+
+    const {
+      viewport: { latitude, longitude },
+    } = this.state;
+    const map = this.getMap();
 
     map &&
       map.flyTo({
@@ -145,8 +152,6 @@ class Map extends PureComponent {
         curve: 0,
       });
   };
-
-  removePopup = () => this.setState({ popup: null });
 
   onLoaded = () =>
     axios
@@ -170,33 +175,31 @@ class Map extends PureComponent {
       viewport: { ...this.state.viewport, ...viewport },
     });
 
-  onClick = event => {
-    const { popup } = this.state;
-    if (popup && popup.variant === 'point') {
-      this.removePopup();
-    }
+  onClick = ({ features }) => {
+    this.dismissPopup();
 
     const feature =
-      event.features &&
-      event.features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
+      features && features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
 
-    if (feature) {
-      const {
-        geometry: {
-          coordinates: [longitude, latitude],
-        },
-        properties,
-      } = feature;
-
-      this.setState({
-        popup: {
-          variant: 'point',
-          latitude,
-          longitude,
-          ...properties,
-        },
-      });
+    if (!feature) {
+      return;
     }
+
+    const {
+      geometry: {
+        coordinates: [longitude, latitude],
+      },
+      properties,
+    } = feature;
+
+    this.setState({
+      popup: {
+        variant: 'point',
+        latitude,
+        longitude,
+        ...properties,
+      },
+    });
   };
 
   onIntervalChange = interval => {
