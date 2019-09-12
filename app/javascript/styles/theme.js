@@ -16,7 +16,7 @@ let theme = createMuiTheme({
     },
 
     primary: {
-      main: 'rgba(0, 123, 255)',
+      main: 'rgba(0, 123, 255, 1)',
       contrastText: '#fff',
     },
 
