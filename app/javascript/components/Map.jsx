@@ -23,6 +23,7 @@ import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import Controls from './Controls';
 import Geocoder from './Geocoder';
+import ReportButton from './ReportButton';
 import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
 
@@ -253,6 +254,8 @@ class Map extends PureComponent {
             latitude={viewport.latitude}
             onChange={this.onViewportChange}
           />
+
+          <ReportButton />
 
           {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
 
