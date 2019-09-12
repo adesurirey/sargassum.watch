@@ -21,27 +21,42 @@ const toString = ({ value, unit }) => `${value} ${unit}${value > 1 && 's'}`;
 
 const featureDate = feature => new Date(feature.properties.updatedAt);
 
-const intervalStartDate = ({ value, unit }) => {
-  const start = new Date();
-
+const toTickDate = (date, unit) => {
   switch (unit) {
     case 'day':
-      start.setDate(start.getDate() - value);
-      setToBeginOfDay(start);
+      setToBeginOfDay(date);
       break;
     case 'week':
-      start.setDate(start.getDate() - value * 7);
-      setToLastMonday(start);
+      setToLastMonday(date);
       break;
     case 'month':
-      start.setMonth(start.getMonth() - value);
-      setToBeginOfMonth(start);
+      setToBeginOfMonth(date);
       break;
     default:
       throw new Error(`Unknown interval unit: ${unit}`);
   }
 
-  return start;
+  return date;
+};
+
+const intervalStartDate = ({ value, unit }) => {
+  let start = new Date();
+
+  switch (unit) {
+    case 'day':
+      start.setDate(start.getDate() - value);
+      break;
+    case 'week':
+      start.setDate(start.getDate() - value * 7);
+      break;
+    case 'month':
+      start.setMonth(start.getMonth() - value);
+      break;
+    default:
+      throw new Error(`Unknown interval unit: ${unit}`);
+  }
+
+  return toTickDate(start, unit);
 };
 
 const featuresInInterval = (features, interval) => {
@@ -81,13 +96,8 @@ const getRelatedInterval = interval => {
   const ticks = intervalGranularity(interval);
 
   return feature => {
-    const updatedAt = featureDate(feature);
-    const nextTick = ticks.find(time => time > updatedAt.getTime());
-
-    if (nextTick) {
-      return ticks[ticks.indexOf(nextTick) - 1];
-    }
-    return ticks[ticks.length - 1];
+    const tick = toTickDate(featureDate(feature), interval.unit);
+    return ticks.find(time => time === tick.getTime());
   };
 };
 
@@ -156,6 +166,7 @@ export {
   toString,
   featuresInInterval,
   featuresPerInterval,
+  toTickDate,
   tickFormatter,
   getTickFormatter,
 };
