@@ -3,9 +3,9 @@ import { arrayOf, shape, number, string, oneOf } from 'prop-types';
 export const data = arrayOf(
   shape({
     time: string.isRequired,
-    clear: number.isRequired,
-    moderate: number.isRequired,
-    critical: number.isRequired,
+    clear: number,
+    moderate: number,
+    critical: number,
   }),
 ).isRequired;
 

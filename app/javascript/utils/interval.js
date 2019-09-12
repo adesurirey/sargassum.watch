@@ -92,12 +92,9 @@ const getRelatedInterval = interval => {
 };
 
 const featuresPerInterval = (features, interval) => {
-  const defaultProps = { clear: 0, moderate: 0, critical: 0 };
-
   let data = _groupBy(features, getRelatedInterval(interval));
   data = Object.entries(data).map(([time, intervalFeatures]) => ({
     time,
-    ...defaultProps,
     ..._countBy(intervalFeatures, 'properties.humanLevel'),
   }));
 
