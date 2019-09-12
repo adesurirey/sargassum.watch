@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { bool } from 'prop-types';
+import { bool, func } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,11 +9,12 @@ import { Fab } from '@material-ui/core';
 import { MyLocationRounded } from '@material-ui/icons';
 
 const propTypes = {
-  isLoading: bool,
+  onClick: func.isRequired,
+  loading: bool,
 };
 
 const defaultProps = {
-  isLoading: false,
+  loading: false,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportButton = ({ isLoading }) => {
+const ReportButton = ({ onClick, loading }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -56,13 +57,12 @@ const ReportButton = ({ isLoading }) => {
       color="primary"
       size="medium"
       aria-label={title}
-      onClick={() => console.log('clicked report')}
-      disabled={!geolocatable}
-      disabled={!!navigator.geolocation}
+      onClick={onClick}
+      disabled={!navigator.geolocation}
     >
       {label}
       <MyLocationRounded
-        className={clsx(classes.icon, isLoading && classes.rotating)}
+        className={clsx(classes.icon, loading && classes.rotating)}
         fontSize="small"
       />
     </Fab>
