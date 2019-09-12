@@ -48,7 +48,6 @@ let theme = createMuiTheme({
 
   typography: {
     fontFamily,
-    htmlFontSize: 16,
 
     // Section titles
     h1,
