@@ -48,6 +48,7 @@ module Assets
       def parse_date
         @name[DATE_REGEX]&.to_datetime.tap do |date|
           error(:blank_date) if date.blank?
+          error(:invalid_date) if date > DateTime.current
         end
       rescue ArgumentError
         error(:invalid_date)

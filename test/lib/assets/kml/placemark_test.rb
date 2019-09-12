@@ -40,6 +40,25 @@ class Assets::KML::PlacemarkTest < ActiveSupport::TestCase
     assert_equal "01/01/2019".to_datetime, placemark.attributes[:updated_at]
   end
 
+  test "should raise when date is in future" do
+    placemark = <<~KML
+      <Placemark>
+        <name>01/01/3000 Anses d'Arlet - Martinique </name>
+        <Point>
+          <coordinates>
+            -61.0841083,14.4986926,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    KML
+
+    node = Nokogiri::XML(placemark).css("Placemark")
+
+    assert_raises Assets::KML::Placemark::InvalidNodeError do
+      Assets::KML::Placemark.new(node)
+    end
+  end
+
   private
 
   def valid_kml
