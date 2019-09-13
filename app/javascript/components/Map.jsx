@@ -239,6 +239,7 @@ class Map extends PureComponent {
         <Controls
           offsetMap={this.offset}
           intervalControlsProps={{
+            loaded,
             intervals,
             selectedInterval: interval,
             onIntervalChange: this.onIntervalChange,

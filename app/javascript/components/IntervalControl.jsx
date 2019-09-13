@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, bool } from 'prop-types';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
@@ -34,7 +35,7 @@ const IntervalControl = ({ interval, active, onClick }) => {
   return (
     <Button
       aria-pressed={active}
-      className={active && classes.active}
+      className={clsx(active && classes.active)}
       onClick={handleClick}
     >
       {toString(interval)}
