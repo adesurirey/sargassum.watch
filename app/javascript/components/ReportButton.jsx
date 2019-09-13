@@ -5,15 +5,17 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Fab } from '@material-ui/core';
+import { Zoom, Fab } from '@material-ui/core';
 import { MyLocationRounded } from '@material-ui/icons';
 
 const propTypes = {
-  onClick: func.isRequired,
+  visible: bool,
   loading: bool,
+  onClick: func.isRequired,
 };
 
 const defaultProps = {
+  visible: false,
   loading: false,
 };
 
@@ -41,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportButton = ({ onClick, loading }) => {
+const ReportButton = ({ visible, loading, onClick }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -51,21 +53,23 @@ const ReportButton = ({ onClick, loading }) => {
   const label = isSmallScreen ? null : title;
 
   return (
-    <Fab
-      classes={{ root: classes.root }}
-      variant={variant}
-      color="primary"
-      size="medium"
-      aria-label={title}
-      onClick={onClick}
-      disabled={!navigator.geolocation}
-    >
-      {label}
-      <MyLocationRounded
-        className={clsx(classes.icon, loading && classes.rotating)}
-        fontSize="small"
-      />
-    </Fab>
+    <Zoom in={visible}>
+      <Fab
+        classes={{ root: classes.root }}
+        variant={variant}
+        color="primary"
+        size="medium"
+        aria-label={title}
+        onClick={onClick}
+        disabled={!navigator.geolocation}
+      >
+        {label}
+        <MyLocationRounded
+          className={clsx(classes.icon, loading && classes.rotating)}
+          fontSize="small"
+        />
+      </Fab>
+    </Zoom>
   );
 };
 
