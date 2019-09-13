@@ -48,6 +48,7 @@ const styles = theme => ({
 
 class Map extends PureComponent {
   state = {
+    loaded: false,
     viewport: {
       ...sargassumCenter,
       zoom: 3,
@@ -104,7 +105,10 @@ class Map extends PureComponent {
 
     map.on('idle', this.setRenderedFeatures);
 
-    this.setState({ interactiveLayerIds: [pointsLayer.id] });
+    this.setState({
+      loaded: true,
+      interactiveLayerIds: [pointsLayer.id],
+    });
   };
 
   setRenderedFeatures = () => {
@@ -218,6 +222,7 @@ class Map extends PureComponent {
   render() {
     const { classes } = this.props;
     const {
+      loaded,
       viewport,
       settings,
       interactiveLayerIds,
@@ -265,7 +270,11 @@ class Map extends PureComponent {
             onChange={this.onViewportChange}
           />
 
-          <ReportButton loading={geolocating} onClick={this.onReportClick} />
+          <ReportButton
+            visible={loaded}
+            loading={geolocating}
+            onClick={this.onReportClick}
+          />
 
           {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
 
