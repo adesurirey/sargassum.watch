@@ -16,7 +16,7 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
-import { sargassumCenter } from '../utils/geography';
+import { sargassumCenter, bboxAround } from '../utils/geography';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import Api from '../utils/Api';
@@ -215,32 +215,28 @@ class Map extends PureComponent {
     }
   };
 
-  hasWaterAround = () => {
-    // const map = this.getMap();
-    //
-    // // Create a 50m2 bbox around user position
-    // const ruler = cheapRuler(latitude, 'meters');
-    // // [lon, lat, lon, lat]
-    // const [w, s, e, n] = ruler.bufferPoint([longitude, latitude], 25);
-    // // Convert bbox coordinates in viewport pixels
-    // const sw = map.project([w, s]);
-    // const ne = map.project([e, n]);
-    // const bbox = [sw, ne];
-    //
-    // // Query water features in bbox
-    // const waterFeatures = map.queryRenderedFeatures(bbox, {
-    //   layers: ['water'],
-    // });
-    //
-    // return !!waterFeatures.length;
+  hasWaterAround = (latitude, longitude) => {
+    const timeout = 500;
+    const [w, s, e, n] = bboxAround({ longitude, latitude }, 50);
 
-    // We need to wait for map to have rendered features before querying.
-    return new Promise(resolve => setTimeout(() => resolve(true), 500));
+    // Wait for map to render features before querying.
+    return new Promise(resolve =>
+      setTimeout(() => {
+        const map = this.getMap();
+
+        const bbox = [map.project([w, s]), map.project([e, n])];
+        const waterFeatures = map.queryRenderedFeatures(bbox, {
+          layers: ['water'],
+        });
+
+        return resolve(!!waterFeatures.length);
+      }, timeout),
+    );
   };
 
   onGeolocated = ({ latitude, longitude }) => {
     this.setState({ viewport: { latitude, longitude, zoom: 19 } }, async () => {
-      const isNearWater = await this.hasWaterAround();
+      const isNearWater = await this.hasWaterAround(latitude, longitude);
 
       let popup = { latitude, longitude };
       if (isNearWater) {
