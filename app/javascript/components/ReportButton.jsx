@@ -2,8 +2,7 @@ import React, { memo } from 'react';
 import { bool, func } from 'prop-types';
 import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Zoom, Fab } from '@material-ui/core';
 import { MyLocationRounded } from '@material-ui/icons';
@@ -53,7 +52,12 @@ const ReportButton = ({ visible, loading, onClick }) => {
   const label = isSmallScreen ? null : title;
 
   return (
-    <Zoom in={visible}>
+    <Zoom
+      in={visible}
+      style={{
+        transitionDelay: theme.transitions.duration.enteringScreen + 100,
+      }}
+    >
       <Fab
         classes={{ root: classes.root }}
         variant={variant}
