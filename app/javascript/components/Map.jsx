@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/styles';
 
 import {
   SOURCE_ID,
-  POINTS_LAYER_ID,
   PERMANENT_LAYER_ID,
   INSERT_BEFORE_LAYER_ID,
   heatmapLayer,
@@ -81,10 +80,6 @@ class Map extends PureComponent {
 
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
-  };
-
-  getCursor = ({ isHovering, isDragging }) => {
-    return isHovering ? 'pointer' : 'grab';
   };
 
   getFeaturesInInterval() {
@@ -185,8 +180,7 @@ class Map extends PureComponent {
   onClick = ({ features }) => {
     this.dismissPopup();
 
-    const feature =
-      features && features.find(({ layer }) => layer.id === POINTS_LAYER_ID);
+    const feature = features && features[0];
 
     if (!feature) {
       return;
