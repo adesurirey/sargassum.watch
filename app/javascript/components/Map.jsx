@@ -126,16 +126,7 @@ class Map extends PureComponent {
     source && source.setData(featureCollection(features));
   };
 
-  dismissPopup() {
-    const { popup } = this.state;
-
-    if (popup && popup.variant === 'point') {
-      this.removePopup();
-    }
-  }
-
-  removePopup = () => this.setState({ popup: null });
-
+  dismissPopup = () => this.setState({ popup: null });
 
   onLoaded = () => {
     this.setState({ loaded: true });
@@ -209,7 +200,14 @@ class Map extends PureComponent {
       popup.text = 'Please get closer to the water';
     }
 
-    this.setState({ popup, geolocating: false });
+    this.setState(({ user }) => ({
+      geolocating: false,
+      popup,
+      user: {
+        ...user,
+        isNearWater,
+      },
+    }));
   };
 
   onGeolocated = ({ latitude, longitude }) => {
@@ -306,7 +304,7 @@ class Map extends PureComponent {
             loading={geolocating}
             onClick={this.onReportClick}
           />
-          {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
+          {popup && <SmartPopup {...popup} onClose={this.dismissPopup} />}
           {user && <UserMarker {...user} />}
           <ZoomControl />
         </MapGL>
