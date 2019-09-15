@@ -105,10 +105,7 @@ class Map extends PureComponent {
 
     map.on('idle', this.setRenderedFeatures);
 
-    this.setState({
-      loaded: true,
-      interactiveLayerIds: [pointsLayer.id],
-    });
+    this.setState({ interactiveLayerIds: [pointsLayer.id] });
   };
 
   setRenderedFeatures = () => {
@@ -158,7 +155,9 @@ class Map extends PureComponent {
       });
   };
 
-  onLoaded = () =>
+  onLoaded = () => {
+    this.setState({ loaded: true });
+
     api
       .getAll()
       .then(({ data: { features } }) =>
@@ -174,6 +173,7 @@ class Map extends PureComponent {
           },
         })),
       );
+  };
 
   onViewportChange = viewport =>
     this.setState({
