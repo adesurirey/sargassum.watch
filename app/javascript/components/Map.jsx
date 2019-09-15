@@ -3,7 +3,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
-import MapGL from 'react-map-gl';
+import MapGL, { FlyToInterpolator } from 'react-map-gl';
 import _uniqBy from 'lodash/uniqBy';
 import { withStyles } from '@material-ui/styles';
 
@@ -218,7 +218,7 @@ class Map extends PureComponent {
   };
 
   hasWaterAround = (latitude, longitude) => {
-    const timeout = 500;
+    const { transitionDuration } = this.state.viewport;
     const [w, s, e, n] = bboxAround({ longitude, latitude }, 50);
 
     // Wait for map to render features before querying.
@@ -232,7 +232,7 @@ class Map extends PureComponent {
         });
 
         return resolve(!!waterFeatures.length);
-      }, timeout),
+      }, transitionDuration * 2),
     );
   };
 
@@ -240,7 +240,13 @@ class Map extends PureComponent {
     this.setState(
       {
         user: { latitude, longitude },
-        viewport: { latitude, longitude, zoom: 19 },
+        viewport: {
+          latitude,
+          longitude,
+          zoom: 19,
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 2000,
+        },
       },
       async () => {
         const isNearWater = await this.hasWaterAround(latitude, longitude);
