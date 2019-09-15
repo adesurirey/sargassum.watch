@@ -4,7 +4,6 @@ const bboxAround = ({ longitude, latitude }, squareMeters) => {
   const ruler = cheapRuler(latitude, 'meters');
 
   return ruler.bufferPoint([longitude, latitude], squareMeters / 2);
-  // [w, s, e, n]
 };
 
 const validateWaterPresence = (map, { latitude, longitude }) => {

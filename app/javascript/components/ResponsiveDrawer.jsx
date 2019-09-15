@@ -1,5 +1,5 @@
 import React from 'react';
-import { node, shape, object, func } from 'prop-types';
+import { node, object } from 'prop-types';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -9,18 +9,15 @@ import BottomDrawer from './BottomDrawer';
 
 const propTypes = {
   children: node.isRequired,
-  bottomDrawerProps: shape({
-    chartProps: object.isRequired,
-    offsetMap: func.isRequired,
-  }).isRequired,
+  chartProps: object.isRequired,
 };
 
-const ResponsiveDrawer = ({ children, bottomDrawerProps }) => {
+const ResponsiveDrawer = ({ children, chartProps }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return matches ? (
-    <BottomDrawer {...bottomDrawerProps}>{children}</BottomDrawer>
+    <BottomDrawer chartProps={chartProps}>{children}</BottomDrawer>
   ) : (
     <LeftDrawer>{children}</LeftDrawer>
   );

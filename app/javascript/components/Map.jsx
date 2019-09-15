@@ -136,22 +136,6 @@ class Map extends PureComponent {
 
   removePopup = () => this.setState({ popup: null });
 
-  offset = offset => {
-    this.dismissPopup();
-
-    const {
-      viewport: { latitude, longitude },
-    } = this.state;
-    const map = this.getMap();
-
-    map &&
-      map.flyTo({
-        center: [longitude, latitude],
-        offset: [0, offset],
-        speed: 0.8,
-        curve: 0,
-      });
-  };
 
   onLoaded = () => {
     this.setState({ loaded: true });
@@ -286,7 +270,6 @@ class Map extends PureComponent {
       <div className={classes.root}>
         <GeocoderContainer ref={this.geocoderContainerRef} />
         <Controls
-          offsetMap={this.offset}
           intervalControlsProps={{
             loaded,
             intervals,
