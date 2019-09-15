@@ -51,6 +51,13 @@ const ReportButton = ({ visible, loading, onClick }) => {
   const variant = isSmallScreen ? 'round' : 'extended';
   const label = isSmallScreen ? null : title;
 
+  const handleClick = () => {
+    if (loading) {
+      return;
+    }
+    onClick();
+  };
+
   return (
     <Zoom
       in={visible}
@@ -64,7 +71,7 @@ const ReportButton = ({ visible, loading, onClick }) => {
         color="primary"
         size="medium"
         aria-label={title}
-        onClick={onClick}
+        onClick={handleClick}
         disabled={!navigator.geolocation}
       >
         {label}

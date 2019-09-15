@@ -26,6 +26,7 @@ import Geocoder from './Geocoder';
 import ReportButton from './ReportButton';
 import SmartPopup from './SmartPopup';
 import ZoomControl from './ZoomControl';
+import UserMarker from './UserMarker';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 const api = new Api();
@@ -72,6 +73,7 @@ class Map extends PureComponent {
     interactiveLayerIds: [],
     popup: null,
     geolocating: false,
+    user: null,
   };
 
   mapRef = React.createRef();
@@ -235,20 +237,26 @@ class Map extends PureComponent {
   };
 
   onGeolocated = ({ latitude, longitude }) => {
-    this.setState({ viewport: { latitude, longitude, zoom: 19 } }, async () => {
-      const isNearWater = await this.hasWaterAround(latitude, longitude);
+    this.setState(
+      {
+        user: { latitude, longitude },
+        viewport: { latitude, longitude, zoom: 19 },
+      },
+      async () => {
+        const isNearWater = await this.hasWaterAround(latitude, longitude);
 
-      let popup = { latitude, longitude };
-      if (isNearWater) {
-        popup.title = '👀';
-        popup.text = 'Found you';
-      } else {
-        popup.title = '👀';
-        popup.text = 'Please get closer to the water';
-      }
+        let popup = { latitude, longitude };
+        if (isNearWater) {
+          popup.title = '👀';
+          popup.text = 'Found you';
+        } else {
+          popup.title = '👀';
+          popup.text = 'Please get closer to the water';
+        }
 
-      this.setState({ popup, geolocating: false });
-    });
+        this.setState({ popup, geolocating: false });
+      },
+    );
   };
 
   onGeolocationFailed = () =>
@@ -282,12 +290,12 @@ class Map extends PureComponent {
       popup,
       interval,
       geolocating,
+      user,
     } = this.state;
 
     return (
       <div className={classes.root}>
         <GeocoderContainer ref={this.geocoderContainerRef} />
-
         <Controls
           offsetMap={this.offset}
           intervalControlsProps={{
@@ -298,7 +306,6 @@ class Map extends PureComponent {
           }}
           chartProps={{ features: renderedFeatures, interval }}
         />
-
         <MapGL
           ref={this.mapRef}
           className={classes.map}
@@ -322,15 +329,13 @@ class Map extends PureComponent {
             latitude={viewport.latitude}
             onChange={this.onViewportChange}
           />
-
           <ReportButton
             visible={loaded}
             loading={geolocating}
             onClick={this.onReportClick}
           />
-
           {popup && <SmartPopup {...popup} onClose={this.removePopup} />}
-
+          {user && <UserMarker {...user} />}
           <ZoomControl />
         </MapGL>
       </div>
