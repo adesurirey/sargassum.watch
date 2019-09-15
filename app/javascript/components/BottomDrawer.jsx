@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { node, func, object } from 'prop-types';
+import { node, object } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
 import { SwipeableDrawer, Grid } from '@material-ui/core';
@@ -9,13 +9,14 @@ import BottomDrawerToggler from './BottomDrawerToggler';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-const height = 400;
-const onOpenMapOffset = -height / 2;
-const onCloseMapOffset = -onOpenMapOffset / 26;
+const propTypes = {
+  children: node.isRequired,
+  chartProps: object.isRequired,
+};
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    height,
+    height: 400,
     background: theme.palette.grey[100],
   },
   icon: {
@@ -29,25 +30,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const propTypes = {
-  children: node.isRequired,
-  offsetMap: func.isRequired,
-  chartProps: object.isRequired,
-};
-
-const BottomDrawer = ({ children, offsetMap, chartProps }) => {
+const BottomDrawer = ({ children, chartProps }) => {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
 
-  const onOpen = () => {
-    setOpen(true);
-    offsetMap(onOpenMapOffset);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-    offsetMap(onCloseMapOffset);
-  };
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
 
   return (
     <>
