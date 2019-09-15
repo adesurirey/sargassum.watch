@@ -15,9 +15,10 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
-import { sargassumCenter, bboxAround } from '../utils/geography';
+import { sargassumCenter } from '../utils/geography';
 import { featureCollection } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
+import { onNextIdle, validateWaterPresence } from '../utils/map';
 import Api from '../utils/Api';
 
 import Controls from './Controls';
@@ -211,26 +212,28 @@ class Map extends PureComponent {
     }
   };
 
-  hasWaterAround = (latitude, longitude) => {
-    const { transitionDuration } = this.state.viewport;
-    const [w, s, e, n] = bboxAround({ longitude, latitude }, 50);
+  handleUserPosition = map => {
+    const { user } = this.state;
+    const isNearWater = validateWaterPresence(map, user);
 
-    // Wait for map to render features before querying.
-    return new Promise(resolve =>
-      setTimeout(() => {
-        const map = this.getMap();
+    let popup = user;
+    if (isNearWater) {
+      popup.title = '👀';
+      popup.text = 'Found you';
+    } else {
+      popup.title = '👀';
+      popup.text = 'Please get closer to the water';
+    }
 
-        const bbox = [map.project([w, s]), map.project([e, n])];
-        const waterFeatures = map.queryRenderedFeatures(bbox, {
-          layers: ['water'],
-        });
-
-        return resolve(!!waterFeatures.length);
-      }, transitionDuration * 2),
-    );
+    this.setState({ popup, geolocating: false });
   };
 
   onGeolocated = ({ latitude, longitude }) => {
+    const handleUserPosition = onNextIdle(
+      this.getMap(),
+      this.handleUserPosition,
+    );
+
     this.setState(
       {
         user: { latitude, longitude },
@@ -242,27 +245,13 @@ class Map extends PureComponent {
           transitionDuration: 2000,
         },
       },
-      async () => {
-        const isNearWater = await this.hasWaterAround(latitude, longitude);
-
-        let popup = { latitude, longitude };
-        if (isNearWater) {
-          popup.title = '👀';
-          popup.text = 'Found you';
-        } else {
-          popup.title = '👀';
-          popup.text = 'Please get closer to the water';
-        }
-
-        this.setState({ popup, geolocating: false });
-      },
+      handleUserPosition,
     );
   };
 
   onGeolocationFailed = () =>
     this.setState(({ viewport }) => ({
       popup: {
-        title: '👀',
         text: 'Location not found',
         latitude: viewport.latitude,
         longitude: viewport.longitude,
