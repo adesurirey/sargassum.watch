@@ -44,13 +44,8 @@
     }
   }
 
-  &--icon-close {
+  &--icon-close,
+  &--icon-loading {
     margin-top: 0 !important;
   }
-
-  // .suggestions {
-  //   @media (min-width: 1279.95px) {
-  //     margin-top: 8px !important;
-  //   }
-  // }
 }
