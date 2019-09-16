@@ -139,8 +139,7 @@ class Map extends PureComponent {
       .catch(error =>
         this.setState(({ viewport: { latitude, longitude } }) => ({
           popup: {
-            title: '🐛',
-            text: 'Oops… something wrong happened',
+            text: 'Oops… something wrong happened 🐛',
             latitude,
             longitude,
           },
@@ -193,11 +192,9 @@ class Map extends PureComponent {
 
     let popup = user;
     if (isNearWater) {
-      popup.title = '👀';
       popup.text = 'Found you';
     } else {
-      popup.title = '👀';
-      popup.text = 'Please get closer to the water';
+      popup.text = 'Please get closer to the beach';
     }
 
     this.setState(({ user }) => ({
