@@ -132,6 +132,27 @@ class Map extends PureComponent {
 
   dismissPopup = () => this.setState({ popup: null });
 
+  onError(error, coordinates = null) {
+    const { latitude, longitude } = coordinates || this.state.viewport;
+
+    let text;
+    switch (error.response.status) {
+      case 422:
+        text = "Can't save your report. Did you disable cookies?";
+        break;
+      default:
+        text = 'Oops… something wrong happened 🐛';
+    }
+
+    this.setState({
+      popup: {
+        text,
+        latitude,
+        longitude,
+      },
+    });
+  }
+
   onLoaded = () => {
     this.setState({ loaded: true });
 
@@ -140,15 +161,7 @@ class Map extends PureComponent {
       .then(({ data: { features } }) =>
         this.setState({ features }, this.initMapData),
       )
-      .catch(error =>
-        this.setState(({ viewport: { latitude, longitude } }) => ({
-          popup: {
-            text: 'Oops… something wrong happened 🐛',
-            latitude,
-            longitude,
-          },
-        })),
-      );
+      .catch(error => this.onError(error));
   };
 
   onViewportChange = viewport =>
@@ -198,14 +211,7 @@ class Map extends PureComponent {
     api
       .create({ level, ...user })
       .then(({ data: feature }) => this.onReportSuccess(feature))
-      .catch(error =>
-        this.setState({
-          popup: {
-            text: 'Oops… something wrong happened 🐛',
-            ...user,
-          },
-        }),
-      );
+      .catch(error => this.onError(error, user));
   };
 
   handleUserPosition = () => {
