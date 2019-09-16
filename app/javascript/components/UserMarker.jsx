@@ -5,14 +5,16 @@ import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Lens } from '@material-ui/icons';
 
-const size = 52;
+const size = 60;
 
 const useStyles = makeStyles(theme => ({
   root: {
     height: size,
     width: size,
     position: 'relative',
-    padding: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     background: fade(theme.palette.primary.main, 0.1),
     borderRadius: '50%',
     lineHeight: 0,

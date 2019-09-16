@@ -16,9 +16,13 @@ import {
   permanentLayer,
 } from '../layers';
 import { sargassumCenter } from '../utils/geography';
-import { featureCollection } from '../utils/geoJSON';
+import { featureCollection, toPopup } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
-import { onNextIdle, validateWaterPresence } from '../utils/map';
+import {
+  onNextIdle,
+  validateWaterPresence,
+  isDifferentPosition,
+} from '../utils/map';
 import Api from '../utils/Api';
 
 import Controls from './Controls';
@@ -152,30 +156,17 @@ class Map extends PureComponent {
       viewport: { ...this.state.viewport, ...viewport },
     });
 
-  onClick = ({ features }) => {
-    this.dismissPopup();
-
-    const feature = features && features[0];
-
-    if (!feature) {
+  onClick = event => {
+    // Cannot prevent event propagation on map childrens,
+    // so we check here that the click was trageting the map.
+    if (!event.target.classList.contains('overlays')) {
       return;
     }
 
-    const {
-      geometry: {
-        coordinates: [longitude, latitude],
-      },
-      properties,
-    } = feature;
+    this.dismissPopup();
 
-    this.setState({
-      popup: {
-        variant: 'point',
-        latitude,
-        longitude,
-        ...properties,
-      },
-    });
+    const feature = event.features && event.features[0];
+    feature && this.setState({ popup: toPopup(feature) });
   };
 
   onIntervalChange = interval => {
@@ -186,32 +177,64 @@ class Map extends PureComponent {
     }
   };
 
-  handleUserPosition = map => {
+  onReportSuccess = feature =>
+    this.setState(
+      ({ features }) => ({
+        features: [
+          ...features.filter(
+            ({ properties: { id } }) => id !== feature.properties.id,
+          ),
+          feature,
+        ],
+        popup: toPopup(feature),
+        user: null,
+      }),
+      () => this.setMapData(this.getFeaturesInInterval()),
+    );
+
+  onReportSubmit = level => {
+    const { user } = this.state;
+
+    api
+      .create({ level, ...user })
+      .then(({ data: feature }) => this.onReportSuccess(feature))
+      .catch(error =>
+        this.setState({
+          popup: {
+            text: 'Oops… something wrong happened 🐛',
+            ...user,
+          },
+        }),
+      );
+  };
+
+  handleUserPosition = () => {
+    const map = this.getMap();
     const { user } = this.state;
     const isNearWater = validateWaterPresence(map, user);
 
-    let popup = user;
+    let popup = { ...user };
     if (isNearWater) {
-      popup.text = 'Found you';
+      popup.variant = 'report';
+      popup.onSubmit = this.onReportSubmit;
     } else {
       popup.text = 'Please get closer to the beach';
     }
 
-    this.setState(({ user }) => ({
-      geolocating: false,
+    this.setState({
       popup,
-      user: {
-        ...user,
-        isNearWater,
-      },
-    }));
+      geolocating: false,
+    });
   };
 
   onGeolocated = ({ latitude, longitude }) => {
-    const handleUserPosition = onNextIdle(
-      this.getMap(),
-      this.handleUserPosition,
-    );
+    const { viewport } = this.state;
+    const map = this.getMap();
+
+    let handlePosition = this.handleUserPosition;
+    if (isDifferentPosition(map, [viewport, { latitude, longitude }])) {
+      handlePosition = onNextIdle(map, handlePosition);
+    }
 
     this.setState(
       {
@@ -224,7 +247,7 @@ class Map extends PureComponent {
           transitionDuration: 2000,
         },
       },
-      handleUserPosition,
+      handlePosition,
     );
   };
 

@@ -35,6 +35,9 @@ const SmartTimeAgo = ({ date: time, now, dateOptions, ...typographyProps }) => {
   const options = Object.assign({}, dateOptions);
 
   const formatter = (value, unit, _suffix, _epochSeconds, nextFormatter) => {
+    if (units.indexOf(unit) < units.indexOf('minute')) {
+      return 'right now';
+    }
     if (units.indexOf(unit) < units.indexOf('week')) {
       return nextFormatter();
     }

@@ -28,6 +28,7 @@ let theme = createMuiTheme({
     level: {
       clear: {
         main: 'rgba(30, 221, 136, 1)',
+        dark: 'rgba(25, 181, 112, 1)',
         contrastText: '#333',
       },
 

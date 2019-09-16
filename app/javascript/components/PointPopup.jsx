@@ -9,6 +9,11 @@ import { AccessTime } from '@material-ui/icons';
 import Tooltip from './Tooltip';
 import SmartTimeAgo from './SmartTimeAgo';
 
+const propTypes = {
+  name: string.isRequired,
+  updatedAt: string.isRequired,
+};
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: 160,
@@ -21,11 +26,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
 }));
-
-const propTypes = {
-  name: string.isRequired,
-  updatedAt: string.isRequired,
-};
 
 const PointPopup = ({ name, updatedAt, ...popupProps }) => {
   const classes = useStyles();
@@ -48,6 +48,6 @@ const PointPopup = ({ name, updatedAt, ...popupProps }) => {
   );
 };
 
-export default memo(PointPopup, () => true);
+export default memo(PointPopup);
 
 PointPopup.propTypes = propTypes;
