@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const accept = 'application/json';
 
+const getToken = () => document.querySelector('meta[name=csrf-token]').content;
+const csrfHeader = () => ({ headers: { 'X-CSRF-Token': getToken() } });
+
 export default class {
   constructor() {
     this._setDefaultHeaders();
@@ -13,5 +16,9 @@ export default class {
 
   getAll() {
     return axios.get('/reports');
+  }
+
+  create(report) {
+    return axios.post('/reports', { report }, csrfHeader());
   }
 }

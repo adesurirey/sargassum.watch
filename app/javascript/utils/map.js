@@ -19,9 +19,20 @@ const validateWaterPresence = (map, { latitude, longitude }) => {
 
 const onNextIdle = (map, call) => () => {
   map.on('idle', function callback() {
-    call(map);
+    call();
     map.off('idle', callback);
   });
 };
 
-export { onNextIdle, validateWaterPresence };
+const isDifferentPosition = (map, [viewport, coordinates]) => {
+  if (viewport.zoom !== 19) {
+    return true;
+  }
+
+  const a = map.project([viewport.longitude, viewport.latitude]);
+  const b = map.project([coordinates.longitude, coordinates.latitude]);
+
+  return a.x.toFixed(2) !== b.x.toFixed(2) || a.y.toFixed(2) !== b.y.toFixed(2);
+};
+
+export { onNextIdle, validateWaterPresence, isDifferentPosition };
