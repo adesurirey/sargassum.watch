@@ -4,6 +4,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL, { FlyToInterpolator } from 'react-map-gl';
+import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
 import _isEqualWith from 'lodash/isEqualWith';
 import { withStyles } from '@material-ui/styles';
@@ -125,7 +126,7 @@ class Map extends PureComponent {
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
-    map.on('idle', this.setRenderedFeatures);
+    map.on('idle', _debounce(this.setRenderedFeatures, 500));
 
     this.setState({ interactiveLayerIds: [pointsLayer.id] });
   };
