@@ -14,6 +14,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "cheap-ruler": "^2.5.1",
     "clsx": "^1.0.4",
+    "fingerprintjs2": "^2.1.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

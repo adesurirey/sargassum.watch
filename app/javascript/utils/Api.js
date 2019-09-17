@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const accept = 'application/json';
+import csrfToken from './csrfToken';
+import Fingerprint from '../utils/Fingerprint';
 
-const getToken = () => document.querySelector('meta[name=csrf-token]').content;
-const csrfHeader = () => ({ headers: { 'X-CSRF-Token': getToken() } });
+const fingerprint = new Fingerprint();
+const accept = 'application/json';
 
 export default class {
   constructor() {
@@ -14,11 +15,20 @@ export default class {
     axios.default.headers = { accept };
   }
 
+  _postHeaders() {
+    return {
+      headers: {
+        'X-CSRF-Token': csrfToken(),
+        'X-Fingerprint': fingerprint.hash,
+      },
+    };
+  }
+
   getAll() {
     return axios.get('/reports');
   }
 
   create(report) {
-    return axios.post('/reports', { report }, csrfHeader());
+    return axios.post('/reports', { report }, this._postHeaders());
   }
 }
