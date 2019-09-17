@@ -3,6 +3,7 @@ import { func, bool } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Button } from '@material-ui/core';
 
 import { toString } from '../utils/interval';
@@ -19,8 +20,20 @@ const defaultProps = {
 };
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    transition: theme.transitions.create(['background', 'fontWeight'], {
+      duration: theme.transitions.duration.short,
+    }),
+    '&:hover': {
+      background: fade(
+        theme.palette.text.primary,
+        theme.palette.action.hoverOpacity / 2,
+      ),
+    },
+  },
   active: {
     background: theme.palette.action.hover,
+    fontWeight: 600,
     '&:hover': {
       background: theme.palette.action.hover,
     },
@@ -35,7 +48,7 @@ const IntervalControl = ({ interval, active, onClick }) => {
   return (
     <Button
       aria-pressed={active}
-      className={clsx(active && classes.active)}
+      className={clsx(classes.root, active && classes.active)}
       onClick={handleClick}
     >
       {toString(interval)}

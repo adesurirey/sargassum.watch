@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
       bottom: 36,
     },
     margin: theme.spacing(2),
+    fontWeight: 600,
   },
   icon: {
     marginLeft: theme.spacing(1),
