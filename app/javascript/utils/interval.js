@@ -164,6 +164,7 @@ const getTickFormatter = (interval, format = 'short') => time => {
 export {
   intervals,
   toString,
+  intervalStartDate,
   featuresInInterval,
   featuresPerInterval,
   toTickDate,
