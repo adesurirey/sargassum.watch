@@ -22,7 +22,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const BottomDrawerToggler = ({ onOpen, chartProps: { interval, ...rest } }) => {
+const BottomDrawerToggler = ({
+  onOpen,
+  chartProps,
+  chartProps: { interval },
+}) => {
   const classes = useStyles();
 
   const text = `Last ${toString(interval)} reported sargassum`;
@@ -37,7 +41,7 @@ const BottomDrawerToggler = ({ onOpen, chartProps: { interval, ...rest } }) => {
       <ButtonBase className={classes.paper} disableTouchRipple onClick={onOpen}>
         <Grid container spacing={2}>
           <Grid item xs={2} sm={1}>
-            <Chart tiny height={20} interval={interval} {...rest} />
+            <Chart tiny height={20} {...chartProps} />
           </Grid>
           <Grid item>
             <Typography color="textSecondary" variant="caption" noWrap>

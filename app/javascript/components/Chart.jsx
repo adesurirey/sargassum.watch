@@ -8,6 +8,7 @@ import { featuresPerInterval } from '../utils/interval';
 import { interval } from '../utils/propTypes';
 
 const propTypes = {
+  interval,
   features: arrayOf(
     shape({
       properties: shape({
@@ -16,7 +17,6 @@ const propTypes = {
       }).isRequired,
     }),
   ).isRequired,
-  interval,
   tiny: bool.isRequired,
 };
 
@@ -35,9 +35,12 @@ const Chart = ({ features, interval, tiny, ...containerProps }) => {
 };
 
 const featuresUnchanged = (
-  { features: prevFeatures },
-  { features: nextFeatures },
+  { interval: prevInterval, features: prevFeatures },
+  { interval: nextInterval, features: nextFeatures },
 ) => {
+  if (prevInterval.id !== nextInterval.id) {
+    return false;
+  }
   if (prevFeatures.length > 0 && nextFeatures.length > 0) {
     return _isEqualWith(prevFeatures, nextFeatures, 'properties.id');
   }
