@@ -5,6 +5,10 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Fab } from '@material-ui/core';
 
+import { arrayToObject } from '../utils/root';
+
+const { levels } = gon;
+
 const propTypes = {
   value: number.isRequired,
   label: string.isRequired,
@@ -12,30 +16,23 @@ const propTypes = {
   disabled: bool.isRequired,
 };
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: 'none',
-  },
+const useStyles = makeStyles(theme => {
+  const colors = arrayToObject(levels, (obj, level) => {
+    obj[level.label] = {
+      backgroundColor: theme.palette.level[level.label].main,
+      '&:hover': {
+        backgroundColor: theme.palette.level[level.label].dark,
+      },
+    };
+  });
 
-  clear: {
-    backgroundColor: theme.palette.level.clear.main,
-    '&:hover': {
-      backgroundColor: theme.palette.level.clear.dark,
+  return {
+    root: {
+      boxShadow: 'none',
     },
-  },
-  moderate: {
-    backgroundColor: theme.palette.level.moderate.main,
-    '&:hover': {
-      backgroundColor: theme.palette.level.moderate.dark,
-    },
-  },
-  critical: {
-    backgroundColor: theme.palette.level.critical.main,
-    '&:hover': {
-      backgroundColor: theme.palette.level.critical.dark,
-    },
-  },
-}));
+    ...colors,
+  };
+});
 
 const LevelSubmit = ({ value, label, onClick, disabled }) => {
   const classes = useStyles();

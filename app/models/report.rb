@@ -59,6 +59,10 @@ class Report < ApplicationRecord
       current_with(params) || new(params)
     end
 
+    def formatted_levels
+      levels.map { |k, v| { value: v, label: k } }
+    end
+
     private
 
     def cache_key(reports)

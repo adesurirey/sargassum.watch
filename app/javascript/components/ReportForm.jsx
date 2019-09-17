@@ -6,20 +6,7 @@ import { Grid } from '@material-ui/core';
 
 import LevelSubmit from './LevelSubmit';
 
-const levels = [
-  {
-    value: 0,
-    label: 'clear',
-  },
-  {
-    value: 1,
-    label: 'moderate',
-  },
-  {
-    value: 2,
-    label: 'critical',
-  },
-];
+const { levels } = gon;
 
 const propTypes = {
   onSubmit: func.isRequired,
