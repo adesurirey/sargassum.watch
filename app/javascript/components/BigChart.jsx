@@ -15,7 +15,11 @@ import { Grid } from '@material-ui/core';
 
 import ChartTooltip from './ChartTooltip';
 import { data, interval } from '../utils/propTypes';
-import { toTickDate, getTickFormatter } from '../utils/interval';
+import {
+  intervalStartDate,
+  toTickDate,
+  getTickFormatter,
+} from '../utils/interval';
 
 const propTypes = {
   data,
@@ -25,6 +29,7 @@ const propTypes = {
 const BigChart = ({ data, interval }) => {
   const theme = useTheme();
 
+  const start = intervalStartDate(interval).getTime();
   const now = toTickDate(new Date(), interval.unit).getTime();
 
   const tickFormatter = getTickFormatter(interval);
@@ -37,7 +42,7 @@ const BigChart = ({ data, interval }) => {
           <XAxis
             dataKey="time"
             type="number"
-            domain={['dataMin', now]}
+            domain={[start, now]}
             interval="preserveStartEnd"
             tickCount={3}
             tickLine={false}
