@@ -11,6 +11,28 @@ import TimeAgo from 'react-timeago';
 
 const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
 
+const getFormatter = (date, options, now) => (
+  value,
+  unit,
+  _suffix,
+  _epochSeconds,
+  nextFormatter,
+) => {
+  const unitIndex = units.indexOf(unit);
+
+  if (unitIndex < units.indexOf('minute')) {
+    return 'right now';
+  }
+  if (unitIndex < units.indexOf('week')) {
+    return nextFormatter();
+  }
+  if (date.getFullYear() < now.getFullYear()) {
+    options.year = 'numeric';
+  }
+
+  return date.toLocaleDateString('default', options);
+};
+
 const propTypes = {
   date: oneOfType([string, number]).isRequired,
   now: instanceOf(Date),
@@ -32,21 +54,8 @@ const defaultProps = {
 
 const SmartTimeAgo = ({ date: time, now, dateOptions, ...typographyProps }) => {
   const date = new Date(time);
-  const options = Object.assign({}, dateOptions);
-
-  const formatter = (value, unit, _suffix, _epochSeconds, nextFormatter) => {
-    if (units.indexOf(unit) < units.indexOf('minute')) {
-      return 'right now';
-    }
-    if (units.indexOf(unit) < units.indexOf('week')) {
-      return nextFormatter();
-    }
-    if (date.getFullYear() < now.getFullYear()) {
-      options.year = 'numeric';
-    }
-
-    return date.toLocaleDateString('default', options);
-  };
+  const options = { ...dateOptions };
+  const formatter = getFormatter(date, options, now);
 
   return <TimeAgo date={date} formatter={formatter} />;
 };
