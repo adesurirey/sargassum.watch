@@ -5,6 +5,10 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Lens } from '@material-ui/icons';
 
+import { arrayToObject } from '../utils/root';
+
+const { levels } = gon;
+
 const propTypes = {
   humanLevel: oneOf(['clear', 'moderate', 'critical']).isRequired,
   size: string,
@@ -16,17 +20,15 @@ const defaultProps = {
   className: null,
 };
 
-const useStyles = makeStyles(theme => ({
-  clear: {
-    color: theme.palette.level.clear.main,
-  },
-  moderate: {
-    color: theme.palette.level.moderate.main,
-  },
-  critical: {
-    color: theme.palette.level.critical.main,
-  },
-}));
+const useStyles = makeStyles(theme => {
+  const colors = arrayToObject(levels, (obj, level) => {
+    obj[level.label] = {
+      color: theme.palette.level[level.label].main,
+    };
+  });
+
+  return colors;
+});
 
 const LegendPoint = ({ humanLevel, size, className }) => {
   const classes = useStyles();

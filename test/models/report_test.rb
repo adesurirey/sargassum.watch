@@ -212,6 +212,16 @@ class ReportTest < ActiveSupport::TestCase
     end
   end
 
+  test "should return possible report values and labels" do
+    expected = [
+      { value: 0, label: "clear" },
+      { value: 1, label: "moderate" },
+      { value: 2, label: "critical" },
+    ]
+
+    assert_equal expected, Report.formatted_levels
+  end
+
   private
 
   def report_params(attributes)
