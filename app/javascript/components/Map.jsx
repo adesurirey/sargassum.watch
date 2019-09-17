@@ -5,6 +5,7 @@ import React, { PureComponent, lazy } from 'react';
 import { object } from 'prop-types';
 import MapGL, { FlyToInterpolator } from 'react-map-gl';
 import _uniqBy from 'lodash/uniqBy';
+import _isEqualWith from 'lodash/isEqualWith';
 import { withStyles } from '@material-ui/styles';
 
 import {
@@ -73,7 +74,8 @@ class Map extends PureComponent {
     },
     features: [],
     interval: intervals[0],
-    renderedFeatures: [],
+    featuresForInterval: [],
+    renderedFeatures: { interval: intervals[0], features: [] },
     interactiveLayerIds: [],
     popup: null,
     geolocating: false,
@@ -88,9 +90,27 @@ class Map extends PureComponent {
   };
 
   getFeaturesInInterval() {
-    const { features, interval } = this.state;
+    const { features, interval, featuresForInterval } = this.state;
 
-    return featuresInInterval(features, interval);
+    const newFeatures = featuresInInterval(features, interval);
+    const wontChange = _isEqualWith(
+      newFeatures,
+      featuresForInterval,
+      'properties.id',
+    );
+
+    if (wontChange) {
+      // Because it won't trigger a map idle event,
+      // which is responsible for updating rendered features interval,
+      // we update rendered features interval manualy.
+      this.setState(({ renderedFeatures }) => ({
+        renderedFeatures: { interval, ...renderedFeatures },
+      }));
+    } else {
+      this.setState({ featuresForInterval: newFeatures });
+    }
+
+    return newFeatures;
   }
 
   initMapData = () => {
@@ -118,9 +138,12 @@ class Map extends PureComponent {
     });
 
     features &&
-      this.setState({
-        renderedFeatures: _uniqBy(features, 'properties.id'),
-      });
+      this.setState(({ interval }) => ({
+        renderedFeatures: {
+          interval,
+          features: _uniqBy(features, 'properties.id'),
+        },
+      }));
   };
 
   setMapData = features => {
@@ -300,7 +323,7 @@ class Map extends PureComponent {
             selectedInterval: interval,
             onIntervalChange: this.onIntervalChange,
           }}
-          chartProps={{ features: renderedFeatures, interval }}
+          chartProps={{ ...renderedFeatures }}
         />
         <MapGL
           ref={this.mapRef}
