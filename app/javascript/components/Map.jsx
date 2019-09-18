@@ -248,7 +248,7 @@ class Map extends PureComponent {
       popup.variant = 'report';
       popup.onSubmit = this.onReportSubmit;
     } else {
-      popup.text = 'Please get closer to the beach';
+      popup.text = 'Please get closer to the beach 🏝️';
     }
 
     this.setState({
