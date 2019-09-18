@@ -21,6 +21,8 @@ import {
   getTickFormatter,
 } from '../utils/interval';
 
+const { levels } = gon;
+
 const propTypes = {
   data,
   interval,
@@ -62,14 +64,14 @@ const BigChart = ({ data, interval }) => {
             content={<ChartTooltip unit={interval.unit} />}
           />
           <Legend iconType="circle" />
-          {['clear', 'moderate', 'critical'].map(humanLevel => (
+          {levels.map(({ label }) => (
             <Area
-              key={humanLevel}
+              key={label}
               type="linear"
-              dataKey={humanLevel}
+              dataKey={label}
               stackId="1"
-              stroke={theme.palette.level[humanLevel].main}
-              fill={theme.palette.level[humanLevel].main}
+              stroke={theme.palette.level[label].main}
+              fill={theme.palette.level[label].main}
             />
           ))}
         </AreaChart>

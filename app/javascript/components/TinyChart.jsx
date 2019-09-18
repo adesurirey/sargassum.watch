@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/styles';
 
 import { data } from '../utils/propTypes';
 
+const { levels } = gon;
+
 const propTypes = {
   data,
 };
@@ -36,14 +38,14 @@ const TinyChart = ({ data, ...containerProps }) => {
     <ResponsiveContainer {...containerProps}>
       <AreaChart data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <YAxis domain={[0, 'dataMax']} hide />
-        {['clear', 'moderate', 'critical'].map(humanLevel => (
+        {levels.map(({ label }) => (
           <Area
-            key={humanLevel}
+            key={label}
             type="linear"
-            dataKey={humanLevel}
+            dataKey={label}
             stackId="1"
-            stroke={theme.palette.level[humanLevel].main}
-            fill={theme.palette.level[humanLevel].main}
+            stroke={theme.palette.level[label].main}
+            fill={theme.palette.level[label].main}
           />
         ))}
       </AreaChart>
