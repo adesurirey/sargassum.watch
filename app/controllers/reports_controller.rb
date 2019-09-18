@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  skip_before_action :authenticate_user, only: :index
+
   def index
     render json: Report.cached_geo_json
   end
@@ -21,6 +23,6 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report)
           .permit(:latitude, :longitude, :level)
-          .merge(session_id: session.id)
+          .merge(user_id: user_id)
   end
 end

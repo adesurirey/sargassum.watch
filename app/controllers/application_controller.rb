@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :init_session
+  before_action :authenticate_user
 
-  # Sessions are lazily loaded.
-  # If we don't access sessions in our action's code, they will not be loaded.
-  # See https://github.com/rails/rails/issues/10813
-  #
-  def init_session
-    session.delete "init"
+  private
+
+  def authenticate_user
+    return if user_id
+
+    @user_id = cookies[:user_id] = request.headers["HTTP_X_FINGERPRINT"]
+  end
+
+  def user_id
+    @user_id ||= cookies[:user_id]
   end
 end

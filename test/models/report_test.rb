@@ -11,7 +11,7 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  session_id :string           not null
+#  user_id    :string           not null
 #
 # Indexes
 #
@@ -23,22 +23,22 @@ require "test_helper"
 class ReportTest < ActiveSupport::TestCase
   test "should be valid" do
     clear = Report.new(
-      latitude:   Faker::Address.latitude,
-      longitude:  Faker::Address.longitude,
-      level:      :clear,
-      session_id: SecureRandom.hex,
+      latitude:  Faker::Address.latitude,
+      longitude: Faker::Address.longitude,
+      level:     :clear,
+      user_id:   SecureRandom.hex,
     )
     moderate = Report.new(
-      latitude:   Faker::Address.latitude,
-      longitude:  Faker::Address.longitude,
-      level:      :moderate,
-      session_id: SecureRandom.hex,
+      latitude:  Faker::Address.latitude,
+      longitude: Faker::Address.longitude,
+      level:     :moderate,
+      user_id:   SecureRandom.hex,
     )
     critical = Report.new(
-      latitude:   Faker::Address.latitude,
-      longitude:  Faker::Address.longitude,
-      level:      :critical,
-      session_id: SecureRandom.hex,
+      latitude:  Faker::Address.latitude,
+      longitude: Faker::Address.longitude,
+      level:     :critical,
+      user_id:   SecureRandom.hex,
     )
 
     assert clear.valid?
@@ -53,7 +53,7 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes map_errors(report, :latitude), :not_a_number
     assert_includes map_errors(report, :longitude), :not_a_number
     assert_includes map_errors(report, :level), :blank
-    assert_includes map_errors(report, :session_id), :blank
+    assert_includes map_errors(report, :user_id), :blank
 
     report.latitude = 180
     report.longitude = -200
@@ -136,10 +136,10 @@ class ReportTest < ActiveSupport::TestCase
     report = create(:report, :sugiton, :critical)
     coords = coordinates_hash(:sugiton_beach)
     params = report_params(
-      longitude:  coords[:longitude],
-      latitude:   coords[:latitude],
-      session_id: report.session_id,
-      level:      "clear",
+      longitude: coords[:longitude],
+      latitude:  coords[:latitude],
+      user_id:   report.user_id,
+      level:     "clear",
     )
 
     result = Report.find_or_initialize_by(params)
@@ -152,10 +152,10 @@ class ReportTest < ActiveSupport::TestCase
     report = create(:report, :sugiton, :critical)
     coords = coordinates_hash(:morgiou)
     params = report_params(
-      longitude:  coords[:longitude],
-      latitude:   coords[:latitude],
-      session_id: report.session_id,
-      level:      :clear,
+      longitude: coords[:longitude],
+      latitude:  coords[:latitude],
+      user_id:   report.user_id,
+      level:     :clear,
     )
 
     result = Report.find_or_initialize_by(params)
@@ -227,7 +227,7 @@ class ReportTest < ActiveSupport::TestCase
   def report_params(attributes)
     ActionController::Parameters
       .new(report: attributes)
-      .require(:report).permit(:level, :longitude, :latitude, :session_id)
+      .require(:report).permit(:level, :longitude, :latitude, :user_id)
   end
 
   def map_errors(record, attribute)

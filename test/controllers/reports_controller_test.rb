@@ -62,7 +62,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     clear = report_params { coordinates_hash(:sugiton).merge(level: "clear") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.clear.count", 1 do
-        post reports_path, params: clear, headers: json_headers
+        post reports_path, params: clear, headers: auth_headers
       end
     end
     assert_response :created
@@ -70,7 +70,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     moderate = report_params { coordinates_hash(:morgiou).merge(level: "moderate") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.moderate.count", 1 do
-        post reports_path, params: moderate, headers: json_headers
+        post reports_path, params: moderate, headers: auth_headers
       end
     end
     assert_response :created
@@ -78,7 +78,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     critical = report_params { coordinates_hash(:podestat).merge(level: "critical") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.critical.count", 1 do
-        post reports_path, params: critical, headers: json_headers
+        post reports_path, params: critical, headers: auth_headers
       end
     end
     assert_response :created
@@ -86,7 +86,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "create should return created report as a geoJSON feature" do
     params = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
-    post reports_path, params: params, headers: json_headers
+    post reports_path, params: params, headers: auth_headers
 
     assert_response :success
     assert_equal %w[type geometry properties], body.keys
@@ -97,14 +97,14 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "create should update users report already created at same place within 24h" do
     moderate = report_params { coordinates_hash(:sugiton).merge(level: "moderate") }
-    post reports_path, params: moderate, headers: json_headers
+    post reports_path, params: moderate, headers: auth_headers
     assert_response :created
     id = body["properties"]["id"]
 
     critical = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
     assert_no_difference "Report.count" do
       assert_difference "Report.critical.count", 1 do
-        post reports_path, params: critical, headers: json_headers
+        post reports_path, params: critical, headers: auth_headers
       end
     end
     assert_response :ok
@@ -115,10 +115,20 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     params = report_params { coordinates_hash(:sugiton) }
 
     assert_no_difference "Report.count" do
-      post reports_path, params: params, headers: json_headers
+      post reports_path, params: params, headers: auth_headers
     end
     assert_response :unprocessable_entity
     assert_equal "can't be blank", body["errors"]["level"].first
+  end
+
+  test "create should return unprocessable without user id" do
+    params = report_params { coordinates_hash(:sugiton) }
+
+    assert_no_difference "Report.count" do
+      post reports_path, params: params, headers: json_headers
+    end
+    assert_response :unprocessable_entity
+    assert_equal "can't be blank", body["errors"]["user_id"].first
   end
 
   private

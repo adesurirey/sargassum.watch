@@ -15,8 +15,8 @@ class Assets::KMLTest < ActiveSupport::TestCase
 
   test "should merge custom placemark attributes" do
     custom_attributes = {
-      level:      :clear,
-      session_id: SecureRandom.hex,
+      level:   :clear,
+      user_id: SecureRandom.hex,
     }
 
     kml = Assets::KML.new(
@@ -28,14 +28,14 @@ class Assets::KMLTest < ActiveSupport::TestCase
     last = kml.placemarks.last
 
     assert_equal custom_attributes[:level], first[:level]
-    assert_equal custom_attributes[:session_id], first[:session_id]
+    assert_equal custom_attributes[:user_id], first[:user_id]
     assert first[:name].present?
     assert first[:updated_at].present?
     assert first[:latitude].present?
     assert first[:longitude].present?
 
     assert_equal custom_attributes[:level], first[:level]
-    assert_equal custom_attributes[:session_id], first[:session_id]
+    assert_equal custom_attributes[:user_id], first[:user_id]
 
     assert_not_equal first[:name], last[:name]
     assert_not_equal first[:latitude], last[:latitude]
