@@ -11,7 +11,7 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  session_id :string           not null
+#  user_id    :string           not null
 #
 # Indexes
 #
@@ -36,7 +36,7 @@ class Report < ApplicationRecord
   validates :latitude, numericality: LATITUDE_NUMERICALITY
   validates :longitude, numericality: LONGITUDE_NUMERICALITY
   validates :level, presence: true
-  validates :session_id, presence: true
+  validates :user_id, presence: true, length: { is: 32 }
 
   before_create :reverse_geocode, if: :should_geocode?
 
@@ -70,10 +70,10 @@ class Report < ApplicationRecord
     end
 
     def current_with(params)
-      session_id, latitude, longitude = params.values_at(:session_id, :latitude, :longitude)
+      user_id, latitude, longitude = params.values_at(:user_id, :latitude, :longitude)
 
       where(
-        session_id: session_id,
+        user_id:    user_id,
         created_at: MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME..,
       )
         .near([latitude, longitude], MIN_DISTANCE_FROM_LAST_REPORT_IN_KM, units: :km)

@@ -24,8 +24,8 @@ end
 def seed_form_file!(file_name, level)
   file_path = Rails.root.join("db", "data", file_name)
   attributes = {
-    level:      level,
-    session_id: file_path.basename.to_s,
+    level:   level,
+    user_id: SecureRandom.hex,
   }
 
   kml = Assets::KML.new(file_path, attributes)

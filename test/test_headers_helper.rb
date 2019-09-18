@@ -14,4 +14,10 @@ module TestHeadersHelper
       # "Content-Type" => "json",
     }
   end
+
+  def auth_headers
+    json_headers.merge(
+      "X-Fingerprint" => SecureRandom.hex,
+    )
+  end
 end
