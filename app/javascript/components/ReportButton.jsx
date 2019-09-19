@@ -64,37 +64,65 @@ const useStyles = makeStyles(theme => ({
 const ReportButton = ({ visible, tiny, loading, onClick }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClick = () => !loading && onClick();
 
-  const title = 'Report situation';
+  const label = 'Report situation';
 
-  const size = tiny ? 'small' : 'medium';
-  const variant = isSmallScreen && !tiny ? 'round' : 'extended';
+  let variant = {
+    transitionDelay: theme.transitions.duration.enteringScreen + 100,
+    size: 'medium',
+    variant: 'extended',
+    label,
+    classes: {
+      root: classes.regular,
+      icon: classes.icon,
+    },
+  };
 
-  const label = variant === 'extended' ? title : null;
+  const mobileVariant = {
+    ...variant,
+    variant: 'round',
+    label: null,
+  };
 
-  const transitionDelay = tiny
-    ? theme.transitions.duration.shortest
-    : theme.transitions.duration.enteringScreen + 100;
+  const tinyVariant = {
+    ...variant,
+    transitionDelay: theme.transitions.duration.shortest,
+    size: 'small',
+    classes: {
+      root: classes.tiny,
+      icon: classes.iconTiny,
+    },
+  };
+
+  if (tiny) {
+    variant = tinyVariant;
+  } else if (isMobile) {
+    variant = mobileVariant;
+  }
 
   return (
-    <Zoom in={visible} style={{ transitionDelay }} mountOnEnter>
+    <Zoom
+      in={visible}
+      style={{ transitionDelay: variant.transitionDelay }}
+      mountOnEnter
+    >
       <Fab
         color="primary"
-        classes={{ root: tiny ? classes.tiny : classes.regular }}
-        variant={variant}
-        size={size}
-        aria-label={title}
+        classes={{ root: variant.classes.root }}
+        variant={variant.variant}
+        size={variant.size}
+        aria-label={label}
         onClickCapture={handleClick}
         disabled={!navigator.geolocation}
       >
-        {label}
+        {variant.label}
         <MyLocationRounded
           fontSize="small"
           classes={{
-            root: clsx(tiny ? classes.iconTiny : classes.icon, {
+            root: clsx(variant.classes.icon, {
               [classes.rotating]: loading,
             }),
           }}
