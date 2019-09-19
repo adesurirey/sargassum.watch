@@ -12,12 +12,14 @@ const propTypes = {
   chartProps: object.isRequired,
 };
 
-const ResponsiveDrawer = ({ children, chartProps }) => {
+const ResponsiveDrawer = ({ children, chartProps, ...bottomDrawerProps }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return matches ? (
-    <BottomDrawer chartProps={chartProps}>{children}</BottomDrawer>
+    <BottomDrawer chartProps={chartProps} {...bottomDrawerProps}>
+      {children}
+    </BottomDrawer>
   ) : (
     <LeftDrawer>{children}</LeftDrawer>
   );

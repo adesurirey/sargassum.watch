@@ -55,7 +55,6 @@ const styles = theme => ({
 
 class Map extends PureComponent {
   state = {
-    loaded: false,
     viewport: {
       ...sargassumCenter,
       zoom: 3,
@@ -73,6 +72,7 @@ class Map extends PureComponent {
       minPitch: 0,
       maxPitch: 85,
     },
+    loaded: false,
     features: [],
     interval: intervals[0],
     featuresForInterval: [],
@@ -325,6 +325,14 @@ class Map extends PureComponent {
             onIntervalChange: this.onIntervalChange,
           }}
           chartProps={{ ...renderedFeatures }}
+          reportButton={
+            <ReportButton
+              visible={loaded}
+              loading={geolocating}
+              onClick={this.onReportClick}
+              tiny
+            />
+          }
         />
         <MapGL
           ref={this.mapRef}
@@ -336,7 +344,6 @@ class Map extends PureComponent {
           attributionControl={false}
           mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
           mapboxApiAccessToken={gon.mapboxApiAccessToken}
-          getCursor={this.getCursor}
           interactiveLayerIds={interactiveLayerIds}
           onViewportChange={this.onViewportChange}
           onLoad={this.onLoaded}

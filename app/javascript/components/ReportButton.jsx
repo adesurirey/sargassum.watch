@@ -10,74 +10,94 @@ import { MyLocationRounded } from '@material-ui/icons';
 const propTypes = {
   visible: bool,
   loading: bool,
+  tiny: bool,
   onClick: func.isRequired,
 };
 
 const defaultProps = {
   visible: false,
   loading: false,
+  tiny: false,
 };
 
 const useStyles = makeStyles(theme => ({
-  '@keyframes rotating': {
-    from: { transform: 'rotate(0deg)' },
-    to: { transform: 'rotate(360deg)' },
-  },
-  root: {
+  regular: {
     position: 'absolute',
     right: 0,
+    margin: theme.spacing(2),
+    fontWeight: 600,
     [theme.breakpoints.down('sm')]: {
       bottom: 36,
     },
-    margin: theme.spacing(2),
-    fontWeight: 600,
   },
+  tiny: {
+    position: 'fixed',
+    right: 0,
+    bottom: 400,
+    height: '25px !important',
+    margin: theme.spacing(1),
+    boxShadow: theme.shadows[3],
+    fontSize: theme.typography.caption.fontSize,
+    zIndex: 9999,
+  },
+
   icon: {
     marginLeft: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
   },
+  iconTiny: {
+    marginLeft: theme.spacing(1) / 2,
+    fontSize: theme.typography.fontSize,
+  },
   rotating: {
     animation: '$rotating 1500ms linear infinite',
   },
+
+  '@keyframes rotating': {
+    from: { transform: 'rotate(0deg)' },
+    to: { transform: 'rotate(360deg)' },
+  },
 }));
 
-const ReportButton = ({ visible, loading, onClick }) => {
+const ReportButton = ({ visible, tiny, loading, onClick }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const title = 'Report situation';
-  const variant = isSmallScreen ? 'round' : 'extended';
-  const label = isSmallScreen ? null : title;
+  const handleClick = () => !loading && onClick();
 
-  const handleClick = () => {
-    if (!loading) {
-      onClick();
-    }
-  };
+  const title = 'Report situation';
+
+  const size = tiny ? 'small' : 'medium';
+  const variant = isSmallScreen && !tiny ? 'round' : 'extended';
+
+  const label = variant === 'extended' ? title : null;
+
+  const transitionDelay = tiny
+    ? theme.transitions.duration.shortest
+    : theme.transitions.duration.enteringScreen + 100;
 
   return (
-    <Zoom
-      in={visible}
-      style={{
-        transitionDelay: theme.transitions.duration.enteringScreen + 100,
-      }}
-    >
+    <Zoom in={visible} style={{ transitionDelay }} mountOnEnter>
       <Fab
-        classes={{ root: classes.root }}
-        variant={variant}
         color="primary"
-        size="medium"
+        classes={{ root: tiny ? classes.tiny : classes.regular }}
+        variant={variant}
+        size={size}
         aria-label={title}
         onClickCapture={handleClick}
         disabled={!navigator.geolocation}
       >
         {label}
         <MyLocationRounded
-          className={clsx(classes.icon, loading && classes.rotating)}
           fontSize="small"
+          classes={{
+            root: clsx(tiny ? classes.iconTiny : classes.icon, {
+              [classes.rotating]: loading,
+            }),
+          }}
         />
       </Fab>
     </Zoom>

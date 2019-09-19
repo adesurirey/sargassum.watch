@@ -11,8 +11,12 @@ const propTypes = {
   chartProps: object.isRequired,
 };
 
-const Controls = ({ intervalControlsProps, chartProps }) => (
-  <ResponsiveDrawer chartProps={chartProps}>
+const Controls = ({
+  intervalControlsProps,
+  chartProps,
+  ...bottomDrawerProps
+}) => (
+  <ResponsiveDrawer chartProps={chartProps} {...bottomDrawerProps}>
     <ControlsPanel title="Sargassum monitoring">
       <IntervalControls {...intervalControlsProps} />
       <Chart {...chartProps} />
