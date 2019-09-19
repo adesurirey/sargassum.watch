@@ -17,7 +17,7 @@ const propTypes = {
 const useStyles = makeStyles(theme => ({
   paper: {
     height: 400,
-    background: theme.palette.grey[100],
+    background: theme.palette.grey[50],
   },
   icon: {
     marginBottom: -theme.spacing(3),
