@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { bool, func } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
@@ -62,13 +63,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ReportButton = ({ visible, tiny, loading, onClick }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClick = () => !loading && onClick();
 
-  const label = 'Report situation';
+  const label = t('Report situation');
 
   let variant = {
     transitionDelay: theme.transitions.duration.enteringScreen + 100,

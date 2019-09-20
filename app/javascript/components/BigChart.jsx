@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -29,12 +30,14 @@ const propTypes = {
 };
 
 const BigChart = ({ data, interval }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
 
   const start = intervalStartDate(interval).getTime();
   const now = toTickDate(new Date(), interval.unit).getTime();
 
-  const tickFormatter = getTickFormatter(interval);
+  const tickFormatter = getTickFormatter(interval, t);
+  const legendFormatter = value => t(value);
 
   return (
     <Grid item xs={12}>
@@ -63,7 +66,7 @@ const BigChart = ({ data, interval }) => {
             cursor={{ stroke: theme.palette.grey[400] }}
             content={<ChartTooltip unit={interval.unit} />}
           />
-          <Legend iconType="circle" />
+          <Legend iconType="circle" formatter={legendFormatter} />
           {levels.map(({ label }) => (
             <Area
               key={label}

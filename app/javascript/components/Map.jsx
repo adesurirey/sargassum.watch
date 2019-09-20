@@ -2,12 +2,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { PureComponent, lazy } from 'react';
-import { object } from 'prop-types';
+import { object, func } from 'prop-types';
 import MapGL, { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
 import _isEqualWith from 'lodash/isEqualWith';
 import { withStyles } from '@material-ui/styles';
+import { withTranslation } from 'react-i18next';
 
 import {
   SOURCE_ID,
@@ -39,6 +40,7 @@ const api = new Api();
 
 const propTypes = {
   classes: object.isRequired,
+  t: func.isRequired,
 };
 
 const styles = theme => ({
@@ -157,15 +159,16 @@ class Map extends PureComponent {
   dismissPopup = () => this.setState({ popup: null });
 
   onError(error, coordinates = null) {
+    const { t } = this.props;
     const { latitude, longitude } = coordinates || this.state.viewport;
 
     let text;
     switch (error.response.status) {
       case 422:
-        text = "Can't save your report. Did you disable cookies?";
+        text = t("Can't save your report. Did you disable cookies?");
         break;
       default:
-        text = 'Oops… something wrong happened 🐛';
+        text = t('Oops… something wrong happened');
     }
 
     this.setState({
@@ -241,6 +244,8 @@ class Map extends PureComponent {
   handleUserPosition = () => {
     const map = this.getMap();
     const { user } = this.state;
+    const { t } = this.props;
+
     const isNearWater = validateWaterPresence(map, user);
 
     let popup = { ...user };
@@ -248,7 +253,7 @@ class Map extends PureComponent {
       popup.variant = 'report';
       popup.onSubmit = this.onReportSubmit;
     } else {
-      popup.text = 'Please get closer to the beach 🏝️';
+      popup.text = t('Please get closer to the beach');
     }
 
     this.setState({
@@ -281,15 +286,18 @@ class Map extends PureComponent {
     );
   };
 
-  onGeolocationFailed = () =>
+  onGeolocationFailed = () => {
+    const { t } = this.props;
+
     this.setState(({ viewport }) => ({
       popup: {
-        text: 'Location not found',
+        text: t('Location not found'),
         latitude: viewport.latitude,
         longitude: viewport.longitude,
       },
       geolocating: false,
     }));
+  };
 
   onReportClick = () => {
     this.setState({ geolocating: true });
@@ -370,6 +378,6 @@ class Map extends PureComponent {
   }
 }
 
-export default withStyles(styles)(Map);
+export default withTranslation()(withStyles(styles)(Map));
 
 Map.propTypes = propTypes;

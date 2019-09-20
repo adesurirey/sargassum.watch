@@ -1,5 +1,6 @@
 import React from 'react';
 import { bool, string, arrayOf, shape, number, oneOf } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
@@ -38,13 +39,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ChartTooltip = ({ active, payload, label, unit }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   if (!active || !label || !payload) {
     return null;
   }
 
-  const title = tickFormatter(label, unit, 'long');
+  const title = tickFormatter(label, unit, t, 'long');
   const data = payload.reverse();
 
   return (
@@ -63,7 +65,7 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
                 className={classes.point}
                 size="inherit"
               />
-              <Typography variant="caption">{dataKey}</Typography>
+              <Typography variant="caption">{t(dataKey)}</Typography>
             </Grid>
           </Grid>
           <Grid item>

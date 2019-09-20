@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, bool } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -41,9 +42,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const IntervalControl = ({ interval, active, onClick }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const handleClick = () => onClick(interval);
+
+  const label = t(toString(interval));
 
   return (
     <Button
@@ -51,7 +55,7 @@ const IntervalControl = ({ interval, active, onClick }) => {
       className={clsx(classes.root, active && classes.active)}
       onClick={handleClick}
     >
-      {toString(interval)}
+      {label}
     </Button>
   );
 };
