@@ -7,6 +7,10 @@ const bboxAround = ({ longitude, latitude }, squareMeters) => {
 };
 
 const validateWaterPresence = (map, { latitude, longitude }) => {
+  if (process.env.NODE_ENV === 'development') {
+    return true;
+  }
+
   const [w, s, e, n] = bboxAround({ longitude, latitude }, 50);
 
   const bbox = [map.project([w, s]), map.project([e, n])];
