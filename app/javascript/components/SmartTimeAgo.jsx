@@ -1,42 +1,17 @@
 import React from 'react';
-import {
-  oneOfType,
-  string,
-  number,
-  instanceOf,
-  shape,
-  oneOf,
-} from 'prop-types';
+import { oneOfType, string, number, shape, oneOf } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TimeAgo from 'react-timeago';
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 
-const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
+import en from 'react-timeago/lib/language-strings/en';
+import es from 'react-timeago/lib/language-strings/es';
+import fr from 'react-timeago/lib/language-strings/fr';
 
-const getFormatter = (date, options, now, t) => (
-  value,
-  unit,
-  _suffix,
-  _epochSeconds,
-  nextFormatter,
-) => {
-  const unitIndex = units.indexOf(unit);
-
-  if (unitIndex < units.indexOf('minute')) {
-    return t('right now');
-  }
-  if (unitIndex < units.indexOf('week')) {
-    return nextFormatter();
-  }
-  if (date.getFullYear() < now.getFullYear()) {
-    options.year = 'numeric';
-  }
-
-  return date.toLocaleDateString('default', options);
-};
+const locales = { en, es, fr };
 
 const propTypes = {
   date: oneOfType([string, number]).isRequired,
-  now: instanceOf(Date),
   dateOptions: shape({
     weekday: oneOf(['long', 'short', 'narrow']),
     day: oneOf(['numeric', '2-digit']),
@@ -49,16 +24,42 @@ const propTypes = {
 };
 
 const defaultProps = {
-  now: new Date(),
   dateOptions: { day: 'numeric', month: 'long' },
 };
 
-const SmartTimeAgo = ({ date: time, now, dateOptions, ...typographyProps }) => {
-  const { t } = useTranslation();
+const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
+  const { t, i18n } = useTranslation();
 
   const date = new Date(time);
   const options = { ...dateOptions };
-  const formatter = getFormatter(date, options, now, t);
+  const locale = locales[i18n.languages[0]];
+  const defaultFormatter = buildFormatter(locale);
+
+  const getToday = () => new Date();
+  const getNow = () => Date.now();
+
+  const formatter = (value, unit, suffix, epochSeconds, nextFormatter) => {
+    switch (unit) {
+      case 'second':
+        return t('right now');
+      case 'minute':
+      case 'hour':
+        return defaultFormatter(
+          value,
+          unit,
+          suffix,
+          epochSeconds,
+          nextFormatter,
+          getNow,
+        );
+      default: {
+        if (date.getFullYear() < getToday().getFullYear()) {
+          options.year = 'numeric';
+        }
+        return date.toLocaleDateString('default', options);
+      }
+    }
+  };
 
   return <TimeAgo date={date} formatter={formatter} />;
 };
