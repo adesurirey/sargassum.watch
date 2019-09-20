@@ -32,7 +32,10 @@ const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
 
   const date = new Date(time);
   const options = { ...dateOptions };
-  const locale = locales[i18n.languages[0]];
+
+  const language = i18n.languages[0];
+  const locale = locales[language];
+
   const defaultFormatter = buildFormatter(locale);
 
   const getToday = () => new Date();
@@ -56,7 +59,7 @@ const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
         if (date.getFullYear() < getToday().getFullYear()) {
           options.year = 'numeric';
         }
-        return date.toLocaleDateString('default', options);
+        return date.toLocaleDateString(language, options);
       }
     }
   };

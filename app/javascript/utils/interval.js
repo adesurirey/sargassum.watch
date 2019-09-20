@@ -124,33 +124,30 @@ const intervalEndFormatter = unit => {
   }
 };
 
-const tickFormatter = (time, unit, t, format) => {
+const tickFormatter = (time, unit, t, language, format) => {
   const date = new Date(parseInt(time));
+
   let options = { month: 'short' };
 
   switch (unit) {
     case 'day':
       options.day = 'numeric';
-      if (format === 'long') {
-        options.weekday = 'long';
-      }
+      options.weekday = format === 'long' ? 'long' : undefined;
       break;
     case 'week':
       return `${t('week')} ${getWeek(date)[1]}`;
     case 'month':
       options.year = 'numeric';
-      if (format === 'long') {
-        options.month = 'long';
-      }
+      options.month = format;
       break;
     default:
       throw new Error(`Unknown interval unit: ${unit}`);
   }
 
-  return date.toLocaleDateString('default', options);
+  return date.toLocaleDateString(language, options);
 };
 
-const getTickFormatter = (interval, t, format = 'short') => time => {
+const getTickFormatter = (interval, t, language, format = 'short') => time => {
   const date = new Date(parseInt(time));
   const intervalStart = intervalStartDate(interval);
 
@@ -158,7 +155,7 @@ const getTickFormatter = (interval, t, format = 'short') => time => {
     return t(intervalEndFormatter(interval.unit));
   }
 
-  return tickFormatter(time, interval.unit, t, format);
+  return tickFormatter(time, interval.unit, t, language, format);
 };
 
 export {
