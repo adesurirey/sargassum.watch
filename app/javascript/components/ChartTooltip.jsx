@@ -39,14 +39,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ChartTooltip = ({ active, payload, label, unit }) => {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { languages },
+  } = useTranslation();
   const classes = useStyles();
 
   if (!active || !label || !payload) {
     return null;
   }
 
-  const title = tickFormatter(label, unit, t, 'long');
+  const language = languages[0];
+  const title = tickFormatter(label, unit, t, language, 'long');
+
   const data = payload.reverse();
 
   return (
