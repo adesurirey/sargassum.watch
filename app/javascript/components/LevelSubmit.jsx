@@ -1,5 +1,6 @@
 import React from 'react';
 import { number, string, func, bool } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -35,6 +36,7 @@ const useStyles = makeStyles(theme => {
 });
 
 const LevelSubmit = ({ value, label, onClick, disabled }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const handleClick = () => {
@@ -59,7 +61,7 @@ const LevelSubmit = ({ value, label, onClick, disabled }) => {
           </Fab>
         </Grid>
         <Grid item>
-          <Typography variant="caption">{label}</Typography>
+          <Typography variant="caption">{t(label)}</Typography>
         </Grid>
       </Grid>
     </Grid>

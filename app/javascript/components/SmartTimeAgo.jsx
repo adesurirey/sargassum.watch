@@ -7,11 +7,12 @@ import {
   shape,
   oneOf,
 } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import TimeAgo from 'react-timeago';
 
 const units = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'];
 
-const getFormatter = (date, options, now) => (
+const getFormatter = (date, options, now, t) => (
   value,
   unit,
   _suffix,
@@ -21,7 +22,7 @@ const getFormatter = (date, options, now) => (
   const unitIndex = units.indexOf(unit);
 
   if (unitIndex < units.indexOf('minute')) {
-    return 'right now';
+    return t('right now');
   }
   if (unitIndex < units.indexOf('week')) {
     return nextFormatter();
@@ -53,9 +54,11 @@ const defaultProps = {
 };
 
 const SmartTimeAgo = ({ date: time, now, dateOptions, ...typographyProps }) => {
+  const { t } = useTranslation();
+
   const date = new Date(time);
   const options = { ...dateOptions };
-  const formatter = getFormatter(date, options, now);
+  const formatter = getFormatter(date, options, now, t);
 
   return <TimeAgo date={date} formatter={formatter} />;
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, shape } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Drawer, ButtonBase, Grid, Typography } from '@material-ui/core';
@@ -27,9 +28,10 @@ const BottomDrawerToggler = ({
   chartProps,
   chartProps: { interval },
 }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
-  const text = `Last ${toString(interval)} reported sargassum`;
+  const text = t(`Last ${toString(interval)} sargassum monitoring`);
 
   return (
     <Drawer

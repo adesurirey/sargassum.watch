@@ -124,7 +124,7 @@ const intervalEndFormatter = unit => {
   }
 };
 
-const tickFormatter = (time, unit, format) => {
+const tickFormatter = (time, unit, t, format) => {
   const date = new Date(parseInt(time));
   let options = { month: 'short' };
 
@@ -136,7 +136,7 @@ const tickFormatter = (time, unit, format) => {
       }
       break;
     case 'week':
-      return `week ${getWeek(date)[1]}`;
+      return `${t('week')} ${getWeek(date)[1]}`;
     case 'month':
       options.year = 'numeric';
       if (format === 'long') {
@@ -150,15 +150,15 @@ const tickFormatter = (time, unit, format) => {
   return date.toLocaleDateString('default', options);
 };
 
-const getTickFormatter = (interval, format = 'short') => time => {
+const getTickFormatter = (interval, t, format = 'short') => time => {
   const date = new Date(parseInt(time));
   const intervalStart = intervalStartDate(interval);
 
   if (intervalStart.getTime() < date.getTime()) {
-    return intervalEndFormatter(interval.unit);
+    return t(intervalEndFormatter(interval.unit));
   }
 
-  return tickFormatter(time, interval.unit);
+  return tickFormatter(time, interval.unit, t, format);
 };
 
 export {
