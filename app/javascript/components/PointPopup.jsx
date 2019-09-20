@@ -16,7 +16,8 @@ const propTypes = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: 160,
+    minWidth: 160,
+    maxWidth: 200,
     cursor: 'default',
   },
   gutterBottom: {
@@ -39,7 +40,7 @@ const PointPopup = ({ name, updatedAt, ...popupProps }) => {
             fontSize="small"
             color="disabled"
           />
-          <Typography variant="caption">
+          <Typography variant="caption" noWrap>
             <SmartTimeAgo date={updatedAt} />
           </Typography>
         </Grid>
