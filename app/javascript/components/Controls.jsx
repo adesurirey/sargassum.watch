@@ -1,5 +1,6 @@
 import React from 'react';
 import { object } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import ResponsiveDrawer from './ResponsiveDrawer';
 import ControlsPanel from './ControlsPanel';
@@ -15,14 +16,18 @@ const Controls = ({
   intervalControlsProps,
   chartProps,
   ...bottomDrawerProps
-}) => (
-  <ResponsiveDrawer chartProps={chartProps} {...bottomDrawerProps}>
-    <ControlsPanel title="Sargassum monitoring">
-      <IntervalControls {...intervalControlsProps} />
-      <Chart {...chartProps} />
-    </ControlsPanel>
-  </ResponsiveDrawer>
-);
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <ResponsiveDrawer chartProps={chartProps} {...bottomDrawerProps}>
+      <ControlsPanel title={t('Status of beaches in the area')}>
+        <IntervalControls {...intervalControlsProps} />
+        <Chart {...chartProps} />
+      </ControlsPanel>
+    </ResponsiveDrawer>
+  );
+};
 
 export default Controls;
 
