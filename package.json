@@ -16,6 +16,7 @@
     "clsx": "^1.0.4",
     "fingerprintjs2": "^2.1.0",
     "i18next": "^17.0.16",
+    "i18next-browser-languagedetector": "^3.0.3",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
