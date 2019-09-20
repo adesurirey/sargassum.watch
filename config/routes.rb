@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   require "sidekiq/web"
   Sidekiq::Web.use middleware, &auth_proc
   mount Sidekiq::Web, at: "/sidekiq"
+
+  get ':locale', to: 'pages#home'
 end
