@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { PureComponent, lazy } from 'react';
-import { object, func } from 'prop-types';
+import { object, func, string } from 'prop-types';
 import MapGL, { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
@@ -39,8 +39,14 @@ const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 const api = new Api();
 
 const propTypes = {
+  onDidMount: func,
+  path: string.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
+};
+
+const defaultProps = {
+  onDidMount: null,
 };
 
 const styles = theme => ({
@@ -91,6 +97,11 @@ class Map extends PureComponent {
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
+
+  componentDidMount() {
+    const { onDidMount } = this.props;
+    return onDidMount && onDidMount();
+  }
 
   getFeaturesInInterval() {
     const { features, interval, featuresForInterval } = this.state;
@@ -381,3 +392,4 @@ class Map extends PureComponent {
 export default withTranslation()(withStyles(styles)(Map));
 
 Map.propTypes = propTypes;
+Map.defaultProps = defaultProps;
