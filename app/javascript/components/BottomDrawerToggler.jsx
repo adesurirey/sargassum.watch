@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Drawer, ButtonBase, Grid, Typography } from '@material-ui/core';
+import { ExpandLessRounded } from '@material-ui/icons';
 
 import Chart from './Chart';
 import { toString } from '../utils/interval';
@@ -18,8 +19,14 @@ const useStyles = makeStyles(theme => ({
   root: {
     border: 0,
   },
+
   paper: {
     padding: theme.spacing(1),
+  },
+
+  iconItem: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -45,10 +52,19 @@ const BottomDrawerToggler = ({
           <Grid item xs={2} sm={1}>
             <Chart tiny height={20} {...chartProps} />
           </Grid>
-          <Grid item>
-            <Typography color="textSecondary" variant="caption" noWrap>
+          <Grid item xs={9} sm={10}>
+            <Typography
+              display="block"
+              align="left"
+              color="textSecondary"
+              variant="caption"
+              noWrap
+            >
               {text}
             </Typography>
+          </Grid>
+          <Grid item xs={1} classes={{ item: classes.iconItem }}>
+            <ExpandLessRounded fontSize="small" color="action" />
           </Grid>
         </Grid>
       </ButtonBase>
