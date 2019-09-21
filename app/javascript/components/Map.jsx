@@ -64,46 +64,60 @@ const styles = theme => ({
 });
 
 class Map extends PureComponent {
-  state = {
-    viewport: {
-      ...sargassumCenter,
-      zoom: 3,
-    },
-    settings: {
-      dragPan: true,
-      dragRotate: false,
-      scrollZoom: true,
-      touchZoom: true,
-      touchRotate: false,
-      keyboard: true,
-      doubleClickZoom: true,
-      minZoom: 0,
-      maxZoom: 20,
-      minPitch: 0,
-      maxPitch: 85,
-    },
-    loaded: false,
-    features: [],
-    interval: intervals[0],
-    featuresForInterval: [],
-    renderedFeatures: { interval: intervals[0], features: [] },
-    interactiveLayerIds: [],
-    popup: null,
-    geolocating: false,
-    user: null,
-  };
+  constructor(props) {
+    super(props);
 
-  mapRef = React.createRef();
-  geocoderContainerRef = React.createRef();
+    this.state = {
+      viewport: {
+        ...sargassumCenter,
+        zoom: 3,
+      },
+      settings: {
+        dragPan: true,
+        dragRotate: false,
+        scrollZoom: true,
+        touchZoom: true,
+        touchRotate: false,
+        keyboard: true,
+        doubleClickZoom: true,
+        minZoom: 0,
+        maxZoom: 20,
+        minPitch: 0,
+        maxPitch: 85,
+      },
+      loaded: false,
+      features: [],
+      interval: intervals[0],
+      featuresForInterval: [],
+      renderedFeatures: { interval: intervals[0], features: [] },
+      interactiveLayerIds: [],
+      popup: null,
+      geolocating: false,
+      user: null,
+    };
 
-  getMap = () => {
-    return this.mapRef.current ? this.mapRef.current.getMap() : null;
-  };
+    this.mapRef = React.createRef();
+    this.geocoderContainerRef = React.createRef();
+
+    this.setRenderedFeaturesDebounced = _debounce(
+      this.setRenderedFeatures,
+      500,
+    );
+  }
 
   componentDidMount() {
     const { onDidMount } = this.props;
     return onDidMount && onDidMount();
   }
+
+  componentWillUnmount() {
+    const map = this.getMap();
+    map && map.off('idle', this.setRenderedFeaturesDebounced);
+  }
+
+  getMap = () => {
+    return this.mapRef.current ? this.mapRef.current.getMap() : null;
+  };
 
   getFeaturesInInterval() {
     const { features, interval, featuresForInterval } = this.state;
@@ -136,7 +150,7 @@ class Map extends PureComponent {
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
-    map.on('idle', _debounce(this.setRenderedFeatures, 500));
+    map.on('idle', this.setRenderedFeaturesDebounced);
 
     this.setState({ interactiveLayerIds: [pointsLayer.id] });
   };
