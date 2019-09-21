@@ -48,7 +48,7 @@ class Report < ApplicationRecord
 
   class << self
     def cached_geo_json
-      reports = all.select(GEO_ATTRIBUTES)
+      reports = where(updated_at: 1.year.ago..DateTime.current).select(GEO_ATTRIBUTES)
 
       Rails.cache.fetch(cache_key(reports)) do
         reports.decorate.to_geo_json
