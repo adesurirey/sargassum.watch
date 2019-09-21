@@ -38,7 +38,7 @@ const ControlsPanel = ({ title, children }) => {
   return (
     <Grid item classes={{ item: classes.item }} xs={12}>
       <Paper classes={{ root: classes.paper }} square elevation={0}>
-        <Grid container spacing={2}>
+        <Grid container alignItems="center" justify="space-between" spacing={2}>
           {title && (
             <Grid item xs={12}>
               <Typography variant="h1" align="center">
