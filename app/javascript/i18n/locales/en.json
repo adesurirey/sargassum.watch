@@ -20,6 +20,10 @@
     "How is the beach here?": "How is the beach here?",
     "Please get closer to the beach": "Please get closer to the beach 🏝️",
     "Can't save your report. Did you disable cookies?": "Can't save your report. Did you disable cookies?",
-    "Oops… something wrong happened": "Oops… something wrong happened 🐛"
+    "Oops… something wrong happened": "Oops… something wrong happened 🐛",
+    "languages": "languages",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français"
   }
 }

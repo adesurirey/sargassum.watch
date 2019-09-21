@@ -17,19 +17,26 @@ const propTypes = {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    height: 400,
     background: theme.palette.grey[50],
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   },
-  icon: {
-    marginBottom: -theme.spacing(3),
-  },
+
   iconContainer: {
     marginBottom: -theme.spacing(2),
     zIndex: 2,
     background: theme.palette.common.white,
     textAlign: 'center',
+  },
+
+  icon: {
+    marginBottom: -theme.spacing(3),
+  },
+
+  container: {
+    height: '100%',
+    marginTop: 0,
+    marginBottom: 0,
   },
 }));
 
@@ -77,7 +84,7 @@ const BottomDrawer = ({
       >
         {reportButton}
 
-        <Grid container spacing={1}>
+        <Grid classes={{ container: classes.container }} container spacing={1}>
           <Grid className={classes.iconContainer} item xs={12}>
             <MaximizeRounded
               className={classes.icon}
@@ -85,10 +92,12 @@ const BottomDrawer = ({
               fontSize="large"
             />
           </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={1}>
-              {children}
-            </Grid>
+          <Grid
+            classes={{ container: classes.container }}
+            container
+            spacing={1}
+          >
+            {children}
           </Grid>
         </Grid>
       </SwipeableDrawer>

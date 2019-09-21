@@ -24,8 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
 
   container: {
-    flex: 1,
-    marginTop: theme.spacing(1),
+    height: '100%',
+    marginTop: theme.spacing(1) / 2,
+    marginBottom: 0,
   },
 }));
 
@@ -40,7 +41,7 @@ const LeftDrawer = ({ children }) => {
       anchor="left"
       variant="permanent"
     >
-      <Grid className={classes.container} container spacing={1}>
+      <Grid classes={{ container: classes.container }} container spacing={1}>
         {children}
       </Grid>
     </Drawer>

@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
 
+import { tickFormatter } from '../utils/interval';
+import { currentLanguage } from '../utils/i18n';
 import Tooltip from './Tooltip';
 import LegendPoint from './LegendPoint';
-import { tickFormatter } from '../utils/interval';
 
 const propTypes = {
   active: bool,
@@ -39,17 +40,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ChartTooltip = ({ active, payload, label, unit }) => {
-  const {
-    t,
-    i18n: { languages },
-  } = useTranslation();
+  const { t, i18n } = useTranslation();
   const classes = useStyles();
 
   if (!active || !label || !payload) {
     return null;
   }
 
-  const language = languages[0];
+  const language = currentLanguage(i18n);
   const title = tickFormatter(label, unit, t, language, 'long');
 
   const data = payload.reverse();

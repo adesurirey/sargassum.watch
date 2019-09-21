@@ -40,6 +40,7 @@ const api = new Api();
 const propTypes = {
   onDidMount: func,
   path: string.isRequired,
+  navigate: func.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
 };
@@ -314,7 +315,7 @@ class Map extends PureComponent {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, navigate } = this.props;
     const {
       loaded,
       viewport,
@@ -331,6 +332,7 @@ class Map extends PureComponent {
       <div className={classes.root}>
         <GeocoderContainer ref={this.geocoderContainerRef} />
         <Controls
+          navigate={navigate}
           intervalControlsProps={{
             loaded,
             intervals,
@@ -357,6 +359,7 @@ class Map extends PureComponent {
           attributionControl={false}
           mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
           mapboxApiAccessToken={gon.mapboxApiAccessToken}
+          reuseMaps
           interactiveLayerIds={interactiveLayerIds}
           onViewportChange={this.onViewportChange}
           onLoad={this.onLoaded}

@@ -2,25 +2,22 @@ import React, { Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Router, Redirect, redirectTo } from '@reach/router';
 
-import fallbackLng from '../i18n/fallbackLng';
+import defaultLanguage from '../i18n/fallbackLng';
 import withTheme from '../styles/withTheme';
+import { currentLanguage, languageVariants } from '../utils/i18n';
 import Spinner from './Spinner';
 
 const Map = lazy(() => import('./Map'));
 
 const App = () => {
-  const {
-    i18n: { services, languages },
-  } = useTranslation();
+  const { i18n } = useTranslation();
 
-  const locales = Object.keys(services.resourceStore.data);
-  const variants = locales.filter(locale => locale !== fallbackLng);
+  const language = currentLanguage(i18n);
+  const variants = languageVariants(i18n, defaultLanguage);
 
   const redirectToVariant = () => {
-    const locale = languages[0];
-
-    if (locale !== fallbackLng) {
-      redirectTo(locale);
+    if (language !== defaultLanguage) {
+      redirectTo(language);
     }
   };
 
@@ -28,11 +25,9 @@ const App = () => {
     <Suspense fallback={<Spinner delay={100} fullscreen />}>
       <Router>
         <Map path="/" onDidMount={redirectToVariant} />
-
-        {variants.map(locale => (
-          <Map key={locale} path={locale} />
+        {variants.map(language => (
+          <Map key={language} path={language} />
         ))}
-
         <Redirect from="*" to="/" />
       </Router>
     </Suspense>
