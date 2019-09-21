@@ -3,7 +3,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { PureComponent, lazy } from 'react';
 import { object, func, string } from 'prop-types';
-import MapGL, { FlyToInterpolator } from 'react-map-gl';
+import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
 import { withStyles } from '@material-ui/styles';
@@ -27,6 +27,7 @@ import {
 } from '../utils/map';
 import Api from '../utils/Api';
 
+import Mapbox from './Mapbox';
 import Controls from './Controls';
 import Geocoder from './Geocoder';
 import ReportButton from './ReportButton';
@@ -202,16 +203,10 @@ class Map extends PureComponent {
       viewport: { ...this.state.viewport, ...viewport },
     });
 
-  onClick = event => {
-    // Cannot prevent event propagation on map childrens,
-    // so we check here that the click was trageting the map.
-    if (!event.target.classList.contains('overlays')) {
-      return;
-    }
-
+  onClick = features => {
     this.dismissPopup();
 
-    const feature = event.features && event.features[0];
+    const feature = features && features[0];
     feature && this.setState({ popup: toPopup(feature) });
   };
 
@@ -349,21 +344,14 @@ class Map extends PureComponent {
             />
           }
         />
-        <MapGL
+        <Mapbox
           ref={this.mapRef}
           className={classes.map}
-          {...viewport}
-          {...settings}
-          width="100%"
-          height="100%"
-          attributionControl={false}
-          mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
-          mapboxApiAccessToken={gon.mapboxApiAccessToken}
-          reuseMaps
-          preventStyleDiffing
+          viewport={viewport}
+          settings={settings}
           interactiveLayerIds={interactiveLayerIds}
           onViewportChange={this.onViewportChange}
-          onLoad={this.onLoaded}
+          onLoaded={this.onLoaded}
           onClick={this.onClick}
         >
           <Geocoder
@@ -381,7 +369,7 @@ class Map extends PureComponent {
           {popup && <SmartPopup {...popup} onClose={this.dismissPopup} />}
           {user && <UserMarker {...user} />}
           <ZoomControl />
-        </MapGL>
+        </Mapbox>
       </div>
     );
   }
