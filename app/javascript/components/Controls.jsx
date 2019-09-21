@@ -7,6 +7,7 @@ import ControlsPanel from './ControlsPanel';
 import IntervalControls from './IntervalControls';
 import Chart from './Chart';
 import LanguageSwitch from './LanguageSwitch';
+import Credits from './Credits';
 
 const propTypes = {
   navigate: func.isRequired,
@@ -31,6 +32,7 @@ const Controls = ({
 
       <ControlsPanel>
         <LanguageSwitch navigate={navigate} />
+        <Credits />
       </ControlsPanel>
     </ResponsiveDrawer>
   );
