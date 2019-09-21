@@ -26,6 +26,7 @@ import {
   isDifferentPosition,
 } from '../utils/map';
 import Api from '../utils/Api';
+import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
@@ -169,18 +170,9 @@ class Map extends PureComponent {
     const { t } = this.props;
     const { latitude, longitude } = coordinates || this.state.viewport;
 
-    let text;
-    switch (error.response.status) {
-      case 422:
-        text = t("Can't save your report. Did you disable cookies?");
-        break;
-      default:
-        text = t('Oops… something wrong happened');
-    }
-
     this.setState({
       popup: {
-        text,
+        text: textFromError(error, t),
         latitude,
         longitude,
       },
