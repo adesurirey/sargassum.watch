@@ -22,7 +22,7 @@ const ReportPopup = ({ onSubmit, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const title = t("What's the situation here?");
+  const title = t('How is the beach here?');
 
   return (
     <Popup

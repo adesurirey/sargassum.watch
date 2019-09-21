@@ -70,7 +70,7 @@ const ReportButton = ({ visible, tiny, loading, onClick }) => {
 
   const handleClick = () => !loading && onClick();
 
-  const label = t('Report situation');
+  const label = t('Report your beach status');
 
   let variant = {
     transitionDelay: theme.transitions.duration.enteringScreen + 100,
