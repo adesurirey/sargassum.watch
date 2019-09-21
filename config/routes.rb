@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   Sidekiq::Web.use middleware, &auth_proc
   mount Sidekiq::Web, at: "/sidekiq"
 
-  get ':locale', to: 'pages#home'
+  get ':language', to: 'pages#home'
 end

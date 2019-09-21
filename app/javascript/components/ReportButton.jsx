@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   tiny: {
     position: 'fixed',
     right: 0,
-    bottom: 400,
+    bottom: 376,
     height: '25px !important',
     margin: theme.spacing(1),
     boxShadow: theme.shadows[3],
