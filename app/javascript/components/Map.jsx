@@ -6,7 +6,6 @@ import { object, func, string } from 'prop-types';
 import MapGL, { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
-import _isEqualWith from 'lodash/isEqualWith';
 import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 
@@ -19,7 +18,7 @@ import {
   permanentLayer,
 } from '../layers';
 import { sargassumCenter } from '../utils/geography';
-import { featureCollection, toPopup } from '../utils/geoJSON';
+import { featureCollection, toPopup, isSameFeatures } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import {
   onNextIdle,
@@ -107,13 +106,8 @@ class Map extends PureComponent {
     const { features, interval, featuresForInterval } = this.state;
 
     const newFeatures = featuresInInterval(features, interval);
-    const wontChange = _isEqualWith(
-      newFeatures,
-      featuresForInterval,
-      'properties.id',
-    );
 
-    if (wontChange) {
+    if (isSameFeatures(newFeatures, featuresForInterval)) {
       // Because it won't trigger a map idle event,
       // which is responsible for updating rendered features interval,
       // we update rendered features interval manualy.
