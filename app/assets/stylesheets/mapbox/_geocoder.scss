@@ -39,7 +39,8 @@
   }
 
   &--icon-search {
-    @media (min-width: $breakpoint-sm) {
+    @media (max-width: $breakpoint-sm) {
+      left: 12px !important;
       width: 24px !important;
     }
   }
