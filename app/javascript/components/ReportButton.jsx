@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     margin: theme.spacing(2),
     fontWeight: 600,
+    zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.down('sm')]: {
       bottom: 36,
     },

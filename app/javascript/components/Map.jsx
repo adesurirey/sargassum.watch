@@ -332,6 +332,11 @@ class Map extends PureComponent {
     return (
       <div className={classes.root}>
         <GeocoderContainer ref={this.geocoderContainerRef} />
+        <ReportButton
+          visible={loaded}
+          loading={geolocating}
+          onClick={this.onReportClick}
+        />
         <Controls
           navigate={navigate}
           intervalControlsProps={{
@@ -366,11 +371,6 @@ class Map extends PureComponent {
             longitude={viewport.longitude}
             latitude={viewport.latitude}
             onChange={this.onViewportChange}
-          />
-          <ReportButton
-            visible={loaded}
-            loading={geolocating}
-            onClick={this.onReportClick}
           />
           {popup && <SmartPopup {...popup} onClose={this.dismissPopup} />}
           {user && <UserMarker {...user} />}
