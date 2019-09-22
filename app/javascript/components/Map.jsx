@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { Component, lazy } from 'react';
+import React, { Component } from 'react';
 import { object, func, string } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
@@ -30,9 +30,7 @@ import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
-import ReportButton from './ReportButton';
 
-const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 const api = new Api();
 
 const propTypes = {
@@ -325,29 +323,15 @@ class Map extends Component {
 
     return (
       <div className={classes.root}>
-        <GeocoderContainer ref={this.geocoderContainerRef} />
-        <ReportButton
-          visible={loaded}
-          loading={geolocating}
-          onClick={this.onReportClick}
-        />
         <Controls
+          geocoderContainerRef={this.geocoderContainerRef}
+          loaded={loaded}
+          geolocating={geolocating}
+          interval={interval}
+          renderedFeatures={renderedFeatures}
           navigate={navigate}
-          intervalControlsProps={{
-            loaded,
-            intervals,
-            selectedInterval: interval,
-            onIntervalChange: this.onIntervalChange,
-          }}
-          chartProps={{ ...renderedFeatures }}
-          reportButton={
-            <ReportButton
-              visible={loaded}
-              loading={geolocating}
-              onClick={this.onReportClick}
-              tiny
-            />
-          }
+          onIntervalChange={this.onIntervalChange}
+          onReportClick={this.onReportClick}
         />
         <Mapbox
           ref={this.mapRef}
