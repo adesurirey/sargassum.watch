@@ -62,31 +62,18 @@ class Map extends Component {
     super(props);
 
     this.state = {
+      loaded: false,
+      geolocating: false,
       viewport: {
         ...sargassumCenter,
         zoom: 3,
       },
-      settings: {
-        dragPan: true,
-        dragRotate: false,
-        scrollZoom: true,
-        touchZoom: true,
-        touchRotate: false,
-        keyboard: true,
-        doubleClickZoom: true,
-        minZoom: 0,
-        maxZoom: 20,
-        minPitch: 0,
-        maxPitch: 85,
-      },
-      loaded: false,
       features: [],
       interval: intervals[0],
       featuresForInterval: [],
       renderedFeatures: { interval: intervals[0], features: [] },
       interactiveLayerIds: [],
       popup: null,
-      geolocating: false,
       user: null,
     };
 
@@ -309,10 +296,10 @@ class Map extends Component {
 
   render() {
     const { classes, navigate } = this.props;
+
     const {
       loaded,
       viewport,
-      settings,
       interactiveLayerIds,
       renderedFeatures,
       popup,
@@ -338,7 +325,6 @@ class Map extends Component {
           geocoderContainerRef={this.geocoderContainerRef}
           className={classes.map}
           viewport={viewport}
-          settings={settings}
           popup={popup}
           user={user}
           interactiveLayerIds={interactiveLayerIds}

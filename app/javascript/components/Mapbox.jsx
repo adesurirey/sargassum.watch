@@ -10,10 +10,23 @@ import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
 import ZoomControl from './ZoomControl';
 
+const settings = {
+  dragPan: true,
+  dragRotate: false,
+  scrollZoom: true,
+  touchZoom: true,
+  touchRotate: false,
+  keyboard: true,
+  doubleClickZoom: true,
+  minZoom: 0,
+  maxZoom: 20,
+  minPitch: 0,
+  maxPitch: 85,
+};
+
 const propTypes = {
   className: string,
   viewport: object.isRequired,
-  settings: object.isRequired,
   user: object,
   popup: object,
   interactiveLayerIds: arrayOf(string).isRequired,
@@ -36,7 +49,6 @@ const Mapbox = forwardRef(
     {
       className,
       viewport,
-      settings,
       user,
       popup,
       interactiveLayerIds,
