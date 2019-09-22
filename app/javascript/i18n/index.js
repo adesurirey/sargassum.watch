@@ -15,7 +15,7 @@ i18n
   .init({
     detection: {
       // order and from where user language should be detected
-      order: ['cookie', 'path', 'navigator'],
+      order: ['path', 'navigator'],
 
       // keys or params to lookup language from
       // lookupQuerystring: 'lng',
@@ -25,7 +25,7 @@ i18n
       // lookupFromSubdomainIndex: 0,
       //
       // cache user language on
-      caches: ['cookie'],
+      // caches: ['cookie'],
       // excludeCacheFor: ['cimode'], // languages to not persist (cookie, localStorage)
       //
       // optional expire and domain for set cookie
