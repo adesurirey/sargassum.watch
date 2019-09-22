@@ -1,7 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { PureComponent, lazy } from 'react';
+import React, { Component, lazy } from 'react';
 import { object, func, string } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
@@ -30,11 +30,7 @@ import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
-import Geocoder from './Geocoder';
 import ReportButton from './ReportButton';
-import SmartPopup from './SmartPopup';
-import ZoomControl from './ZoomControl';
-import UserMarker from './UserMarker';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 const api = new Api();
@@ -63,7 +59,7 @@ const styles = theme => ({
   },
 });
 
-class Map extends PureComponent {
+class Map extends Component {
   constructor(props) {
     super(props);
 
@@ -210,8 +206,6 @@ class Map extends PureComponent {
     });
 
   onClick = features => {
-    this.dismissPopup();
-
     const feature = features && features[0];
     feature && this.setState({ popup: toPopup(feature) });
   };
@@ -357,25 +351,18 @@ class Map extends PureComponent {
         />
         <Mapbox
           ref={this.mapRef}
+          geocoderContainerRef={this.geocoderContainerRef}
           className={classes.map}
           viewport={viewport}
           settings={settings}
+          popup={popup}
+          user={user}
           interactiveLayerIds={interactiveLayerIds}
+          dismissPopup={this.dismissPopup}
           onViewportChange={this.onViewportChange}
           onLoaded={this.onLoaded}
           onClick={this.onClick}
-        >
-          <Geocoder
-            mapRef={this.mapRef}
-            containerRef={this.geocoderContainerRef}
-            longitude={viewport.longitude}
-            latitude={viewport.latitude}
-            onChange={this.onViewportChange}
-          />
-          {popup && <SmartPopup {...popup} onClose={this.dismissPopup} />}
-          {user && <UserMarker {...user} />}
-          <ZoomControl />
-        </Mapbox>
+        />
       </div>
     );
   }

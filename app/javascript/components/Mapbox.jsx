@@ -2,33 +2,46 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { forwardRef } from 'react';
-import { object, arrayOf, func, string, oneOfType, node } from 'prop-types';
+import { object, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
+
+import Geocoder from './Geocoder';
+import SmartPopup from './SmartPopup';
+import UserMarker from './UserMarker';
+import ZoomControl from './ZoomControl';
 
 const propTypes = {
   className: string,
   viewport: object.isRequired,
   settings: object.isRequired,
+  user: object,
+  popup: object,
   interactiveLayerIds: arrayOf(string).isRequired,
+  geocoderContainerRef: object,
+  dismissPopup: func.isRequired,
   onViewportChange: func.isRequired,
   onLoaded: func.isRequired,
   onClick: func.isRequired,
-  children: oneOfType([node, arrayOf(node)]),
 };
 
 const defaultProps = {
   className: null,
-  children: null,
+  popup: null,
+  user: null,
+  geocoderContainerRef: null,
 };
 
 const Mapbox = forwardRef(
   (
     {
-      children,
       className,
       viewport,
       settings,
+      user,
+      popup,
       interactiveLayerIds,
+      geocoderContainerRef,
+      dismissPopup,
       onViewportChange,
       onLoaded,
       onClick,
@@ -41,6 +54,8 @@ const Mapbox = forwardRef(
       if (!event.target.classList.contains('overlays')) {
         return;
       }
+
+      dismissPopup();
 
       return onClick(event.features);
     };
@@ -63,7 +78,16 @@ const Mapbox = forwardRef(
         onLoad={onLoaded}
         onClick={handleClick}
       >
-        {children}
+        <Geocoder
+          mapRef={ref}
+          containerRef={geocoderContainerRef}
+          longitude={viewport.longitude}
+          latitude={viewport.latitude}
+          onChange={onViewportChange}
+        />
+        {popup && <SmartPopup {...popup} onClose={dismissPopup} />}
+        {user && <UserMarker {...user} />}
+        <ZoomControl />
       </MapGL>
     );
   },
