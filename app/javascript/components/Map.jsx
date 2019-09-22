@@ -1,13 +1,13 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import React, { Component } from 'react';
-import { object, func, string } from 'prop-types';
+import React, { useReducer, useRef, useEffect, useCallback } from 'react';
+import { func, string } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
-import { withStyles } from '@material-ui/styles';
-import { withTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
 
 import {
   SOURCE_ID,
@@ -37,15 +37,13 @@ const propTypes = {
   onDidMount: func,
   path: string.isRequired,
   navigate: func.isRequired,
-  classes: object.isRequired,
-  t: func.isRequired,
 };
 
 const defaultProps = {
   onDidMount: null,
 };
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
     width: '100vw',
@@ -55,53 +53,155 @@ const styles = theme => ({
   map: {
     flexGrow: 1,
   },
-});
+}));
 
-class Map extends Component {
-  constructor(props) {
-    super(props);
+const initialState = {
+  loaded: false,
+  geolocating: false,
+  viewport: {
+    ...sargassumCenter,
+    zoom: 3,
+  },
+  features: [],
+  interval: intervals[0],
+  featuresForInterval: [],
+  renderedFeatures: { interval: intervals[0], features: [] },
+  interactiveLayerIds: [],
+  popup: null,
+  user: null,
+};
 
-    this.state = {
-      loaded: false,
-      geolocating: false,
-      viewport: {
-        ...sargassumCenter,
-        zoom: 3,
-      },
-      features: [],
-      interval: intervals[0],
-      featuresForInterval: [],
-      renderedFeatures: { interval: intervals[0], features: [] },
-      interactiveLayerIds: [],
-      popup: null,
-      user: null,
-    };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_LOADED':
+      return {
+        ...state,
+        loaded: true,
+      };
+    case 'SET_FEATURES':
+      return {
+        ...state,
+        features: action.payload,
+      };
+    case 'SET_RENDERED_FEATURES':
+      return {
+        ...state,
+        renderedFeatures: {
+          ...state.renderedFeatures,
+          ...action.payload,
+        },
+      };
+    case 'SET_FEATURES_FOR_INTERVAL':
+      return {
+        ...state,
+        featuresForInterval: action.payload,
+      };
+    case 'SET_INTERACTIVE_LAYERS':
+      return {
+        ...state,
+        interactiveLayerIds: action.payload,
+      };
+    case 'SET_POPUP':
+      return {
+        ...state,
+        popup: action.payload,
+      };
+    case 'DISMISS_POPUP':
+      return {
+        ...state,
+        popup: null,
+      };
+    case 'VIEWPORT_CHANGE':
+      return {
+        ...state,
+        viewport: {
+          ...state.viewport,
+          ...action.payload,
+        },
+      };
+    case 'INTERVAL_CHANGE':
+      return {
+        ...state,
+        interval: action.payload,
+      };
+    case 'GEOLOCATION':
+      return {
+        ...state,
+        geolocating: true,
+      };
+    case 'GEOLOCATION_FAIL':
+      return {
+        ...state,
+        geolocating: false,
+        popup: {
+          text: action.payload,
+          latitude: state.viewport.latitude,
+          longitude: state.viewport.longitude,
+        },
+      };
+    case 'GEOLOCATION_SUCCESS': {
+      const { latitude, longitude } = action.payload;
 
-    this.mapRef = React.createRef();
-    this.geocoderContainerRef = React.createRef();
+      return {
+        ...state,
+        user: { latitude, longitude },
+        viewport: {
+          ...state.viewport,
+          latitude,
+          longitude,
+          zoom: 19,
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 2000,
+        },
+      };
+    }
+    case 'USER_POSITION_HANDLED':
+      return {
+        ...state,
+        geolocating: false,
+        popup: action.payload,
+      };
+    case 'REPORT_SUCCESS': {
+      const feature = action.payload;
 
-    this.setRenderedFeaturesDebounced = _debounce(
-      this.setRenderedFeatures,
-      500,
-    );
+      const updatedFeatures = [
+        ...state.features.filter(
+          ({ properties: { id } }) => id !== feature.properties.id,
+        ),
+        feature,
+      ];
+
+      return {
+        ...state,
+        features: updatedFeatures,
+        popup: toPopup(feature),
+        user: null,
+      };
+    }
+    default:
+      throw new Error();
   }
+};
 
-  componentDidMount() {
-    const { onDidMount } = this.props;
-    return onDidMount && onDidMount();
-  }
+const Map = ({ onDidMount, path, navigate }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const mapRef = useRef(null);
+  const geocoderContainerRef = useRef(null);
+  const { t } = useTranslation();
+  const classes = useStyles();
 
-  componentWillUnmount() {
-    const map = this.getMap();
-    map && map.off('idle', this.setRenderedFeaturesDebounced);
-  }
+  useEffect(() => {
+    if (onDidMount) {
+      onDidMount();
+    }
+  });
 
-  getMap = () => {
-    return this.mapRef.current ? this.mapRef.current.getMap() : null;
+  const getMap = () => {
+    return mapRef.current ? mapRef.current.getMap() : null;
   };
 
-  getFeaturesInInterval() {
-    const { features, interval, featuresForInterval } = this.state;
+  const getFeaturesInInterval = useCallback(() => {
+    const { features, interval, featuresForInterval, renderedFeatures } = state;
 
     const newFeatures = featuresInInterval(features, interval);
 
@@ -109,236 +209,193 @@ class Map extends Component {
       // Because it won't trigger a map idle event,
       // which is responsible for updating rendered features interval,
       // we update rendered features interval manualy.
-      this.setState(({ renderedFeatures }) => ({
-        renderedFeatures: { interval, ...renderedFeatures },
-      }));
+      dispatch({
+        type: 'SET_RENDERED_FEATURES',
+        payload: { interval, ...renderedFeatures },
+      });
     } else {
-      this.setState({ featuresForInterval: newFeatures });
+      dispatch({ type: 'SET_FEATURES_FOR_INTERVAL', payload: newFeatures });
     }
 
     return newFeatures;
-  }
+  }, [state]);
 
-  initMapData = () => {
-    const map = this.getMap();
+  const initMapData = useCallback(() => {
+    const map = getMap();
 
     map.addSource(SOURCE_ID, {
       type: 'geojson',
-      data: featureCollection(this.getFeaturesInInterval()),
+      data: featureCollection(getFeaturesInInterval()),
     });
 
     map.addLayer(permanentLayer);
     map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
 
-    map.on('idle', this.setRenderedFeaturesDebounced);
+    map.on('idle', setRenderedFeaturesDebounced);
 
-    this.setState({ interactiveLayerIds: [pointsLayer.id] });
-  };
+    dispatch({ type: 'SET_INTERACTIVE_LAYERS', payload: [pointsLayer.id] });
+  }, [getFeaturesInInterval]);
 
-  setRenderedFeatures = () => {
-    const map = this.getMap();
+  useEffect(() => {
+    if (state.loaded) {
+      initMapData();
+    }
+  }, [initMapData, state.loaded, state.features]);
+
+  const setRenderedFeatures = () => {
+    const map = getMap();
+    const { interval } = state;
 
     const features = map.queryRenderedFeatures({
       layers: [PERMANENT_LAYER_ID],
     });
 
     features &&
-      this.setState(({ interval }) => ({
-        renderedFeatures: {
-          interval,
-          features: _uniqBy(features, 'properties.id'),
-        },
-      }));
+      dispatch({
+        type: 'SET_RENDERED_FEATURES',
+        payload: { interval, features: _uniqBy(features, 'properties.id') },
+      });
   };
+  const setRenderedFeaturesDebounced = _debounce(setRenderedFeatures, 500);
 
-  setMapData = features => {
-    const map = this.getMap();
+  useEffect(() => {
+    return () => {
+      const map = getMap();
+      map && map.off('idle', setRenderedFeaturesDebounced);
+    };
+  }, [setRenderedFeaturesDebounced]);
+
+  useEffect(() => {
+    const features = getFeaturesInInterval();
+    const map = getMap();
     const source = map && map.getSource(SOURCE_ID);
 
     source && source.setData(featureCollection(features));
-  };
+  }, [state.interval, state.features, getFeaturesInInterval]);
 
-  dismissPopup = () => this.setState({ popup: null });
+  const dismissPopup = () => dispatch({ type: 'DISMISS_POPUP' });
 
-  onError(error, coordinates = null) {
-    const { t } = this.props;
-    const { latitude, longitude } = coordinates || this.state.viewport;
+  const onError = (error, coordinates = null) => {
+    const { latitude, longitude } = coordinates || state.viewport;
 
-    this.setState({
-      popup: {
+    dispatch({
+      type: 'SET_POPUP',
+      payload: {
         text: textFromError(error, t),
         latitude,
         longitude,
       },
     });
-  }
+  };
 
-  onLoaded = () => {
-    this.setState({ loaded: true });
+  const onLoaded = () => {
+    dispatch({ type: 'SET_LOADED' });
 
     api
       .getAll()
       .then(({ data: { features } }) =>
-        this.setState({ features }, this.initMapData),
+        dispatch({ type: 'SET_FEATURES', payload: features }),
       )
-      .catch(error => this.onError(error));
+      .catch(onError);
   };
 
-  onViewportChange = viewport =>
-    this.setState({
-      viewport: { ...this.state.viewport, ...viewport },
-    });
+  const onViewportChange = viewport =>
+    dispatch({ type: 'VIEWPORT_CHANGE', payload: viewport });
 
-  onClick = features => {
+  const onClick = features => {
     const feature = features && features[0];
-    feature && this.setState({ popup: toPopup(feature) });
+    feature && dispatch({ type: 'SET_POPUP', payload: toPopup(feature) });
   };
 
-  onIntervalChange = interval => {
-    if (this.state.interval.id !== interval.id) {
-      this.setState({ interval }, () =>
-        this.setMapData(this.getFeaturesInInterval()),
-      );
+  const onIntervalChange = interval => {
+    if (state.interval.id !== interval.id) {
+      dispatch({ type: 'INTERVAL_CHANGE', payload: interval });
     }
   };
 
-  onReportSuccess = feature =>
-    this.setState(
-      ({ features }) => ({
-        features: [
-          ...features.filter(
-            ({ properties: { id } }) => id !== feature.properties.id,
-          ),
-          feature,
-        ],
-        popup: toPopup(feature),
-        user: null,
-      }),
-      () => this.setMapData(this.getFeaturesInInterval()),
-    );
-
-  onReportSubmit = level => {
-    const { user } = this.state;
+  const onReportSubmit = level => {
+    const { user } = state;
 
     api
       .create({ level, ...user })
-      .then(({ data: feature }) => this.onReportSuccess(feature))
-      .catch(error => this.onError(error, user));
+      .then(({ data: payload }) =>
+        dispatch({ type: 'REPORT_SUCCESS', payload }),
+      )
+      .catch(error => onError(error, user));
   };
 
-  handleUserPosition = () => {
-    const map = this.getMap();
-    const { user } = this.state;
-    const { t } = this.props;
-
-    const isNearWater = validateWaterPresence(map, user);
+  const handleUserPosition = () => {
+    const { user } = state;
+    const isNearWater = validateWaterPresence(getMap(), user);
 
     let popup = { ...user };
     if (isNearWater) {
       popup.variant = 'report';
-      popup.onSubmit = this.onReportSubmit;
+      popup.onSubmit = onReportSubmit;
     } else {
       popup.text = t('Please get closer to the beach');
     }
 
-    this.setState({
-      popup,
-      geolocating: false,
-    });
+    dispatch({ type: 'USER_POSITION_HANDLED', payload: popup });
   };
 
-  onGeolocated = ({ latitude, longitude }) => {
-    const { viewport } = this.state;
-    const map = this.getMap();
+  const onGeolocationSuccess = ({ latitude, longitude }) => {
+    const { viewport } = state;
+    const map = getMap();
 
-    let handlePosition = this.handleUserPosition;
+    let handlePosition = handleUserPosition;
     if (isDifferentPosition(map, [viewport, { latitude, longitude }])) {
       handlePosition = onNextIdle(map, handlePosition);
     }
 
-    this.setState(
-      {
-        user: { latitude, longitude },
-        viewport: {
-          latitude,
-          longitude,
-          zoom: 19,
-          transitionInterpolator: new FlyToInterpolator(),
-          transitionDuration: 2000,
-        },
-      },
-      handlePosition,
-    );
+    dispatch({ type: 'GEOLOCATION_SUCCESS', payload: { latitude, longitude } });
+
+    handlePosition();
   };
 
-  onGeolocationFailed = () => {
-    const { t } = this.props;
+  const onGeolocationFail = () =>
+    dispatch({ type: 'GEOLOCATION_FAIL', payload: t('Location not found') });
 
-    this.setState(({ viewport }) => ({
-      popup: {
-        text: t('Location not found'),
-        latitude: viewport.latitude,
-        longitude: viewport.longitude,
-      },
-      geolocating: false,
-    }));
-  };
-
-  onReportClick = () => {
-    this.setState({ geolocating: true });
+  const onReportClick = () => {
+    dispatch({ type: 'GEOLOCATION' });
 
     navigator.geolocation.getCurrentPosition(
-      ({ coords }) => this.onGeolocated(coords),
-      this.onGeolocationFailed,
+      ({ coords }) => onGeolocationSuccess(coords),
+      onGeolocationFail,
     );
   };
 
-  render() {
-    const { classes, navigate } = this.props;
+  return (
+    <div className={classes.root}>
+      <Controls
+        geocoderContainerRef={geocoderContainerRef}
+        loaded={state.loaded}
+        geolocating={state.geolocating}
+        interval={state.interval}
+        renderedFeatures={state.renderedFeatures}
+        navigate={navigate}
+        onIntervalChange={onIntervalChange}
+        onReportClick={onReportClick}
+      />
+      <Mapbox
+        ref={mapRef}
+        geocoderContainerRef={geocoderContainerRef}
+        className={classes.map}
+        viewport={state.viewport}
+        popup={state.popup}
+        user={state.user}
+        interactiveLayerIds={state.interactiveLayerIds}
+        dismissPopup={dismissPopup}
+        onViewportChange={onViewportChange}
+        onLoaded={onLoaded}
+        onClick={onClick}
+      />
+    </div>
+  );
+};
 
-    const {
-      loaded,
-      viewport,
-      interactiveLayerIds,
-      renderedFeatures,
-      popup,
-      interval,
-      geolocating,
-      user,
-    } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <Controls
-          geocoderContainerRef={this.geocoderContainerRef}
-          loaded={loaded}
-          geolocating={geolocating}
-          interval={interval}
-          renderedFeatures={renderedFeatures}
-          navigate={navigate}
-          onIntervalChange={this.onIntervalChange}
-          onReportClick={this.onReportClick}
-        />
-        <Mapbox
-          ref={this.mapRef}
-          geocoderContainerRef={this.geocoderContainerRef}
-          className={classes.map}
-          viewport={viewport}
-          popup={popup}
-          user={user}
-          interactiveLayerIds={interactiveLayerIds}
-          dismissPopup={this.dismissPopup}
-          onViewportChange={this.onViewportChange}
-          onLoaded={this.onLoaded}
-          onClick={this.onClick}
-        />
-      </div>
-    );
-  }
-}
-
-export default withTranslation()(withStyles(styles)(Map));
+export default Map;
 
 Map.propTypes = propTypes;
 Map.defaultProps = defaultProps;
