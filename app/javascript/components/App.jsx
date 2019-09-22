@@ -28,7 +28,7 @@ const App = () => {
         {variants.map(language => (
           <Map key={language} path={language} />
         ))}
-        <Redirect from="*" to="/" />
+        <Redirect from="/*" to="/" />
       </Router>
     </Suspense>
   );

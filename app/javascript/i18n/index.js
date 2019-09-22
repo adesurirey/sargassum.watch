@@ -36,6 +36,7 @@ i18n
       // htmlTag: document.documentElement
     },
     resources,
+    whitelist: Object.keys(resources), // whitelist langugages found in path
     fallbackLng,
     load: 'languageOnly', // only load matched language
     debug: process.env.NODE_ENV === 'development',
