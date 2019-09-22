@@ -16,7 +16,6 @@ const propTypes = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: 160,
     maxWidth: 200,
     cursor: 'default',
   },
