@@ -6,13 +6,14 @@ import { SwipeableDrawer, Grid } from '@material-ui/core';
 import { MaximizeRounded } from '@material-ui/icons';
 
 import BottomDrawerToggler from './BottomDrawerToggler';
+import ReportButton from './ReportButton';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 const propTypes = {
   children: node.isRequired,
   chartProps: object.isRequired,
-  reportButton: node.isRequired,
+  buttonProps: object.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -43,10 +44,8 @@ const useStyles = makeStyles(theme => ({
 const BottomDrawer = ({
   children,
   chartProps,
-  reportButton,
-  reportButton: {
-    props: { loading },
-  },
+  buttonProps,
+  buttonProps: { loading },
 }) => {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
@@ -56,8 +55,7 @@ const BottomDrawer = ({
 
   useEffect(() => {
     if (loading) {
-      const timeout = setTimeout(onClose, 2000);
-      return () => clearTimeout(timeout);
+      onClose();
     }
   }, [loading]);
 
@@ -82,7 +80,7 @@ const BottomDrawer = ({
         onOpen={onOpen}
         onClose={onClose}
       >
-        {reportButton}
+        <ReportButton {...buttonProps} tiny />
 
         <Grid classes={{ container: classes.container }} container spacing={1}>
           <Grid className={classes.iconContainer} item xs={12}>

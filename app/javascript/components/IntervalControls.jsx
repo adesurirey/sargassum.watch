@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
-import { bool, func, arrayOf, object } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import { Grid, Slide } from '@material-ui/core';
 
-import IntervalControl from './IntervalControl';
 import { interval } from '../utils/propTypes';
+import { intervals } from '../utils/interval';
+import IntervalControl from './IntervalControl';
 
 const propTypes = {
   loaded: bool,
-  intervals: arrayOf(object).isRequired,
   selectedInterval: interval,
   onIntervalChange: func.isRequired,
 };
@@ -17,12 +17,7 @@ const defaultProps = {
   loaded: false,
 };
 
-const IntervalControls = ({
-  loaded,
-  intervals,
-  selectedInterval,
-  onIntervalChange,
-}) => (
+const IntervalControls = ({ loaded, selectedInterval, onIntervalChange }) => (
   <Grid item xs={12}>
     <Grid container justify="space-evenly" role="group">
       {intervals.map((interval, index) => (
