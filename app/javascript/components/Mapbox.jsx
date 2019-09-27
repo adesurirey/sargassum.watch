@@ -4,7 +4,9 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { forwardRef } from 'react';
 import { object, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
+import { useTranslation } from 'react-i18next';
 
+import { currentLanguage } from '../utils/i18n';
 import Geocoder from './Geocoder';
 import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
@@ -60,16 +62,17 @@ const Mapbox = forwardRef(
     },
     ref,
   ) => {
-    const handleClick = event => {
+    const { i18n } = useTranslation();
+
+    const language = currentLanguage(i18n);
+
+    const handleClick = ({ target, features }) => {
       // Cannot prevent event propagation on map childrens,
       // so we check here that the click was trageting the map.
-      if (!event.target.classList.contains('overlays')) {
-        return;
+      if (target.classList.contains('overlays')) {
+        dismissPopup();
+        onClick(features);
       }
-
-      dismissPopup();
-
-      return onClick(event.features);
     };
 
     return (
@@ -93,6 +96,7 @@ const Mapbox = forwardRef(
         <Geocoder
           mapRef={ref}
           containerRef={geocoderContainerRef}
+          language={language}
           longitude={viewport.longitude}
           latitude={viewport.latitude}
           onChange={onViewportChange}
