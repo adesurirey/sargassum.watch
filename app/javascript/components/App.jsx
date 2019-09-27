@@ -10,8 +10,8 @@ const Map = lazy(() => import('./Map'));
 const App = () => (
   <Suspense fallback={<Spinner delay={100} fullscreen />}>
     <Router>
-      <LanguageRedirect path="/">
-        <Map path="*" />
+      <LanguageRedirect default>
+        <Map default />
       </LanguageRedirect>
     </Router>
   </Suspense>

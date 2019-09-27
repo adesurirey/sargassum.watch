@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import defaultLanguage from '../i18n/fallbackLng';
@@ -33,4 +33,4 @@ const LanguageRedirect = ({ children, location, navigate }) => {
   return children;
 };
 
-export default LanguageRedirect;
+export default memo(LanguageRedirect, () => true);
