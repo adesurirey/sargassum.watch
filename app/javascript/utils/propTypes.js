@@ -1,5 +1,7 @@
 import { arrayOf, shape, number, string, oneOf } from 'prop-types';
 
+import { intervals } from './interval';
+
 export const data = arrayOf(
   shape({
     time: string.isRequired,
@@ -10,7 +12,7 @@ export const data = arrayOf(
 ).isRequired;
 
 export const interval = shape({
-  id: number.isRequired,
+  id: oneOf(intervals.map(interval => interval.id)).isRequired,
   unit: oneOf(['day', 'week', 'month']).isRequired,
   value: number.isRequired,
 }).isRequired;
