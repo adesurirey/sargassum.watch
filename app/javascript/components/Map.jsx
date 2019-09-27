@@ -34,8 +34,6 @@ import Controls from './Controls';
 const api = new Api();
 
 const propTypes = {
-  onDidMount: func,
-  path: string.isRequired,
   navigate: func.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
@@ -84,11 +82,6 @@ class Map extends Component {
       this.setRenderedFeatures,
       500,
     );
-  }
-
-  componentDidMount() {
-    const { onDidMount } = this.props;
-    return onDidMount && onDidMount();
   }
 
   componentWillUnmount() {
