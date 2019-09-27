@@ -2,6 +2,11 @@
 .mapboxgl-ctrl-geocoder .suggestions {
   box-shadow: $shadow !important;
   border-radius: $border-radius !important;
+
+  @media only screen and (min-width: $breakpoint-sm) {
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .mapboxgl-ctrl-geocoder {
@@ -14,6 +19,7 @@
   line-height: 24px;
   background-color: #fff;
   border-radius: 8px;
+  outline: none;
 
   @media (min-width: $breakpoint-sm) {
     box-shadow: none !important;
@@ -21,10 +27,16 @@
 
   &--input {
     height: 100% !important;
-    padding: $spacing $spacing * 5 !important;
+    padding-left: $spacing * 6 !important;
+    padding-top: $spacing !important;
+    padding-bottom: $spacing !important;
+    padding-right: $spacing * 5 !important;
 
     @media (max-width: $breakpoint-sm) {
-      padding: $spacing $spacing * 6 !important;
+      padding-left: $spacing * 7 !important;
+      padding-top: $spacing * 2 !important;
+      padding-bottom: $spacing * 2 !important;
+      padding-right: $spacing * 6 !important;
     }
   }
 
@@ -39,10 +51,7 @@
   }
 
   &--icon-search {
-    @media (max-width: $breakpoint-sm) {
-      left: 12px !important;
-      width: 24px !important;
-    }
+    display: none !important;
   }
 
   &--icon-close,
