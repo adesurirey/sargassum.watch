@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
-import { shape, string, object, func } from 'prop-types';
+import { object, func } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
@@ -19,7 +19,7 @@ import {
 } from '../layers';
 import { getViewport } from '../utils/geography';
 import { featureCollection, toPopup, isSameFeatures } from '../utils/geoJSON';
-import { intervals, featuresInInterval } from '../utils/interval';
+import { getInterval, featuresInInterval } from '../utils/interval';
 import {
   onNextIdle,
   validateWaterPresence,
@@ -34,9 +34,6 @@ import Controls from './Controls';
 const api = new Api();
 
 const propTypes = {
-  location: shape({
-    hash: string.isRequired,
-  }).isRequired,
   navigate: func.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
@@ -62,14 +59,17 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
+    const viewport = getViewport(location.hash);
+    const interval = getInterval(location.search);
+
     this.state = {
       loaded: false,
       geolocating: false,
-      viewport: getViewport(props.location.hash),
+      viewport,
       features: [],
-      interval: intervals[0],
+      interval,
       featuresForInterval: [],
-      renderedFeatures: { interval: intervals[0], features: [] },
+      renderedFeatures: { interval, features: [] },
       interactiveLayerIds: [],
       popup: null,
       user: null,
@@ -184,11 +184,13 @@ class Map extends Component {
   };
 
   onIntervalChange = interval => {
-    if (this.state.interval.id !== interval.id) {
-      this.setState({ interval }, () =>
-        this.setMapData(this.getFeaturesInInterval()),
-      );
-    }
+    const { navigate } = this.props;
+
+    this.setState({ interval }, () =>
+      this.setMapData(this.getFeaturesInInterval()),
+    );
+
+    navigate(`?interval=${interval.id}${location.hash}`);
   };
 
   onReportSuccess = feature =>

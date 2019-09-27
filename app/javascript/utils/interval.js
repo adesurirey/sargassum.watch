@@ -1,3 +1,4 @@
+import { parse as parseSearch } from 'query-string';
 import _range from 'lodash/range';
 import _groupBy from 'lodash/groupBy';
 import _countBy from 'lodash/countBy';
@@ -12,10 +13,18 @@ import {
 } from './date';
 
 const intervals = [
-  { id: 1, value: 7, unit: 'day' },
-  { id: 2, value: 4, unit: 'week' },
-  { id: 3, value: 12, unit: 'month' },
+  { id: '7_days', value: 7, unit: 'day' },
+  { id: '4_weeks', value: 4, unit: 'week' },
+  { id: '12_months', value: 12, unit: 'month' },
 ];
+
+const getInterval = search => {
+  const params = parseSearch(search);
+  const interval =
+    params.interval && intervals.find(({ id }) => id === params.interval);
+
+  return interval || intervals[0];
+};
 
 const toString = ({ value, unit }) => `${value} ${unit}${value > 1 && 's'}`;
 
@@ -160,6 +169,7 @@ const getTickFormatter = (interval, t, language, format = 'short') => time => {
 
 export {
   intervals,
+  getInterval,
   toString,
   intervalStartDate,
   featuresInInterval,

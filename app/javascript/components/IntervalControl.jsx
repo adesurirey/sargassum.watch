@@ -45,7 +45,7 @@ const IntervalControl = ({ interval, active, onClick }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const handleClick = () => onClick(interval);
+  const handleClick = () => !active && onClick(interval);
 
   const label = t(toString(interval));
 

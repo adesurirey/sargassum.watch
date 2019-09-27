@@ -19,7 +19,9 @@ const LanguageRedirect = ({ children, location, navigate }) => {
   const params = getParams(location);
 
   const redirectToLanguage = () => {
-    return navigate(paths[language] + location.hash, { replace: true });
+    return navigate(paths[language] + location.search + location.hash, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
