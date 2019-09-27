@@ -84,11 +84,6 @@ class Map extends Component {
     );
   }
 
-  componentWillUnmount() {
-    const map = this.getMap();
-    map && map.off('idle', this.setRenderedFeaturesDebounced);
-  }
-
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
