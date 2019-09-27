@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
-import { object, func, string } from 'prop-types';
+import { shape, string, object, func } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
@@ -17,7 +17,7 @@ import {
   pointsLayer,
   permanentLayer,
 } from '../layers';
-import { sargassumCenter } from '../utils/geography';
+import { getViewport } from '../utils/geography';
 import { featureCollection, toPopup, isSameFeatures } from '../utils/geoJSON';
 import { intervals, featuresInInterval } from '../utils/interval';
 import {
@@ -34,6 +34,9 @@ import Controls from './Controls';
 const api = new Api();
 
 const propTypes = {
+  location: shape({
+    hash: string.isRequired,
+  }).isRequired,
   navigate: func.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
@@ -62,10 +65,7 @@ class Map extends Component {
     this.state = {
       loaded: false,
       geolocating: false,
-      viewport: {
-        ...sargassumCenter,
-        zoom: 3,
-      },
+      viewport: getViewport(props.location.hash),
       features: [],
       interval: intervals[0],
       featuresForInterval: [],

@@ -18,7 +18,9 @@ const LanguageRedirect = ({ children, location, navigate }) => {
 
   const params = getParams(location);
 
-  const redirectToLanguage = () => navigate(paths[language]);
+  const redirectToLanguage = () => {
+    return navigate(paths[language] + location.hash, { replace: true });
+  };
 
   useEffect(() => {
     if (location.pathname === '/' && language !== defaultLanguage) {
