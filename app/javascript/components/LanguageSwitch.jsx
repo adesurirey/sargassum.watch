@@ -6,7 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Menu, MenuItem } from '@material-ui/core';
 import { TranslateRounded } from '@material-ui/icons';
 
-import { currentLanguage, languageVariants, variantPath } from '../utils/i18n';
+import {
+  currentLanguage,
+  languageVariants,
+  languagePaths,
+} from '../utils/i18n';
 
 const propTypes = {
   navigate: func.isRequired,
@@ -27,12 +31,17 @@ const LanguageSwitch = ({ navigate }) => {
   const { t, i18n } = useTranslation();
   const classes = useStyles();
 
+  const paths = languagePaths(i18n);
+
   const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
   const onClose = () => setAnchorEl(null);
 
-  const onChange = variant => {
-    i18n.changeLanguage(variant);
-    return navigate(variantPath(variant), { replace: true });
+  const onSelect = variant => {
+    onClose();
+
+    i18n.changeLanguage(variant, () =>
+      navigate(paths[variant], { replace: true }),
+    );
   };
 
   const language = currentLanguage(i18n);
@@ -63,7 +72,7 @@ const LanguageSwitch = ({ navigate }) => {
         onClose={onClose}
       >
         {variants.map(variant => (
-          <MenuItem key={variant} onClick={() => onChange(variant)}>
+          <MenuItem key={variant} onClick={() => onSelect(variant)}>
             {t(variant)}
           </MenuItem>
         ))}

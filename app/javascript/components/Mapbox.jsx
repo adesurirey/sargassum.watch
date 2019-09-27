@@ -83,7 +83,6 @@ const Mapbox = forwardRef(
         height="100%"
         attributionControl={false}
         mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
-        reuseMaps
         preventStyleDiffing
         interactiveLayerIds={interactiveLayerIds}
         onViewportChange={onViewportChange}
