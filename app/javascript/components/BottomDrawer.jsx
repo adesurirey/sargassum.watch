@@ -71,6 +71,7 @@ const BottomDrawer = ({
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
         ModalProps={{
+          keepMounted: true,
           BackdropProps: {
             invisible: true,
           },
