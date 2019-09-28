@@ -24,6 +24,13 @@
     "languages": "langues",
     "en": "English",
     "es": "Español",
-    "fr": "Français"
+    "fr": "Français",
+    "Quick look": "Coup d'œil rapide",
+    "Jump to…": "Aller à…",
+    "all": "Toute la zone affectée par la sargasse",
+    "guadeloupe": "Guadeloupe",
+    "martinique": "Martinique",
+    "mexico": "Quintana Roo, Mexique",
+    "tulum": "Tulum, Mexique"
   }
 }
