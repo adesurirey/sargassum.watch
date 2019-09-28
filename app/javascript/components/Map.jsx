@@ -59,8 +59,8 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
-    const viewport = getViewport(location.hash);
-    const interval = getInterval(location.search);
+    const viewport = getViewport(window.location.hash);
+    const interval = getInterval(window.location.search);
 
     this.state = {
       loaded: false,
@@ -190,7 +190,7 @@ class Map extends Component {
       this.setMapData(this.getFeaturesInInterval()),
     );
 
-    navigate(`?interval=${interval.id}${location.hash}`);
+    navigate(`?interval=${interval.id}${window.location.hash}`);
   };
 
   onReportSuccess = feature =>
