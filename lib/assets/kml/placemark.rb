@@ -5,7 +5,6 @@ module Assets
     class Placemark
       InvalidNodeError = Class.new(StandardError)
 
-      DATE_REGEX = %r{\d{2}/\d{2}/\d{4}}.freeze
       NBSP = " "
 
       def initialize(node_set, custom_attributes = {})
@@ -30,7 +29,9 @@ module Assets
       private
 
       def formatted_name
-        @name.gsub(DATE_REGEX, "")
+        @name.gsub(DateFinder::DATE_REGEX, "")
+             .gsub(DateFinder::DATE_REGEX_NO_DAY, "")
+             .gsub(DateFinder::DATE_REGEX_019, "")
              .split("-")
              .first
              .strip
@@ -46,12 +47,17 @@ module Assets
       end
 
       def parse_date
-        @name[DATE_REGEX]&.to_datetime.tap do |date|
-          error(:blank_date) if date.blank?
+        find_date&.to_datetime.tap do |date|
           error(:invalid_date) if date > DateTime.current
         end
       rescue ArgumentError
         error(:invalid_date)
+      end
+
+      def find_date
+        DateFinder.call(@name).tap do |date|
+          error(:blank_date) if date.blank?
+        end
       end
 
       def parse_coordinates
