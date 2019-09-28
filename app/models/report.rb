@@ -28,8 +28,10 @@ class Report < ApplicationRecord
 
   enum level: {
     clear:    0,
-    moderate: 1,
-    critical: 2,
+    low:      1,
+    moderate: 2,
+    na:       3,
+    critical: 4,
   }
 
   validate :timestamps_are_past
