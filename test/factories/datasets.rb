@@ -16,7 +16,7 @@
 
 FactoryBot.define do
   factory :dataset do
-    name { "July 2019" }
+    name { "Some reports packed" }
     count { nil }
     start_date { nil }
     end_date { nil }

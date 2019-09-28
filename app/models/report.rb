@@ -51,10 +51,11 @@ class Report < ApplicationRecord
 
   class << self
     def cached_geo_json
-      reports = where(updated_at: 1.year.ago..DateTime.current).select(GEO_ATTRIBUTES)
+      datasets = Dataset.where(end_date: 1.year.ago..DateTime.current)
+      reports = all.select(GEO_ATTRIBUTES)
 
-      Rails.cache.fetch(cache_key(reports)) do
-        reports.decorate.to_geo_json
+      Rails.cache.fetch(cache_key(datasets, reports)) do
+        Assets::GeoJson.generate(datasets: datasets, reports: reports)
       end
     end
 
@@ -68,8 +69,14 @@ class Report < ApplicationRecord
 
     private
 
-    def cache_key(reports)
-      { serializer: "reports", stat_record: reports.maximum(:updated_at) }
+    def cache_key(datasets, reports)
+      { serializer: "reports", stat_record: last_update(datasets, reports) }
+    end
+
+    def last_update(datasets, reports)
+      return reports.maximum(:updated_at) if datasets.empty?
+
+      [datasets.maximum(:updated_at), reports.maximum(:updated_at)].max
     end
 
     def current_with(params)

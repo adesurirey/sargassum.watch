@@ -22,7 +22,6 @@ guard :minitest, spring: "bin/rails test" do
   watch(%r{^test/(.*)\/?(.*)_test\.rb$})
 
   watch(%r{^lib/assets/kml/(.+)\.rb$}) { |_m| "test/lib/assets/kml_test.rb" }
-  watch(%r{^lib/(.+/)([^/]+)\.rb$}) { |m| "test/#{m[1]}#{m[2]}_test.rb" }
   watch(%r{^lib/(.+)\.rb$}) { |m| "test/lib/#{m[1]}_test.rb" }
 
   watch("app/controllers/application_controller.rb") { "test/controllers" }
