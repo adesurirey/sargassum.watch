@@ -43,7 +43,7 @@ const LanguageSwitch = ({ navigate }) => {
     onClose();
 
     i18n.changeLanguage(variant, () =>
-      navigate(paths[variant] + location.search + location.hash, {
+      navigate(paths[variant] + window.location.search + window.location.hash, {
         replace: true,
       }),
     );
