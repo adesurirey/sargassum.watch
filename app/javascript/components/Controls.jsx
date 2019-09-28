@@ -22,6 +22,7 @@ const propTypes = {
   navigate: func.isRequired,
   onIntervalChange: func.isRequired,
   onReportClick: func.isRequired,
+  onViewportChange: func.isRequired,
 };
 
 const defaultProps = {
@@ -37,6 +38,7 @@ const Controls = ({
   navigate,
   onIntervalChange,
   onReportClick,
+  onViewportChange,
 }) => {
   const { t } = useTranslation();
 
@@ -48,7 +50,10 @@ const Controls = ({
 
   return (
     <>
-      <GeocoderContainer ref={geocoderContainerRef} />
+      <GeocoderContainer
+        ref={geocoderContainerRef}
+        onViewportChange={onViewportChange}
+      />
 
       <ReportButton {...buttonProps} />
 

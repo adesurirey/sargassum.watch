@@ -1,13 +1,15 @@
 import React, { forwardRef, memo } from 'react';
+
 import { makeStyles } from '@material-ui/styles';
 
-import Logo from './Logo';
+import QuickLook from './QuickLook';
 
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'absolute',
     top: 0,
     left: 0,
+    height: 72,
     width: 380,
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
@@ -38,13 +40,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const GeocoderContainer = forwardRef((_, ref) => {
+const GeocoderContainer = forwardRef((quickLookProps, ref) => {
   const classes = useStyles();
 
   return (
     <div ref={ref} className={classes.root}>
       <div className={classes.logoContainer}>
-        <Logo />
+        <QuickLook {...quickLookProps} />
       </div>
     </div>
   );

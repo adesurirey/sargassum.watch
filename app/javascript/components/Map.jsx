@@ -309,6 +309,7 @@ class Map extends Component {
           navigate={navigate}
           onIntervalChange={this.onIntervalChange}
           onReportClick={this.onReportClick}
+          onViewportChange={this.onViewportChange}
         />
         <Mapbox
           ref={this.mapRef}
