@@ -9,6 +9,7 @@
 #  level      :integer          not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :string           not null
@@ -24,6 +25,7 @@ FactoryBot.define do
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
     level { :critical }
+    source { nil }
     user_id { SecureRandom.hex }
 
     trait :clear do

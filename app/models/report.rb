@@ -9,6 +9,7 @@
 #  level      :integer          not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :string           not null
@@ -21,7 +22,7 @@
 class Report < ApplicationRecord
   include CoordinatesConcern
 
-  GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at].freeze
+  GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at, :source].freeze
 
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
