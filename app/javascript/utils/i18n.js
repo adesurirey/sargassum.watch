@@ -1,4 +1,3 @@
-import defaultLanguage from '../i18n/fallbackLng';
 import { arrayToObject } from './root';
 
 const currentLanguage = i18n => i18n.languages[0];
