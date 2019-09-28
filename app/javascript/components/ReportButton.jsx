@@ -107,11 +107,7 @@ const ReportButton = ({ visible, tiny, loading, onClick }) => {
   }
 
   return (
-    <Zoom
-      in={visible}
-      style={{ transitionDelay: variant.transitionDelay }}
-      mountOnEnter
-    >
+    <Zoom in={visible} style={{ transitionDelay: variant.transitionDelay }}>
       <Fab
         color="primary"
         classes={{ root: variant.classes.root }}
