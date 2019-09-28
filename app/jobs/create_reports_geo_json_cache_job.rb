@@ -3,7 +3,7 @@
 class CreateReportsGeoJsonCacheJob < ApplicationJob
   queue_as :default
 
-  def perform(*_args)
+  def perform
     Report.cached_geo_json
   end
 end
