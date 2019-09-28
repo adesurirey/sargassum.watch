@@ -16,6 +16,7 @@ class ReportDecorator < Draper::Decorator
         level:      numeric_level,
         humanLevel: level,
         updatedAt:  updated_at.httpdate,
+        source:     source,
       },
     }
   end

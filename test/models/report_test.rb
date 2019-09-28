@@ -9,6 +9,7 @@
 #  level      :integer          not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :string           not null
@@ -222,6 +223,11 @@ class ReportTest < ActiveSupport::TestCase
     ]
 
     assert_equal expected, Report.formatted_levels
+  end
+
+  test "can have a source" do
+    report = build(:report, source: "sargassummonitoring.com")
+    assert_equal "sargassummonitoring.com", report.source
   end
 
   private

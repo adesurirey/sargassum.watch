@@ -4,7 +4,7 @@ require "test_helper"
 
 class ReportDecoratorTest < Draper::TestCase
   test "should return a valid geoJSON feature" do
-    report = create(:report).decorate
+    report = create(:report, source: "somesource.com").decorate
 
     feature = report.as_geo_json
 
@@ -25,6 +25,7 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.numeric_level, properties[:level]
     assert_equal report.level, properties[:humanLevel]
     assert_equal report.updated_at.httpdate, properties[:updatedAt]
+    assert_equal report.source, properties[:source]
   end
 
   test "should return json" do
