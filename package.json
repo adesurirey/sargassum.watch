@@ -24,7 +24,7 @@
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "react-i18next": "^10.12.5",
-    "react-map-gl": "^5.0.10",
+    "react-map-gl": "^5.0.11",
     "react-map-gl-geocoder": "^2.0.11",
     "react-timeago": "^4.4.0",
     "recharts": "^1.7.1",
