@@ -21,16 +21,46 @@ def report_parser_results(kml) # rubocop:disable Metrics/AbcSize
   end
 end
 
-def seed_form_file!(file_name, level)
-  file_path = Rails.root.join("db", "data", file_name)
-  attributes = {
-    level:   level,
+def report_attibutes(kind)
+  {
+    level:   kind == :with ? :critical : :clear,
     user_id: SecureRandom.hex,
+    source:  "http://sargassummonitoring.com",
   }
+end
 
-  kml = Assets::KML.new(file_path, attributes)
+def skip_callback
   Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
-  Report.create!(kml.placemarks)
+end
+
+def create_reports(placemarks)
+  skip_callback
+  Report.create!(placemarks)
+end
+
+def random_level(kind)
+  if kind == :with
+    [:moderate, :na, :critical].sample
+  else
+    [:clear, :low].sample
+  end
+end
+
+def random_seed(placemarks, kind)
+  placemarks.in_groups_of(100, false) do |grouped_placemarks|
+    level = random_level(kind)
+    grouped_placemarks.each { |placemark| placemark.merge!(level: level) }
+
+    create_reports(grouped_placemarks)
+  end
+end
+
+def seed_form_file!(file_name, kind)
+  file_path = Rails.root.join("db", "data", file_name)
+  attributes = report_attibutes(kind)
+  kml = Assets::KML.new(file_path, attributes)
+
+  random_seed(kml.placemarks, kind)
 
   report_parser_results(kml)
 end
@@ -38,12 +68,12 @@ end
 start_time = Time.zone.now
 
 # Reports for 2019
-seed_form_file!("2019_beaches_with_sargassum.kml", :critical)
-seed_form_file!("2019_beaches_without_sargassum.kml", :clear)
+seed_form_file!("2019_beaches_with_sargassum.kml", :with)
+seed_form_file!("2019_beaches_without_sargassum.kml", :without)
 
 # Reports for 2018
-seed_form_file!("2018_beaches_with_sargassum.kml", :moderate)
-seed_form_file!("2018_beaches_without_sargassum.kml", :clear)
+seed_form_file!("2018_beaches_with_sargassum.kml", :with)
+seed_form_file!("2018_beaches_without_sargassum.kml", :without)
 
 elapsed_time = (Time.zone.now - start_time).round
 
@@ -52,5 +82,7 @@ puts "Done in #{elapsed_time} seconds.".light_green
 puts ""
 puts "#{Report.count} reports created".underline
 puts "#{Report.clear.count} clear reports"
+puts "#{Report.low.count} low reports"
 puts "#{Report.moderate.count} moderate reports"
+puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
