@@ -86,3 +86,10 @@ puts "#{Report.low.count} low reports"
 puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
+
+puts " "
+puts "Starting reports monthly packing job..."
+PackLastMonthReportsJob.perform_now
+
+puts "#{Dataset.count} dataset created with #{Dataset.last.count} features"
+puts "#{Report.count} reports remaining"

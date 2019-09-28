@@ -3,7 +3,7 @@
 class PackLastMonthReportsJob < ApplicationJob
   queue_as :default
 
-  # This job should be started the second day of a month.
+  # WARNING: This job should be started the second day of a month.
   # It will pack previous month reports and reschedule itself for next month.
   #
   def perform
