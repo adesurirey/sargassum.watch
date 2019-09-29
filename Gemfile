@@ -21,18 +21,19 @@ gem "geocoder"
 gem "sidekiq"
 gem "sidekiq-failures", "~> 1.0"
 
+# HTTP
+gem "faraday"
+
 # Frontend
 gem "autoprefixer-rails"
+gem "gon"
 gem "jbuilder", "~> 2.7"
 gem "sass-rails", "~> 5"
 gem "webpacker", "~> 4.0"
 
-# Rails utils
+# Utils
 gem "bootsnap", ">= 1.4.2", require: false
 gem "colorize"
-
-# Utils
-gem "gon"
 
 group :development, :test do
   # Debugging tools
