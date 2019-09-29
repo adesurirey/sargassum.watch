@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 QUICK_LOOKS = {
+  florida:    {
+    latitude:  27.28,
+    longitude: -81.32,
+    zoom:      6.02,
+  },
   guadeloupe: {
     latitude:  16.22,
     longitude: -61.49,
@@ -24,6 +29,6 @@ QUICK_LOOKS = {
   all:        {
     latitude:  20.83,
     longitude: -73.86,
-    zoom:      3,
+    zoom:      3.1,
   },
 }.freeze
