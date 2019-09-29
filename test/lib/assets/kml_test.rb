@@ -4,7 +4,7 @@ require "test_helper"
 
 class Assets::KMLTest < ActiveSupport::TestCase
   test "should return a hash of placemarks" do
-    kml = Assets::KML.new(file_fixture("valid_placemarks.kml"))
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
 
     assert_equal "Valid placemarks", kml.name
     assert_equal 60, kml.placemarks.size
@@ -20,7 +20,7 @@ class Assets::KMLTest < ActiveSupport::TestCase
     }
 
     kml = Assets::KML.new(
-      file_fixture("valid_placemarks.kml"),
+      File.open(file_fixture("valid_placemarks.kml")),
       custom_attributes,
     )
 
@@ -44,7 +44,7 @@ class Assets::KMLTest < ActiveSupport::TestCase
   end
 
   test "should ignore invalid placemarks and store errors" do
-    kml = Assets::KML.new(file_fixture("invalid_placemarks.kml"))
+    kml = Assets::KML.new(File.open(file_fixture("invalid_placemarks.kml")))
 
     assert_equal "Invalid placemarks", kml.name
     assert_equal 1, kml.placemarks.size

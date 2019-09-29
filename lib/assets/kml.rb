@@ -6,8 +6,8 @@ module Assets
     attr_reader :name
     attr_reader :placemarks
 
-    def initialize(file_path, custom_placemark_attributes = {})
-      @document = Nokogiri::XML(File.open(file_path))
+    def initialize(file, custom_placemark_attributes = {})
+      @document = Nokogiri::XML(file)
       @custom_placemark_attributes = custom_placemark_attributes
       @errors = []
 
