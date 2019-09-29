@@ -25,8 +25,10 @@ const useStyles = makeStyles(theme => ({
 
   container: {
     height: '100%',
-    marginTop: theme.spacing(1) / 2,
-    marginBottom: 0,
+    width: '100%',
+    margin: 0,
+    paddingTop: theme.spacing(1) / 2,
+    overflowY: 'scroll',
   },
 }));
 

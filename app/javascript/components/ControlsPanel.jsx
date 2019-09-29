@@ -6,6 +6,8 @@ import { Grid, Paper, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   item: {
+    paddingLeft: '0 !important',
+    paddingRight: '0 !important',
     '&:last-of-type': {
       paddingBottom: 0,
       alignSelf: 'flex-end',
