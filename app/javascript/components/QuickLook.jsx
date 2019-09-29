@@ -5,7 +5,14 @@ import { FlyToInterpolator } from 'react-map-gl';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
-import { Tooltip, Zoom, ButtonBase, Menu, MenuItem } from '@material-ui/core';
+import {
+  Tooltip,
+  Zoom,
+  ButtonBase,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@material-ui/core';
 import { ZoomOutMapRounded } from '@material-ui/icons';
 
 import Logo from './Logo';
@@ -27,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotateY(180deg)',
   },
 
-  zoomOut: {
+  icon: {
     marginRight: theme.spacing(1),
   },
 }));
@@ -80,6 +87,7 @@ const QuickLook = ({ onViewportChange }) => {
           </ButtonBase>
         </Tooltip>
       </Zoom>
+
       <Menu
         id="quick-look-menu"
         anchorEl={anchorEl}
@@ -91,9 +99,9 @@ const QuickLook = ({ onViewportChange }) => {
         {places.map(place => (
           <MenuItem key={place} onClick={() => onSelect(place)}>
             {place === 'all' && (
-              <ZoomOutMapRounded className={classes.zoomOut} fontSize="small" />
+              <ZoomOutMapRounded className={classes.icon} fontSize="small" />
             )}
-            {t(place)}
+            <Typography noWrap>{t(place)}</Typography>
           </MenuItem>
         ))}
       </Menu>
