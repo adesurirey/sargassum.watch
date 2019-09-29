@@ -43,6 +43,7 @@ const QuickLook = ({ onViewportChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [visible, setVisible] = useState(false);
   const [hover, setHover] = useState(false);
+
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -50,6 +51,18 @@ const QuickLook = ({ onViewportChange }) => {
 
   const onMouseEnter = () => setHover(true);
   const onMouseLeave = () => setHover(false);
+
+  const animate = () => {
+    const timeoutIn = setTimeout(() => onMouseEnter(), 4000);
+    const timeoutOut = setTimeout(() => onMouseLeave(), 5500);
+
+    return () => {
+      clearTimeout(timeoutIn);
+      clearTimeout(timeoutOut);
+    };
+  };
+
+  useEffect(animate, [visible]);
 
   const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
   const onClose = () => setAnchorEl(null);
@@ -72,6 +85,7 @@ const QuickLook = ({ onViewportChange }) => {
         <Tooltip
           title={title}
           TransitionComponent={Zoom}
+          open={hover}
           onOpen={onMouseEnter}
           onClose={onMouseLeave}
         >
