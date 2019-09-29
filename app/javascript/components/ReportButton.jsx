@@ -21,12 +21,15 @@ const defaultProps = {
   tiny: false,
 };
 
+const insetShadow = '0 -2px 0 rgba(0, 0, 0, 0.08) inset';
+
 const useStyles = makeStyles(theme => ({
   regular: {
     position: 'absolute',
     right: 0,
     margin: theme.spacing(2),
     fontWeight: 600,
+    boxShadow: `${insetShadow}, ${theme.shadows[4]}`,
     zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.down('sm')]: {
       bottom: 36,
@@ -38,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     bottom: 376,
     height: '25px !important',
     margin: theme.spacing(1),
-    boxShadow: theme.shadows[3],
+    boxShadow: theme.shadows[3] + insetShadow,
     fontSize: theme.typography.caption.fontSize,
     zIndex: 9999,
   },
