@@ -36,8 +36,8 @@ const useStyles = makeStyles(theme => ({
 
   container: {
     height: '100%',
-    marginTop: 0,
-    marginBottom: 0,
+    width: '100%',
+    margin: 0,
   },
 }));
 
