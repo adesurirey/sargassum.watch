@@ -8,6 +8,7 @@ import ResponsiveDrawer from './ResponsiveDrawer';
 import ControlsPanel from './ControlsPanel';
 import IntervalControls from './IntervalControls';
 import Chart from './Chart';
+import Legend from './Legend';
 import LanguageSwitch from './LanguageSwitch';
 import Credits from './Credits';
 
@@ -65,6 +66,7 @@ const Controls = ({
             onIntervalChange={onIntervalChange}
           />
           <Chart {...renderedFeatures} />
+          <Legend />
         </ControlsPanel>
 
         <ControlsPanel>

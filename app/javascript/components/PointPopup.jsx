@@ -36,8 +36,8 @@ const PointPopup = ({ name, updatedAt, ...popupProps }) => {
         <Grid container alignItems="center">
           <AccessTime
             className={classes.icon}
-            fontSize="small"
-            color="disabled"
+            fontSize="inherit"
+            color="action"
           />
           <Typography variant="caption" noWrap>
             <SmartTimeAgo date={updatedAt} />
