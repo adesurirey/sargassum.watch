@@ -1,15 +1,18 @@
 import React, { memo } from 'react';
 import { string } from 'prop-types';
 import { Popup } from 'react-map-gl';
+import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Link } from '@material-ui/core';
 import { AccessTime, LinkRounded } from '@material-ui/icons';
 
 import Tooltip from './Tooltip';
+import LegendPoint from './LegendPoint';
 import SmartTimeAgo from './SmartTimeAgo';
 
 const propTypes = {
+  humanLevel: string.isRequired,
   name: string.isRequired,
   updatedAt: string.isRequired,
   source: string,
@@ -38,12 +41,23 @@ const useStyles = makeStyles(theme => ({
 const sourceName = source =>
   source.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1];
 
-const PointPopup = ({ name, updatedAt, source, ...popupProps }) => {
+const PointPopup = ({ humanLevel, name, updatedAt, source, ...popupProps }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Popup {...popupProps} closeButton={false} closeOnClick={false}>
       <Tooltip className={classes.root} title={name}>
+        <Grid container alignItems="center">
+          <LegendPoint
+            humanLevel={humanLevel}
+            className={classes.icon}
+            size="inherit"
+          />
+          <Typography variant="caption" noWrap>
+            {t(humanLevel)}
+          </Typography>
+        </Grid>
         <Grid container alignItems="center">
           <AccessTime
             className={classes.icon}
