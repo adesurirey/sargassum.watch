@@ -216,10 +216,9 @@ class ReportTest < ActiveSupport::TestCase
   test "should return possible report values and labels" do
     expected = [
       { value: 0, label: "clear" },
-      { value: 1, label: "low" },
-      { value: 2, label: "moderate" },
-      { value: 3, label: "na" },
-      { value: 4, label: "critical" },
+      { value: 1, label: "moderate" },
+      { value: 2, label: "na" },
+      { value: 3, label: "critical" },
     ]
 
     assert_equal expected, Report.formatted_levels

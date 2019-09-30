@@ -42,7 +42,7 @@ def random_level(kind)
   if kind == :with
     [:moderate, :na, :critical].sample
   else
-    [:clear, :low].sample
+    :clear
   end
 end
 
@@ -82,7 +82,6 @@ puts "Done in #{elapsed_time} seconds.".light_green
 puts ""
 puts "#{Report.count} reports created".underline
 puts "#{Report.clear.count} clear reports"
-puts "#{Report.low.count} low reports"
 puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
