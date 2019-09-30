@@ -50,11 +50,9 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
   const language = currentLanguage(i18n);
   const title = tickFormatter(label, unit, t, language, 'long');
 
-  const data = payload.reverse();
-
   return (
     <Tooltip className={classes.root} title={title}>
-      {data.map(({ dataKey, value }) => (
+      {payload.map(({ dataKey, value }) => (
         <Grid
           key={dataKey}
           container

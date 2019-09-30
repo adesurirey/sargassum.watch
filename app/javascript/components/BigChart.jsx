@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
 } from 'recharts';
 
 import { useTheme } from '@material-ui/styles';
@@ -37,7 +36,6 @@ const BigChart = ({ data, interval }) => {
   const now = toTickDate(new Date(), interval.unit).getTime();
 
   const tickFormatter = getTickFormatter(interval, t);
-  const legendFormatter = value => t(value);
 
   return (
     <Grid item xs={12}>
@@ -66,7 +64,6 @@ const BigChart = ({ data, interval }) => {
             cursor={{ stroke: theme.palette.grey[400] }}
             content={<ChartTooltip unit={interval.unit} />}
           />
-          <Legend iconType="circle" formatter={legendFormatter} />
           {levels.map(({ label }) => (
             <Area
               key={label}

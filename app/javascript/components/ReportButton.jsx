@@ -38,10 +38,10 @@ const useStyles = makeStyles(theme => ({
   tiny: {
     position: 'fixed',
     right: 0,
-    bottom: 376,
+    bottom: 509, // Bottom drawer height
     height: '25px !important',
     margin: theme.spacing(1),
-    boxShadow: theme.shadows[3] + insetShadow,
+    boxShadow: `${insetShadow}, ${theme.shadows[3]}`,
     fontSize: theme.typography.caption.fontSize,
     zIndex: 9999,
   },
@@ -110,7 +110,11 @@ const ReportButton = ({ visible, tiny, loading, onClick }) => {
   }
 
   return (
-    <Zoom in={visible} style={{ transitionDelay: variant.transitionDelay }}>
+    <Zoom
+      in={visible}
+      exit={false}
+      style={{ transitionDelay: variant.transitionDelay }}
+    >
       <Fab
         color="primary"
         classes={{ root: variant.classes.root }}

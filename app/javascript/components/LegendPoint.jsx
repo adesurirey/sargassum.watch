@@ -10,7 +10,7 @@ import { arrayToObject } from '../utils/root';
 const { levels } = gon;
 
 const propTypes = {
-  humanLevel: oneOf(['clear', 'moderate', 'critical']).isRequired,
+  humanLevel: oneOf(['clear', 'moderate', 'na', 'critical']).isRequired,
   size: string,
   className: string,
 };
