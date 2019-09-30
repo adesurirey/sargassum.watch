@@ -29,6 +29,8 @@ export default (id, source) => {
         1,
         theme.palette.level.moderate.main,
         2,
+        theme.palette.level.na.main,
+        3,
         theme.palette.level.critical.main,
       ],
       'circle-stroke-color': 'white',

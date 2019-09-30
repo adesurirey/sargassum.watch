@@ -2,14 +2,6 @@ import 'typeface-open-sans';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
-const fontFamily = '"Open Sans", "Helvetica", "Arial", sans-serif';
-
-const h1 = {
-  fontWeight: 700,
-  fontSize: '1.1rem',
-  lineHeight: '1.3',
-};
-
 let theme = createMuiTheme({
   palette: {
     background: {
@@ -33,9 +25,12 @@ let theme = createMuiTheme({
 
       moderate: {
         light: 'rgba(255, 198, 91, 1)',
-        main: 'rgba(238, 136, 75, 1)',
-        dark: 'rgba(208, 104, 17, 1)',
-        contrastText: '#fff',
+        main: 'rgba(249, 160, 63, 1)',
+        dark: 'rgba(204, 131, 52, 1)',
+      },
+
+      na: {
+        main: 'rgba(250, 113, 76, 1)',
       },
 
       critical: {
@@ -48,13 +43,20 @@ let theme = createMuiTheme({
   },
 
   typography: {
-    fontFamily,
+    fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
 
-    // Section titles
-    h1,
-    h2: h1,
+    h1: {
+      fontWeight: 700,
+      fontSize: '1.1rem',
+      lineHeight: '1.3',
+    },
 
-    // Tooltips and popups titles
+    h2: {
+      fontWeight: 700,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+    },
+
     h3: {
       fontWeight: 700,
       fontSize: '0.8rem',

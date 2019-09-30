@@ -16,7 +16,7 @@ export default (id, source) => {
         ['get', 'level'],
         0,
         0,
-        2,
+        3,
         1,
       ],
       // Increase the heatmap color weight weight by zoom level
@@ -38,15 +38,15 @@ export default (id, source) => {
         ['linear'],
         ['heatmap-density'],
         0,
-        'rgba(255, 198, 91, 0)',
+        'rgba(0, 0, 0, 0)',
         0.25,
         theme.palette.level.moderate.light,
         0.5,
-        theme.palette.level.moderate.dark,
+        theme.palette.level.moderate.main,
         0.75,
         theme.palette.level.critical.light,
         1,
-        theme.palette.level.critical.dark,
+        theme.palette.level.critical.main,
       ],
       // Adjust the heatmap radius by zoom level
       'heatmap-radius': [
