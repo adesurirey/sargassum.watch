@@ -132,6 +132,10 @@ class DatasetTest < ActiveSupport::TestCase
     assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       Dataset.pack_reports!(name: "All", reports: Report.all)
     end
+
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
+      Dataset.last.destroy
+    end
   end
 
   private

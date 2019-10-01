@@ -191,23 +191,23 @@ class ReportTest < ActiveSupport::TestCase
     assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       assert report.clear!
     end
+
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
+      assert report.update(name: "New name")
+    end
+
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
+      assert report.destroy
+    end
   end
 
   test "should not update geoJSON cache" do
-    report = create(:report)
+    Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
     assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
-      assert report.touch
+      create(:report)
     end
 
-    report = build(:report, :critical)
-    Report.skip_callback(:save, :after, :create_geojson_cache, raise: false)
-    assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
-      assert report.save
-      assert report.clear!
-      assert Report.create(build(:report).attributes)
-    end
-
-    Report.set_callback(:save, :after, :create_geojson_cache, raise: false)
+    Report.set_callback(:commit, :after, :create_geojson_cache, raise: false)
     assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       create(:report)
     end
