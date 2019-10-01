@@ -1,16 +1,17 @@
 import React from 'react';
-import { oneOf, string } from 'prop-types';
+import { string } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { Lens } from '@material-ui/icons';
 
 import { arrayToObject } from '../utils/root';
+import { humanLevel } from '../utils/propTypes';
 
 const { levels } = gon;
 
 const propTypes = {
-  humanLevel: oneOf(['clear', 'moderate', 'na', 'critical']).isRequired,
+  humanLevel,
   size: string,
   className: string,
 };

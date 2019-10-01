@@ -1,12 +1,12 @@
 import React from 'react';
-import { oneOf } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+import { humanLevel } from '../utils/propTypes';
 import { Tooltip, Zoom, IconButton } from '@material-ui/core';
 import { HelpOutlineRounded } from '@material-ui/icons';
 
 const propTypes = {
-  humanLevel: oneOf(['clear', 'moderate', 'na', 'critical']).isRequired,
+  humanLevel,
 };
 
 const LegendHelp = ({ humanLevel }) => {
