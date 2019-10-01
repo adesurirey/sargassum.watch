@@ -7,6 +7,7 @@
 puts "Cleaning db..."
 
 Report.delete_all
+Dataset.delete_all
 
 puts "Seeding reports..."
 
@@ -30,7 +31,7 @@ def report_attibutes(kind)
 end
 
 def skip_callback
-  Report.skip_callback(:save, :after, :create_geojson_cache, raise: false)
+  Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
 end
 
 def create_reports(placemarks)

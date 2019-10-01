@@ -42,7 +42,7 @@ class Report < ApplicationRecord
 
   before_create :reverse_geocode, if: :should_geocode?
 
-  after_save :create_geojson_cache
+  after_commit :create_geojson_cache
 
   default_scope { order(updated_at: :asc) }
 

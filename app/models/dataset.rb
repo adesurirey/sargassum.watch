@@ -27,7 +27,7 @@ class Dataset < ApplicationRecord
   validates :features, presence: true
   validate :validate_features_array
 
-  after_save { Report.create_geojson_cache }
+  after_commit { Report.create_geojson_cache }
 
   class << self
     def pack_reports!(name:, reports:)
@@ -41,7 +41,7 @@ class Dataset < ApplicationRecord
           features:   reports.decorate.map(&:as_geojson),
         )
 
-        reports.destroy_all
+        reports.delete_all
       end
     end
   end
