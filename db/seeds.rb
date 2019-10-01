@@ -30,7 +30,7 @@ def report_attibutes(kind)
 end
 
 def skip_callback
-  Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
+  Report.skip_callback(:save, :after, :create_geojson_cache, raise: false)
 end
 
 def create_reports(placemarks)

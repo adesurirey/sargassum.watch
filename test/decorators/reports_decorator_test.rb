@@ -9,20 +9,20 @@ class ReportsDecoratorTest < Draper::TestCase
     create_list(:report, 10, :critical)
 
     reports = Report.all.decorate
-    geo_json = reports.as_geo_json
+    geojson = reports.as_geojson
 
-    assert_kind_of Hash, geo_json
-    assert geo_json.key?(:type)
-    assert geo_json.key?(:features)
+    assert_kind_of Hash, geojson
+    assert geojson.key?(:type)
+    assert geojson.key?(:features)
 
-    assert_equal "FeatureCollection", geo_json[:type]
-    assert_equal reports.first.as_geo_json, geo_json[:features].first
+    assert_equal "FeatureCollection", geojson[:type]
+    assert_equal reports.first.as_geojson, geojson[:features].first
   end
 
   test "should return json" do
     create_list(:report, 10)
 
     reports = Report.all.decorate
-    assert_kind_of String, reports.to_geo_json
+    assert_kind_of String, reports.to_geojson
   end
 end

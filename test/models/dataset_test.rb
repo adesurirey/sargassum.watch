@@ -31,7 +31,7 @@ class DatasetTest < ActiveSupport::TestCase
     assert set.valid?
     assert set.save
 
-    assert_equal Report.all.decorate.map(&:as_geo_json), set.features
+    assert_equal Report.all.decorate.map(&:as_geojson), set.features
   end
 
   test "should have a name" do
@@ -131,6 +131,6 @@ class DatasetTest < ActiveSupport::TestCase
   def create_reports(count = 2)
     create(:report, updated_at: 1.day.ago)
     create_list(:report, count - 1)
-    @reports = Report.all.decorate.map(&:as_geo_json)
+    @reports = Report.all.decorate.map(&:as_geojson)
   end
 end

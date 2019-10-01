@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class ReportsDecorator < Draper::CollectionDecorator
-  def as_geo_json
+  def as_geojson
     {
       type:     "FeatureCollection",
-      features: map(&:as_geo_json),
+      features: map(&:as_geojson),
     }
   end
 
-  def to_geo_json
-    as_geo_json.to_json
+  def to_geojson
+    as_geojson.to_json
   end
 end

@@ -42,19 +42,19 @@ class Report < ApplicationRecord
 
   before_create :reverse_geocode, if: :should_geocode?
 
-  after_save :create_geo_json_cache
+  after_save :create_geojson_cache
 
   default_scope { order(updated_at: :asc) }
 
   scope :infested, -> { where.not(level: :clear) }
 
   class << self
-    def cached_geo_json
+    def cached_geojson
       datasets = Dataset.where(end_date: 1.year.ago..DateTime.current)
       reports = all.select(GEO_ATTRIBUTES)
 
       Rails.cache.fetch(cache_key(datasets, reports)) do
-        Assets::GeoJson.generate(datasets: datasets, reports: reports)
+        Assets::GeoJSON.generate(datasets: datasets, reports: reports)
       end
     end
 
@@ -111,7 +111,7 @@ class Report < ApplicationRecord
     name.blank?
   end
 
-  def create_geo_json_cache
-    CreateReportsGeoJsonCacheJob.perform_later
+  def create_geojson_cache
+    CreateReportsGeoJSONCacheJob.perform_later
   end
 end

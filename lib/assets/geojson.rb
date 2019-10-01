@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Assets
-  class GeoJson
+  class GeoJSON
     attr_reader :result
 
     class << self
@@ -22,7 +22,7 @@ module Assets
     end
 
     def extract_features(datasets, reports)
-      datasets.flat_map(&:features) + reports.decorate.map(&:as_geo_json)
+      datasets.flat_map(&:features) + reports.decorate.map(&:as_geojson)
     end
 
     def sort(features)
