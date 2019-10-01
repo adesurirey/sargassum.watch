@@ -126,6 +126,14 @@ class DatasetTest < ActiveSupport::TestCase
     end
   end
 
+  test "should update reports geoJSON cache" do
+    create_list(:report, 2)
+
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
+      Dataset.pack_reports!(name: "All", reports: Report.all)
+    end
+  end
+
   private
 
   def create_reports(count = 2)

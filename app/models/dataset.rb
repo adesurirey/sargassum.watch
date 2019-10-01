@@ -27,6 +27,8 @@ class Dataset < ApplicationRecord
   validates :features, presence: true
   validate :validate_features_array
 
+  after_save { Report.create_geojson_cache }
+
   class << self
     def pack_reports!(name:, reports:)
       ordered_reports = reports.order(updated_at: :asc)

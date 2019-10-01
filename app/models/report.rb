@@ -62,6 +62,10 @@ class Report < ApplicationRecord
       current_with(params) || new(params)
     end
 
+    def create_geojson_cache
+      CreateReportsGeoJSONCacheJob.perform_later
+    end
+
     def formatted_levels
       levels.map { |k, v| { value: v, label: k } }
     end
@@ -74,6 +78,7 @@ class Report < ApplicationRecord
 
     def last_update(datasets, reports)
       return reports.maximum(:updated_at) if datasets.empty?
+      return datasets.maximum(:updated_at) if reports.empty?
 
       [datasets.maximum(:updated_at), reports.maximum(:updated_at)].max
     end
@@ -107,11 +112,11 @@ class Report < ApplicationRecord
     errors.add(:updated_at) if updated_at.present? && updated_at > Time.current
   end
 
-  def should_geocode?
-    name.blank?
+  def create_geojson_cache
+    self.class.create_geojson_cache
   end
 
-  def create_geojson_cache
-    CreateReportsGeoJSONCacheJob.perform_later
+  def should_geocode?
+    name.blank?
   end
 end

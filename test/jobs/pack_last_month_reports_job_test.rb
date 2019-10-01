@@ -16,8 +16,9 @@ class PackLastMonthReportsJobTest < ActiveJob::TestCase
       end
     end
 
-    assert_enqueued_jobs 1
+    assert_enqueued_jobs 2
     assert_enqueued_with(job: PackLastMonthReportsJob)
+    assert_enqueued_with(job: CreateReportsGeoJSONCacheJob)
 
     expected_next_call = now.next_month.end_of_day.to_i
     assert_in_delta 1, expected_next_call, enqueued_jobs.last[:at]
