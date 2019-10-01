@@ -3,12 +3,12 @@
 class ReportDecorator < Draper::Decorator
   delegate_all
 
-  def as_geo_json
+  def as_geojson
     {
       type:       "Feature",
       geometry:   {
         type:        "Point",
-        coordinates: geo_json_coordinates,
+        coordinates: geojson_coordinates,
       },
       properties: {
         id:         id,
@@ -21,8 +21,8 @@ class ReportDecorator < Draper::Decorator
     }
   end
 
-  def to_geo_json
-    as_geo_json.to_json
+  def to_geojson
+    as_geojson.to_json
   end
 
   def numeric_level

@@ -36,7 +36,7 @@ class Dataset < ApplicationRecord
           name:       name,
           start_date: ordered_reports.first.updated_at,
           end_date:   ordered_reports.last.updated_at,
-          features:   reports.decorate.map(&:as_geo_json),
+          features:   reports.decorate.map(&:as_geojson),
         )
 
         reports.destroy_all

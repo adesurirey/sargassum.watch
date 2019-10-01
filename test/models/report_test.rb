@@ -95,8 +95,8 @@ class ReportTest < ActiveSupport::TestCase
   test "should return a valid geoJSON coordinates array" do
     report = build(:report)
 
-    assert_equal report.longitude, report.geo_json_coordinates.first
-    assert_equal report.latitude, report.geo_json_coordinates.last
+    assert_equal report.longitude, report.geojson_coordinates.first
+    assert_equal report.latitude, report.geojson_coordinates.last
   end
 
   test "should return a valid geocoder coordinates array" do
@@ -170,45 +170,45 @@ class ReportTest < ActiveSupport::TestCase
     create_list(:report, 10, :moderate)
     create_list(:report, 10, :critical)
 
-    geo_json = Report.cached_geo_json
-    assert_kind_of String, geo_json
+    geojson = Report.cached_geojson
+    assert_kind_of String, geojson
 
-    geo_json = JSON.parse geo_json
-    assert_equal 30, geo_json["features"].size
+    geojson = JSON.parse geojson
+    assert_equal 30, geojson["features"].size
   end
 
   test "should update geoJSON cache" do
-    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       create(:report)
     end
 
     report = build(:report, :critical)
 
-    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       assert report.save
     end
 
-    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       assert report.clear!
     end
   end
 
   test "should not update geoJSON cache" do
     report = create(:report)
-    assert_no_enqueued_jobs only: CreateReportsGeoJsonCacheJob do
+    assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
       assert report.touch
     end
 
     report = build(:report, :critical)
-    Report.skip_callback(:save, :after, :create_geo_json_cache, raise: false)
-    assert_no_enqueued_jobs only: CreateReportsGeoJsonCacheJob do
+    Report.skip_callback(:save, :after, :create_geojson_cache, raise: false)
+    assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
       assert report.save
       assert report.clear!
       assert Report.create(build(:report).attributes)
     end
 
-    Report.set_callback(:save, :after, :create_geo_json_cache, raise: false)
-    assert_enqueued_with job: CreateReportsGeoJsonCacheJob do
+    Report.set_callback(:save, :after, :create_geojson_cache, raise: false)
+    assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       create(:report)
     end
   end

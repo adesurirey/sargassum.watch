@@ -6,7 +6,7 @@ class ReportDecoratorTest < Draper::TestCase
   test "should return a valid geoJSON feature" do
     report = create(:report, source: "somesource.com").decorate
 
-    feature = report.as_geo_json
+    feature = report.as_geojson
 
     assert_kind_of Hash, feature
     assert feature.key?(:type)
@@ -17,7 +17,7 @@ class ReportDecoratorTest < Draper::TestCase
 
     geometry = feature[:geometry]
     assert_equal "Point", geometry[:type]
-    assert_equal report.geo_json_coordinates, geometry[:coordinates]
+    assert_equal report.geojson_coordinates, geometry[:coordinates]
 
     properties = feature[:properties]
     assert_equal report.id, properties[:id]
@@ -30,7 +30,7 @@ class ReportDecoratorTest < Draper::TestCase
 
   test "should return json" do
     report = create(:report).decorate
-    assert_kind_of String, report.to_geo_json
+    assert_kind_of String, report.to_geojson
   end
 
   test "should return level enum as numeric" do

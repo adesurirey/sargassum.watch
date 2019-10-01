@@ -19,4 +19,5 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym "KML"
+  inflect.acronym "GeoJSON"
 end

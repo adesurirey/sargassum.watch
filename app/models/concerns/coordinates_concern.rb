@@ -7,7 +7,7 @@ module CoordinatesConcern
     LATITUDE_NUMERICALITY  = { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }.freeze
     LONGITUDE_NUMERICALITY = { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }.freeze
 
-    def geo_json_coordinates
+    def geojson_coordinates
       [longitude, latitude]
     end
 
