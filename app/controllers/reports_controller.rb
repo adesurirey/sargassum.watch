@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
   end
 
   def create
-    report = Report.find_or_initialize_by(report_params)
+    report = Report.find_or_initialize_for_user(report_params)
 
     if report.save
       status = report.id_previously_changed? ? :created : :ok

@@ -143,10 +143,26 @@ class ReportTest < ActiveSupport::TestCase
       level:     "clear",
     )
 
-    result = Report.find_or_initialize_by(params)
+    result = Report.find_or_initialize_for_user(params)
 
     assert_equal report, result
     assert result.level_changed?
+  end
+
+  test "should find an already scrapped report by placemark attributes" do
+    report = create(:report, :sugiton, :critical)
+
+    placemark = {
+      created_at: report.created_at,
+      level:      report.level,
+      longitude:  report.longitude,
+      latitude:   report.latitude,
+      user_id:    SecureRandom.hex,
+    }
+
+    result = Report.find_or_initialize_for_scrapper(placemark)
+
+    assert_equal report, result
   end
 
   test "should initialize a valid new record from params" do
@@ -159,7 +175,24 @@ class ReportTest < ActiveSupport::TestCase
       level:     :clear,
     )
 
-    result = Report.find_or_initialize_by(params)
+    result = Report.find_or_initialize_for_user(params)
+
+    assert result.new_record?
+    assert result.valid?
+  end
+
+  test "should initialize a new record by placemark attributes" do
+    coords = coordinates_hash(:morgiou)
+
+    placemark = {
+      created_at: 2.days.ago,
+      level:      :clear,
+      longitude:  coords[:longitude],
+      latitude:   coords[:latitude],
+      user_id:    SecureRandom.hex,
+    }
+
+    result = Report.find_or_initialize_for_scrapper(placemark)
 
     assert result.new_record?
     assert result.valid?

@@ -4,9 +4,9 @@ require "test_helper"
 
 class ScrapperTest < ActiveSupport::TestCase
   test "should return a kml file from Google maps" do
-    request = stub_scrapper(kind: :with, year: "2019")
+    request = stub_scrapper(kind: :with, year: 2019)
 
-    Scrapper.call(kind: :with, year: "2019")
+    Scrapper.call(kind: :with, year: 2019)
     assert_requested request
   end
 
