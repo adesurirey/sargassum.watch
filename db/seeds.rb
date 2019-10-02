@@ -69,12 +69,12 @@ puts "[2/3] Seeding reports..."
 start_time = Time.zone.now
 
 # Reports for 2019
-seed("2019", :with)
-seed("2019", :without)
+seed(2019, :with)
+seed(2019, :without)
 
 # Reports for 2018
-seed("2018", :with)
-seed("2018", :without)
+seed(2018, :with)
+seed(2018, :without)
 
 elapsed_time = (Time.zone.now - start_time).round
 

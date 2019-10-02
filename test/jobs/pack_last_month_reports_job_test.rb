@@ -10,7 +10,7 @@ class PackLastMonthReportsJobTest < ActiveJob::TestCase
     create_list(:report, 2, updated_at: now.prev_month)
     clear_enqueued_jobs
 
-    travel_to Date.new(now.year, now.month, 8) do
+    travel_to Date.new(now.year, now.month, 15) do
       assert_difference "Dataset.count", 1 do
         assert_difference "Report.count", -2 do
           PackLastMonthReportsJob.perform_now
@@ -29,7 +29,7 @@ class PackLastMonthReportsJobTest < ActiveJob::TestCase
     assert_equal 1, Dataset.count
   end
 
-  test "should always keep a minimum 1 week of unpacked reports" do
+  test "should always keep a minimum 2 weeks of unpacked reports" do
     now = Time.current
 
     travel_to Date.new(now.year, now.month, 1) do
@@ -40,7 +40,7 @@ class PackLastMonthReportsJobTest < ActiveJob::TestCase
       end
     end
 
-    travel_to Date.new(now.year, now.month, 6) do
+    travel_to Date.new(now.year, now.month, 14) do
       assert_no_difference "Dataset.count" do
         assert_raises StandardError do
           PackLastMonthReportsJob.perform_now

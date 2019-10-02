@@ -58,8 +58,12 @@ class Report < ApplicationRecord
       end
     end
 
-    def find_or_initialize_by(params)
-      current_with(params) || new(params)
+    def find_or_initialize_for_user(params)
+      current_for_user(params) || new(params)
+    end
+
+    def find_or_initialize_for_scrapper(placemark)
+      already_scrapped(placemark) || new(placemark)
     end
 
     def create_geojson_cache
@@ -83,7 +87,7 @@ class Report < ApplicationRecord
       [datasets.maximum(:updated_at), reports.maximum(:updated_at)].max
     end
 
-    def current_with(params)
+    def current_for_user(params)
       user_id, latitude, longitude = params.values_at(:user_id, :latitude, :longitude)
 
       where(
@@ -93,6 +97,13 @@ class Report < ApplicationRecord
         .near([latitude, longitude], MIN_DISTANCE_FROM_LAST_REPORT_IN_KM, units: :km)
         .first
         .tap { |report| report&.assign_attributes(params) }
+    end
+
+    def already_scrapped(placemark)
+      fail ArgumentError, "Placemark has no level" unless placemark[:level].present?
+
+      attributes = placemark.slice(:created_at, :level, :latitude, :longitude)
+      find_by(attributes)
     end
   end
 
