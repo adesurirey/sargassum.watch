@@ -6,10 +6,10 @@
 #
 #  id         :bigint           not null, primary key
 #  count      :integer          not null
-#  end_date   :datetime         not null
+#  end_at     :datetime         not null
 #  features   :binary           not null
 #  name       :string           not null
-#  start_date :datetime         not null
+#  start_at   :datetime         not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -21,8 +21,8 @@ class Dataset < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :count, numericality: true
-  validates :start_date, presence: true
-  validates :end_date, presence: true
+  validates :start_at, presence: true
+  validates :end_at, presence: true
   validate :validate_date_range
   validates :features, presence: true
   validate :validate_features_array
@@ -35,10 +35,10 @@ class Dataset < ApplicationRecord
 
       transaction do
         create!(
-          name:       name,
-          start_date: ordered_reports.first.updated_at,
-          end_date:   ordered_reports.last.updated_at,
-          features:   reports.decorate.map(&:as_geojson),
+          name:     name,
+          start_at: ordered_reports.first.updated_at,
+          end_at:   ordered_reports.last.updated_at,
+          features: reports.decorate.map(&:as_geojson),
         )
 
         reports.delete_all
@@ -53,8 +53,8 @@ class Dataset < ApplicationRecord
   end
 
   def validate_date_range
-    errors.add(:start_date) if start_date && start_date > Time.current
-    errors.add(:end_date) if end_date && (end_date < start_date || end_date > Time.current)
+    errors.add(:start_at) if start_at && start_at > Time.current
+    errors.add(:end_at) if end_at && (end_at < start_at || end_at > Time.current)
   end
 
   def validate_features_array
