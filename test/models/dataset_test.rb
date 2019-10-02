@@ -6,10 +6,10 @@
 #
 #  id         :bigint           not null, primary key
 #  count      :integer          not null
-#  end_date   :datetime         not null
+#  end_at     :datetime         not null
 #  features   :binary           not null
 #  name       :string           not null
-#  start_date :datetime         not null
+#  start_at   :datetime         not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -21,11 +21,11 @@ class DatasetTest < ActiveSupport::TestCase
     create_reports
 
     set = Dataset.new(
-      name:       "September 2019",
-      count:      200,
-      start_date: 2.month.ago,
-      end_date:   1.month.ago,
-      features:   @reports,
+      name:     "September 2019",
+      count:    200,
+      start_at: 2.month.ago,
+      end_at:   1.month.ago,
+      features: @reports,
     )
 
     assert set.valid?
@@ -38,10 +38,10 @@ class DatasetTest < ActiveSupport::TestCase
     create_reports
 
     set = Dataset.new(
-      count:      200,
-      start_date: 2.month.ago,
-      end_date:   1.month.ago,
-      features:   @reports,
+      count:    200,
+      start_at: 2.month.ago,
+      end_at:   1.month.ago,
+      features: @reports,
     )
 
     assert_not set.valid?
@@ -60,23 +60,23 @@ class DatasetTest < ActiveSupport::TestCase
 
     assert_not set.valid?
     assert_equal 2, set.errors.size
-    assert set.errors.details[:start_date]
-    assert set.errors.details[:end_date]
+    assert set.errors.details[:start_at]
+    assert set.errors.details[:end_at]
 
-    set.start_date = DateTime.current
-    set.end_date = 1.month.ago
+    set.start_at = DateTime.current
+    set.end_at = 1.month.ago
 
     assert_not set.valid?
     assert_equal 1, set.errors.size
-    assert set.errors.details[:end_date]
+    assert set.errors.details[:end_at]
   end
 
   test "should have valid features" do
     set = Dataset.new(
-      name:       "September 2019",
-      count:      200,
-      start_date: 2.month.ago,
-      end_date:   1.month.ago,
+      name:     "September 2019",
+      count:    200,
+      start_at: 2.month.ago,
+      end_at:   1.month.ago,
     )
 
     assert_not set.valid?
@@ -107,8 +107,8 @@ class DatasetTest < ActiveSupport::TestCase
     set = Dataset.last
     assert_equal "All frozen reports", set.name
     assert_equal 3, set.count
-    assert_equal first_report.updated_at, set.start_date
-    assert_equal last_report.updated_at, set.end_date
+    assert_equal first_report.updated_at, set.start_at
+    assert_equal last_report.updated_at, set.end_at
     assert_equal 0, query.call.size
   end
 
