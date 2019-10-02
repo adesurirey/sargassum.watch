@@ -3,10 +3,9 @@
 class PackLastMonthReportsJob < ApplicationJob
   queue_as :default
 
-  # WARNING: This job should be started the second day of a month.
-  # It will pack previous month reports and reschedule itself for next month.
-  #
   def perform
+    ensure_one_week_of_unpacked_reports
+
     now = Time.current
     pack_end_datetime = now.change(day: 1).beginning_of_day
     reports = Report.where("updated_at < ?", pack_end_datetime)
@@ -14,5 +13,13 @@ class PackLastMonthReportsJob < ApplicationJob
     Dataset.pack_reports!(name: pack_end_datetime.strftime("%^B %Y"), reports: reports)
 
     PackLastMonthReportsJob.set(wait_until: now.next_month.end_of_day).perform_later
+  end
+
+  private
+
+  def ensure_one_week_of_unpacked_reports
+    return if Time.current.day > 7
+
+    fail StandardError, "Keep one week of unpacked reports for relevant scrapper results"
   end
 end
