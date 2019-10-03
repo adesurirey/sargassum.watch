@@ -198,16 +198,16 @@ class ReportTest < ActiveSupport::TestCase
     assert result.valid?
   end
 
-  test "should return all as geoJSON" do
+  test "should return all reports and datasets as geoJSON" do
     create_list(:report, 10, :clear)
-    create_list(:report, 10, :moderate)
+    Dataset.pack_reports!(name: "all", reports: Report.all)
     create_list(:report, 10, :critical)
 
     geojson = Report.cached_geojson
     assert_kind_of String, geojson
 
     geojson = JSON.parse geojson
-    assert_equal 30, geojson["features"].size
+    assert_equal 20, geojson["features"].size
   end
 
   test "should update geoJSON cache" do
