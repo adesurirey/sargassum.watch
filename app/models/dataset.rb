@@ -25,7 +25,6 @@ class Dataset < ApplicationRecord
   validates :end_at, presence: true
   validate :validate_date_range
   validates :features, presence: true
-  validate :validate_features_array
 
   after_commit { Report.create_geojson_cache }
 
@@ -55,9 +54,5 @@ class Dataset < ApplicationRecord
   def validate_date_range
     errors.add(:start_at) if start_at && start_at > Time.current
     errors.add(:end_at) if end_at && (end_at < start_at || end_at > Time.current)
-  end
-
-  def validate_features_array
-    errors.add(:features) if features && features.class != Array
   end
 end

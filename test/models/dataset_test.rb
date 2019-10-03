@@ -45,8 +45,8 @@ class DatasetTest < ActiveSupport::TestCase
     )
 
     assert_not set.valid?
-    assert_equal 1, set.errors.size
-    assert set.errors.details[:name]
+    assert_equal 1, set.errors.details.size
+    assert_not_empty set.errors.details[:name]
   end
 
   test "should have correct dates" do
@@ -67,8 +67,8 @@ class DatasetTest < ActiveSupport::TestCase
     set.end_at = 1.month.ago
 
     assert_not set.valid?
-    assert_equal 1, set.errors.size
-    assert set.errors.details[:end_at]
+    assert_equal 1, set.errors.details.size
+    assert_not_empty set.errors.details[:end_at]
   end
 
   test "should have valid features" do
@@ -80,14 +80,8 @@ class DatasetTest < ActiveSupport::TestCase
     )
 
     assert_not set.valid?
-    assert_equal 1, set.errors.size
-    assert set.errors.details[:features]
-
-    set.features = {}
-
-    assert_not set.valid?
-    assert_equal 2, set.errors.size
-    assert_equal 2, set.errors.details[:features].size
+    assert_equal 1, set.errors.details.size
+    assert_not_empty set.errors.details[:features]
   end
 
   test "should create from a reports and destroy packed reports" do
