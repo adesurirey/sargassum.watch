@@ -69,4 +69,42 @@ class ScrapperLogTest < ActiveSupport::TestCase
     assert log.update(last_created_reports_count: 200)
     assert_equal 350, log.total_created_reports_count
   end
+
+  test "should create from a kml instance" do
+    kml = Assets::KML.new(File.open(file_fixture("invalid_placemarks.kml")))
+    log = ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 1, level: :clear)
+
+    assert_equal "Invalid placemarks", log.file_name
+    assert_equal "clear", log.level
+    assert_equal 1, log.last_created_reports_count
+    assert_equal 1, log.total_created_reports_count
+    assert_equal 1, log.valid_placemarks_count
+    assert_equal 7, log.invalid_placemarks_count
+    assert_equal 7, log.parsing_failures.size
+    assert_includes log.parsing_failures, "No date found in name: Riu dunamar - Riviera Maya"
+  end
+
+  test "should create or update from a kml instance" do
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
+    log = ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 20, level: :na)
+
+    assert_equal "Valid placemarks", log.file_name
+    assert_equal "na", log.level
+    assert_equal 20, log.last_created_reports_count
+    assert_equal 20, log.total_created_reports_count
+    assert_equal 60, log.valid_placemarks_count
+    assert_equal 0, log.invalid_placemarks_count
+    assert_equal [], log.parsing_failures
+
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
+    log = ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 20, level: :na)
+
+    assert_equal "Valid placemarks", log.file_name
+    assert_equal "na", log.level
+    assert_equal 20, log.last_created_reports_count
+    assert_equal 40, log.total_created_reports_count
+    assert_equal 60, log.valid_placemarks_count
+    assert_equal 0, log.invalid_placemarks_count
+    assert_equal [], log.parsing_failures
+  end
 end

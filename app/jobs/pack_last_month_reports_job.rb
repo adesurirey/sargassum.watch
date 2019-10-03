@@ -19,7 +19,7 @@ class PackLastMonthReportsJob < ApplicationJob
   private
 
   def ensure_two_weeks_of_unpacked_reports
-    return if Time.current.day >= 14
+    return if Time.current.day > 14
 
     fail StandardError, "Keep two weeks of unpacked reports for relevant scrapper results"
   end
