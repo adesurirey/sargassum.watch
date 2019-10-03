@@ -4,30 +4,32 @@ class ScrapReportsJob < ApplicationJob
   queue_as :default
 
   def perform(kind, year = Time.current.year)
-    @created_reports_count = 0
-    @attributes = report_attibutes(kind.to_sym)
-
-    @kml = Scrapper.call(kind: kind.to_sym, year: year, attributes: @attributes)
+    @kind = kind
+    @attributes = report_attibutes
+    @kml = Scrapper.call(kind: kind, year: year, attributes: @attributes)
     @placemarks = after_last_dataset(@kml.placemarks)
+    @created_reports_count = 0
 
     Report.transaction do
       create_reports!
-      create_or_update_log!
+      create_or_update_parser_log!
     end
+
+    teardown
   end
 
   private
 
-  def report_attibutes(kind)
+  def report_attibutes
     {
-      level:   report_level(kind),
+      level:   report_level,
       user_id: SecureRandom.hex,
       source:  "http://sargassummonitoring.com",
     }
   end
 
-  def report_level(kind)
-    case kind
+  def report_level
+    case @kind
     when :with then :na
     when :without then :clear
     end
@@ -46,16 +48,29 @@ class ScrapReportsJob < ApplicationJob
       report = Report.find_or_initialize_for_scrapper(placemark)
       next unless report.new_record?
 
-      report.save!
+      Report.without_cache_callback { report.save! }
       @created_reports_count += 1
     end
   end
 
-  def create_or_update_log!
+  def create_or_update_parser_log!
     ScrapperLog.create_or_update_from_kml!(
       kml:                   @kml,
       created_reports_count: @created_reports_count,
       level:                 @attributes[:level],
     )
+  end
+
+  def teardown
+    refresh_reports_cache
+    reschedule
+  end
+
+  def refresh_reports_cache
+    CreateReportsGeoJSONCacheJob.perform_later if @created_reports_count.positive?
+  end
+
+  def reschedule
+    ScrapReportsJob.set(wait_until: 12.hours.from_now).perform_later(@kind)
   end
 end

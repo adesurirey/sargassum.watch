@@ -75,6 +75,17 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     assert_equal 60, scrapper_log.total_created_reports_count
   end
 
+  test "should reschedule itself and only enqueue 1 geoJSON cache creation job" do
+    stub_scrapper(:with)
+
+    ScrapReportsJob.perform_now(:with)
+
+    assert_enqueued_jobs 2
+    assert_enqueued_with(job: CreateReportsGeoJSONCacheJob)
+    assert_enqueued_with(job: ScrapReportsJob)
+    assert_in_delta 1, 12.hours.from_now.to_i, enqueued_jobs.last[:at]
+  end
+
   private
 
   def stub_scrapper(kind)

@@ -63,6 +63,12 @@ class Report < ApplicationRecord
       levels.map { |k, v| { value: v, label: k } }
     end
 
+    def without_cache_callback
+      Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
+      yield
+      Report.set_callback(:commit, :after, :create_geojson_cache, raise: false)
+    end
+
     private
 
     def cache_key(datasets, reports)

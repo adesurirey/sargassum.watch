@@ -235,12 +235,12 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test "should not update geoJSON cache" do
-    Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
-    assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
-      create(:report)
+    Report.without_cache_callback do
+      assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
+        create(:report)
+      end
     end
 
-    Report.set_callback(:commit, :after, :create_geojson_cache, raise: false)
     assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
       create(:report)
     end
