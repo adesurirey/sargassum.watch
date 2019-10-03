@@ -55,12 +55,12 @@ def seed(year, kind)
   report_parser_results(kml)
 end
 
-puts "[1/3] Cleaning db..."
+puts "[1/2] Cleaning db..."
 
 Report.delete_all
 Dataset.delete_all
 
-puts "[2/3] Seeding reports..."
+puts "[2/2] Seeding reports..."
 
 start_time = Time.zone.now
 
@@ -82,28 +82,3 @@ puts "#{Report.clear.count} clear reports"
 puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
-
-puts ""
-puts "[3/3] Starting reports monthly packing job..."
-
-start_time = Time.zone.now
-
-if Time.current.day < 15
-  wait_until = Time.current.change(day: 15)
-  PackLastMonthReportsJob.set(wait_until: wait_until).perform_later
-else
-  PackLastMonthReportsJob.perform_now
-end
-
-elapsed_time = (Time.zone.now - start_time).round
-
-puts ""
-puts "Done in #{elapsed_time} seconds.".light_green
-puts ""
-
-if wait_until
-  puts "Enqueued monthly packing job for later."
-else
-  puts "#{Dataset.count} dataset created with #{Dataset.last.count} features".underline
-  puts "#{Report.count} reports remaining"
-end

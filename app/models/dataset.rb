@@ -30,13 +30,13 @@ class Dataset < ApplicationRecord
 
   class << self
     def pack_reports!(name:, reports:)
-      ordered_reports = reports.order(updated_at: :asc)
+      return unless reports.any?
 
       transaction do
         create!(
           name:     name,
-          start_at: ordered_reports.first.updated_at,
-          end_at:   ordered_reports.last.updated_at,
+          start_at: reports.min_by(&:updated_at).updated_at,
+          end_at:   reports.max_by(&:updated_at).updated_at,
           features: reports.decorate.map(&:as_geojson),
         )
 
