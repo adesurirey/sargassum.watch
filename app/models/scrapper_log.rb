@@ -28,6 +28,33 @@ class ScrapperLog < ApplicationRecord
 
   after_validation :sum_created_reports
 
+  class << self
+    def create_or_update_from_kml!(kml:, created_reports_count:, level:)
+      scrapper_log = find_or_initialize_by_kml(kml)
+
+      scrapper_log.assign_attributes(
+        level:                      level,
+        last_created_reports_count: created_reports_count,
+      )
+
+      scrapper_log.tap(&:save!)
+    end
+
+    private
+
+    def find_or_initialize_by_kml(kml)
+      scrapper_log = find_or_initialize_by(file_name: kml.name)
+
+      scrapper_log.assign_attributes(
+        valid_placemarks_count:   kml.placemarks.size,
+        invalid_placemarks_count: kml.errors.size,
+        parsing_failures:         kml.errors,
+      )
+
+      scrapper_log
+    end
+  end
+
   private
 
   def format_file_name!

@@ -50,12 +50,8 @@ end
 
 def seed(year, kind)
   attributes = report_attibutes(kind)
-
-  file = Scrapper.call(kind: kind, year: year)
-  kml = Assets::KML.new(file, attributes)
-
+  kml = Scrapper.call(kind: kind, year: year, attributes: attributes)
   random_seed(kml.placemarks, kind)
-
   report_parser_results(kml)
 end
 
@@ -92,12 +88,22 @@ puts "[3/3] Starting reports monthly packing job..."
 
 start_time = Time.zone.now
 
-PackLastMonthReportsJob.perform_now
+if Time.current.day < 15
+  wait_until = Time.current.change(day: 15)
+  PackLastMonthReportsJob.set(wait_until: wait_until).perform_later
+else
+  PackLastMonthReportsJob.perform_now
+end
 
 elapsed_time = (Time.zone.now - start_time).round
 
 puts ""
 puts "Done in #{elapsed_time} seconds.".light_green
 puts ""
-puts "#{Dataset.count} dataset created with #{Dataset.last.count} features".underline
-puts "#{Report.count} reports remaining"
+
+if wait_until
+  puts "Enqueued monthly packing job for later."
+else
+  puts "#{Dataset.count} dataset created with #{Dataset.last.count} features".underline
+  puts "#{Report.count} reports remaining"
+end

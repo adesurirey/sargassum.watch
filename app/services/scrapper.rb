@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Scrapper
-  KINDS = [:with, :without].freeze
-  YEARS = [2018, 2019].freeze
   URLS = {
     2019 => {
       with:    "https://www.google.com/maps/d/kml?mid=1jQbixC2zZfrxgRTmZYULzDvHPwGmbsZh&forcekml=1",
@@ -16,26 +14,17 @@ class Scrapper
 
   attr_reader :kml
 
-  class << self
-    def call(year:, kind:)
-      validate_args(year, kind)
+  def self.call(year:, kind:, attributes: {})
+    fail ArgumentError, "No url found for #{year} #{kind}" unless URLS[year][kind]
 
-      new(year, kind).kml
-    end
-
-    private
-
-    def validate_args(year, kind)
-      fail ArgumentError, "Unknown year #{year}, expected: #{YEARS}" unless YEARS.include?(year)
-      fail ArgumentError, "Unknown kind #{kind}, expected: #{KINDS}" unless KINDS.include?(kind)
-    end
+    new(year, kind, attributes).kml
   end
 
   private
 
-  def initialize(year, kind)
+  def initialize(year, kind, attributes)
     @url = URLS[year][kind]
-    @kml = request.body
+    @kml = Assets::KML.new(request.body, attributes)
   end
 
   def request

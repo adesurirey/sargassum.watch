@@ -53,6 +53,28 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     end
   end
 
+  test "should create or update a scrapper log" do
+    stub_scrapper(:with)
+
+    assert_difference "ScrapperLog.count", +1 do
+      ScrapReportsJob.perform_now(:with)
+    end
+
+    scrapper_log = ScrapperLog.last
+    assert_equal "na", scrapper_log.level
+    assert_equal 60, scrapper_log.last_created_reports_count
+    assert_equal 60, scrapper_log.total_created_reports_count
+
+    assert_no_difference "ScrapperLog.count" do
+      ScrapReportsJob.perform_now(:with)
+    end
+
+    scrapper_log = ScrapperLog.last
+    assert_equal "na", scrapper_log.level
+    assert_equal 0, scrapper_log.last_created_reports_count
+    assert_equal 60, scrapper_log.total_created_reports_count
+  end
+
   private
 
   def stub_scrapper(kind)
