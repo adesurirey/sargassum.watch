@@ -20,24 +20,15 @@
 #
 
 class Report < ApplicationRecord
-  include CoordinatesConcern
+  include LevelvableConcern
+  include GeolocatableConcern
 
   GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at, :source].freeze
 
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
-  enum level: {
-    clear:    0,
-    moderate: 1,
-    na:       2,
-    critical: 3,
-  }
-
   validate :timestamps_are_past
-  validates :latitude, numericality: LATITUDE_NUMERICALITY
-  validates :longitude, numericality: LONGITUDE_NUMERICALITY
-  validates :level, presence: true
   validates :user_id, presence: true, length: { is: 32 }
 
   before_create :reverse_geocode, if: :should_geocode?
@@ -45,8 +36,6 @@ class Report < ApplicationRecord
   after_commit :create_geojson_cache
 
   default_scope { order(updated_at: :asc) }
-
-  scope :infested, -> { where.not(level: :clear) }
 
   class << self
     def cached_geojson
