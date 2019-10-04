@@ -23,8 +23,16 @@ class Scrapper
   private
 
   def initialize(year, kind, attributes)
+    @year = year
     @url = URLS[year][kind]
     @kml = Assets::KML.new(request.body, attributes)
+    clean_kml
+  end
+
+  def clean_kml
+    @kml.placemarks.select! do |placemark|
+      placemark[:updated_at].year == @year
+    end
   end
 
   def request
