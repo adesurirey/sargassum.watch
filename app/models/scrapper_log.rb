@@ -55,6 +55,8 @@ class ScrapperLog < ApplicationRecord
     end
   end
 
+  alias_attribute :name, :file_name
+
   private
 
   def format_file_name!
