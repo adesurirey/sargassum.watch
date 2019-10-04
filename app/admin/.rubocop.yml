@@ -1,0 +1,24 @@
+inherit_from: .rubocop_todo.yml
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - attributes_table_for
+    - column
+    - columns
+    - content
+    - controller
+    - form
+    - index
+    - inputs
+    - panel
+    - register
+    - register_page
+    - show
+    - tabs
+
+Style/BlockDelimiters:
+  FunctionalMethods:
+    - column
+    - scope
+  IgnoredMethods:
+    - row
