@@ -31,7 +31,6 @@ ActiveAdmin.register Report do
   show do
     panel "Datails" do
       attributes_table_for report do
-        row :name
         row(:level) { |report| status_tag(report.level, class: report.level) }
         row :latitude
         row :longitude
