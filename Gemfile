@@ -35,6 +35,9 @@ gem "webpacker", "~> 4.0"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "colorize"
 
+# Admin
+gem "activeadmin"
+
 group :development, :test do
   # Debugging tools
   gem "pry-byebug"
