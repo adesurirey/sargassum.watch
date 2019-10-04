@@ -37,6 +37,9 @@ class Report < ApplicationRecord
 
   default_scope { order(updated_at: :asc) }
 
+  scope :original, -> { where(source: nil) }
+  scope :scrapped, -> { where.not(source: nil) }
+
   class << self
     def cached_geojson
       datasets = Dataset.where(end_at: 1.year.ago..DateTime.current)
