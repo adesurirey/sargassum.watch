@@ -107,4 +107,9 @@ class ScrapperLogTest < ActiveSupport::TestCase
     assert_equal 0, log.invalid_placemarks_count
     assert_equal [], log.parsing_failures
   end
+
+  test "should respond to :name" do
+    log = build(:scrapper_log)
+    assert_equal log.file_name, log.name
+  end
 end
