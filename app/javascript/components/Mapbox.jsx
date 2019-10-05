@@ -7,6 +7,10 @@ import MapGL from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
 import { currentLanguage } from '../utils/i18n';
+import {
+  REPORTS_PERMANENT_LAYER_ID,
+  WEBCAMS_CLUSTERS_LAYER_ID,
+} from '../layers';
 import Geocoder from './Geocoder';
 import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
@@ -36,7 +40,8 @@ const propTypes = {
   dismissPopup: func.isRequired,
   onViewportChange: func.isRequired,
   onLoaded: func.isRequired,
-  onClick: func.isRequired,
+  onReportFeatureClick: func.isRequired,
+  onWebcamsClusterClick: func.isRequired,
 };
 
 const defaultProps = {
@@ -58,21 +63,34 @@ const Mapbox = forwardRef(
       dismissPopup,
       onViewportChange,
       onLoaded,
-      onClick,
+      onReportFeatureClick,
+      onWebcamsClusterClick,
     },
     ref,
   ) => {
     const { i18n } = useTranslation();
-
     const language = currentLanguage(i18n);
+
+    const dispatchClick = feature => {
+      const layerId = feature.layer.id;
+
+      switch (layerId) {
+        case REPORTS_PERMANENT_LAYER_ID:
+          return onReportFeatureClick(feature);
+        case WEBCAMS_CLUSTERS_LAYER_ID:
+          return onWebcamsClusterClick(feature);
+        default:
+          throw new Error(`Unhandled layer click: ${layerId}`);
+      }
+    };
 
     const handleClick = ({ target, features }) => {
       // Cannot prevent event propagation on map childrens,
       // so we check here that the click was trageting the map.
-      if (target.classList.contains('overlays')) {
-        dismissPopup();
-        onClick(features);
-      }
+      if (!target.classList.contains('overlays')) return;
+
+      dismissPopup();
+      features && features[0] && dispatchClick(features[0]);
     };
 
     return (
