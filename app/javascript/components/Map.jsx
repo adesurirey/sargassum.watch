@@ -10,12 +10,14 @@ import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 
 import {
-  SOURCE_ID,
-  PERMANENT_LAYER_ID,
+  REPORTS_SOURCE_ID,
+  WEBCAMS_SOURCE_ID,
+  REPORTS_PERMANENT_LAYER_ID,
   INSERT_BEFORE_LAYER_ID,
-  heatmapLayer,
-  pointsLayer,
-  permanentLayer,
+  reportsHeatmapLayer,
+  reportsPointsLayer,
+  reportsPermanentLayer,
+  webcamsPointsLayer,
 } from '../layers';
 import { getViewport } from '../utils/geography';
 import { featureCollection, toPopup, isSameFeatures } from '../utils/geoJSON';
@@ -30,17 +32,15 @@ import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
+import Eyes from '../images/sargassum.watch-nude@2x.png';
 
 const api = new Api();
+const { webcams } = gon;
 
 const propTypes = {
   navigate: func.isRequired,
   classes: object.isRequired,
   t: func.isRequired,
-};
-
-const defaultProps = {
-  onDidMount: null,
 };
 
 const styles = theme => ({
@@ -110,25 +110,38 @@ class Map extends Component {
   initMapData = () => {
     const map = this.getMap();
 
-    map.addSource(SOURCE_ID, {
+    map.addSource(REPORTS_SOURCE_ID, {
       type: 'geojson',
       data: featureCollection(this.getFeaturesInInterval()),
     });
 
-    map.addLayer(permanentLayer);
-    map.addLayer(heatmapLayer, INSERT_BEFORE_LAYER_ID);
-    map.addLayer(pointsLayer, INSERT_BEFORE_LAYER_ID);
+    map.addLayer(reportsPermanentLayer);
+    map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
+    map.addLayer(reportsPointsLayer, INSERT_BEFORE_LAYER_ID);
+
+    map.loadImage(Eyes, (error, image) => {
+      if (error) throw error;
+
+      map.addImage('eyes', image);
+      map.addSource(WEBCAMS_SOURCE_ID, {
+        type: 'geojson',
+        data: featureCollection(webcams),
+      });
+      map.addLayer(webcamsPointsLayer, INSERT_BEFORE_LAYER_ID);
+    });
 
     map.on('idle', this.setRenderedFeaturesDebounced);
 
-    this.setState({ interactiveLayerIds: [pointsLayer.id] });
+    this.setState({
+      interactiveLayerIds: [reportsPointsLayer.id],
+    });
   };
 
   setRenderedFeatures = () => {
     const map = this.getMap();
 
     const features = map.queryRenderedFeatures({
-      layers: [PERMANENT_LAYER_ID],
+      layers: [REPORTS_PERMANENT_LAYER_ID],
     });
 
     features &&
@@ -142,7 +155,7 @@ class Map extends Component {
 
   setMapData = features => {
     const map = this.getMap();
-    const source = map && map.getSource(SOURCE_ID);
+    const source = map && map.getSource(REPORTS_SOURCE_ID);
 
     source && source.setData(featureCollection(features));
   };
@@ -332,4 +345,3 @@ class Map extends Component {
 export default withTranslation()(withStyles(styles)(Map));
 
 Map.propTypes = propTypes;
-Map.defaultProps = defaultProps;
