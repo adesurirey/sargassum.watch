@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { arrayOf, shape, string, bool } from 'prop-types';
+import { oneOfType, arrayOf, shape, string, number, bool } from 'prop-types';
 import _isEqualWith from 'lodash/isEqualWith';
 
 import TinyChart from './TinyChart';
@@ -12,6 +12,7 @@ const propTypes = {
   features: arrayOf(
     shape({
       properties: shape({
+        id: oneOfType([number, string]).isRequired,
         humanLevel: string.isRequired,
         updatedAt: string.isRequired,
       }).isRequired,

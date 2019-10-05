@@ -11,13 +11,18 @@ end
 def seed(year, kind) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   attributes = report_attibutes(kind)
   kml = Scrapper.call(kind: kind, year: year, attributes: attributes)
-  reports = kml.placemarks.map { |pmark| Report.new(pmark) }
+  reports = kml.placemarks.map { |mark| Report.new(mark) }
+  features = ReportsDecorator.decorate(reports).map(&:as_geojson)
+
+  features.each do |feature|
+    feature[:properties].merge!(id: SecureRandom.uuid)
+  end
 
   Dataset.create!(
-    name:     kml.name.to_s,
+    name:     "🚀 #{kml.name}",
     start_at: reports.min_by(&:created_at).created_at,
     end_at:   reports.max_by(&:created_at).created_at,
-    features: ReportsDecorator.decorate(reports).map(&:as_geojson),
+    features: features,
   )
 
   ScrapperLog.create_or_update_from_kml!(
