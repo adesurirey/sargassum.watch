@@ -1,35 +1,54 @@
 import reportsHeatmapLayerFactory from './reportsHeatmapLayerFactory';
 import reportsPointsLayerFactory from './reportsPointsLayerFactory';
 import reportsPermanentLayerFactory from './reportsPermanentLayerFactory';
+import webcamsClustersLayerFactory from './webcamsClustersLayerFactory';
 import webcamsPointsLayerFactory from './webcamsPointsLayerFactory';
 
-export const REPORTS_SOURCE_ID = 'reports-source';
-export const WEBCAMS_SOURCE_ID = 'webcams-source';
+const REPORTS_SOURCE_ID = 'reports-source';
+const WEBCAMS_SOURCE_ID = 'webcams-source';
 
-export const REPORTS_HEATMAP_LAYER_ID = 'reports-heatmap';
-export const REPORTS_POINTS_LAYER_ID = 'reports-points';
-export const REPORTS_PERMANENT_LAYER_ID = 'reports-permanent';
+const REPORTS_HEATMAP_LAYER_ID = 'reports-heatmap';
+const REPORTS_POINTS_LAYER_ID = 'reports-points';
+const REPORTS_PERMANENT_LAYER_ID = 'reports-permanent';
 
-export const WEBCAMS_POINTS_LAYER_ID = 'webcams-points';
+const WEBCAMS_CLUSTERS_LAYER_ID = 'webcams-clusters';
+const WEBCAMS_POINTS_LAYER_ID = 'webcams-points';
 
-export const INSERT_BEFORE_LAYER_ID = 'waterway-label';
+const INSERT_BEFORE_LAYER_ID = 'waterway-label';
 
-export const reportsHeatmapLayer = reportsHeatmapLayerFactory(
+const reportsHeatmapLayer = reportsHeatmapLayerFactory(
   REPORTS_HEATMAP_LAYER_ID,
   REPORTS_SOURCE_ID,
 );
 
-export const reportsPointsLayer = reportsPointsLayerFactory(
+const reportsPointsLayer = reportsPointsLayerFactory(
   REPORTS_POINTS_LAYER_ID,
   REPORTS_SOURCE_ID,
 );
 
-export const reportsPermanentLayer = reportsPermanentLayerFactory(
+const reportsPermanentLayer = reportsPermanentLayerFactory(
   REPORTS_PERMANENT_LAYER_ID,
   REPORTS_SOURCE_ID,
 );
 
-export const webcamsPointsLayer = webcamsPointsLayerFactory(
+const webcamsClustersLayer = webcamsClustersLayerFactory(
+  WEBCAMS_CLUSTERS_LAYER_ID,
+  WEBCAMS_SOURCE_ID,
+);
+
+const webcamsPointsLayer = webcamsPointsLayerFactory(
   WEBCAMS_POINTS_LAYER_ID,
   WEBCAMS_SOURCE_ID,
 );
+
+export {
+  REPORTS_SOURCE_ID,
+  WEBCAMS_SOURCE_ID,
+  REPORTS_PERMANENT_LAYER_ID,
+  INSERT_BEFORE_LAYER_ID,
+  reportsHeatmapLayer,
+  reportsPointsLayer,
+  reportsPermanentLayer,
+  webcamsClustersLayer,
+  webcamsPointsLayer,
+};

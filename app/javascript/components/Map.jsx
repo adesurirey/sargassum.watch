@@ -3,7 +3,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
 import { object, func } from 'prop-types';
-import { FlyToInterpolator } from 'react-map-gl';
+import { FlyToInterpolator, LinearInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
 import { withStyles } from '@material-ui/styles';
@@ -17,6 +17,7 @@ import {
   reportsHeatmapLayer,
   reportsPointsLayer,
   reportsPermanentLayer,
+  webcamsClustersLayer,
   webcamsPointsLayer,
 } from '../layers';
 import { getViewport } from '../utils/geography';
@@ -126,14 +127,21 @@ class Map extends Component {
       map.addSource(WEBCAMS_SOURCE_ID, {
         type: 'geojson',
         data: featureCollection(webcams),
+        cluster: true,
+        clusterMaxZoom: 14,
+        clusterRadius: 50,
       });
-      map.addLayer(webcamsPointsLayer, INSERT_BEFORE_LAYER_ID);
+      map.addLayer(webcamsClustersLayer);
+      map.addLayer(webcamsPointsLayer);
     });
 
     map.on('idle', this.setRenderedFeaturesDebounced);
 
     this.setState({
-      interactiveLayerIds: [reportsPointsLayer.id],
+      interactiveLayerIds: [
+        webcamsClustersLayer.id,
+        reportsPointsLayer.id,
+      ],
     });
   };
 
@@ -191,9 +199,29 @@ class Map extends Component {
       viewport: { ...this.state.viewport, ...viewport },
     });
 
-  onClick = features => {
-    const feature = features && features[0];
-    feature && this.setState({ popup: toPopup(feature) });
+  onReportFeatureClick = feature => this.setState({ popup: toPopup(feature) });
+
+  onWebcamsClusterClick = ({
+    properties: { cluster_id: clusterId },
+    geometry: {
+      coordinates: [longitude, latitude],
+    },
+  }) => {
+    const map = this.getMap();
+
+    map
+      .getSource(WEBCAMS_SOURCE_ID)
+      .getClusterExpansionZoom(clusterId, (err, zoom) => {
+        if (err) return;
+
+        this.onViewportChange({
+          zoom,
+          longitude,
+          latitude,
+          transitionDuration: (zoom - this.state.viewport.zoom) * 100,
+          transitionInterpolator: new LinearInterpolator(),
+        });
+      });
   };
 
   onIntervalChange = interval => {
@@ -335,7 +363,8 @@ class Map extends Component {
           dismissPopup={this.dismissPopup}
           onViewportChange={this.onViewportChange}
           onLoaded={this.onLoaded}
-          onClick={this.onClick}
+          onReportFeatureClick={this.onReportFeatureClick}
+          onWebcamsClusterClick={this.onWebcamsClusterClick}
         />
       </div>
     );
