@@ -9,6 +9,7 @@ import ControlsPanel from './ControlsPanel';
 import IntervalControls from './IntervalControls';
 import Chart from './Chart';
 import Legend from './Legend';
+import WebcamsToggle from './WebcamsToggle';
 import LanguageSwitch from './LanguageSwitch';
 import Credits from './Credits';
 
@@ -23,6 +24,7 @@ const propTypes = {
   navigate: func.isRequired,
   onIntervalChange: func.isRequired,
   onReportClick: func.isRequired,
+  onWebcamsToggle: func.isRequired,
   onViewportChange: func.isRequired,
 };
 
@@ -39,6 +41,7 @@ const Controls = ({
   navigate,
   onIntervalChange,
   onReportClick,
+  onWebcamsToggle,
   onViewportChange,
 }) => {
   const { t } = useTranslation();
@@ -67,6 +70,10 @@ const Controls = ({
           />
           <Chart {...renderedFeatures} />
           <Legend />
+        </ControlsPanel>
+
+        <ControlsPanel title={t('Map settings')}>
+          <WebcamsToggle onToggle={onWebcamsToggle} />
         </ControlsPanel>
 
         <ControlsPanel>

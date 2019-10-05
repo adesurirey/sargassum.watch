@@ -13,6 +13,8 @@ import {
   REPORTS_SOURCE_ID,
   WEBCAMS_SOURCE_ID,
   REPORTS_PERMANENT_LAYER_ID,
+  WEBCAMS_CLUSTERS_LAYER_ID,
+  WEBCAMS_POINTS_LAYER_ID,
   INSERT_BEFORE_LAYER_ID,
   reportsHeatmapLayer,
   reportsPointsLayer,
@@ -345,6 +347,13 @@ class Map extends Component {
     );
   };
 
+  onWebcamsToggle = value => {
+    const map = this.getMap();
+
+    map.setLayoutProperty(WEBCAMS_CLUSTERS_LAYER_ID, 'visibility', value);
+    map.setLayoutProperty(WEBCAMS_POINTS_LAYER_ID, 'visibility', value);
+  };
+
   render() {
     const { classes, navigate } = this.props;
 
@@ -370,6 +379,7 @@ class Map extends Component {
           navigate={navigate}
           onIntervalChange={this.onIntervalChange}
           onReportClick={this.onReportClick}
+          onWebcamsToggle={this.onWebcamsToggle}
           onViewportChange={this.onViewportChange}
         />
         <Mapbox
