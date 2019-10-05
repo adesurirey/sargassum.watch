@@ -7,7 +7,7 @@ class PackLastMonthReportsJob < ApplicationJob
     ensure_two_weeks_of_unpacked_reports
 
     now = Time.current
-    pack_end_at = now.change(day: 1).beginning_of_day
+    pack_end_at = now.beginning_of_month
     pack_name = pack_end_at.strftime("%^B %Y")
     packed_reports = Report.where("updated_at < ?", pack_end_at)
 
