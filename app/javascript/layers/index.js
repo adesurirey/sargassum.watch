@@ -44,8 +44,11 @@ const webcamsPointsLayer = webcamsPointsLayerFactory(
 export {
   REPORTS_SOURCE_ID,
   WEBCAMS_SOURCE_ID,
+  REPORTS_POINTS_LAYER_ID,
   REPORTS_PERMANENT_LAYER_ID,
   INSERT_BEFORE_LAYER_ID,
+  WEBCAMS_CLUSTERS_LAYER_ID,
+  WEBCAMS_POINTS_LAYER_ID,
   reportsHeatmapLayer,
   reportsPointsLayer,
   reportsPermanentLayer,

@@ -5,7 +5,7 @@ const featureCollection = features => ({
   features,
 });
 
-const toPopup = feature => {
+const toPopup = (variant, feature) => {
   const {
     geometry: {
       coordinates: [longitude, latitude],
@@ -14,12 +14,16 @@ const toPopup = feature => {
   } = feature;
 
   return {
-    variant: 'point',
+    variant,
     latitude,
     longitude,
     ...properties,
   };
 };
+
+const toPointPopup = feature => toPopup('point', feature);
+
+const toWebcamPopup = feature => toPopup('webcam', feature);
 
 const isSameFeatures = (features, otherFeatures) => {
   if (features.length !== otherFeatures.length) {
@@ -29,4 +33,4 @@ const isSameFeatures = (features, otherFeatures) => {
   return _isEqualWith(features, otherFeatures, 'properties.id');
 };
 
-export { featureCollection, toPopup, isSameFeatures };
+export { featureCollection, toPointPopup, toWebcamPopup, isSameFeatures };
