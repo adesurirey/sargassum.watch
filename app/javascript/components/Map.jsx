@@ -21,7 +21,12 @@ import {
   webcamsPointsLayer,
 } from '../layers';
 import { getViewport } from '../utils/geography';
-import { featureCollection, toPopup, isSameFeatures } from '../utils/geoJSON';
+import {
+  featureCollection,
+  toPointPopup,
+  toWebcamPopup,
+  isSameFeatures,
+} from '../utils/geoJSON';
 import { getInterval, featuresInInterval } from '../utils/interval';
 import {
   onNextIdle,
@@ -85,6 +90,15 @@ class Map extends Component {
     );
   }
 
+  zoom({ zoom, ...coordinates }) {
+    this.onViewportChange({
+      zoom,
+      ...coordinates,
+      transitionDuration: (zoom - this.state.viewport.zoom) * 100,
+      transitionInterpolator: new LinearInterpolator(),
+    });
+  }
+
   getMap = () => {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
@@ -108,7 +122,7 @@ class Map extends Component {
     return newFeatures;
   }
 
-  initMapData = () => {
+  initMapLayers = () => {
     const map = this.getMap();
 
     map.addSource(REPORTS_SOURCE_ID, {
@@ -129,7 +143,7 @@ class Map extends Component {
         data: featureCollection(webcams),
         cluster: true,
         clusterMaxZoom: 14,
-        clusterRadius: 50,
+        clusterRadius: 40,
       });
       map.addLayer(webcamsClustersLayer);
       map.addLayer(webcamsPointsLayer);
@@ -140,6 +154,7 @@ class Map extends Component {
     this.setState({
       interactiveLayerIds: [
         webcamsClustersLayer.id,
+        webcamsPointsLayer.id,
         reportsPointsLayer.id,
       ],
     });
@@ -189,7 +204,7 @@ class Map extends Component {
     api
       .getAll()
       .then(({ data: { features } }) =>
-        this.setState({ features }, this.initMapData),
+        this.setState({ features }, this.initMapLayers),
       )
       .catch(error => this.onError(error));
   };
@@ -199,7 +214,8 @@ class Map extends Component {
       viewport: { ...this.state.viewport, ...viewport },
     });
 
-  onReportFeatureClick = feature => this.setState({ popup: toPopup(feature) });
+  onReportFeatureClick = feature =>
+    this.setState({ popup: toPointPopup(feature) });
 
   onWebcamsClusterClick = ({
     properties: { cluster_id: clusterId },
@@ -213,15 +229,19 @@ class Map extends Component {
       .getSource(WEBCAMS_SOURCE_ID)
       .getClusterExpansionZoom(clusterId, (err, zoom) => {
         if (err) return;
-
-        this.onViewportChange({
-          zoom,
-          longitude,
-          latitude,
-          transitionDuration: (zoom - this.state.viewport.zoom) * 100,
-          transitionInterpolator: new LinearInterpolator(),
-        });
+        this.zoom({ zoom, longitude, latitude });
       });
+  };
+
+  onWebcamFeatureClick = feature => {
+    const {
+      geometry: {
+        coordinates: [longitude, latitude],
+      },
+    } = feature;
+
+    this.zoom({ zoom: 14, longitude, latitude });
+    this.setState({ popup: toWebcamPopup(feature) });
   };
 
   onIntervalChange = interval => {
@@ -243,7 +263,7 @@ class Map extends Component {
           ),
           feature,
         ],
-        popup: toPopup(feature),
+        popup: toPointPopup(feature),
         user: null,
       }),
       () => this.setMapData(this.getFeaturesInInterval()),
@@ -365,6 +385,7 @@ class Map extends Component {
           onLoaded={this.onLoaded}
           onReportFeatureClick={this.onReportFeatureClick}
           onWebcamsClusterClick={this.onWebcamsClusterClick}
+          onWebcamFeatureClick={this.onWebcamFeatureClick}
         />
       </div>
     );

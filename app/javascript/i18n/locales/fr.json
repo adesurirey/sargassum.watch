@@ -38,6 +38,8 @@
     "guadeloupe": "Guadeloupe",
     "martinique": "Martinique",
     "mexico": "Quintana Roo, Mexique",
-    "tulum": "Tulum, Mexique"
+    "tulum": "Tulum, Mexique",
+    "Live": "En direct",
+    "Live is off": "Le direct est arrêté"
   }
 }

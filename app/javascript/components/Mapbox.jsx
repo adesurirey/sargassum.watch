@@ -8,8 +8,9 @@ import { useTranslation } from 'react-i18next';
 
 import { currentLanguage } from '../utils/i18n';
 import {
-  REPORTS_PERMANENT_LAYER_ID,
+  REPORTS_POINTS_LAYER_ID,
   WEBCAMS_CLUSTERS_LAYER_ID,
+  WEBCAMS_POINTS_LAYER_ID,
 } from '../layers';
 import Geocoder from './Geocoder';
 import SmartPopup from './SmartPopup';
@@ -42,6 +43,7 @@ const propTypes = {
   onLoaded: func.isRequired,
   onReportFeatureClick: func.isRequired,
   onWebcamsClusterClick: func.isRequired,
+  onWebcamFeatureClick: func.isRequired,
 };
 
 const defaultProps = {
@@ -65,6 +67,7 @@ const Mapbox = forwardRef(
       onLoaded,
       onReportFeatureClick,
       onWebcamsClusterClick,
+      onWebcamFeatureClick,
     },
     ref,
   ) => {
@@ -75,10 +78,12 @@ const Mapbox = forwardRef(
       const layerId = feature.layer.id;
 
       switch (layerId) {
-        case REPORTS_PERMANENT_LAYER_ID:
+        case REPORTS_POINTS_LAYER_ID:
           return onReportFeatureClick(feature);
         case WEBCAMS_CLUSTERS_LAYER_ID:
           return onWebcamsClusterClick(feature);
+        case WEBCAMS_POINTS_LAYER_ID:
+          return onWebcamFeatureClick(feature);
         default:
           throw new Error(`Unhandled layer click: ${layerId}`);
       }
