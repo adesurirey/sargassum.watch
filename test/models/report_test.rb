@@ -262,6 +262,16 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal "sargassummonitoring.com", report.source
   end
 
+  test "should have source scopes" do
+    scrapped = create(:report, source: "some source")
+    original = create(:report, source: nil)
+
+    assert_equal 1, Report.scrapped.size
+    assert_equal scrapped, Report.scrapped.first
+    assert_equal 1, Report.original.size
+    assert_equal original, Report.original.first
+  end
+
   private
 
   def report_params(attributes)
