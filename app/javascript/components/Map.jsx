@@ -74,6 +74,7 @@ class Map extends Component {
       loaded: false,
       geolocating: false,
       viewport,
+      style: 'map',
       features: [],
       interval,
       featuresForInterval: [],
@@ -124,13 +125,37 @@ class Map extends Component {
     return newFeatures;
   }
 
-  initMapLayers = () => {
+  initMap = () => {
     const map = this.getMap();
 
     map.addSource(REPORTS_SOURCE_ID, {
       type: 'geojson',
       data: featureCollection(this.getFeaturesInInterval()),
     });
+
+    map.addSource(WEBCAMS_SOURCE_ID, {
+      type: 'geojson',
+      data: featureCollection(webcams),
+      cluster: true,
+      clusterMaxZoom: 14,
+      clusterRadius: 40,
+    });
+
+    this.initLayers();
+
+    this.setState({
+      interactiveLayerIds: [
+        webcamsClustersLayer.id,
+        webcamsPointsLayer.id,
+        reportsPointsLayer.id,
+      ],
+    });
+
+    map.on('idle', this.setRenderedFeaturesDebounced);
+  };
+
+  initLayers = () => {
+    const map = this.getMap();
 
     map.addLayer(reportsPermanentLayer);
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
@@ -140,25 +165,8 @@ class Map extends Component {
       if (error) throw error;
 
       map.addImage('eyes', image);
-      map.addSource(WEBCAMS_SOURCE_ID, {
-        type: 'geojson',
-        data: featureCollection(webcams),
-        cluster: true,
-        clusterMaxZoom: 14,
-        clusterRadius: 40,
-      });
       map.addLayer(webcamsClustersLayer);
       map.addLayer(webcamsPointsLayer);
-    });
-
-    map.on('idle', this.setRenderedFeaturesDebounced);
-
-    this.setState({
-      interactiveLayerIds: [
-        webcamsClustersLayer.id,
-        webcamsPointsLayer.id,
-        reportsPointsLayer.id,
-      ],
     });
   };
 
@@ -206,7 +214,7 @@ class Map extends Component {
     api
       .getAll()
       .then(({ data: { features } }) =>
-        this.setState({ features }, this.initMapLayers),
+        this.setState({ features }, this.initMap),
       )
       .catch(error => this.onError(error));
   };
@@ -347,6 +355,14 @@ class Map extends Component {
     );
   };
 
+  onStyleChange = style => {
+    const map = this.getMap();
+    map.off('idle', this.setRenderedFeaturesDebounced);
+    const reinitializeMap = onNextIdle(map, this.initMap);
+
+    this.setState({ style }, reinitializeMap);
+  };
+
   onWebcamsToggle = value => {
     const map = this.getMap();
 
@@ -360,6 +376,7 @@ class Map extends Component {
     const {
       loaded,
       viewport,
+      style,
       interactiveLayerIds,
       renderedFeatures,
       popup,
@@ -376,9 +393,11 @@ class Map extends Component {
           geolocating={geolocating}
           interval={interval}
           renderedFeatures={renderedFeatures}
+          style={style}
           navigate={navigate}
           onIntervalChange={this.onIntervalChange}
           onReportClick={this.onReportClick}
+          onStyleChange={this.onStyleChange}
           onWebcamsToggle={this.onWebcamsToggle}
           onViewportChange={this.onViewportChange}
         />
@@ -387,6 +406,7 @@ class Map extends Component {
           geocoderContainerRef={this.geocoderContainerRef}
           className={classes.map}
           viewport={viewport}
+          style={style}
           popup={popup}
           user={user}
           interactiveLayerIds={interactiveLayerIds}

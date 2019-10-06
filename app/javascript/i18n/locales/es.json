@@ -42,6 +42,9 @@
     "Live": "En directo",
     "Live is off": "En directo está apagado",
     "Map settings": "Configuración del mapa",
+    "map style": "tipo de mapa",
     "Show beach webcams": "Mostrar webcams",
+    "Satellite": "Satélite",
+    "Map": "Mapa"
   }
 }
