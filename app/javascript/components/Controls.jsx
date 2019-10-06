@@ -78,7 +78,7 @@ const Controls = ({
           <IntervalControls
             loaded={loaded}
             selectedInterval={interval}
-            onIntervalChange={onIntervalChange}
+            onChange={onIntervalChange}
           />
           <Chart {...renderedFeatures} />
           <Legend />
