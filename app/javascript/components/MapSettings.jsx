@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     left: leftDrawerWidth,
     margin: theme.spacing(2),
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: 1,
     boxShadow: theme.shadows[4],
     [theme.breakpoints.down('sm')]: {
       top: 56,
