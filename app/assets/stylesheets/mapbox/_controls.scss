@@ -1,8 +1,4 @@
 .mapboxgl-ctrl-group {
   box-shadow: $shadow !important;
   border-radius: $border-radius !important;
-
-  & > button:last-child {
-    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.08) inset;
-  }
 }

@@ -1,15 +1,15 @@
 import React, { lazy } from 'react';
-import { func, object, bool } from 'prop-types';
+import { func, object, bool, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { interval } from '../utils/propTypes';
 import ReportButton from './ReportButton';
+import MapSettings from './MapSettings';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import ControlsPanel from './ControlsPanel';
 import IntervalControls from './IntervalControls';
 import Chart from './Chart';
 import Legend from './Legend';
-import WebcamsToggle from './WebcamsToggle';
 import LanguageSwitch from './LanguageSwitch';
 import Credits from './Credits';
 
@@ -21,9 +21,11 @@ const propTypes = {
   geolocating: bool.isRequired,
   interval,
   renderedFeatures: object.isRequired,
+  style: string.isRequired,
   navigate: func.isRequired,
   onIntervalChange: func.isRequired,
   onReportClick: func.isRequired,
+  onStyleChange: func.isRequired,
   onWebcamsToggle: func.isRequired,
   onViewportChange: func.isRequired,
 };
@@ -38,9 +40,11 @@ const Controls = ({
   geolocating,
   interval,
   renderedFeatures,
+  style,
   navigate,
   onIntervalChange,
   onReportClick,
+  onStyleChange,
   onWebcamsToggle,
   onViewportChange,
 }) => {
@@ -55,11 +59,19 @@ const Controls = ({
   return (
     <>
       <GeocoderContainer
+        loaded={loaded}
         ref={geocoderContainerRef}
         onViewportChange={onViewportChange}
       />
 
       <ReportButton {...buttonProps} />
+
+      <MapSettings
+        loaded={loaded}
+        style={style}
+        onStyleChange={onStyleChange}
+        onWebcamsToggle={onWebcamsToggle}
+      />
 
       <ResponsiveDrawer chartProps={renderedFeatures} buttonProps={buttonProps}>
         <ControlsPanel title={t('Status of beaches in the area')}>
@@ -70,10 +82,6 @@ const Controls = ({
           />
           <Chart {...renderedFeatures} />
           <Legend />
-        </ControlsPanel>
-
-        <ControlsPanel title={t('Map settings')}>
-          <WebcamsToggle onToggle={onWebcamsToggle} />
         </ControlsPanel>
 
         <ControlsPanel>

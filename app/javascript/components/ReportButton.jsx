@@ -77,7 +77,7 @@ const ReportButton = ({ visible, tiny, loading, onClick }) => {
   const label = t('Report your beach status');
 
   let variant = {
-    transitionDelay: theme.transitions.duration.enteringScreen + 100,
+    transitionDelay: theme.transitions.duration.enteringScreen + 500,
     size: 'medium',
     variant: 'extended',
     label,

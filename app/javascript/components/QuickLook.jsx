@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { func } from 'prop-types';
+import React, { lazy, useState, useEffect } from 'react';
+import { bool, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { FlyToInterpolator } from 'react-map-gl';
 import clsx from 'clsx';
@@ -15,12 +15,13 @@ import {
 } from '@material-ui/core';
 import { ZoomOutMapRounded } from '@material-ui/icons';
 
-import Logo from './Logo';
+const Logo = lazy(() => import('./Logo'));
 
 const { quickLooks } = gon;
 const places = Object.keys(quickLooks);
 
 const propTypes = {
+  loaded: bool.isRequired,
   onViewportChange: func.isRequired,
 };
 
@@ -39,20 +40,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const QuickLook = ({ onViewportChange }) => {
+const QuickLook = ({ loaded, onViewportChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [visible, setVisible] = useState(false);
   const [hover, setHover] = useState(false);
-
   const { t } = useTranslation();
   const classes = useStyles();
-
-  useEffect(() => setVisible(true), []);
 
   const onMouseEnter = () => setHover(true);
   const onMouseLeave = () => setHover(false);
 
   const animate = () => {
+    if (!loaded) return;
+
     const timeoutIn = setTimeout(() => onMouseEnter(), 4000);
     const timeoutOut = setTimeout(() => onMouseLeave(), 5500);
 
@@ -62,7 +61,7 @@ const QuickLook = ({ onViewportChange }) => {
     };
   };
 
-  useEffect(animate, [visible]);
+  useEffect(animate, [loaded]);
 
   const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
   const onClose = () => setAnchorEl(null);
@@ -81,26 +80,24 @@ const QuickLook = ({ onViewportChange }) => {
 
   return (
     <>
-      <Zoom in={visible}>
-        <Tooltip
-          title={title}
-          TransitionComponent={Zoom}
-          open={hover}
-          onOpen={onMouseEnter}
-          onClose={onMouseLeave}
+      <Tooltip
+        title={title}
+        TransitionComponent={Zoom}
+        open={hover}
+        onOpen={onMouseEnter}
+        onClose={onMouseLeave}
+      >
+        <ButtonBase
+          aria-label={title}
+          aria-controls="quick-look-menu"
+          aria-haspopup="true"
+          className={classes.button}
+          disableTouchRipple
+          onClick={onClick}
         >
-          <ButtonBase
-            aria-label={title}
-            aria-controls="quick-look-menu"
-            aria-haspopup="true"
-            className={classes.button}
-            disableTouchRipple
-            onClick={onClick}
-          >
-            <Logo className={clsx({ [classes.flip]: hover })} />
-          </ButtonBase>
-        </Tooltip>
-      </Zoom>
+          <Logo className={clsx({ [classes.flip]: hover })} />
+        </ButtonBase>
+      </Tooltip>
 
       <Menu
         id="quick-look-menu"

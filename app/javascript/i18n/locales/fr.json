@@ -40,6 +40,8 @@
     "mexico": "Quintana Roo, Mexique",
     "tulum": "Tulum, Mexique",
     "Live": "En direct",
-    "Live is off": "Le direct est arrêté"
+    "Live is off": "Le direct est arrêté",
+    "Map settings": "Paramètres de la carte",
+    "Show beach webcams": "Afficher les webcams",
   }
 }
