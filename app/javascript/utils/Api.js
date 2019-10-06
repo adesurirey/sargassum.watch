@@ -24,11 +24,15 @@ export default class {
     };
   }
 
-  getAll() {
+  getReports() {
     return axios.get('/reports');
   }
 
-  create(report) {
+  createReport(report) {
     return axios.post('/reports', { report }, this._postHeaders());
+  }
+
+  createSetting(setting) {
+    return axios.post('/settings', { setting }, this._postHeaders());
   }
 }

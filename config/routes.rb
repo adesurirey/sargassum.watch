@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :reports, only: [:index, :create], defaults: { format: :json }
+  resources :settings, only: [:create], defaults: { format: :json }
 
   # Sidekiq Web UI, only for admins.
   middleware = Rack::Auth::Basic
