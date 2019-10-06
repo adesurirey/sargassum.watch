@@ -3,7 +3,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component } from 'react';
 import { object, func } from 'prop-types';
-import { FlyToInterpolator, LinearInterpolator } from 'react-map-gl';
+import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
 import { withStyles } from '@material-ui/styles';
@@ -98,7 +98,7 @@ class Map extends Component {
       zoom,
       ...coordinates,
       transitionDuration: (zoom - this.state.viewport.zoom) * 100,
-      transitionInterpolator: new LinearInterpolator(),
+      transitionInterpolator: new FlyToInterpolator(),
     });
   }
 
