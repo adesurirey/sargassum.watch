@@ -14,7 +14,7 @@ let theme = createMuiTheme({
 
     secondary: {
       main: '#fff',
-      dark: '#EBEBEB',
+      dark: '#ebebeb',
     },
 
     level: {
@@ -78,6 +78,18 @@ let theme = createMuiTheme({
     MuiFab: {
       label: {
         fontWeight: 600,
+      },
+    },
+    MuiToggleButtonGroup: {
+      root: {
+        width: '100%',
+      },
+      grouped: {
+        width: '100%',
+      },
+      groupedSizeSmall: {
+        padding: '3px 9px',
+        height: 'unset',
       },
     },
     MuiToggleButton: {
