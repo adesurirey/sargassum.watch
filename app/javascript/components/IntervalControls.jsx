@@ -2,16 +2,11 @@ import React, { memo } from 'react';
 import { bool, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from '@material-ui/styles';
 import { Grid, Slide } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 
 import { interval } from '../utils/propTypes';
 import { intervals, toString } from '../utils/interval';
-import {
-  fullwidthClasses,
-  buttonSmallClasses,
-} from '../styles/ToggleButtonGroup';
 
 const propTypes = {
   loaded: bool,
@@ -23,14 +18,8 @@ const defaultProps = {
   loaded: false,
 };
 
-const useStyles = makeStyles(theme => ({
-  ...fullwidthClasses,
-  ...buttonSmallClasses,
-}));
-
 const IntervalControls = ({ loaded, selectedInterval, onChange }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const handleChange = (_e, intervalId) =>
     onChange(intervals.find(({ id }) => id === intervalId));
@@ -39,11 +28,6 @@ const IntervalControls = ({ loaded, selectedInterval, onChange }) => {
     <Grid item xs={12}>
       <ToggleButtonGroup
         aria-label={t('interval control')}
-        classes={{
-          root: classes.buttonGroup,
-          grouped: classes.button,
-          groupedSizeSmall: classes.buttonSmall,
-        }}
         size="small"
         value={selectedInterval.id}
         exclusive
