@@ -12,6 +12,11 @@ let theme = createMuiTheme({
       main: indigo.A700,
     },
 
+    secondary: {
+      main: '#fff',
+      dark: '#EBEBEB',
+    },
+
     level: {
       clear: {
         main: 'rgba(30, 221, 136, 1)',

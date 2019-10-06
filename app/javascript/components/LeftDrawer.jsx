@@ -8,7 +8,7 @@ const propTypes = {
   children: node.isRequired,
 };
 
-const width = 380;
+export const width = 380;
 
 const useStyles = makeStyles(theme => ({
   root: {

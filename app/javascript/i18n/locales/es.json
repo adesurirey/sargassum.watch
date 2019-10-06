@@ -21,7 +21,7 @@
     "this week": "esta semana",
     "this month": "mes en curso",
     "week": "semana",
-    "Search...": "Busca una playa, un lugar...",
+    "Search...": "Buscar una playa, un lugar...",
     "Report your beach status": "Reporta el estado de tu playa",
     "How is the beach here?": "¿Cómo está la playa aquí?",
     "Please get closer to the beach": "Por favor, acérquese a la playa 🏝️",
@@ -40,6 +40,8 @@
     "mexico": "Quintana Roo, México",
     "tulum": "Tulum, México",
     "Live": "En directo",
-    "Live is off": "En directo está apagado"
+    "Live is off": "En directo está apagado",
+    "Map settings": "Configuración del mapa",
+    "Show beach webcams": "Mostrar webcams",
   }
 }

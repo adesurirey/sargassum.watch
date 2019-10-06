@@ -52,4 +52,4 @@ const GeocoderContainer = forwardRef((quickLookProps, ref) => {
   );
 });
 
-export default memo(GeocoderContainer, () => true);
+export default memo(GeocoderContainer);
