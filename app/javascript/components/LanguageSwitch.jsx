@@ -19,7 +19,6 @@ const propTypes = {
 const useStyles = makeStyles(theme => ({
   button: {
     color: theme.palette.text.secondary,
-    fontWeight: 600,
   },
   iconLeft: {
     marginRight: theme.spacing(1),

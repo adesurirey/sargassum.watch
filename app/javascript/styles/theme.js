@@ -69,6 +69,22 @@ let theme = createMuiTheme({
     },
   },
 
+  overrides: {
+    MuiButton: {
+      text: {
+        fontWeight: 600,
+      },
+    },
+    MuiFab: {
+      label: {
+        fontWeight: 600,
+      },
+    },
+    MuiToggleButton: {
+      root: {
+        fontWeight: 600,
+      },
+    },
   },
 });
 
