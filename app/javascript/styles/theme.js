@@ -69,8 +69,6 @@ let theme = createMuiTheme({
     },
   },
 
-  shape: {
-    borderRadius: 8,
   },
 });
 
