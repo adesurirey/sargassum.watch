@@ -54,7 +54,7 @@ const QuickLook = ({ loaded, onViewportChange }) => {
     if (!loaded) return;
 
     const timeoutIn = setTimeout(() => setAnimated(true), 4000);
-    const timeoutOut = setTimeout(() => setAnimated(false), 4250);
+    const timeoutOut = setTimeout(() => setAnimated(false), 5000);
 
     return () => {
       clearTimeout(timeoutIn);
