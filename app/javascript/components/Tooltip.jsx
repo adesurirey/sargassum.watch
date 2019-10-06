@@ -1,5 +1,5 @@
 import React from 'react';
-import { oneOfType, string, node } from 'prop-types';
+import { oneOfType, string, node, bool } from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -10,11 +10,13 @@ const propTypes = {
   title: oneOfType([string, node]),
   children: node.isRequired,
   className: string,
+  compact: bool,
 };
 
 const defaultProps = {
   title: null,
   className: null,
+  compact: false,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -22,23 +24,24 @@ const useStyles = makeStyles(theme => ({
     background: fade(theme.palette.common.white, 0.9),
   },
   content: {
-    padding: theme.spacing(1),
+    padding: compact => (compact ? 0 : theme.spacing(1)),
     '&:last-child': {
-      paddingBottom: theme.spacing(1),
+      paddingBottom: compact => (compact ? 0 : theme.spacing(1)),
     },
   },
   header: {
+    padding: theme.spacing(1),
     background: theme.palette.action.hover,
   },
 }));
 
-const Tooltip = ({ title, children, className }) => {
-  const classes = useStyles();
+const Tooltip = ({ title, children, className, compact }) => {
+  const classes = useStyles(compact);
 
   return (
     <Card className={clsx(classes.root, className)}>
       {title && (
-        <CardContent className={clsx(classes.content, classes.header)}>
+        <CardContent className={classes.header}>
           <Typography variant="h3">{title}</Typography>
         </CardContent>
       )}

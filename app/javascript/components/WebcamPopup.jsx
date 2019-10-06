@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 
 import Tooltip from './Tooltip';
+import LiveIcon from './LiveIcon';
 import YoutubeVideo from './YoutubeVideo';
 import LiveImage from './LiveImage';
 
@@ -22,10 +23,14 @@ const defaultProps = {
 const useStyles = makeStyles(theme => ({
   root: {
     width: 320,
-
     [theme.breakpoints.down('sm')]: {
       width: `calc(100vw - ${theme.spacing(4)}px)`,
     },
+  },
+
+  title: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -41,7 +46,16 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
       closeButton={false}
       closeOnClick={false}
     >
-      <Tooltip className={classes.root} title={t('Live')}>
+      <Tooltip
+        className={classes.root}
+        title={
+          <div className={classes.title}>
+            <LiveIcon />
+            {t('Live')}
+          </div>
+        }
+        compact
+      >
         {youtubeId && <YoutubeVideo id={youtubeId} />}
         {liveImageUrl && <LiveImage url={liveImageUrl} />}
       </Tooltip>

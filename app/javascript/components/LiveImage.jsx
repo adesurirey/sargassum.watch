@@ -19,7 +19,15 @@ const LiveImage = ({ url }) => {
 
   const src = `${url}?d=${timestamp}`;
 
-  return <img src={src} width="100%" height="auto" alt={t('Live is off')} />;
+  return (
+    <img
+      src={src}
+      width="100%"
+      height="auto"
+      style={{ display: 'block' }}
+      alt={t('Live is off')}
+    />
+  );
 };
 
 export default memo(LiveImage);
