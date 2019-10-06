@@ -43,7 +43,8 @@ import Controls from './Controls';
 import Eyes from '../images/sargassum.watch-nude@2x.png';
 
 const api = new Api();
-const { webcams } = gon;
+
+const { webcams, mapStyle } = gon;
 
 const propTypes = {
   navigate: func.isRequired,
@@ -74,7 +75,7 @@ class Map extends Component {
       loaded: false,
       geolocating: false,
       viewport,
-      style: 'map',
+      style: mapStyle,
       features: [],
       interval,
       featuresForInterval: [],
@@ -212,7 +213,7 @@ class Map extends Component {
     this.setState({ loaded: true });
 
     api
-      .getAll()
+      .getReports()
       .then(({ data: { features } }) =>
         this.setState({ features }, this.initMap),
       )
@@ -283,7 +284,7 @@ class Map extends Component {
     const { user } = this.state;
 
     api
-      .create({ level, ...user })
+      .createReport({ level, ...user })
       .then(({ data: feature }) => this.onReportSuccess(feature))
       .catch(error => this.onError(error, user));
   };
@@ -361,6 +362,8 @@ class Map extends Component {
     const reinitializeMap = onNextIdle(map, this.initMap);
 
     this.setState({ style }, reinitializeMap);
+
+    api.createSetting({ map_style: style });
   };
 
   onWebcamsToggle = value => {
