@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 const QuickLook = ({ loaded, onViewportChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [hover, setHover] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -52,8 +53,8 @@ const QuickLook = ({ loaded, onViewportChange }) => {
   const animate = () => {
     if (!loaded) return;
 
-    const timeoutIn = setTimeout(() => onMouseEnter(), 4000);
-    const timeoutOut = setTimeout(() => onMouseLeave(), 5500);
+    const timeoutIn = setTimeout(() => setAnimated(true), 4000);
+    const timeoutOut = setTimeout(() => setAnimated(false), 4250);
 
     return () => {
       clearTimeout(timeoutIn);
@@ -95,7 +96,7 @@ const QuickLook = ({ loaded, onViewportChange }) => {
           disableTouchRipple
           onClick={onClick}
         >
-          <Logo className={clsx({ [classes.flip]: hover })} />
+          <Logo className={clsx({ [classes.flip]: hover || animated })} />
         </ButtonBase>
       </Tooltip>
 
