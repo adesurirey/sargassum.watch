@@ -28,7 +28,9 @@ ActiveAdmin.register_page "Dashboard" do
       end
       column do
         panel "👀 Uniq reporters since #{l Dataset.last.created_at, format: :long}" do
-          h2.h1 { number_with_delimiter Report.pluck(:user_id).uniq.count }
+          h2.h1 do
+            number_with_delimiter Report.original.pluck(:user_id).uniq.count
+          end
         end
       end
     end
