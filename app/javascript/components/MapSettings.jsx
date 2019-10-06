@@ -7,11 +7,14 @@ import { Zoom, Fab, Popover, Typography, Grid } from '@material-ui/core';
 import { LayersRounded } from '@material-ui/icons';
 
 import ControlsDivider from './ControlsDivider';
+import StyleControl from './StyleControl';
 import WebcamsControl from './WebcamsControl';
 import { width as leftDrawerWidth } from './LeftDrawer';
 
 const propTypes = {
   loaded: bool.isRequired,
+  style: string.isRequired,
+  onStyleChange: func.isRequired,
   onWebcamsToggle: func.isRequired,
 };
 
@@ -96,6 +99,8 @@ const MapSettings = ({ loaded, style, onStyleChange, onWebcamsToggle }) => {
           <Grid item xs={12} className={classes.title}>
             <Typography variant="h2">{title}</Typography>
           </Grid>
+          <StyleControl style={style} onChange={onStyleChange} />
+          <ControlsDivider classes={{ root: classes.divider }} />
           <WebcamsControl onToggle={onWebcamsToggle} />
         </Grid>
       </Popover>

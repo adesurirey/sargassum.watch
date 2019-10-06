@@ -42,6 +42,9 @@
     "Live": "Live",
     "Live is off": "Live is off",
     "Map settings": "Map settings",
+    "map style": "map style",
     "Show beach webcams": "Show beach webcams",
+    "Satellite": "Satellite",
+    "Map": "Map"
   }
 }

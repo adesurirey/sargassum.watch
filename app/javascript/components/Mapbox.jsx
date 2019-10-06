@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { forwardRef } from 'react';
-import { object, arrayOf, func, string } from 'prop-types';
+import { object, oneOf, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -17,23 +17,10 @@ import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
 import ZoomControl from './ZoomControl';
 
-const settings = {
-  dragPan: true,
-  dragRotate: false,
-  scrollZoom: true,
-  touchZoom: true,
-  touchRotate: false,
-  keyboard: true,
-  doubleClickZoom: true,
-  minZoom: 0,
-  maxZoom: 20,
-  minPitch: 0,
-  maxPitch: 85,
-};
-
 const propTypes = {
   className: string,
   viewport: object.isRequired,
+  style: oneOf(['map', 'satellite']).isRequired,
   user: object,
   popup: object,
   interactiveLayerIds: arrayOf(string).isRequired,
@@ -53,11 +40,31 @@ const defaultProps = {
   geocoderContainerRef: null,
 };
 
+const settings = {
+  dragPan: true,
+  dragRotate: false,
+  scrollZoom: true,
+  touchZoom: true,
+  touchRotate: false,
+  keyboard: true,
+  doubleClickZoom: true,
+  minZoom: 0,
+  maxZoom: 20,
+  minPitch: 0,
+  maxPitch: 85,
+};
+
+const styles = {
+  map: 'mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf',
+  satellite: 'mapbox://styles/adesurirey/cjzgt6e0h1aau1cqq89lsakr6',
+};
+
 const Mapbox = forwardRef(
   (
     {
       className,
       viewport,
+      style,
       user,
       popup,
       interactiveLayerIds,
@@ -108,7 +115,7 @@ const Mapbox = forwardRef(
         width="100%"
         height="100%"
         attributionControl={false}
-        mapStyle="mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf"
+        mapStyle={styles[style]}
         preventStyleDiffing
         mapOptions={{ hash: true }}
         interactiveLayerIds={interactiveLayerIds}
