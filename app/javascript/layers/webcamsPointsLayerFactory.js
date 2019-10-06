@@ -5,6 +5,6 @@ export default (id, source) => ({
   filter: ['!', ['has', 'point_count']],
   layout: {
     'icon-image': 'eyes',
-    'icon-size': 0.5,
+    'icon-size': ['interpolate', ['linear'], ['zoom'], 3, 0.33, 14, 0.5],
   },
 });
