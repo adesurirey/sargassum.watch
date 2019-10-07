@@ -77,8 +77,8 @@ export default {
         width: '100%',
       },
       groupedSizeSmall: {
-        padding: '3px 9px',
-        height: 'unset',
+        padding: '3px 9px !important',
+        height: 'unset !important',
       },
     },
     MuiToggleButton: {
