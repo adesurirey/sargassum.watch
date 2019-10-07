@@ -12,11 +12,11 @@ $hovered--dark: rgba(255, 255, 255, 0.08);
 $selected--dark: rgba(255, 255, 255, 0.14);
 
 // Icons
-$plus--light: url('plus-light.svg');
-$minus--light: url('minus-light.svg');
+$plus--light: image-url('plus-light.svg');
+$minus--light: image-url('minus-light.svg');
 
-$plus--dark: url('plus-dark.svg');
-$minus--dark: url('minus-dark.svg');
+$plus--dark: image-url('plus-dark.svg');
+$minus--dark: image-url('minus-dark.svg');
 
 // Breakpoints
 $breakpoint-sm: 959.95px;
