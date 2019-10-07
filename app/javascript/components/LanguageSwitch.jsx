@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Menu, MenuItem } from '@material-ui/core';
-import { TranslateRounded, KeyboardArrowDownRounded } from '@material-ui/icons';
+import { TranslateRounded } from '@material-ui/icons';
 
 import {
   currentLanguage,
@@ -22,9 +22,6 @@ const useStyles = makeStyles(theme => ({
   },
   iconLeft: {
     marginRight: theme.spacing(1),
-  },
-  iconRight: {
-    marginLeft: theme.spacing(1) / 2,
   },
 }));
 
@@ -56,9 +53,10 @@ const LanguageSwitch = ({ navigate }) => {
   return (
     <Grid item>
       <Button
-        classes={{ root: classes.button }}
         aria-controls={id}
         aria-haspopup="true"
+        classes={{ root: classes.button }}
+        size="small"
         onClick={onClick}
       >
         <TranslateRounded
@@ -67,11 +65,6 @@ const LanguageSwitch = ({ navigate }) => {
           color="inherit"
         />
         {t(language)}
-        <KeyboardArrowDownRounded
-          className={classes.iconRight}
-          fontSize="small"
-          color="inherit"
-        />
       </Button>
       <Menu
         id={id}
