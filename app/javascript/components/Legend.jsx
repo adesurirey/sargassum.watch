@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   na: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.disabled,
   },
 }));
 
@@ -54,7 +54,7 @@ const Legend = () => {
               }}
               primary={t(`${label} detailed`)}
             />
-            <LegendHelp humanLevel={label} />
+            {label === 'na' && <LegendHelp humanLevel={label} />}
           </ListItem>
         ))}
       </List>
