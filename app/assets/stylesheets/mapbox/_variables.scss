@@ -1,3 +1,23 @@
+// Colors
+$text--light: #212121;
+$paper--light: #fff;
+$paper-hover--light: #ebebeb;
+$hovered--light: rgba(0, 0, 0, 0.08);
+$selected--light: rgba(0, 0, 0, 0.14);
+
+$text--dark: #fff;
+$paper--dark: #424242;
+$paper-hover--dark: #2e2e2e;
+$hovered--dark: rgba(255, 255, 255, 0.08);
+$selected--dark: rgba(255, 255, 255, 0.14);
+
+// Icons
+$plus--light: url('plus-light.svg');
+$minus--light: url('minus-light.svg');
+
+$plus--dark: url('plus-dark.svg');
+$minus--dark: url('minus-dark.svg');
+
 // Breakpoints
 $breakpoint-sm: 959.95px;
 

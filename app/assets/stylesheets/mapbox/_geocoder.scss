@@ -12,9 +12,12 @@
   z-index: 1;
   font-size: inherit !important;
   line-height: 24px;
-  background-color: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   outline: none;
+
+  @include themed() {
+    background-color: t($paper);
+  }
 
   @media (min-width: $breakpoint-sm) {
     box-shadow: none !important;
@@ -27,6 +30,10 @@
     padding-bottom: $spacing !important;
     padding-right: $spacing * 5 !important;
 
+    @include themed() {
+      color: t($text) !important;
+    }
+
     @media (max-width: $breakpoint-sm) {
       padding-left: $spacing * 7 !important;
       padding-top: $spacing * 2 !important;
@@ -38,6 +45,10 @@
   &--icon {
     top: 0 !important;
     height: 100% !important;
+
+    @include themed() {
+      background-color: t($paper);
+    }
   }
 
   &--pin-right > * {
@@ -51,8 +62,12 @@
   }
 
   &--icon-close {
-    margin-top: 0 !important;
+    margin: 0 !important;
     fill: #6c6c6c !important;
+
+    @media (max-width: $breakpoint-sm) {
+      padding-right: 3px;
+    }
   }
 
   &--button:focus {
@@ -60,7 +75,9 @@
   }
 
   &--button:hover &--icon-close {
-    fill: #212121 !important;
+    @include themed() {
+      fill: t($text) !important;
+    }
   }
 
   .suggestions {
@@ -71,6 +88,10 @@
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
         0px 8px 10px 1px rgba(0, 0, 0, 0.14),
         0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    @include themed() {
+      background-color: t($paper);
     }
 
     li {
@@ -87,14 +108,18 @@
       }
 
       a:hover {
-        background-color: rgba(0, 0, 0, 0.08) !important;
+        @include themed() {
+          background-color: t($hovered) !important;
+        }
       }
     }
 
     li.active {
       a,
       a:hover {
-        background-color: rgba(0, 0, 0, 0.14) !important;
+        @include themed() {
+          background-color: t($selected) !important;
+        }
       }
     }
   }

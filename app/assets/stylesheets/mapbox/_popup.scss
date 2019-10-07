@@ -8,38 +8,38 @@
   box-shadow: none !important;
 }
 
-.mapboxgl-popup-anchor-top {
+.mapboxgl-popup-anchor-top,
+.mapboxgl-popup-anchor-top-left,
+.mapboxgl-popup-anchor-top-right {
   .mapboxgl-popup-tip {
-    border-bottom-color: rgba(255, 255, 255, 0.9) !important;
-    &::after {
-      content: ' ';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-top: none;
-      border-bottom-color: rgba(0, 0, 0, 0.08);
+    @include themed() {
+      border-bottom-color: rgba(t($paper), 0.9) !important;
     }
   }
 }
 
-.mapboxgl-popup-anchor-bottom {
+.mapboxgl-popup-anchor-right {
   .mapboxgl-popup-tip {
-    border-top-color: rgba(255, 255, 255, 0.9) !important;
+    @include themed() {
+      border-left-color: rgba(t($paper), 0.9) !important;
+    }
   }
 }
 
-.mapboxgl-popup-anchor-left,
-.mapboxgl-popup-anchor-right,
-.mapboxgl-popup-anchor-top-left,
-.mapboxgl-popup-anchor-top-right,
+.mapboxgl-popup-anchor-bottom,
 .mapboxgl-popup-anchor-bottom-left,
 .mapboxgl-popup-anchor-bottom-right {
   .mapboxgl-popup-tip {
-    display: none !important;
+    @include themed() {
+      border-top-color: rgba(t($paper), 0.9) !important;
+    }
+  }
+}
+
+.mapboxgl-popup-anchor-left {
+  .mapboxgl-popup-tip {
+    @include themed() {
+      border-right-color: rgba(t($paper), 0.9) !important;
+    }
   }
 }

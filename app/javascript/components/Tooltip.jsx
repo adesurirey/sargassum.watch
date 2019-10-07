@@ -21,7 +21,7 @@ const defaultProps = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: fade(theme.palette.common.white, 0.9),
+    background: fade(theme.palette.background.paper, 0.9),
   },
   content: {
     padding: compact => (compact ? 0 : theme.spacing(1)),

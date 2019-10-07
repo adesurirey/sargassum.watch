@@ -1,20 +1,10 @@
 import 'typeface-open-sans';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 
-let theme = createMuiTheme({
+export default {
   palette: {
-    background: {
-      default: '#fff',
-    },
-
     primary: {
       main: indigo.A700,
-    },
-
-    secondary: {
-      main: '#fff',
-      dark: '#ebebeb',
     },
 
     level: {
@@ -98,8 +88,4 @@ let theme = createMuiTheme({
       },
     },
   },
-});
-
-theme = responsiveFontSizes(theme);
-
-export default theme;
+};

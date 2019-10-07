@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.grey[400],
+    color: theme.palette.text.disabled,
   },
 
   fullscreen: {

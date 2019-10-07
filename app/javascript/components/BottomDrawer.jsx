@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   iconContainer: {
     marginBottom: -theme.spacing(2),
     zIndex: 2,
-    background: theme.palette.common.white,
+    background: theme.palette.background.paper,
     textAlign: 'center',
   },
 
