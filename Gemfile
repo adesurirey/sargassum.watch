@@ -16,6 +16,7 @@ gem "pg", ">= 0.18", "< 2.0"
 # Structural
 gem "draper"
 gem "geocoder"
+gem "oj"
 
 # Background jobs
 gem "sidekiq"
