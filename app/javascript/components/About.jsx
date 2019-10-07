@@ -64,7 +64,13 @@ const About = ({ humanLevel }) => {
         </Typography>
         <Typography paragraph variant="caption" gutterBottom={false}>
           {t('contact')}
-          <Link variant="caption" href={`mailto:${contact}`} rel="contact">
+          <Link
+            variant="caption"
+            color="inherit"
+            underline="always"
+            href={`mailto:${contact}`}
+            rel="contact"
+          >
             {contact}
           </Link>
         </Typography>

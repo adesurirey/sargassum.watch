@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
     display: 'flex',
-    background: theme.palette.common.white,
+    background: theme.palette.background.paper,
     borderBottomStyle: 'solid',
     borderBottomWidth: 1,
     borderBottomColor: theme.palette.grey[200],

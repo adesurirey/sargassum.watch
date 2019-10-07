@@ -50,18 +50,21 @@ const BigChart = ({ data, interval }) => {
             tickCount={3}
             tickLine={false}
             tickFormatter={tickFormatter}
-            tick={{ fontSize: theme.typography.caption.fontSize }}
-            axisLine={{ stroke: theme.palette.grey[200] }}
+            tick={{
+              fontSize: theme.typography.caption.fontSize,
+              fill: theme.palette.text.secondary,
+            }}
+            axisLine={{ stroke: theme.palette.action.selected }}
           />
           {data.map(tick => (
             <ReferenceLine
               key={tick.time}
               x={tick.time}
-              stroke={theme.palette.grey[200]}
+              stroke={theme.palette.action.selected}
             />
           ))}
           <Tooltip
-            cursor={{ stroke: theme.palette.grey[400] }}
+            cursor={{ stroke: theme.palette.text.primary }}
             content={<ChartTooltip unit={interval.unit} />}
           />
           {levels.map(({ label }) => (
