@@ -3,11 +3,12 @@
 class PagesController < ApplicationController
   def home
     gon.push(
-      levels:               Report.formatted_levels,
       mapboxApiAccessToken: ENV.fetch("MAPBOX_API_ACCESS_TOKEN"),
+      levels:               Report.formatted_levels,
       quickLooks:           QUICK_LOOKS,
       webcams:              WEBCAMS,
       mapStyle:             map_style,
+      contact:              ENV.fetch("CONTACT_EMAIL") { "hello@sargassum.watch" },
     )
   end
 

@@ -1,26 +1,19 @@
 import React, { memo } from 'react';
 
-import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Link, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  caption: {
-    color: theme.palette.text.disabled,
-  },
-}));
+const { contact } = gon;
 
 const Credits = () => {
-  const classes = useStyles();
   const date = new Date();
 
   return (
     <Grid item>
-      <Typography
-        classes={{ caption: classes.caption }}
-        variant="caption"
-        color="textSecondary"
-      >
-        sargassum.watch © {date.getFullYear()}
+      <Link variant="caption" color="textSecondary" href={`mailto:${contact}`}>
+        sargassum.watch
+      </Link>
+      <Typography variant="caption" color="textSecondary">
+        {` © ${date.getFullYear()}`}
       </Typography>
     </Grid>
   );
