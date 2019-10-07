@@ -47,7 +47,7 @@ const BottomDrawerToggler = ({
       variant="permanent"
       anchor="bottom"
     >
-      <ButtonBase className={classes.paper} disableTouchRipple onClick={onOpen}>
+      <ButtonBase className={classes.paper} onClick={onOpen}>
         <Grid container spacing={2}>
           <Grid item xs={2} sm={1}>
             <Chart tiny height={20} {...chartProps} />

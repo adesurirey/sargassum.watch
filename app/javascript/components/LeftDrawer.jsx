@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width,
     paddingTop: 72,
-    background: theme.palette.grey[50],
+    background: theme.palette.grey[100],
     border: 0,
   },
 

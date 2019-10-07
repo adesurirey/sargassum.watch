@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
     borderBottomStyle: 'solid',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderTopColor: theme.palette.grey[100],
-    borderBottomColor: theme.palette.grey[100],
+    borderTopColor: theme.palette.grey[200],
+    borderBottomColor: theme.palette.grey[200],
   },
 }));
 
