@@ -1,31 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { humanLevel } from '../utils/propTypes';
-import { Tooltip, Zoom, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import { IconButton, Popover, Typography } from '@material-ui/core';
 import { HelpOutlineRounded } from '@material-ui/icons';
+
+import { humanLevel } from '../utils/propTypes';
 
 const propTypes = {
   humanLevel,
 };
 
-const LegendHelp = ({ humanLevel }) => {
-  const { t } = useTranslation();
+const useStyles = makeStyles(theme => ({
+  popover: {
+    maxWidth: 260,
+    padding: theme.spacing(1),
+  },
+}));
 
-  if (humanLevel !== 'na') {
-    return null;
-  }
+const LegendHelp = ({ humanLevel }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { t } = useTranslation();
+  const classes = useStyles();
+
+  const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
+  const onClose = () => setAnchorEl(null);
+
+  const helpText = t(`${humanLevel} help`);
 
   return (
-    <Tooltip
-      title={t(`${humanLevel} help`)}
-      TransitionComponent={Zoom}
-      disableFocusListener
-    >
-      <IconButton size="small">
-        <HelpOutlineRounded fontSize="inherit" />
+    <>
+      <IconButton
+        aria-label={t('help')}
+        aria-controls={humanLevel}
+        aria-haspopup="true"
+        size="small"
+        onClick={onClick}
+      >
+        <HelpOutlineRounded fontSize="inherit" color="disabled" />
       </IconButton>
-    </Tooltip>
+
+      <Popover
+        id={humanLevel}
+        classes={{ paper: classes.popover }}
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={onClose}
+      >
+        <Typography variant="caption">{helpText}</Typography>
+      </Popover>
+    </>
   );
 };
 
