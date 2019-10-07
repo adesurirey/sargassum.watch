@@ -8,6 +8,9 @@ const useStyles = makeStyles(theme => ({
   popover: {
     maxWidth: 320,
     padding: theme.spacing(2, 2, 0),
+    '@media only screen and (max-width: 351px)': {
+      maxWidth: 288,
+    },
   },
 }));
 

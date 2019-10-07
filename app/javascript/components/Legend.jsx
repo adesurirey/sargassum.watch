@@ -53,6 +53,7 @@ const Legend = () => {
                 root: clsx(classes.text, classes[label]),
               }}
               primary={t(`${label} detailed`)}
+              primaryTypographyProps={{ display: 'block', noWrap: true }}
             />
             {label === 'na' && <LegendHelp humanLevel={label} />}
           </ListItem>
