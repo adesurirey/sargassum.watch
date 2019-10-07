@@ -206,7 +206,7 @@ class ReportTest < ActiveSupport::TestCase
     geojson = Report.cached_geojson
     assert_kind_of String, geojson
 
-    geojson = JSON.parse geojson
+    geojson = Oj.load geojson
     assert_equal 20, geojson["features"].size
   end
 

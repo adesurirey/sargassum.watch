@@ -16,7 +16,7 @@ class Assets::GeoJSONTest < ActiveSupport::TestCase
     geojson = Assets::GeoJSON.generate(datasets: Dataset.all, reports: Report.all)
     assert_kind_of String, geojson
 
-    geojson = JSON.parse geojson
+    geojson = Oj.load geojson
     assert_equal "FeatureCollection", geojson["type"]
     assert_equal 6, geojson["features"].size
   end
@@ -30,7 +30,7 @@ class Assets::GeoJSONTest < ActiveSupport::TestCase
     first_report = create(:report, name: "First report", updated_at: 1.day.ago)
 
     geojson = Assets::GeoJSON.generate(datasets: Dataset.all, reports: Report.all)
-    geojson = JSON.parse geojson
+    geojson = Oj.load geojson
 
     assert_equal 6, geojson["features"].size
     assert_equal first_report.id, geojson["features"].first["properties"]["id"]
