@@ -31,7 +31,7 @@ const defaultProps = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: 140,
+    width: 160,
   },
   point: {
     marginRight: theme.spacing(1),
