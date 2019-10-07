@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   tiny: {
     position: 'fixed',
     right: 0,
-    bottom: 509, // Bottom drawer height
+    bottom: 497, // Bottom drawer height
     height: '25px !important',
     margin: theme.spacing(1),
     boxShadow: `${insetShadow}, ${theme.shadows[3]}`,
