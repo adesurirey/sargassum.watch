@@ -143,16 +143,6 @@ class Map extends Component {
     });
 
     this.initLayers();
-
-    this.setState({
-      interactiveLayerIds: [
-        webcamsClustersLayer.id,
-        webcamsPointsLayer.id,
-        reportsPointsLayer.id,
-      ],
-    });
-
-    map.on('idle', this.setRenderedFeaturesDebounced);
   };
 
   initLayers = () => {
@@ -169,6 +159,16 @@ class Map extends Component {
       map.addLayer(webcamsClustersLayer);
       map.addLayer(webcamsPointsLayer);
     });
+
+    this.setState({
+      interactiveLayerIds: [
+        webcamsClustersLayer.id,
+        webcamsPointsLayer.id,
+        reportsPointsLayer.id,
+      ],
+    });
+
+    map.on('idle', this.setRenderedFeaturesDebounced);
   };
 
   setRenderedFeatures = () => {
