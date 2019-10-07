@@ -1,10 +1,9 @@
 import 'typeface-open-sans';
-import indigo from '@material-ui/core/colors/indigo';
 
 export default {
   palette: {
     primary: {
-      main: indigo.A700,
+      main: '#256eff',
     },
 
     level: {
