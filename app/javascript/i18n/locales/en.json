@@ -47,6 +47,11 @@
     "map style": "map style",
     "Show beach webcams": "Show beach webcams",
     "Satellite": "Satellite",
-    "Map": "Map"
+    "Map": "Map",
+    "About": "About",
+    "about us": "sargassum.watch is a community-driven project to monitor sargasso stranding waves around the world.",
+    "about sargassum": "Originating off the coast of Brazil, these toxic seaweeds have been stranded on the Caribbean Sea in large quantities since 2011. A phenomenon that has significant ecological and economical consequences.",
+    "about data": "The data presented here come from our users as well as from third party sites. When the data does not come directly from a user of the site, the source is indicated on the relevant point on the map.",
+    "contact": "contact: "
   }
 }
