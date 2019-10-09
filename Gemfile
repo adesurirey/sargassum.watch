@@ -29,7 +29,7 @@ gem "faraday"
 gem "autoprefixer-rails"
 gem "gon"
 gem "jbuilder", "~> 2.7"
-gem "sass-rails", "~> 5"
+gem "sassc-rails"
 gem "webpacker", "~> 4.0"
 
 # Utils
