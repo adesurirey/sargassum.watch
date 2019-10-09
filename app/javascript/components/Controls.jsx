@@ -51,12 +51,6 @@ const Controls = ({
 }) => {
   const { t } = useTranslation();
 
-  const buttonProps = {
-    visible: loaded,
-    loading: geolocating,
-    onClick: onReportClick,
-  };
-
   return (
     <>
       <GeocoderContainer
@@ -65,7 +59,11 @@ const Controls = ({
         onViewportChange={onViewportChange}
       />
 
-      <ReportButton {...buttonProps} />
+      <ReportButton
+        visible={loaded}
+        loading={geolocating}
+        onClick={onReportClick}
+      />
 
       <MapSettings
         loaded={loaded}
@@ -74,7 +72,7 @@ const Controls = ({
         onWebcamsToggle={onWebcamsToggle}
       />
 
-      <ResponsiveDrawer chartProps={renderedFeatures} buttonProps={buttonProps}>
+      <ResponsiveDrawer chartProps={renderedFeatures}>
         <ControlsPanel title={t('Status of beaches in the area')}>
           <IntervalControls
             loaded={loaded}

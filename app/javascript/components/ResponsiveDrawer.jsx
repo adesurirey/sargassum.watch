@@ -10,17 +10,14 @@ import BottomDrawer from './BottomDrawer';
 const propTypes = {
   children: node.isRequired,
   chartProps: object.isRequired,
-  buttonProps: object.isRequired,
 };
 
-const ResponsiveDrawer = ({ children, chartProps, buttonProps }) => {
+const ResponsiveDrawer = ({ children, chartProps }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return matches ? (
-    <BottomDrawer chartProps={chartProps} buttonProps={buttonProps}>
-      {children}
-    </BottomDrawer>
+    <BottomDrawer chartProps={chartProps}>{children}</BottomDrawer>
   ) : (
     <LeftDrawer>{children}</LeftDrawer>
   );

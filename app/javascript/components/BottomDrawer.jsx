@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { node, object } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
@@ -6,14 +6,12 @@ import { SwipeableDrawer, Grid } from '@material-ui/core';
 import { MaximizeRounded } from '@material-ui/icons';
 
 import BottomDrawerToggler from './BottomDrawerToggler';
-import ReportButton from './ReportButton';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 const propTypes = {
   children: node.isRequired,
   chartProps: object.isRequired,
-  buttonProps: object.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -41,23 +39,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const BottomDrawer = ({
-  children,
-  chartProps,
-  buttonProps,
-  buttonProps: { loading },
-}) => {
+const BottomDrawer = ({ children, chartProps }) => {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
 
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
-
-  useEffect(() => {
-    if (loading) {
-      onClose();
-    }
-  }, [loading]);
 
   return (
     <>
@@ -81,8 +68,6 @@ const BottomDrawer = ({
         onOpen={onOpen}
         onClose={onClose}
       >
-        <ReportButton {...buttonProps} tiny />
-
         <Grid classes={{ container: classes.container }} container spacing={1}>
           <Grid className={classes.iconContainer} item xs={12}>
             <MaximizeRounded

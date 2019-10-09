@@ -11,20 +11,18 @@ import { MyLocationRounded } from '@material-ui/icons';
 const propTypes = {
   visible: bool,
   loading: bool,
-  tiny: bool,
   onClick: func.isRequired,
 };
 
 const defaultProps = {
   visible: false,
   loading: false,
-  tiny: false,
 };
 
 const insetShadow = '0 -2px 0 rgba(0, 0, 0, 0.08) inset';
 
 const useStyles = makeStyles(theme => ({
-  regular: {
+  fab: {
     position: 'absolute',
     right: 0,
     margin: theme.spacing(2),
@@ -34,27 +32,11 @@ const useStyles = makeStyles(theme => ({
       bottom: 36,
     },
   },
-  tiny: {
-    position: 'fixed',
-    right: 0,
-    bottom: 497, // Bottom drawer height
-    height: '25px !important',
-    margin: theme.spacing(1),
-    boxShadow: `${insetShadow}, ${theme.shadows[3]}`,
-    fontSize: theme.typography.caption.fontSize,
-    zIndex: 9999,
+
+  marginLeft: {
+    marginLeft: theme.spacing(1),
   },
 
-  icon: {
-    marginLeft: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
-    },
-  },
-  iconTiny: {
-    marginLeft: theme.spacing(1) / 2,
-    fontSize: theme.typography.fontSize,
-  },
   rotating: {
     animation: '$rotating 1500ms linear infinite',
   },
@@ -65,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportButton = ({ visible, tiny, loading, onClick }) => {
+const ReportButton = ({ visible, loading, onClick }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
@@ -75,59 +57,29 @@ const ReportButton = ({ visible, tiny, loading, onClick }) => {
 
   const label = t('Report your beach status');
 
-  let variant = {
-    transitionDelay: theme.transitions.duration.enteringScreen + 500,
-    size: 'medium',
-    variant: 'extended',
-    label,
-    classes: {
-      root: classes.regular,
-      icon: classes.icon,
-    },
-  };
-
-  const mobileVariant = {
-    ...variant,
-    variant: 'round',
-    label: null,
-  };
-
-  const tinyVariant = {
-    ...variant,
-    transitionDelay: theme.transitions.duration.shortest,
-    size: 'small',
-    classes: {
-      root: classes.tiny,
-      icon: classes.iconTiny,
-    },
-  };
-
-  if (tiny) {
-    variant = tinyVariant;
-  } else if (isMobile) {
-    variant = mobileVariant;
-  }
-
   return (
     <Zoom
       in={visible}
       exit={false}
-      style={{ transitionDelay: variant.transitionDelay }}
+      style={{
+        transitionDelay: theme.transitions.duration.enteringScreen + 500,
+      }}
     >
       <Fab
         color="primary"
-        classes={{ root: variant.classes.root }}
-        variant={variant.variant}
-        size={variant.size}
+        classes={{ root: classes.fab }}
+        variant={isMobile ? 'round' : 'extended'}
+        size="medium"
         aria-label={label}
         onClickCapture={handleClick}
         disabled={!navigator.geolocation}
       >
-        {variant.label}
+        {!isMobile && label}
         <MyLocationRounded
           fontSize="small"
           classes={{
-            root: clsx(variant.classes.icon, {
+            root: clsx({
+              [classes.marginLeft]: !isMobile,
               [classes.rotating]: loading,
             }),
           }}
