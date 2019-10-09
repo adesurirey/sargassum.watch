@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Zoom, Fab } from '@material-ui/core';
+import { Zoom, Tooltip, Fab } from '@material-ui/core';
 import { MyLocationRounded } from '@material-ui/icons';
 
 const propTypes = {
@@ -65,26 +65,33 @@ const ReportButton = ({ visible, loading, onClick }) => {
         transitionDelay: theme.transitions.duration.enteringScreen + 500,
       }}
     >
-      <Fab
-        color="primary"
-        classes={{ root: classes.fab }}
-        variant={isMobile ? 'round' : 'extended'}
-        size="medium"
-        aria-label={label}
-        onClickCapture={handleClick}
-        disabled={!navigator.geolocation}
+      <Tooltip
+        title={label}
+        TransitionComponent={Zoom}
+        disableHoverListener
+        PopperProps={{ keepMounted: true }}
       >
-        {!isMobile && label}
-        <MyLocationRounded
-          fontSize="small"
-          classes={{
-            root: clsx({
-              [classes.marginLeft]: !isMobile,
-              [classes.rotating]: loading,
-            }),
-          }}
-        />
-      </Fab>
+        <Fab
+          color="primary"
+          classes={{ root: classes.fab }}
+          variant={isMobile ? 'round' : 'extended'}
+          size="medium"
+          aria-label={label}
+          onClickCapture={handleClick}
+          disabled={!navigator.geolocation}
+        >
+          {!isMobile && label}
+          <MyLocationRounded
+            fontSize="small"
+            classes={{
+              root: clsx({
+                [classes.marginLeft]: !isMobile,
+                [classes.rotating]: loading,
+              }),
+            }}
+          />
+        </Fab>
+      </Tooltip>
     </Zoom>
   );
 };
