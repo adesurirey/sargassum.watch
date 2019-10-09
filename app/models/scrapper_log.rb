@@ -37,7 +37,10 @@ class ScrapperLog < ApplicationRecord
         last_created_reports_count: created_reports_count,
       )
 
-      scrapper_log.tap(&:save!)
+      scrapper_log.tap do |log|
+        log.save!
+        log.touch
+      end
     end
 
     private
