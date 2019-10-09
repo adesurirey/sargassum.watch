@@ -79,7 +79,7 @@ class Map extends Component {
       features: [],
       interval,
       featuresForInterval: [],
-      renderedFeatures: { interval, features: [] },
+      renderedFeatures: { loading: true, interval, features: [] },
       interactiveLayerIds: [],
       popup: null,
       user: null,
@@ -90,7 +90,7 @@ class Map extends Component {
 
     this.setRenderedFeaturesDebounced = _debounce(
       this.setRenderedFeatures,
-      500,
+      2000,
     );
   }
 
@@ -117,7 +117,7 @@ class Map extends Component {
       // which is responsible for updating rendered features interval,
       // we update rendered features interval manualy.
       this.setState(({ renderedFeatures }) => ({
-        renderedFeatures: { interval, ...renderedFeatures },
+        renderedFeatures: { loading: false, interval, ...renderedFeatures },
       }));
     } else {
       this.setState({ featuresForInterval: newFeatures });
@@ -181,6 +181,7 @@ class Map extends Component {
     features &&
       this.setState(({ interval }) => ({
         renderedFeatures: {
+          loading: false,
           interval,
           features: _uniqBy(features, 'properties.id'),
         },
@@ -222,6 +223,7 @@ class Map extends Component {
 
   onViewportChange = viewport =>
     this.setState({
+      renderedFeatures: { ...this.state.renderedFeatures, loading: true },
       viewport: { ...this.state.viewport, ...viewport },
     });
 
@@ -258,8 +260,12 @@ class Map extends Component {
   onIntervalChange = interval => {
     const { navigate } = this.props;
 
-    this.setState({ interval }, () =>
-      this.setMapData(this.getFeaturesInInterval()),
+    this.setState(
+      ({ renderedFeatures }) => ({
+        interval,
+        renderedFeatures: { ...renderedFeatures, loading: true },
+      }),
+      () => this.setMapData(this.getFeaturesInInterval()),
     );
 
     navigate(`?interval=${interval.id}${window.location.hash}`);

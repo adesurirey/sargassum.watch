@@ -17,6 +17,7 @@ const defaultProps = {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
     display: 'flex',
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Spinner = ({ fullscreen, delay }) => {
+const Spinner = ({ fullscreen, delay, ...circularProgressProps }) => {
   const [loading, setLoading] = useState(false);
   const timerRef = useRef();
   const classes = useStyles();
@@ -50,7 +51,7 @@ const Spinner = ({ fullscreen, delay }) => {
   return (
     <div className={clsx(classes.root, fullscreen && classes.fullscreen)}>
       <Fade in={loading} unmountOnExit>
-        <CircularProgress color="inherit" />
+        <CircularProgress color="inherit" {...circularProgressProps} />
       </Fade>
     </div>
   );
