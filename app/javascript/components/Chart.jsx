@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { oneOfType, arrayOf, shape, string, number, bool } from 'prop-types';
-import _isEqualWith from 'lodash/isEqualWith';
 
 import TinyChart from './TinyChart';
 import BigChart from './BigChart';
@@ -8,6 +7,7 @@ import { featuresPerInterval } from '../utils/interval';
 import { interval } from '../utils/propTypes';
 
 const propTypes = {
+  loading: bool.isRequired,
   interval,
   features: arrayOf(
     shape({
@@ -25,32 +25,35 @@ const defaultProps = {
   tiny: false,
 };
 
-const Chart = ({ features, interval, tiny, ...containerProps }) => {
+const Chart = ({ loading, features, interval, tiny, ...containerProps }) => {
   const data = featuresPerInterval(features, interval);
 
   return tiny ? (
     <TinyChart data={data} {...containerProps} />
   ) : (
-    <BigChart data={data} interval={interval} {...containerProps} />
+    <BigChart
+      loading={loading}
+      data={data}
+      interval={interval}
+      {...containerProps}
+    />
   );
 };
 
 const featuresUnchanged = (
-  { interval: prevInterval, features: prevFeatures },
-  { interval: nextInterval, features: nextFeatures },
+  { loading: prevLoading, interval: prevInterval, features: prevFeatures },
+  { loading: nextLoading, interval: nextInterval, features: nextFeatures },
 ) => {
-  if (prevInterval.id !== nextInterval.id) {
-    return false;
+  if (
+    prevLoading === nextLoading &&
+    prevInterval.id === nextInterval.id &&
+    prevFeatures.length === nextFeatures.length
+  ) {
+    return true;
   }
-  if (prevFeatures.length > 0 && nextFeatures.length > 0) {
-    return _isEqualWith(prevFeatures, nextFeatures, 'properties.id');
-  }
-
-  return prevFeatures.length === nextFeatures.length;
+  return false;
 };
 
-// New interval prop is received before new features prop,
-// don't update unless rendered features has change.
 export default memo(Chart, featuresUnchanged);
 
 Chart.propTypes = propTypes;

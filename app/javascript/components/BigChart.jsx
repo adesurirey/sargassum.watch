@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
   ResponsiveContainer,
@@ -10,9 +11,10 @@ import {
   Tooltip,
 } from 'recharts';
 
-import { useTheme } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
+import Spinner from './Spinner';
 import ChartTooltip from './ChartTooltip';
 import { data, interval } from '../utils/propTypes';
 import {
@@ -24,13 +26,21 @@ import {
 const { levels } = gon;
 
 const propTypes = {
+  loading: bool.isRequired,
   data,
   interval,
 };
 
-const BigChart = ({ data, interval }) => {
+const useStyles = makeStyles(theme => ({
+  container: {
+    position: 'relative',
+  },
+}));
+
+const BigChart = ({ loading, data, interval }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const classes = useStyles();
 
   const start = intervalStartDate(interval).getTime();
   const now = toTickDate(new Date(), interval.unit).getTime();
@@ -38,7 +48,8 @@ const BigChart = ({ data, interval }) => {
   const tickFormatter = getTickFormatter(interval, t);
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} className={classes.container}>
+      {loading && <Spinner delay={200} size={16} />}
       <ResponsiveContainer height={160}>
         <AreaChart data={data} margin={{ left: 4, right: 4, top: 4 }}>
           <YAxis domain={[0, 'dataMax + 1']} hide />
