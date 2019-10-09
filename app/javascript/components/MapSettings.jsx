@@ -3,7 +3,14 @@ import { bool, func, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { Zoom, Fab, Popover, Typography, Grid } from '@material-ui/core';
+import {
+  Zoom,
+  Tooltip,
+  Fab,
+  Popover,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import { LayersRounded } from '@material-ui/icons';
 
 import ControlsDivider from './ControlsDivider';
@@ -75,17 +82,23 @@ const MapSettings = ({ loaded, style, onStyleChange, onWebcamsToggle }) => {
           transitionDelay: theme.transitions.duration.enteringScreen + 250,
         }}
       >
-        <Fab
-          aria-label={title}
-          aria-controls="map-settings"
-          aria-haspopup="true"
-          classes={{ root: classes.fab }}
-          color="secondary"
-          size="small"
-          onClick={onClick}
+        <Tooltip
+          title={title}
+          TransitionComponent={Zoom}
+          PopperProps={{ keepMounted: true }}
         >
-          <LayersRounded fontSize="small" color="inherit" />
-        </Fab>
+          <Fab
+            aria-label={title}
+            aria-controls="map-settings"
+            aria-haspopup="true"
+            classes={{ root: classes.fab }}
+            color="secondary"
+            size="small"
+            onClick={onClick}
+          >
+            <LayersRounded fontSize="small" color="inherit" />
+          </Fab>
+        </Tooltip>
       </Zoom>
 
       <Popover
