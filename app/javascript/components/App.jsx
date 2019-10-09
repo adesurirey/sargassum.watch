@@ -8,7 +8,7 @@ import LanguageRedirect from './LanguageRedirect';
 const Map = lazy(() => import('./Map'));
 
 const App = () => (
-  <Suspense fallback={<Spinner delay={100} fullscreen />}>
+  <Suspense fallback={<Spinner fullscreen />}>
     <Router>
       <LanguageRedirect default>
         <Map default />
