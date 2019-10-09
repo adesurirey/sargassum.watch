@@ -108,6 +108,37 @@ class ScrapperLogTest < ActiveSupport::TestCase
     assert_equal [], log.parsing_failures
   end
 
+  test "should touch instance even if no changes" do
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
+    ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 60, level: :na)
+
+    # Update log
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
+    log = ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 0, level: :na)
+    assert_equal "Valid placemarks", log.file_name
+    assert_equal "na", log.level
+    assert_equal 60, log.total_created_reports_count
+    assert_equal 60, log.valid_placemarks_count
+    assert_equal 0, log.invalid_placemarks_count
+    assert_equal [], log.parsing_failures
+    assert_equal 0, log.last_created_reports_count
+
+    last_update = log.updated_at
+
+    # Nothing changes
+    kml = Assets::KML.new(File.open(file_fixture("valid_placemarks.kml")))
+    log = ScrapperLog.create_or_update_from_kml!(kml: kml, created_reports_count: 0, level: :na)
+    assert_equal "Valid placemarks", log.file_name
+    assert_equal "na", log.level
+    assert_equal 60, log.total_created_reports_count
+    assert_equal 60, log.valid_placemarks_count
+    assert_equal 0, log.invalid_placemarks_count
+    assert_equal [], log.parsing_failures
+    assert_equal 0, log.last_created_reports_count
+
+    assert log.updated_at > last_update
+  end
+
   test "should respond to :name" do
     log = build(:scrapper_log)
     assert_equal log.file_name, log.name
