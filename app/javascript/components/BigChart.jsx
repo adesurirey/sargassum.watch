@@ -51,7 +51,10 @@ const BigChart = ({ loading, data, interval }) => {
     <Grid item xs={12} className={classes.container}>
       {loading && <Spinner delay={200} size={16} />}
       <ResponsiveContainer height={160}>
-        <AreaChart data={data} margin={{ left: 4, right: 4, top: 4 }}>
+        <AreaChart
+          data={data}
+          margin={{ left: 5, right: 5, top: 8, bottom: 0 }}
+        >
           <YAxis domain={[0, 'dataMax + 1']} hide />
           <XAxis
             dataKey="time"

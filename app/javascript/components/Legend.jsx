@@ -17,6 +17,10 @@ import LegendHelp from './LegendHelp';
 const { levels } = gon;
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    paddingTop: '0 !important',
+  },
+
   gutters: {
     paddingLeft: 0,
     paddingRight: 0,
@@ -41,7 +45,7 @@ const Legend = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
+    <Grid item className={classes.container} xs={12}>
       <List dense disablePadding>
         {levels.map(({ label }) => (
           <ListItem key={label} classes={{ gutters: classes.gutters }}>
