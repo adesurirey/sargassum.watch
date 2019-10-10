@@ -3,6 +3,8 @@ import _isEqualWith from 'lodash/isEqualWith';
 const featureCollection = features => ({
   type: 'FeatureCollection',
   features,
+  // https://docs.mapbox.com/help/troubleshooting/working-with-large-geojson-data/#adjusting-the-buffer
+  buffer: 0,
 });
 
 const toPopup = (variant, feature) => {
