@@ -141,7 +141,7 @@ class Map extends Component {
 
     map.addSource(WEBCAMS_SOURCE_ID, {
       type: 'geojson',
-      data: featureCollection(webcams),
+      data: webcams,
       cluster: true,
       clusterMaxZoom: 14,
       clusterRadius: 40,

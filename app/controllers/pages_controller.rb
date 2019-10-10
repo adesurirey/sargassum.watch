@@ -6,7 +6,7 @@ class PagesController < ApplicationController
       mapboxApiAccessToken: ENV.fetch("MAPBOX_API_ACCESS_TOKEN"),
       levels:               Report.formatted_levels,
       quickLooks:           QUICK_LOOKS,
-      webcams:              WEBCAMS,
+      webcams:              ENV.fetch("WEBCAMS_URL"),
       mapStyle:             map_style,
       contact:              ENV.fetch("CONTACT_EMAIL") { "hello@sargassum.watch" },
     )
