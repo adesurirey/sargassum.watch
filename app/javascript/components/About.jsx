@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const { contact } = gon;
 
-const About = ({ humanLevel }) => {
+const About = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { t } = useTranslation();
   const classes = useStyles();
@@ -79,4 +79,4 @@ const About = ({ humanLevel }) => {
   );
 };
 
-export default About;
+export default memo(About);
