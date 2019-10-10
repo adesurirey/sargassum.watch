@@ -6,22 +6,23 @@ import { object, func } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
 import _debounce from 'lodash/debounce';
 import _uniqBy from 'lodash/uniqBy';
+import _pull from 'lodash/pull';
 import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 
 import {
   REPORTS_SOURCE_ID,
   WEBCAMS_SOURCE_ID,
-  REPORTS_PERMANENT_LAYER_ID,
   WEBCAMS_CLUSTERS_LAYER_ID,
   WEBCAMS_POINTS_LAYER_ID,
   INSERT_BEFORE_LAYER_ID,
+  REPORTS_POINTS_LAYER_ID,
   reportsHeatmapLayer,
   reportsPointsLayer,
-  reportsPermanentLayer,
   webcamsClustersLayer,
   webcamsPointsLayer,
 } from '../layers';
+import { MIN_ZOOM_LEVEL as POINTS_MIN_ZOOM_LEVEL } from '../layers/reportsPointsLayerFactory';
 import { getViewport } from '../utils/geography';
 import {
   featureCollection,
@@ -88,6 +89,10 @@ class Map extends Component {
     this.mapRef = React.createRef();
     this.geocoderContainerRef = React.createRef();
 
+    this.handleLayersInteractivityDebounced = _debounce(
+      this.handleLayersInteractivity,
+      500,
+    );
     this.setRenderedFeaturesDebounced = _debounce(
       this.setRenderedFeatures,
       2000,
@@ -147,8 +152,8 @@ class Map extends Component {
 
   initLayers = () => {
     const map = this.getMap();
+    const { zoom } = this.state.viewport;
 
-    map.addLayer(reportsPermanentLayer);
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(reportsPointsLayer, INSERT_BEFORE_LAYER_ID);
 
@@ -160,13 +165,11 @@ class Map extends Component {
       map.addLayer(webcamsPointsLayer);
     });
 
-    this.setState({
-      interactiveLayerIds: [
-        webcamsClustersLayer.id,
-        webcamsPointsLayer.id,
-        reportsPointsLayer.id,
-      ],
-    });
+    let interactiveLayerIds = [webcamsClustersLayer.id, webcamsPointsLayer.id];
+    zoom >= POINTS_MIN_ZOOM_LEVEL &&
+      interactiveLayerIds.push(reportsPointsLayer.id);
+
+    this.setState({ interactiveLayerIds });
 
     map.on('idle', this.setRenderedFeaturesDebounced);
   };
@@ -175,7 +178,7 @@ class Map extends Component {
     const map = this.getMap();
 
     const features = map.queryRenderedFeatures({
-      layers: [REPORTS_PERMANENT_LAYER_ID],
+      layers: [REPORTS_POINTS_LAYER_ID],
     });
 
     features &&
@@ -221,11 +224,31 @@ class Map extends Component {
       .catch(error => this.onError(error));
   };
 
-  onViewportChange = viewport =>
-    this.setState({
-      renderedFeatures: { ...this.state.renderedFeatures, loading: true },
-      viewport: { ...this.state.viewport, ...viewport },
-    });
+  handleLayersInteractivity = () => {
+    const { zoom } = this.state.viewport;
+
+    const interactiveLayerIds = [...this.state.interactiveLayerIds];
+    const pointsLayerInteractive = interactiveLayerIds.includes(
+      REPORTS_POINTS_LAYER_ID,
+    );
+
+    if (zoom >= POINTS_MIN_ZOOM_LEVEL && !pointsLayerInteractive) {
+      interactiveLayerIds.push(REPORTS_POINTS_LAYER_ID);
+    } else if (zoom < POINTS_MIN_ZOOM_LEVEL && pointsLayerInteractive) {
+      _pull(interactiveLayerIds, REPORTS_POINTS_LAYER_ID);
+    }
+
+    this.setState({ interactiveLayerIds });
+  };
+
+  onViewportChange = viewportChange => {
+    this.setState(({ viewport, renderedFeatures }) => ({
+      viewport: { ...viewport, ...viewportChange },
+      renderedFeatures: { ...renderedFeatures, loading: true },
+    }));
+
+    this.handleLayersInteractivityDebounced();
+  };
 
   onReportFeatureClick = feature =>
     this.setState({ popup: toPointPopup(feature) });
