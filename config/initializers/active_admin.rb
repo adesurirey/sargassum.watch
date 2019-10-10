@@ -153,10 +153,12 @@ ActiveAdmin.setup do |config|
   # Active Admin resources and pages from here.
   #
   config.before_action do
-    authenticate_or_request_with_http_basic("Whatever") do |name, password|
+    authenticate_or_request_with_http_basic("Admin") do |name, password|
       name == ENV.fetch("ADMIN_USERNAME") && password == ENV.fetch("ADMIN_PASSWORD")
     end
   end
+
+  config.before_action :set_admin_timezone
 
   # == Attribute Filters
   #
