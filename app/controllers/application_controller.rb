@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def user_id
     @user_id ||= cookies[:user_id]
   end
+
+  def set_admin_timezone
+    Time.zone = "Paris"
+  end
 end
