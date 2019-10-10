@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8">
 
+    <% if ENV.fetch("APP_ENV") == "staging" %>
+      <meta name="robots" content="noindex">
+    <% end %>
+
     <title>sargassum.watch</title>
 
     <!-- favicons -->
