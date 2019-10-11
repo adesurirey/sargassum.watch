@@ -1,6 +1,3 @@
-import 'mapbox-gl/dist/mapbox-gl.css';
-import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
 import React, { Component } from 'react';
 import { object, func } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
