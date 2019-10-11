@@ -246,9 +246,8 @@ class Map extends Component {
   };
 
   onViewportChange = viewportChange => {
-    this.setState(({ viewport, renderedFeatures }) => ({
+    this.setState(({ viewport }) => ({
       viewport: { ...viewport, ...viewportChange },
-      renderedFeatures: { ...renderedFeatures, loading: true },
     }));
 
     this.handleLayersInteractivityDebounced();
