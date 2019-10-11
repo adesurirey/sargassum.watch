@@ -95,7 +95,7 @@ class Map extends Component {
     );
     this.setRenderedFeaturesDebounced = _debounce(
       this.setRenderedFeatures,
-      2000,
+      1200,
     );
   }
 
