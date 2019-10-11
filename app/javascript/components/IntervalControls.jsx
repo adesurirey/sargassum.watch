@@ -21,8 +21,11 @@ const defaultProps = {
 const IntervalControls = ({ loaded, selectedInterval, onChange }) => {
   const { t } = useTranslation();
 
-  const handleChange = (_e, intervalId) =>
-    onChange(intervals.find(({ id }) => id === intervalId));
+  const handleChange = (_e, id) => {
+    const interval = intervals.find(interval => interval.id === id);
+
+    return interval && onChange(interval);
+  };
 
   return (
     <Grid item xs={12}>
