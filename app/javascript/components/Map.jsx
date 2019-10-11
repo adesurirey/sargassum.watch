@@ -177,16 +177,20 @@ class Map extends Component {
   setRenderedFeatures = () => {
     const map = this.getMap();
 
-    const features = map.queryRenderedFeatures({
+    let features = map.queryRenderedFeatures({
       layers: [REPORTS_POINTS_LAYER_ID],
     });
+
+    features = _uniqBy(features, 'properties.id').map(({ properties }) => ({
+      properties,
+    }));
 
     features &&
       this.setState(({ interval }) => ({
         renderedFeatures: {
           loading: false,
           interval,
-          features: _uniqBy(features, 'properties.id'),
+          features,
         },
       }));
   };
