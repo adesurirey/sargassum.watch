@@ -28,4 +28,9 @@ class ReportDecorator < Draper::Decorator
   def numeric_level
     self.class.levels[level]
   end
+
+  def source
+    # geoJSON format doesn't support null value
+    object.source || ""
+  end
 end
