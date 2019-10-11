@@ -38,4 +38,10 @@ class ReportDecoratorTest < Draper::TestCase
 
     assert_kind_of Integer, report.numeric_level
   end
+
+  test "should not return empty string for nil source" do
+    report = create(:report, source: nil).decorate
+
+    assert_equal "", report.as_geojson[:properties][:source]
+  end
 end

@@ -68,7 +68,7 @@ const PointPopup = ({ humanLevel, name, updatedAt, source, ...popupProps }) => {
             <SmartTimeAgo date={updatedAt} />
           </Typography>
         </Grid>
-        {source && (
+        {!!source && (
           <Grid className={classes.source} container alignItems="center">
             <LinkRounded
               className={classes.icon}
