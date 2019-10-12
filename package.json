@@ -1,6 +1,6 @@
 {
-  "name": "sargassum_watch",
-  "version": "0.1.0",
+  "name": "sargassum.watch",
+  "author": "Arnaud de Surirey",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
