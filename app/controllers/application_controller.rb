@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :set_raven_context
   before_action :set_locale
   before_action :authenticate_user
 
@@ -28,5 +29,10 @@ class ApplicationController < ActionController::Base
 
   def set_admin_timezone
     Time.zone = "Paris"
+  end
+
+  def set_raven_context
+    Raven.user_context(id: user_id)
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
