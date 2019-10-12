@@ -39,6 +39,9 @@ gem "colorize"
 # Admin
 gem "activeadmin"
 
+# Error monitoring
+gem "sentry-raven"
+
 group :development, :test do
   # Debugging tools
   gem "pry-byebug"

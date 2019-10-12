@@ -109,4 +109,11 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  Raven.configure do |config|
+    config.dsn = ENV.fetch('SENTRY_PRIVATE_DSN')
+    config.environments = ['production', 'staging']
+    config.current_environment = ENV.fetch('APP_ENV')
+    config.release = ENV.fetch('RELEASE') { nil }
+  end if defined?(Raven)
 end
