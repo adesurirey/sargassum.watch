@@ -10,9 +10,6 @@ const MetaTags = () => {
   const language = currentLanguage(i18n);
   const url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
 
-  // If params interval || hash
-  // <link rel="canonical" href="http://mysite.com/example" />
-
   return (
     <Helmet>
       <title>{t('title')}</title>
@@ -25,6 +22,8 @@ const MetaTags = () => {
 
       <meta name="twitter:title" content={t('title')} />
       <meta name="twitter:description" content={t('description')} />
+
+      <link rel="canonical" href={url} />
     </Helmet>
   );
 };
