@@ -30,4 +30,5 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: 'hello'
+  title: 'Sargassum stranding live map, webcams and beach reporting'
+  description: 'Explore worldwide beach statuses since 2018. Get daily, weekly and monthly sargassum stranding trends. Watch live beach webcams. Report your beach status.'

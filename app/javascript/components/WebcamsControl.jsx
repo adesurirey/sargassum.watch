@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Grid, FormControlLabel, Switch } from '@material-ui/core';
 
-import Eyes from '../images/sargassum.watch-nude@2x.png';
+import Eyes from '../images/sargassum.watch-logo@2x.png';
 
 const propTypes = {
   onToggle: func.isRequired,
