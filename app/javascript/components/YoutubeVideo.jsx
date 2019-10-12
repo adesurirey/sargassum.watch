@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { string } from 'prop-types';
 import YouTube from 'react-youtube';
+import * as Sentry from '@sentry/browser';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -47,12 +48,20 @@ const options = {
 const YoutubeVideo = ({ id }) => {
   const classes = useStyles();
 
+  const onError = () => {
+    Sentry.withScope(scope => {
+      scope.setExtra('youtube_id', id);
+      Sentry.captureException(new Error('Youtube video error'));
+    });
+  };
+
   return (
     <YouTube
       videoId={id}
       containerClassName={classes.container}
       className={classes.iframe}
       opts={options}
+      onError={onError}
     />
   );
 };

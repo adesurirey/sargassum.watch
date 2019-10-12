@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/browser';
 
 const propTypes = {
   url: string.isRequired,
@@ -17,6 +18,13 @@ const LiveImage = ({ url }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const onError = () => {
+    Sentry.withScope(scope => {
+      scope.setExtra('live_image_url', url);
+      Sentry.captureException(new Error('Live image not found'));
+    });
+  };
+
   const src = `${url}?d=${timestamp}`;
 
   return (
@@ -26,6 +34,7 @@ const LiveImage = ({ url }) => {
       height="auto"
       style={{ display: 'block' }}
       alt={t('Live is off')}
+      onError={onError}
     />
   );
 };
