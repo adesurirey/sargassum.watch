@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
+  scope '(:locale)', locale: /es|fr/ do
+    root to: 'pages#home'
+  end
 
   resources :reports, only: [:index, :create], defaults: { format: :json }
   resources :settings, only: [:create], defaults: { format: :json }
+
 
   # Sidekiq Web UI, only for admins.
   middleware = Rack::Auth::Basic
@@ -21,6 +24,4 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: "/sidekiq"
 
   ActiveAdmin.routes(self)
-
-  get ':language', to: 'pages#home'
 end
