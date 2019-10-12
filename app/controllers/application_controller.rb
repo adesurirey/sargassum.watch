@@ -8,11 +8,13 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     return if user_id
 
-    @user_id = cookies[:user_id] = request.headers["HTTP_X_FINGERPRINT"]
+    @user_id =
+      cookies.signed.permanent[:user_id] =
+        request.headers["HTTP_X_FINGERPRINT"]
   end
 
   def user_id
-    @user_id ||= cookies[:user_id]
+    @user_id ||= cookies.signed[:user_id]
   end
 
   def set_admin_timezone
