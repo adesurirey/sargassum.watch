@@ -8,8 +8,8 @@ import { TranslateRounded } from '@material-ui/icons';
 
 import {
   currentLanguage,
-  languageVariants,
   languagePaths,
+  availableLanguages,
 } from '../utils/i18n';
 
 const propTypes = {
@@ -35,18 +35,17 @@ const LanguageSwitch = ({ navigate }) => {
   const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
   const onClose = () => setAnchorEl(null);
 
-  const onSelect = variant => {
+  const onSelect = lang => {
     onClose();
-
-    i18n.changeLanguage(variant, () =>
-      navigate(paths[variant] + window.location.search + window.location.hash, {
+    i18n.changeLanguage(lang, () =>
+      navigate(paths[lang] + window.location.search + window.location.hash, {
         replace: true,
       }),
     );
   };
 
-  const language = currentLanguage(i18n);
-  const variants = languageVariants(i18n, language);
+  const current = currentLanguage(i18n);
+  const availables = availableLanguages(i18n);
 
   const id = t('languages');
 
@@ -64,7 +63,7 @@ const LanguageSwitch = ({ navigate }) => {
           fontSize="small"
           color="inherit"
         />
-        {t(language)}
+        {t(current)}
       </Button>
       <Menu
         id={id}
@@ -73,9 +72,13 @@ const LanguageSwitch = ({ navigate }) => {
         open={Boolean(anchorEl)}
         onClose={onClose}
       >
-        {variants.map(variant => (
-          <MenuItem key={variant} onClick={() => onSelect(variant)}>
-            {t(variant)}
+        {availables.map(lang => (
+          <MenuItem
+            key={lang}
+            onClick={() => onSelect(lang)}
+            selected={lang === current}
+          >
+            {t(lang)}
           </MenuItem>
         ))}
       </Menu>
