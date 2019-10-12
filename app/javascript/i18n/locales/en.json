@@ -1,6 +1,12 @@
 {
   "translation": {
-    "Status of beaches in the area": "Reports in the area",
+    "welcome": "welcome",
+    "Welcome": "sargassum.watch allows you to monitor the evolution of sargasso strandings around the world",
+    "Zoom on the map to reveal clean beaches": "Zoom on the map to reveal clean beaches",
+    "Click on the eyes to watch live beach webcams": "Click on the eyes to watch live beach webcams",
+    "Report the presence of sargasses at your position": "Report the presence of sargasses at your position with the blue button",
+    "OK": "OK",
+    "Reports in the area": "Reports in the area",
     "clear": "none or few",
     "moderate": "moderate",
     "na": "uncategorized",
@@ -51,7 +57,7 @@
     "Map": "Map",
     "About": "About",
     "about us": "sargassum.watch is a community-driven project to monitor sargasso stranding waves around the world.",
-    "about sargassum": "Originating off the coast of Brazil, these toxic seaweeds have been stranded on the Caribbean Sea in large quantities since 2011. A phenomenon that has significant ecological and economical consequences.",
+    "about sargassum": "Originating off the coast of Brazil, these toxic seaweeds have been stranded on the Caribbean Sea since 2011. A phenomenon that has significant ecological and economical consequences.",
     "about data": "The data presented here come from our users as well as from third party sites. When the data does not come directly from a user of the site, the source is indicated on the relevant point on the map.",
     "contact": "contact: "
   }
