@@ -76,11 +76,12 @@ const PointPopup = ({ humanLevel, name, updatedAt, source, ...popupProps }) => {
               color="inherit"
             />
             <Link
+              target="_blank"
+              rel="nofollow noopener"
+              href={source}
               color="inherit"
               variant="caption"
               noWrap
-              rel="nofollow"
-              href={source}
             >
               {sourceName(source)}
             </Link>

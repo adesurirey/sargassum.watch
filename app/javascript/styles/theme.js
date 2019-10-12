@@ -34,6 +34,8 @@ export default {
 
   typography: {
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
 
     h1: {
       fontWeight: 700,

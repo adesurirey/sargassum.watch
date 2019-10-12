@@ -73,7 +73,7 @@ const Controls = ({
       />
 
       <ResponsiveDrawer chartProps={renderedFeatures}>
-        <ControlsPanel title={t('Status of beaches in the area')}>
+        <ControlsPanel title={t('Reports in the area')}>
           <IntervalControls
             loaded={loaded}
             selectedInterval={interval}

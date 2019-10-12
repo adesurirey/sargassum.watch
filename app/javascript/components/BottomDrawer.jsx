@@ -17,6 +17,8 @@ const propTypes = {
 const useStyles = makeStyles(theme => ({
   paper: {
     background: theme.palette.grey[100],
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   },
