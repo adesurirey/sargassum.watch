@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import '../i18n';
+import configureErrorNotifier from '../utils/configureErrorNotifier';
 import App from '../components/App';
+
+configureErrorNotifier();
 
 const root = document.getElementById('root');
 
