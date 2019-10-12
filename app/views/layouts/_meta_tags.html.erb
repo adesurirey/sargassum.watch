@@ -41,3 +41,11 @@
 
 <!-- links -->
 <link rel="canonical" href="<%= request.base_url + request.path %>" data-react-helmet="true" />
+
+<% I18n.available_locales.each do |locale| %>
+  <link
+    rel="alternate"
+    href="<%= root_url(locale: locale == I18n.default_locale ? nil : locale) %>"
+    hrefLang="<%= locale %>"
+    data-react-helmet="true" />
+<% end %>
