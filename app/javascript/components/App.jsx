@@ -13,7 +13,7 @@ const Map = lazy(() => import('./Map'));
 const App = () => (
   <GlobalErrorBoundary>
     <MetaTags />
-    <Suspense fallback={<Spinner fullscreen />}>
+    <Suspense fallback={<Spinner fullscreen delay={100} />}>
       <Intro />
       <Router>
         <LanguageRedirect default>
