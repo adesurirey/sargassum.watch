@@ -17,33 +17,33 @@ CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 CURRENT_HEAD=`git rev-parse HEAD`
 ORIGIN_HEAD=`git rev-parse origin/master`
 
-if [ "master" != "${CURRENT_BRANCH}" ]; then
+if [ $CURRENT_BRANCH != "master" ]; then
   echo "✋ Please switch to master branch to deploy."
   exit 1
 fi
 
-if [ ${CURRENT_HEAD} != ${ORIGIN_HEAD} ]; then
+if [ $CURRENT_HEAD != $ORIGIN_HEAD ]; then
   echo "✋ master is not synced with origin, solve it."
   exit 1
 fi
 
 read -p "👉 Deploy to production? (y/N) " confirmed
 
-
-if [ "${confirmed}" != "y" ]; then
+if [ $confirmed != "y" ]; then
   echo "✋ Aborted."
   exit 1
 fi
 
-sentry-cli releases new "${TAG}"
+sentry-cli releases new $TAG
 
 echo "🚀 git push production master..."
 git push production master
 
-sentry-cli releases finalize "${TAG}"
+sentry-cli releases finalize $TAG
+sentry-cli releases set-commits --auto $TAG
 
-git tag ${TAG} && git push origin tag ${TAG}
+git tag $TAG && git push origin tag $TAG
 
-heroku config:set RELEASE=${TAG} --app ${HEROKU_APP}
+heroku config:set RELEASE=$TAG --app $HEROKU_APP
 
 echo "👌 Done."
