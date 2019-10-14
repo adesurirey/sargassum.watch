@@ -28,12 +28,7 @@ const ReportPopup = ({ onSubmit, ...popupProps }) => {
   const title = t('How is the beach here?');
 
   return (
-    <Popup
-      {...popupProps}
-      closeButton={false}
-      closeOnClick={false}
-      captureClick
-    >
+    <Popup {...popupProps} closeOnClick={false} closeButton captureClick>
       <Tooltip className={classes.root} title={title}>
         <ReportForm onSubmit={onSubmit} />
       </Tooltip>

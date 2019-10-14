@@ -47,8 +47,8 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
       {...popupProps}
       offsetTop={100}
       tipSize={0}
-      closeButton={false}
       closeOnClick={false}
+      closeButton
     >
       <Tooltip
         className={classes.root}
