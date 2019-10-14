@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { string } from 'prop-types';
 import YouTube from 'react-youtube';
-import * as Sentry from '@sentry/browser';
 
 import { makeStyles } from '@material-ui/styles';
+
+import useException from '../hooks/useException';
 
 const propTypes = {
   id: string.isRequired,
@@ -47,13 +48,10 @@ const options = {
 
 const YoutubeVideo = ({ id }) => {
   const classes = useStyles();
+  const logException = useException();
 
-  const onError = () => {
-    Sentry.withScope(scope => {
-      scope.setExtra('youtube_id', id);
-      Sentry.captureException(new Error('Youtube video error'));
-    });
-  };
+  const onError = () =>
+    logException('Youtube video error', [['youtube_id', id]]);
 
   return (
     <YouTube

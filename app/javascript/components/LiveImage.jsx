@@ -1,7 +1,8 @@
 import React, { useState, useEffect, memo } from 'react';
 import { string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import * as Sentry from '@sentry/browser';
+
+import useException from '../hooks/useException';
 
 const propTypes = {
   url: string.isRequired,
@@ -10,6 +11,7 @@ const propTypes = {
 const LiveImage = ({ url }) => {
   const [timestamp, setTimestamp] = useState(Date.now());
   const { t } = useTranslation();
+  const logException = useException();
 
   const tick = () => setTimestamp(Date.now());
 
@@ -18,12 +20,8 @@ const LiveImage = ({ url }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const onError = () => {
-    Sentry.withScope(scope => {
-      scope.setExtra('live_image_url', url);
-      Sentry.captureException(new Error('Live image not found'));
-    });
-  };
+  const onError = () =>
+    logException('Live image not found', [['live_image_url', url]]);
 
   const src = `${url}?d=${timestamp}`;
 
