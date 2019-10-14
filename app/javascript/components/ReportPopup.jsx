@@ -11,6 +11,7 @@ import ReportForm from './ReportForm';
 
 const propTypes = {
   onSubmit: func.isRequired,
+  onClose: func.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -28,8 +29,12 @@ const ReportPopup = ({ onSubmit, ...popupProps }) => {
   const title = t('How is the beach here?');
 
   return (
-    <Popup {...popupProps} closeOnClick={false} closeButton captureClick>
-      <Tooltip className={classes.root} title={title}>
+    <Popup {...popupProps}>
+      <Tooltip
+        className={classes.root}
+        title={title}
+        onClose={popupProps.onClose}
+      >
         <ReportForm onSubmit={onSubmit} />
       </Tooltip>
     </Popup>
