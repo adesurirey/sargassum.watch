@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 const TextPopup = ({ title, text, ...popupProps }) => (
-  <Popup {...popupProps} closeButton={false} closeOnClick={false}>
+  <Popup {...popupProps}>
     <Tooltip title={title}>
       <Typography variant="body2">{text}</Typography>
     </Tooltip>

@@ -131,8 +131,19 @@ const Mapbox = forwardRef(
           latitude={viewport.latitude}
           onChange={onViewportChange}
         />
-        {popup && <SmartPopup {...popup} onClose={dismissPopup} />}
+
+        {popup && (
+          <SmartPopup
+            {...popup}
+            onClose={dismissPopup}
+            closeButton={false}
+            closeOnClick={false}
+            captureClick
+          />
+        )}
+
         {user && <UserMarker {...user} />}
+
         <ZoomControl />
       </MapGL>
     );

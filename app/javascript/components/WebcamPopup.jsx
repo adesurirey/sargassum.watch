@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -14,6 +14,7 @@ import LiveImage from './LiveImage';
 const propTypes = {
   youtubeId: string,
   liveImageUrl: string,
+  onClose: func.isRequired,
 };
 
 const defaultProps = {
@@ -43,13 +44,7 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
   useModalView(`/webcams/${id}`);
 
   return (
-    <Popup
-      {...popupProps}
-      offsetTop={100}
-      tipSize={0}
-      closeOnClick={false}
-      closeButton
-    >
+    <Popup {...popupProps} offsetTop={100} tipSize={0}>
       <Tooltip
         className={classes.root}
         title={
@@ -59,6 +54,7 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
           </div>
         }
         compact
+        onClose={popupProps.onClose}
       >
         {youtubeId && <YoutubeVideo id={youtubeId} />}
         {liveImageUrl && <LiveImage url={liveImageUrl} />}

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { string, number } from 'prop-types';
+import { oneOfType, string, number, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -13,11 +13,12 @@ import LegendPoint from './LegendPoint';
 import SmartTimeAgo from './SmartTimeAgo';
 
 const propTypes = {
-  id: number.isRequired,
+  id: oneOfType([number, string]).isRequired,
   humanLevel: string.isRequired,
   name: string.isRequired,
   updatedAt: string.isRequired,
   source: string,
+  onClose: func.isRequired,
 };
 
 const defaultProps = {
@@ -57,8 +58,12 @@ const PointPopup = ({
   useModalView(`/reports/${id}`);
 
   return (
-    <Popup {...popupProps} closeOnClick={false} closeButton>
-      <Tooltip className={classes.root} title={name}>
+    <Popup {...popupProps}>
+      <Tooltip
+        className={classes.root}
+        title={name}
+        onClose={popupProps.onClose}
+      >
         <Grid container alignItems="center">
           <LegendPoint
             humanLevel={humanLevel}
