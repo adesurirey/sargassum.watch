@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 
+import useModalView from '../hooks/useModalView';
 import Tooltip from './Tooltip';
 import ReportForm from './ReportForm';
 
@@ -21,6 +22,8 @@ const useStyles = makeStyles(theme => ({
 const ReportPopup = ({ onSubmit, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  useModalView('/reports/new');
 
   const title = t('How is the beach here?');
 

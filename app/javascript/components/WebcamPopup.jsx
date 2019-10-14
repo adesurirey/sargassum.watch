@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 
+import useModalView from '../hooks/useModalView';
 import Tooltip from './Tooltip';
 import LiveIcon from './LiveIcon';
 import YoutubeVideo from './YoutubeVideo';
@@ -37,6 +38,9 @@ const useStyles = makeStyles(theme => ({
 const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  const id = youtubeId || liveImageUrl.split('/')[3];
+  useModalView(`/webcams/${id}`);
 
   return (
     <Popup

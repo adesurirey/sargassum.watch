@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import useModalView from '../hooks/useModalView';
 import IntroListItem from './IntroListItem';
 import IntroMedia from './IntroMedia';
 
@@ -49,6 +50,8 @@ const Intro = () => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const classes = useStyles();
+
+  useModalView('/intro');
 
   const onClose = () => setOpen(false);
 
