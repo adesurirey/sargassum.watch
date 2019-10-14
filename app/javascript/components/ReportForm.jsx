@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 
 import { Grid } from '@material-ui/core';
 
+import useEvent from '../hooks/useEvent';
 import LevelSubmit from './LevelSubmit';
 
 const levels = gon.levels.filter(level => level.label !== 'na');
@@ -13,10 +14,17 @@ const propTypes = {
 
 const ReportForm = ({ onSubmit }) => {
   const [loading, setLoading] = useState(false);
+  const createEvent = useEvent();
 
   const handleClick = value => {
     setLoading(true);
     onSubmit(value);
+
+    createEvent({
+      category: 'Reporting',
+      action: 'Reported beach status',
+      label: 'Beach status report',
+    });
   };
 
   return (
