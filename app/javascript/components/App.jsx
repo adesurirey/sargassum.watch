@@ -14,7 +14,7 @@ const Map = lazy(() => import('./Map'));
 const App = () => (
   <GlobalErrorBoundary>
     <MetaTags />
-    <Suspense fallback={<Spinner fullscreen delay={100} />}>
+    <Suspense fallback={<Spinner fullscreen delay={0} />}>
       <Intro />
       <Router>
         <Analytics default>
