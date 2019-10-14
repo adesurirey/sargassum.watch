@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 
+import useEvent from '../hooks/useEvent';
+
 const propTypes = {
   style: string.isRequired,
   onChange: func.isRequired,
@@ -12,8 +14,17 @@ const propTypes = {
 
 const StyleControl = ({ style, onChange }) => {
   const { t } = useTranslation();
+  const createEvent = useEvent();
 
-  const handleChange = (_e, newStyle) => onChange(newStyle);
+  const handleChange = (_e, newStyle) => {
+    onChange(newStyle);
+
+    createEvent({
+      category: 'Settings',
+      action: 'Changed map style',
+      label: newStyle,
+    });
+  };
 
   return (
     <Grid item xs={12}>

@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import useModalView from '../hooks/useModalView';
+import useEvent from '../hooks/useEvent';
 import IntroListItem from './IntroListItem';
 import IntroMedia from './IntroMedia';
 
@@ -47,11 +47,10 @@ const itemsFactory = t => [
 ];
 
 const Intro = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
   const classes = useStyles();
-
-  useModalView('/intro');
+  const createEvent = useEvent();
 
   const onClose = () => setOpen(false);
 
@@ -61,11 +60,22 @@ const Intro = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      createEvent({
+        category: 'Onboarding',
+        action: 'Displayed intro modal',
+        label: 'Map intro modal',
+        nonInteraction: true,
+      });
+    }
+  }, [isOpen, createEvent]);
+
   const items = itemsFactory(t);
 
   return (
     <Dialog
-      open={open}
+      open={isOpen}
       onClose={onClose}
       aria-label={t('welcome')}
       keepMounted

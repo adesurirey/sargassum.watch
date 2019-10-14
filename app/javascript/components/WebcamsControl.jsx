@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Grid, FormControlLabel, Switch } from '@material-ui/core';
 
+import useEvent from '../hooks/useEvent';
 import Eyes from '../images/sargassum.watch-logo@2x.png';
 
 const propTypes = {
@@ -58,10 +59,19 @@ const WebcamsControl = ({ onToggle }) => {
   const [checked, setChecked] = useState(true);
   const { t } = useTranslation();
   const classes = useStyles();
+  const createEvent = useEvent();
 
   const handleChange = ({ target: { checked } }) => {
+    const value = checked ? 'visible' : 'none';
     setChecked(checked);
-    onToggle(checked ? 'visible' : 'none');
+
+    onToggle(value);
+
+    createEvent({
+      category: 'Settings',
+      action: 'Toggled webcams',
+      label: value,
+    });
   };
 
   return (
