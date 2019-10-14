@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -7,11 +7,13 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Link } from '@material-ui/core';
 import { AccessTime, LinkRounded } from '@material-ui/icons';
 
+import useModalView from '../hooks/useModalView';
 import Tooltip from './Tooltip';
 import LegendPoint from './LegendPoint';
 import SmartTimeAgo from './SmartTimeAgo';
 
 const propTypes = {
+  id: number.isRequired,
   humanLevel: string.isRequired,
   name: string.isRequired,
   updatedAt: string.isRequired,
@@ -41,9 +43,18 @@ const useStyles = makeStyles(theme => ({
 const sourceName = source =>
   source.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1];
 
-const PointPopup = ({ humanLevel, name, updatedAt, source, ...popupProps }) => {
+const PointPopup = ({
+  id,
+  humanLevel,
+  name,
+  updatedAt,
+  source,
+  ...popupProps
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  useModalView(`/reports/${id}`);
 
   return (
     <Popup {...popupProps} closeButton={false} closeOnClick={false}>
