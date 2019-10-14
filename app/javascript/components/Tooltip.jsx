@@ -30,7 +30,11 @@ const useStyles = makeStyles(theme => ({
     },
   },
   header: {
+    minHeight: 32,
+    display: 'flex',
+    alignItems: 'center',
     padding: theme.spacing(1),
+    paddingRight: 40,
     background: theme.palette.action.hover,
   },
 }));

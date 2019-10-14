@@ -57,7 +57,7 @@ const PointPopup = ({
   useModalView(`/reports/${id}`);
 
   return (
-    <Popup {...popupProps} closeButton={false} closeOnClick={false}>
+    <Popup {...popupProps} closeOnClick={false} closeButton>
       <Tooltip className={classes.root} title={name}>
         <Grid container alignItems="center">
           <LegendPoint
