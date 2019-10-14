@@ -5,6 +5,7 @@ import withTheme from '../styles/withTheme';
 import GlobalErrorBoundary from './GlobalErrorBoundary';
 import MetaTags from './MetaTags';
 import Spinner from './Spinner';
+import Analytics from './Analytics';
 import LanguageRedirect from './LanguageRedirect';
 
 const Intro = lazy(() => import('./Intro'));
@@ -16,9 +17,11 @@ const App = () => (
     <Suspense fallback={<Spinner fullscreen delay={100} />}>
       <Intro />
       <Router>
-        <LanguageRedirect default>
-          <Map default />
-        </LanguageRedirect>
+        <Analytics default>
+          <LanguageRedirect default>
+            <Map default />
+          </LanguageRedirect>
+        </Analytics>
       </Router>
     </Suspense>
   </GlobalErrorBoundary>
