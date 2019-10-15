@@ -8,18 +8,21 @@ import { makeStyles } from '@material-ui/styles';
 import useModalView from '../hooks/useModalView';
 import Tooltip from './Tooltip';
 import LiveIcon from './LiveIcon';
+import LookrVideo from './LookrVideo';
 import YoutubeVideo from './YoutubeVideo';
 import LiveImage from './LiveImage';
 
 const propTypes = {
   youtubeId: string,
   liveImageUrl: string,
+  lookerUrl: string,
   onClose: func.isRequired,
 };
 
 const defaultProps = {
   youtubeId: undefined,
   liveImageUrl: undefined,
+  lookerUrl: undefined,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -36,12 +39,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
+const WebcamPopup = ({ youtubeId, liveImageUrl, lookerUrl, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const id = youtubeId || liveImageUrl.split('/')[3];
-  useModalView(`/webcams/${id}`);
+  let id;
+  if (youtubeId) {
+    id = youtubeId;
+  } else if (lookerUrl) {
+    id = lookerUrl.split('/')[3];
+  } else if (liveImageUrl) {
+    id = liveImageUrl.split('/')[3];
+  }
+
+  const createModalView = useModalView(`/webcams/${id}`);
+
+  useEffect(createModalView, [id]);
 
   return (
     <Popup {...popupProps} offsetTop={100} tipSize={0}>
@@ -56,6 +69,7 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
         compact
         onClose={popupProps.onClose}
       >
+        {lookerUrl && <LookrVideo url={lookerUrl} />}
         {youtubeId && <YoutubeVideo id={youtubeId} />}
         {liveImageUrl && <LiveImage url={liveImageUrl} />}
       </Tooltip>
