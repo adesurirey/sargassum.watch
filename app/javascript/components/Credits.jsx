@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Link, Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   hiddenXXS: {
@@ -16,7 +16,7 @@ const Credits = () => {
   const date = new Date();
 
   return (
-    <Grid item>
+    <div>
       <Link
         className={classes.hiddenXXS}
         variant="caption"
@@ -29,7 +29,7 @@ const Credits = () => {
       <Typography variant="caption" color="textSecondary">
         {` © ${date.getFullYear()}`}
       </Typography>
-    </Grid>
+    </div>
   );
 };
 

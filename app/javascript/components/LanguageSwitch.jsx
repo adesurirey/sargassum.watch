@@ -3,7 +3,7 @@ import { func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Menu, MenuItem } from '@material-ui/core';
 import { TranslateRounded } from '@material-ui/icons';
 
 import {
@@ -50,7 +50,7 @@ const LanguageSwitch = ({ navigate }) => {
   const id = t('languages');
 
   return (
-    <Grid item>
+    <div>
       <Button
         aria-controls={id}
         aria-haspopup="true"
@@ -82,7 +82,7 @@ const LanguageSwitch = ({ navigate }) => {
           </MenuItem>
         ))}
       </Menu>
-    </Grid>
+    </div>
   );
 };
 
