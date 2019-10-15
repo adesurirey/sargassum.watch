@@ -10,9 +10,7 @@ import ControlsPanel from './ControlsPanel';
 import IntervalControls from './IntervalControls';
 import Chart from './Chart';
 import Legend from './Legend';
-import LanguageSwitch from './LanguageSwitch';
-import About from './About';
-import Credits from './Credits';
+import Footer from './Footer';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
 
@@ -84,9 +82,7 @@ const Controls = ({
         </ControlsPanel>
 
         <ControlsPanel>
-          <LanguageSwitch navigate={navigate} />
-          <About />
-          <Credits />
+          <Footer navigate={navigate} />
         </ControlsPanel>
       </ResponsiveDrawer>
     </>

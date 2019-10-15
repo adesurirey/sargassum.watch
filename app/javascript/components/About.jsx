@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Link, Popover, Typography } from '@material-ui/core';
+import { Link, Popover, Typography } from '@material-ui/core';
 
 import useModalView from '../hooks/useModalView';
 
@@ -32,7 +32,7 @@ const About = () => {
   const onClose = () => setAnchorEl(null);
 
   return (
-    <Grid item>
+    <div>
       <Link
         aria-controls="about"
         aria-haspopup="true"
@@ -82,7 +82,7 @@ const About = () => {
           </Link>
         </Typography>
       </Popover>
-    </Grid>
+    </div>
   );
 };
 
