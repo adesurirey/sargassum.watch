@@ -15,6 +15,8 @@ import {
 } from '@material-ui/core';
 import { ZoomOutMapRounded } from '@material-ui/icons';
 
+import useModalView from '../hooks/useModalView';
+
 const Logo = lazy(() => import('./Logo'));
 
 const { quickLooks } = gon;
@@ -44,6 +46,7 @@ const QuickLook = ({ loaded, onViewportChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [hover, setHover] = useState(false);
   const [animated, setAnimated] = useState(false);
+  const createModalView = useModalView('/quicklooks');
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -64,7 +67,11 @@ const QuickLook = ({ loaded, onViewportChange }) => {
 
   useEffect(animate, [loaded]);
 
-  const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
+  const onClick = ({ currentTarget }) => {
+    setAnchorEl(currentTarget);
+    createModalView();
+  };
+
   const onClose = () => setAnchorEl(null);
 
   const onSelect = place => {
