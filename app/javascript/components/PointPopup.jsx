@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useEffect, memo } from 'react';
 import { oneOfType, string, number, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
@@ -54,8 +54,9 @@ const PointPopup = ({
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const createModalView = useModalView(`/reports/${id}`);
 
-  useModalView(`/reports/${id}`);
+  useEffect(createModalView, [id]);
 
   return (
     <Popup {...popupProps}>
