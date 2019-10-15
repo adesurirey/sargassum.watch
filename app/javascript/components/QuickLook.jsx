@@ -86,7 +86,7 @@ const QuickLook = ({ loaded, onViewportChange }) => {
     onClose();
     createEvent({
       category: 'Navigation',
-      action: `Clicked ${place} quick look`,
+      action: `Clicked quick look`,
       label: `${place} quick look`,
     });
   };

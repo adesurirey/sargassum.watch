@@ -22,7 +22,7 @@ const StyleControl = ({ style, onChange }) => {
     createEvent({
       category: 'Settings',
       action: 'Changed map style',
-      label: newStyle,
+      label: `${newStyle} map style`,
     });
   };
 

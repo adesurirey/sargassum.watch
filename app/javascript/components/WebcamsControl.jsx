@@ -70,7 +70,7 @@ const WebcamsControl = ({ onToggle }) => {
     createEvent({
       category: 'Settings',
       action: 'Toggled webcams',
-      label: value,
+      label: `${value} webcams`,
     });
   };
 

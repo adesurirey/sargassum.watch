@@ -4,9 +4,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { forwardRef } from 'react';
 import { object, oneOf, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
-import { useTranslation } from 'react-i18next';
 
-import { currentLanguage } from '../utils/i18n';
 import {
   REPORTS_POINTS_LAYER_ID,
   WEBCAMS_CLUSTERS_LAYER_ID,
@@ -78,9 +76,6 @@ const Mapbox = forwardRef(
     },
     ref,
   ) => {
-    const { i18n } = useTranslation();
-    const language = currentLanguage(i18n);
-
     const dispatchClick = feature => {
       const layerId = feature.layer.id;
 
@@ -126,7 +121,6 @@ const Mapbox = forwardRef(
         <Geocoder
           mapRef={ref}
           containerRef={geocoderContainerRef}
-          language={language}
           longitude={viewport.longitude}
           latitude={viewport.latitude}
           onChange={onViewportChange}
