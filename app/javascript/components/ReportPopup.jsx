@@ -44,4 +44,4 @@ const ReportPopup = ({ onSubmit, ...popupProps }) => {
 
 export default memo(ReportPopup);
 
-ReportForm.propTypes = propTypes;
+ReportPopup.propTypes = propTypes;
