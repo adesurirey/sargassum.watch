@@ -23,7 +23,7 @@ const ReportForm = ({ onSubmit }) => {
     createEvent({
       category: 'Reporting',
       action: 'Reported beach status',
-      label: 'Beach status report',
+      label: `${value} beach report`,
     });
   };
 
