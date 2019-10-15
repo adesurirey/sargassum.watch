@@ -13,9 +13,9 @@ import {
 } from './date';
 
 const intervals = [
-  { id: '7_days', value: 7, unit: 'day' },
-  { id: '4_weeks', value: 4, unit: 'week' },
   { id: '12_months', value: 12, unit: 'month' },
+  { id: '4_weeks', value: 4, unit: 'week' },
+  { id: '7_days', value: 7, unit: 'day' },
 ];
 
 const getInterval = search => {

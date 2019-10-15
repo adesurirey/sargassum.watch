@@ -42,7 +42,7 @@ class Report < ApplicationRecord
 
   class << self
     def cached_geojson
-      datasets = Dataset.where(end_at: 1.year.ago..DateTime.current)
+      datasets = Dataset.where(end_at: 1.year.ago.beginning_of_day..DateTime.current)
       reports = all.select(GEO_ATTRIBUTES)
 
       Rails.cache.fetch(cache_key(datasets, reports)) do
