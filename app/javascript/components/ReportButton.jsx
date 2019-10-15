@@ -8,6 +8,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Zoom, Tooltip, Fab } from '@material-ui/core';
 import { MyLocationRounded } from '@material-ui/icons';
 
+import useEvent from '../hooks/useEvent';
+
 const propTypes = {
   visible: bool,
   loading: bool,
@@ -48,12 +50,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ReportButton = ({ visible, loading, onClick }) => {
+  const createEvent = useEvent();
   const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleClick = () => !loading && onClick();
+  const handleClick = () => {
+    if (loading) return;
+
+    onClick();
+    createEvent({
+      category: 'Reporting',
+      action: 'Clicked report button',
+      label: 'Report button click',
+    });
+  };
 
   const label = t('Report your beach status');
 
