@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useEffect, memo } from 'react';
 import { string, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,9 @@ const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
   const classes = useStyles();
 
   const id = youtubeId || liveImageUrl.split('/')[3];
-  useModalView(`/webcams/${id}`);
+  const createModalView = useModalView(`/webcams/${id}`);
+
+  useEffect(createModalView, [id]);
 
   return (
     <Popup {...popupProps} offsetTop={100} tipSize={0}>

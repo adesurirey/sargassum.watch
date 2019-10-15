@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Link, Popover, Typography } from '@material-ui/core';
 
+import useModalView from '../hooks/useModalView';
+
 const useStyles = makeStyles(theme => ({
   popover: {
     maxWidth: 320,
@@ -18,10 +20,15 @@ const { contact } = gon;
 
 const About = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const createModalView = useModalView('/about');
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const onClick = ({ currentTarget }) => setAnchorEl(currentTarget);
+  const onClick = ({ currentTarget }) => {
+    setAnchorEl(currentTarget);
+    createModalView();
+  };
+
   const onClose = () => setAnchorEl(null);
 
   return (

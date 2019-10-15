@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useEffect, memo } from 'react';
 import { func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
@@ -23,8 +23,9 @@ const useStyles = makeStyles(theme => ({
 const ReportPopup = ({ onSubmit, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const createModalView = useModalView('/reports/new');
 
-  useModalView('/reports/new');
+  useEffect(createModalView, []);
 
   const title = t('How is the beach here?');
 
