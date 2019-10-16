@@ -27,12 +27,7 @@ import {
   toWebcamPopup,
 } from '../utils/geoJSON';
 import { getInterval, featuresInInterval } from '../utils/interval';
-import {
-  onNextIdle,
-  setNextIdle,
-  validateWaterPresence,
-  isDifferentPosition,
-} from '../utils/map';
+import { validateWaterPresence, isSamePosition } from '../utils/map';
 import Api from '../utils/Api';
 import textFromError from '../utils/textFromError';
 
@@ -66,13 +61,16 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
-    const viewport = getViewport(window.location.hash);
+    const center = getViewport(window.location.hash);
     const interval = getInterval(window.location.search);
 
     this.state = {
       loaded: false,
       geolocating: false,
-      viewport,
+      viewport: {
+        ...center,
+        transitionInterpolator: new FlyToInterpolator(),
+      },
       style: mapStyle,
       features: [],
       interval,
@@ -89,13 +87,17 @@ class Map extends Component {
     this.onMoveEndDebounced = _debounce(this.onMoveEnd, 500);
   }
 
-  zoom({ zoom, ...coordinates }) {
-    this.onViewportChange({
-      zoom,
-      ...coordinates,
-      transitionDuration: (zoom - this.state.viewport.zoom) * 100,
-      transitionInterpolator: new FlyToInterpolator(),
+  setStateAsync(state) {
+    return new Promise(resolve => {
+      this.setState(state, resolve);
     });
+  }
+
+  zoom({ zoom, minDuration = 1000, ...coordinates }) {
+    const zoomDifference = zoom - this.state.viewport.zoom;
+    const transitionDuration = Math.max(zoomDifference * 100, minDuration);
+
+    this.onViewportChange({ zoom, ...coordinates, transitionDuration });
   }
 
   getMap = () => {
@@ -138,7 +140,7 @@ class Map extends Component {
     const map = this.getMap();
     const { zoom } = this.state.viewport;
 
-    onNextIdle(map, this.setRenderedFeatures);
+    map.once('idle', this.setRenderedFeatures);
 
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(reportsPointsLayer, INSERT_BEFORE_LAYER_ID);
@@ -192,7 +194,7 @@ class Map extends Component {
 
     const features = this.getFeaturesInInterval();
 
-    onNextIdle(map, this.setRenderedFeatures);
+    map.once('idle', this.setRenderedFeatures);
     source.setData(featureCollection(features));
   };
 
@@ -263,7 +265,7 @@ class Map extends Component {
       .getSource(WEBCAMS_SOURCE_ID)
       .getClusterExpansionZoom(clusterId, (err, zoom) => {
         if (err) return;
-        this.zoom({ zoom, longitude, latitude });
+        this.zoom({ zoom, longitude, latitude, minDuration: 200 });
       });
   };
 
@@ -337,28 +339,20 @@ class Map extends Component {
     });
   };
 
-  onGeolocated = ({ latitude, longitude }) => {
-    const { viewport } = this.state;
+  onGeolocated = async ({ latitude, longitude }) => {
     const map = this.getMap();
+    const { viewport } = this.state;
+    const user = { latitude, longitude };
 
-    let handlePosition = this.handleUserPosition;
-    if (isDifferentPosition(map, [viewport, { latitude, longitude }])) {
-      handlePosition = setNextIdle(map, handlePosition);
+    await this.setStateAsync({ user });
+
+    if (isSamePosition(map, [viewport, user])) {
+      return this.handleUserPosition();
     }
 
-    this.setState(
-      {
-        user: { latitude, longitude },
-        viewport: {
-          latitude,
-          longitude,
-          zoom: 19,
-          transitionInterpolator: new FlyToInterpolator(),
-          transitionDuration: 2000,
-        },
-      },
-      handlePosition,
-    );
+    map.once('idle', this.handleUserPosition);
+
+    this.zoom({ zoom: 19, ...user });
   };
 
   onGeolocationFailed = () => {
@@ -385,7 +379,7 @@ class Map extends Component {
 
   onStyleChange = style => {
     const map = this.getMap();
-    const reinitializeMap = setNextIdle(map, this.initMap);
+    const reinitializeMap = () => map.once('idle', this.initMap);
 
     this.setState({ style }, reinitializeMap);
 

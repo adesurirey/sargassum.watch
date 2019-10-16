@@ -21,23 +21,15 @@ const validateWaterPresence = (map, { latitude, longitude }) => {
   return !!waterFeatures.length;
 };
 
-const onNextIdle = (map, call) =>
-  map.on('idle', function callback() {
-    map.off('idle', callback);
-    call();
-  });
-
-const setNextIdle = (map, call) => () => onNextIdle(map, call);
-
-const isDifferentPosition = (map, [viewport, coordinates]) => {
+const isSamePosition = (map, [viewport, coordinates]) => {
   if (viewport.zoom !== 19) {
-    return true;
+    return false;
   }
 
   const a = map.project([viewport.longitude, viewport.latitude]);
   const b = map.project([coordinates.longitude, coordinates.latitude]);
 
-  return a.x.toFixed(2) !== b.x.toFixed(2) || a.y.toFixed(2) !== b.y.toFixed(2);
+  return a.x.toFixed(2) === b.x.toFixed(2) && a.y.toFixed(2) === b.y.toFixed(2);
 };
 
-export { onNextIdle, setNextIdle, validateWaterPresence, isDifferentPosition };
+export { validateWaterPresence, isSamePosition };
