@@ -25,7 +25,6 @@ import {
   featureCollection,
   toPointPopup,
   toWebcamPopup,
-  isSameFeatures,
 } from '../utils/geoJSON';
 import { getInterval, featuresInInterval } from '../utils/interval';
 import {
@@ -104,20 +103,14 @@ class Map extends Component {
   };
 
   getFeaturesInInterval() {
-    const { features, interval, featuresForInterval } = this.state;
+    const { features, interval } = this.state;
 
     const newFeatures = featuresInInterval(features, interval);
 
-    if (isSameFeatures(newFeatures, featuresForInterval)) {
-      // Because it won't trigger a map idle event,
-      // which is responsible for updating rendered features interval,
-      // we update rendered features interval manualy.
-      this.setState(({ renderedFeatures }) => ({
-        renderedFeatures: { loading: false, interval, ...renderedFeatures },
-      }));
-    } else {
-      this.setState({ featuresForInterval: newFeatures });
-    }
+    this.setState(({ renderedFeatures }) => ({
+      featuresForInterval: newFeatures,
+      renderedFeatures: { loading: false, interval, ...renderedFeatures },
+    }));
 
     return newFeatures;
   }
@@ -191,11 +184,13 @@ class Map extends Component {
       }));
   };
 
-  setMapData = features => {
+  setMapData = () => {
     const map = this.getMap();
     const source = map && map.getSource(REPORTS_SOURCE_ID);
 
     if (!source) return;
+
+    const features = this.getFeaturesInInterval();
 
     onNextIdle(map, this.setRenderedFeatures);
     source.setData(featureCollection(features));
@@ -289,7 +284,7 @@ class Map extends Component {
         interval,
         renderedFeatures: { ...renderedFeatures, loading: true },
       }),
-      () => this.setMapData(this.getFeaturesInInterval()),
+      this.setMapData,
     );
 
     navigate(`?interval=${interval.id}${window.location.hash}`);
@@ -307,7 +302,7 @@ class Map extends Component {
         popup: toPointPopup(feature),
         user: null,
       }),
-      () => this.setMapData(this.getFeaturesInInterval()),
+      this.setMapData,
     );
 
   onReportSubmit = level => {
