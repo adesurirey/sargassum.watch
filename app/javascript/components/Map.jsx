@@ -30,6 +30,7 @@ import {
 import { getInterval, featuresInInterval } from '../utils/interval';
 import {
   onNextIdle,
+  setNextIdle,
   validateWaterPresence,
   isDifferentPosition,
 } from '../utils/map';
@@ -86,14 +87,7 @@ class Map extends Component {
     this.mapRef = React.createRef();
     this.geocoderContainerRef = React.createRef();
 
-    this.handleLayersInteractivityDebounced = _debounce(
-      this.handleLayersInteractivity,
-      500,
-    );
-    this.setRenderedFeaturesDebounced = _debounce(
-      this.setRenderedFeatures,
-      1200,
-    );
+    this.onMoveEndDebounced = _debounce(this.onMoveEnd, 500);
   }
 
   zoom({ zoom, ...coordinates }) {
@@ -151,6 +145,8 @@ class Map extends Component {
     const map = this.getMap();
     const { zoom } = this.state.viewport;
 
+    onNextIdle(map, this.setRenderedFeatures);
+
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(reportsPointsLayer, INSERT_BEFORE_LAYER_ID);
 
@@ -168,7 +164,12 @@ class Map extends Component {
 
     this.setState({ interactiveLayerIds });
 
-    map.on('idle', this.setRenderedFeaturesDebounced);
+    map.on('moveend', this.onMoveEndDebounced);
+  };
+
+  onMoveEnd = () => {
+    this.handleLayersInteractivity();
+    this.setRenderedFeatures();
   };
 
   setRenderedFeatures = () => {
@@ -178,9 +179,7 @@ class Map extends Component {
       layers: [REPORTS_POINTS_LAYER_ID],
     });
 
-    features = _uniqBy(features, 'properties.id').map(({ properties }) => ({
-      properties,
-    }));
+    features = _uniqBy(features, 'properties.id');
 
     features &&
       this.setState(({ interval }) => ({
@@ -196,10 +195,32 @@ class Map extends Component {
     const map = this.getMap();
     const source = map && map.getSource(REPORTS_SOURCE_ID);
 
-    source && source.setData(featureCollection(features));
+    if (!source) return;
+
+    onNextIdle(map, this.setRenderedFeatures);
+    source.setData(featureCollection(features));
   };
 
   dismissPopup = () => this.setState({ popup: null });
+
+  handleLayersInteractivity = () => {
+    const { zoom } = this.state.viewport;
+
+    const interactiveLayerIds = [...this.state.interactiveLayerIds];
+    const pointsLayerInteractive = interactiveLayerIds.includes(
+      REPORTS_POINTS_LAYER_ID,
+    );
+
+    if (zoom >= POINTS_MIN_ZOOM_LEVEL && !pointsLayerInteractive) {
+      interactiveLayerIds.push(REPORTS_POINTS_LAYER_ID);
+    } else if (zoom < POINTS_MIN_ZOOM_LEVEL && pointsLayerInteractive) {
+      _pull(interactiveLayerIds, REPORTS_POINTS_LAYER_ID);
+    } else {
+      return;
+    }
+
+    this.setState({ interactiveLayerIds });
+  };
 
   onError(error, coordinates = null) {
     const { t } = this.props;
@@ -225,30 +246,10 @@ class Map extends Component {
       .catch(error => this.onError(error));
   };
 
-  handleLayersInteractivity = () => {
-    const { zoom } = this.state.viewport;
-
-    const interactiveLayerIds = [...this.state.interactiveLayerIds];
-    const pointsLayerInteractive = interactiveLayerIds.includes(
-      REPORTS_POINTS_LAYER_ID,
-    );
-
-    if (zoom >= POINTS_MIN_ZOOM_LEVEL && !pointsLayerInteractive) {
-      interactiveLayerIds.push(REPORTS_POINTS_LAYER_ID);
-    } else if (zoom < POINTS_MIN_ZOOM_LEVEL && pointsLayerInteractive) {
-      _pull(interactiveLayerIds, REPORTS_POINTS_LAYER_ID);
-    }
-
-    this.setState({ interactiveLayerIds });
-  };
-
-  onViewportChange = viewportChange => {
+  onViewportChange = viewportChange =>
     this.setState(({ viewport }) => ({
       viewport: { ...viewport, ...viewportChange },
     }));
-
-    this.handleLayersInteractivityDebounced();
-  };
 
   onReportFeatureClick = feature =>
     this.setState({ popup: toPointPopup(feature) });
@@ -345,7 +346,7 @@ class Map extends Component {
 
     let handlePosition = this.handleUserPosition;
     if (isDifferentPosition(map, [viewport, { latitude, longitude }])) {
-      handlePosition = onNextIdle(map, handlePosition);
+      handlePosition = setNextIdle(map, handlePosition);
     }
 
     this.setState(
@@ -387,8 +388,7 @@ class Map extends Component {
 
   onStyleChange = style => {
     const map = this.getMap();
-    map.off('idle', this.setRenderedFeaturesDebounced);
-    const reinitializeMap = onNextIdle(map, this.initMap);
+    const reinitializeMap = setNextIdle(map, this.initMap);
 
     this.setState({ style }, reinitializeMap);
 
