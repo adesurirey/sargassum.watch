@@ -231,6 +231,8 @@ class Map extends Component {
   }
 
   onLoaded = () => {
+    if (this.state.loaded) return;
+
     this.setState({ loaded: true });
 
     api
