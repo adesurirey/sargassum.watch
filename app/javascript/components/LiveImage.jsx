@@ -14,7 +14,7 @@ const propTypes = {
 
 const useStyles = makeStyles(theme => ({
   button: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     right: 0,
     color: theme.palette.common.white,
