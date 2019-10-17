@@ -87,6 +87,12 @@ class Map extends Component {
     this.onMoveEndDebounced = _debounce(this.onMoveEnd, 500);
   }
 
+  componentDidMount() {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addListener(this.reinitializeMap);
+  }
+
   setStateAsync(state) {
     return new Promise(resolve => {
       this.setState(state, resolve);
@@ -160,6 +166,11 @@ class Map extends Component {
     this.setState({ interactiveLayerIds });
 
     map.on('moveend', this.onMoveEndDebounced);
+  };
+
+  reinitializeMap = () => {
+    const map = this.getMap();
+    map.once('idle', this.initMap);
   };
 
   onMoveEnd = () => {
@@ -378,10 +389,7 @@ class Map extends Component {
   };
 
   onStyleChange = style => {
-    const map = this.getMap();
-    const reinitializeMap = () => map.once('idle', this.initMap);
-
-    this.setState({ style }, reinitializeMap);
+    this.setState({ style }, this.reinitializeMap);
 
     api.createSetting({ map_style: style });
   };

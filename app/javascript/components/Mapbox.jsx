@@ -5,6 +5,8 @@ import React, { forwardRef } from 'react';
 import { object, oneOf, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
 
+import { useTheme } from '@material-ui/styles';
+
 import {
   REPORTS_POINTS_LAYER_ID,
   WEBCAMS_CLUSTERS_LAYER_ID,
@@ -52,10 +54,17 @@ const settings = {
   maxPitch: 85,
 };
 
-const styles = {
-  map: 'mapbox://styles/adesurirey/ck0e1s9fk0gvb1cpb7na085mf',
-  satellite: 'mapbox://styles/adesurirey/cjzgt6e0h1aau1cqq89lsakr6',
+const mapStyle = {
+  dark: 'mapbox://styles/mapbox/dark-v9',
+  light: 'mapbox://styles/mapbox/light-v9',
 };
+
+const satelliteStyle = 'mapbox://styles/adesurirey/cjzgt6e0h1aau1cqq89lsakr6';
+
+const getStyles = colorScheme => ({
+  map: mapStyle[colorScheme],
+  satellite: satelliteStyle,
+});
 
 const Mapbox = forwardRef(
   (
@@ -76,6 +85,10 @@ const Mapbox = forwardRef(
     },
     ref,
   ) => {
+    const theme = useTheme();
+    const colorScheme = theme.palette.type;
+    const styles = getStyles(colorScheme);
+
     const dispatchClick = feature => {
       const layerId = feature.layer.id;
 
