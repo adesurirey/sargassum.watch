@@ -55,11 +55,12 @@ const settings = {
 };
 
 const mapStyle = {
-  dark: 'mapbox://styles/mapbox/dark-v9',
-  light: 'mapbox://styles/mapbox/light-v9',
+  dark: 'mapbox://styles/adesurirey/ck1v6gz6q1k5o1cq115zjwovw?optimize=true',
+  light: 'mapbox://styles/adesurirey/ck1v473zq0ee51clddiyaztnh?optimize=true',
 };
 
-const satelliteStyle = 'mapbox://styles/adesurirey/cjzgt6e0h1aau1cqq89lsakr6';
+const satelliteStyle =
+  'mapbox://styles/adesurirey/cjzgt6e0h1aau1cqq89lsakr6?optimize=true';
 
 const getStyles = colorScheme => ({
   map: mapStyle[colorScheme],
