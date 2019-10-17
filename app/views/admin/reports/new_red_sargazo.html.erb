@@ -1,0 +1,36 @@
+<%= semantic_form_for :red_sargazo,
+      method: :post,
+      url: new_red_sargazo_admin_reports_path,
+      builder: ActiveAdmin::FormBuilder do |f| %>
+
+  <%= f.inputs do %>
+    <%= f.input :created_at,
+          as: :datetime_picker,
+          input_html: { value: DateTime.current.strftime("%Y-%m-%dT%H:%m") } %>
+
+    <%= f.semantic_fields_for :reports do |reports| %>
+      <% @locations.each do |location| %>
+        <%= f.inputs do %>
+          <%= reports.semantic_fields_for location.name, Report.new do |report| %>
+            <%= report.input :name,
+                  input_html: { value: location.name },
+                  required: true %>
+            <%= report.input :latitude,
+                  input_html: { value: location.latitude, readonly: true } %>
+            <%= report.input :longitude,
+                  input_html: { value: location.longitude, readonly: true } %>
+            <%= report.input :level,
+                  collection: Report::levels.keys.to_a,
+                  selected: :clear,
+                  required: true %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+    <li class="cancel"><%= link_to "Cancel", admin_reports_path %></li>
+  <% end %>
+<% end %>

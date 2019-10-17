@@ -38,9 +38,40 @@ ActiveAdmin.register Report do
     end
   end
 
+  action_item :red_sargazo, only: :index do
+    link_to "New RedSargazo", new_red_sargazo_admin_reports_path
+  end
+
+  collection_action :new_red_sargazo, method: [:get, :post] do
+    if request.get?
+      @locations = RED_SARGAZO_LOCATIONS.map { |report| Report.new(report) }
+      render "admin/reports/new_red_sargazo"
+    else
+      user_id = SecureRandom.hex
+      reports = params.require(:red_sargazo).permit(reports: {}).to_h[:reports]
+
+      reports = reports.map do |_, attributes|
+        attributes.merge(
+          user_id:    user_id,
+          created_at: params[:red_sargazo][:created_at],
+          source:     "https://www.facebook.com/RedSargazo",
+        )
+      end
+
+      Report.transaction do
+        Report.without_cache_callback do
+          Report.create!(reports)
+        end
+      end
+
+      CreateReportsGeoJSONCacheJob.perform_later
+      redirect_to admin_reports_path, notice: "#{reports.size} reports created !"
+    end
+  end
+
   index do
     id_column
-    column(:name) { |report| report.name.truncate(22) }
+    column(:name) { |report| report.name.truncate(15) }
     column(:level) { |report| status_tag(report.level, class: report.level) }
     column :user_id
     column :created_at
