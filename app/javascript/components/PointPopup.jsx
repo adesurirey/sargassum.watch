@@ -41,8 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const sourceName = source =>
-  source.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1];
+const sourceName = source => source.replace(/^https?:\/\/(www.)?/, '');
 
 const PointPopup = ({
   id,
