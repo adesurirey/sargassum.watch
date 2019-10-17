@@ -18,6 +18,26 @@ ActiveAdmin.register Report do
   filter :created_at
   filter :updated_at
 
+  controller do
+    prepend_before_action :authenticate_admin, only: :new
+
+    private
+
+    def authenticate_admin
+      return if admin_id
+
+      @admin_id = cookies.signed.permanent[:admin_id] = SecureRandom.hex
+    end
+
+    def admin_id
+      @admin_id ||= cookies.signed[:admin_id]
+    end
+
+    def build_new_resource
+      Report.new(user_id: admin_id)
+    end
+  end
+
   index do
     id_column
     column(:name) { |report| report.name.truncate(22) }
