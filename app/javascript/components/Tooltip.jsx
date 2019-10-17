@@ -27,12 +27,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     background: fade(theme.palette.background.paper, 0.9),
   },
-  content: {
-    padding: ({ compact }) => (compact ? 0 : theme.spacing(1)),
-    '&:last-child': {
-      paddingBottom: ({ compact }) => (compact ? 0 : theme.spacing(1)),
-    },
-  },
   header: {
     position: 'relative',
     display: 'flex',
@@ -40,6 +34,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     paddingRight: ({ onClose }) => (onClose ? 38 : theme.spacing(1)),
     background: theme.palette.action.hover,
+  },
+  content: {
+    padding: ({ compact }) => (compact ? 0 : theme.spacing(1)),
+    transition: theme.transitions.create(['height'], {
+      duration: theme.transitions.duration.complex,
+    }),
+    '&:last-child': {
+      paddingBottom: ({ compact }) => (compact ? 0 : theme.spacing(1)),
+    },
   },
 }));
 

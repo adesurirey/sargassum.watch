@@ -7,12 +7,22 @@ import { Tooltip, IconButton, Modal, Backdrop } from '@material-ui/core';
 import { Fullscreen, FullscreenExit } from '@material-ui/icons';
 
 import useException from '../hooks/useException';
+import Spinner from './Spinner';
 
 const propTypes = {
   url: string.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
+  img: {
+    display: loaded => (loaded ? 'block' : 'none'),
+  },
+
+  notFound: {
+    position: 'relative',
+    padding: theme.spacing(3),
+  },
+
   button: {
     position: 'fixed',
     bottom: 0,
@@ -53,7 +63,7 @@ const LiveImage = ({ url }) => {
   const [isFullscreen, setFullscreen] = useState(false);
 
   const { t } = useTranslation();
-  const classes = useStyles();
+  const classes = useStyles(loaded);
   const logException = useException();
 
   const tick = () => setTimestamp(Date.now());
@@ -66,20 +76,32 @@ const LiveImage = ({ url }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const onLoad = () => setLoaded(true);
+
   const onError = () => {
+    setLoaded(false);
     logException('Live image not found', [['live_image_url', url]]);
   };
 
+  const notFoundMessage = (
+    <div className={classes.notFound}>
+      <Spinner delay={100} size={16} />
+    </div>
+  );
+
   const image = (
-    <img
-      src={`${url}?d=${timestamp}`}
-      width="100%"
-      height="auto"
-      style={{ display: 'block' }}
-      alt={t('Live is off')}
-      onLoad={() => setLoaded(true)}
-      onError={onError}
-    />
+    <>
+      <img
+        src={`${url}?d=${timestamp}`}
+        alt={t('Live is off')}
+        width="100%"
+        height="auto"
+        className={classes.img}
+        onLoad={onLoad}
+        onError={onError}
+      />
+      {!loaded && notFoundMessage}
+    </>
   );
 
   return (
