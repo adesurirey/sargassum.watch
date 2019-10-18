@@ -240,6 +240,26 @@
       "properties": {
         "liveImageUrl": "http://107.170.253.177/akumal/netcam-0.jpg"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.46523, 25.074844]
+      },
+      "properties": {
+        "youtubeId": "mMDN_pC3ovU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-86.751385, 21.259166]
+      },
+      "properties": {
+        "youtubeId": "froEZ_0Poo8"
+      }
     }
   ]
 }
