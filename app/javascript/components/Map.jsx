@@ -84,7 +84,7 @@ class Map extends Component {
     this.mapRef = React.createRef();
     this.geocoderContainerRef = React.createRef();
 
-    this.onMoveEndDebounced = _debounce(this.onMoveEnd, 500);
+    this.onReportsIdle = _debounce(this.onReportsIdle, 500);
   }
 
   componentDidMount() {
@@ -144,10 +144,8 @@ class Map extends Component {
 
   initLayers = () => {
     const map = this.getMap();
-    const { zoom } = this.state.viewport;
 
-    map.off('moveend', this.onMoveEndDebounced);
-    map.once('idle', this.setRenderedFeatures);
+    this.handleReportsIdle();
 
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
     map.addLayer(reportsPointsLayer, INSERT_BEFORE_LAYER_ID);
@@ -160,13 +158,9 @@ class Map extends Component {
       map.addLayer(webcamsPointsLayer);
     });
 
-    let interactiveLayerIds = [webcamsClustersLayer.id, webcamsPointsLayer.id];
-    zoom >= POINTS_MIN_ZOOM_LEVEL &&
-      interactiveLayerIds.push(reportsPointsLayer.id);
-
-    this.setState({ interactiveLayerIds });
-
-    map.on('moveend', this.onMoveEndDebounced);
+    this.setState({
+      interactiveLayerIds: [webcamsClustersLayer.id, webcamsPointsLayer.id],
+    });
   };
 
   reinitializeMap = () => {
@@ -174,9 +168,14 @@ class Map extends Component {
     map.once('idle', this.initMap);
   };
 
-  onMoveEnd = () => {
+  onReportsIdle = () => {
     this.handleLayersInteractivity();
     this.setRenderedFeatures();
+  };
+
+  handleReportsIdle = () => {
+    const map = this.getMap();
+    map && map.once('idle', this.onReportsIdle);
   };
 
   setRenderedFeatures = () => {
@@ -206,7 +205,7 @@ class Map extends Component {
 
     const features = this.getFeaturesInInterval();
 
-    map.once('idle', this.setRenderedFeatures);
+    this.handleReportsIdle();
     source.setData(featureCollection(features));
   };
 
@@ -257,10 +256,14 @@ class Map extends Component {
       .catch(error => this.onError(error));
   };
 
-  onViewportChange = viewportChange =>
-    this.setState(({ viewport }) => ({
-      viewport: { ...viewport, ...viewportChange },
-    }));
+  onViewportChange = viewportChange => {
+    this.setState(
+      ({ viewport }) => ({
+        viewport: { ...viewport, ...viewportChange },
+      }),
+      this.handleReportsIdle,
+    );
+  };
 
   onReportFeatureClick = feature =>
     this.setState({ popup: toPointPopup(feature) });
