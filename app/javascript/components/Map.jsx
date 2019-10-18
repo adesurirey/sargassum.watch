@@ -110,6 +110,11 @@ class Map extends Component {
     return this.mapRef.current ? this.mapRef.current.getMap() : null;
   };
 
+  queryRenderedFeatures = (geometry, options) => {
+    const map = this.getMap();
+    return map && map.queryRenderedFeatures(geometry, options);
+  };
+
   getFeaturesInInterval() {
     const { features, interval } = this.state;
 
@@ -179,15 +184,13 @@ class Map extends Component {
   };
 
   setRenderedFeatures = () => {
-    const map = this.getMap();
-
-    let features = map.queryRenderedFeatures({
+    let features = this.queryRenderedFeatures({
       layers: [REPORTS_POINTS_LAYER_ID],
     });
 
-    features = _uniqBy(features, 'properties.id');
+    if (features) {
+      features = _uniqBy(features, 'properties.id');
 
-    features &&
       this.setState(({ interval }) => ({
         renderedFeatures: {
           loading: false,
@@ -195,6 +198,7 @@ class Map extends Component {
           features,
         },
       }));
+    }
   };
 
   setMapData = () => {
