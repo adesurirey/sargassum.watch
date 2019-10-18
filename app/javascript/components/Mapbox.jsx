@@ -131,6 +131,7 @@ const Mapbox = forwardRef(
         onViewportChange={onViewportChange}
         onLoad={onLoaded}
         onClick={handleClick}
+        asyncRender
       >
         <Geocoder
           mapRef={ref}
