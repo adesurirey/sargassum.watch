@@ -38,7 +38,7 @@ const BottomDrawerToggler = ({
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const text = t(`Last ${toString(interval)} beaches status`);
+  const text = t(`Last ${toString(interval)} reports`);
 
   return (
     <Drawer
