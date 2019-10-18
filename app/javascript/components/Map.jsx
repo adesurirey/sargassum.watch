@@ -146,6 +146,7 @@ class Map extends Component {
     const map = this.getMap();
     const { zoom } = this.state.viewport;
 
+    map.off('moveend', this.onMoveEndDebounced);
     map.once('idle', this.setRenderedFeatures);
 
     map.addLayer(reportsHeatmapLayer, INSERT_BEFORE_LAYER_ID);
