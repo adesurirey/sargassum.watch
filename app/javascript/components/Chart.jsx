@@ -40,13 +40,14 @@ const Chart = ({ loading, features, interval, tiny, ...containerProps }) => {
   );
 };
 
-const featuresUnchanged = (
+const isEqual = (
   { loading: prevLoading, interval: prevInterval, features: prevFeatures },
   { loading: nextLoading, interval: nextInterval, features: nextFeatures },
 ) => {
   if (
     prevLoading === nextLoading &&
     prevInterval.id === nextInterval.id &&
+    // Shallow comparing features would be too expansive
     prevFeatures.length === nextFeatures.length
   ) {
     return true;
@@ -54,7 +55,7 @@ const featuresUnchanged = (
   return false;
 };
 
-export default memo(Chart, featuresUnchanged);
+export default memo(Chart, isEqual);
 
 Chart.propTypes = propTypes;
 Chart.defaultProps = defaultProps;

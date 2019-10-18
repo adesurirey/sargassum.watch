@@ -122,7 +122,7 @@ class Map extends Component {
 
     this.setState(({ renderedFeatures }) => ({
       featuresForInterval: newFeatures,
-      renderedFeatures: { loading: false, interval, ...renderedFeatures },
+      renderedFeatures: { interval, ...renderedFeatures },
     }));
 
     return newFeatures;
