@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { bool } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -42,10 +42,18 @@ const BigChart = ({ loading, data, interval }) => {
   const theme = useTheme();
   const classes = useStyles();
 
-  const start = intervalStartDate(interval).getTime();
-  const now = toTickDate(new Date(), interval.unit).getTime();
+  const start = useMemo(() => intervalStartDate(interval).getTime(), [
+    interval,
+  ]);
 
-  const tickFormatter = getTickFormatter(interval, t);
+  const now = useMemo(() => toTickDate(new Date(), interval.unit).getTime(), [
+    interval,
+  ]);
+
+  const tickFormatter = useMemo(() => getTickFormatter(interval, t), [
+    interval,
+    t,
+  ]);
 
   return (
     <Grid item xs={12} className={classes.container}>
