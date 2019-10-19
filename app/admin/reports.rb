@@ -54,6 +54,7 @@ ActiveAdmin.register Report do
         attributes.merge(
           user_id:    user_id,
           created_at: params[:red_sargazo][:created_at],
+          updated_at: params[:red_sargazo][:created_at],
           source:     "https://www.facebook.com/RedSargazo",
         )
       end
