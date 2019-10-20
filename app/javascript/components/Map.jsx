@@ -84,7 +84,7 @@ class Map extends Component {
     this.mapRef = React.createRef();
     this.geocoderContainerRef = React.createRef();
 
-    this.onReportsIdle = _debounce(this.onReportsIdle, 500);
+    this.onReportsIdle = _debounce(this.onReportsIdle, 600);
   }
 
   componentDidMount() {
