@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: 2,
     background: theme.palette.background.paper,
     textAlign: 'center',
+    padding: '0 !important',
   },
 
   icon: {
