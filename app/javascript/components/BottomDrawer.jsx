@@ -17,7 +17,11 @@ const BottomDrawer = ({ children, chartProps }) => {
 
   return (
     <>
-      <BottomDrawerToggler onOpen={onOpen} chartProps={chartProps} />
+      <BottomDrawerToggler
+        isVisible={!isOpen}
+        onOpen={onOpen}
+        chartProps={chartProps}
+      />
 
       <BottomDrawerToggled
         isOpen={isOpen}
