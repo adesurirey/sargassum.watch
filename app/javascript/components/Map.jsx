@@ -180,7 +180,13 @@ class Map extends Component {
 
   handleReportsIdle = () => {
     const map = this.getMap();
-    map && map.once('idle', this.onReportsIdle);
+    if (!map) return;
+
+    if (map.loaded()) {
+      this.onReportsIdle();
+    } else {
+      map.once('idle', this.onReportsIdle);
+    }
   };
 
   setRenderedFeatures = () => {
