@@ -1,5 +1,5 @@
-import React from 'react';
-import { func, shape } from 'prop-types';
+import React, { memo } from 'react';
+import { bool, func, shape } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
@@ -11,6 +11,7 @@ import { toString } from '../utils/interval';
 import { interval } from '../utils/propTypes';
 
 const propTypes = {
+  isVisible: bool.isRequired,
   onOpen: func.isRequired,
   chartProps: shape({ interval }).isRequired,
 };
@@ -31,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BottomDrawerToggler = ({
+  isVisible,
   onOpen,
   chartProps,
   chartProps: { interval },
@@ -72,6 +74,10 @@ const BottomDrawerToggler = ({
   );
 };
 
-export default BottomDrawerToggler;
+const isEqual = (prevProps, nextProps) => {
+  return !prevProps.isVisible && !nextProps.isVisible;
+};
+
+export default memo(BottomDrawerToggler, isEqual);
 
 BottomDrawerToggler.propTypes = propTypes;
