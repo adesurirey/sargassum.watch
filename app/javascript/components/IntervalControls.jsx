@@ -44,9 +44,7 @@ const IntervalControls = ({ loaded, selectedInterval, onChange }) => {
             style={{ transitionDelay: index * 50 }}
             value={interval.id}
           >
-            <ToggleButton value={interval.id}>
-              {t(toString(interval))}
-            </ToggleButton>
+            <ToggleButton>{t(toString(interval))}</ToggleButton>
           </Slide>
         ))}
       </ToggleButtonGroup>
