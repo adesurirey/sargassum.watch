@@ -182,11 +182,7 @@ class Map extends Component {
     const map = this.getMap();
     if (!map) return;
 
-    if (map.loaded()) {
-      this.onReportsIdle();
-    } else {
-      map.once('idle', this.onReportsIdle);
-    }
+    map.once('idle', this.onReportsIdle);
   };
 
   setRenderedFeatures = () => {
