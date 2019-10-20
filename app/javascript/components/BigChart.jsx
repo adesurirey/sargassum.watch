@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Grid } from '@material-ui/core';
 
 import Spinner from './Spinner';
@@ -41,6 +42,8 @@ const BigChart = ({ loading, data, interval }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const classes = useStyles();
+  const isSmallScreen = useMediaQuery('(max-width:350px)');
+  const height = isSmallScreen ? 100 : 160;
 
   const start = useMemo(() => intervalStartDate(interval).getTime(), [
     interval,
@@ -58,7 +61,7 @@ const BigChart = ({ loading, data, interval }) => {
   return (
     <Grid item xs={12} className={classes.container}>
       {loading && <Spinner delay={200} size={16} />}
-      <ResponsiveContainer height={160}>
+      <ResponsiveContainer height={height}>
         <AreaChart
           data={data}
           margin={{ left: 5, right: 5, top: 8, bottom: 0 }}
