@@ -17,6 +17,8 @@ const StyleControl = ({ style, onChange }) => {
   const createEvent = useEvent();
 
   const handleChange = (_e, newStyle) => {
+    if (!newStyle || newStyle === style) return;
+
     onChange(newStyle);
 
     createEvent({
