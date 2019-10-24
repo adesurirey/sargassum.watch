@@ -7,7 +7,6 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Grid, FormControlLabel, Switch } from '@material-ui/core';
 
 import useEvent from '../hooks/useEvent';
-import Eyes from '../images/sargassum.watch-logo@2x.png';
 
 const propTypes = {
   onToggle: func.isRequired,
@@ -35,12 +34,6 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.primary.light,
       opacity: 1,
     },
-  },
-  thumb: {
-    backgroundImage: `url(${Eyes})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
   },
   checked: {
     '&:hover': {

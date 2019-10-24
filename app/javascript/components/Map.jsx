@@ -33,7 +33,7 @@ import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
-import Eyes from '../images/sargassum.watch-logo@2x.png';
+import Eyes from '../images/eyes.png';
 
 const api = new Api();
 
