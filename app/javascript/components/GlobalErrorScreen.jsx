@@ -11,8 +11,6 @@ import {
   Button,
 } from '@material-ui/core';
 
-import Background from '../../assets/images/sargassum.watch-map.png';
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
@@ -22,13 +20,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: `url(${Background})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundColor: theme.palette.background.default,
-    backgroundBlendMode:
-      theme.palette.type === 'dark' ? 'difference' : 'exclusion',
   },
   paper: {
     maxWidth: 440,
