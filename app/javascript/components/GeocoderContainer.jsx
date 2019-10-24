@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     left: 0,
     height: '100%',
-    paddingLeft: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
     zIndex: theme.zIndex.drawer + 2,
