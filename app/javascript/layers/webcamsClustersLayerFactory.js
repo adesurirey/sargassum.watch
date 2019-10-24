@@ -6,11 +6,11 @@ export default (id, source) => ({
   layout: {
     'icon-image': 'eyes',
     'icon-size': 0.5,
-    'icon-anchor': 'bottom',
+    'icon-anchor': 'center',
     'icon-allow-overlap': true,
     'text-field': '{point_count_abbreviated}',
-    'text-size': 14,
-    'text-anchor': 'bottom',
+    'text-size': 12,
+    'text-anchor': 'top',
   },
   paint: {
     'text-halo-width': 1,
