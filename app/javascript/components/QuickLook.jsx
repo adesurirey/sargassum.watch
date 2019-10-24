@@ -1,24 +1,21 @@
-import React, { lazy, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { bool, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { FlyToInterpolator } from 'react-map-gl';
-import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import {
   Tooltip,
   Zoom,
-  ButtonBase,
+  IconButton,
   Menu,
   MenuItem,
   Typography,
 } from '@material-ui/core';
-import { ZoomOutMapRounded } from '@material-ui/icons';
+import { MenuRounded, ZoomOutMapRounded } from '@material-ui/icons';
 
 import useModalView from '../hooks/useModalView';
 import useEvent from '../hooks/useEvent';
-
-const Logo = lazy(() => import('./Logo'));
 
 const { quickLooks } = gon;
 const places = Object.keys(quickLooks);
@@ -29,15 +26,6 @@ const propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    width: '100%',
-    height: 34,
-  },
-
-  flip: {
-    transform: 'rotateY(180deg)',
-  },
-
   icon: {
     marginRight: theme.spacing(1),
   },
@@ -45,29 +33,10 @@ const useStyles = makeStyles(theme => ({
 
 const QuickLook = ({ loaded, onViewportChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [hover, setHover] = useState(false);
-  const [animated, setAnimated] = useState(false);
   const createModalView = useModalView('/quicklooks');
   const createEvent = useEvent();
   const { t } = useTranslation();
   const classes = useStyles();
-
-  const onMouseEnter = () => setHover(true);
-  const onMouseLeave = () => setHover(false);
-
-  const animate = () => {
-    if (!loaded) return;
-
-    const timeoutIn = setTimeout(() => setAnimated(true), 4000);
-    const timeoutOut = setTimeout(() => setAnimated(false), 5000);
-
-    return () => {
-      clearTimeout(timeoutIn);
-      clearTimeout(timeoutOut);
-    };
-  };
-
-  useEffect(animate, [loaded]);
 
   const onClick = ({ currentTarget }) => {
     setAnchorEl(currentTarget);
@@ -95,14 +64,8 @@ const QuickLook = ({ loaded, onViewportChange }) => {
 
   return (
     <>
-      <Tooltip
-        title={title}
-        TransitionComponent={Zoom}
-        open={hover}
-        onOpen={onMouseEnter}
-        onClose={onMouseLeave}
-      >
-        <ButtonBase
+      <Tooltip title={title} TransitionComponent={Zoom} enterDelay={700}>
+        <IconButton
           aria-label={title}
           aria-controls="quick-look-menu"
           aria-haspopup="true"
@@ -110,8 +73,8 @@ const QuickLook = ({ loaded, onViewportChange }) => {
           disableTouchRipple
           onClick={onClick}
         >
-          <Logo className={clsx({ [classes.flip]: hover || animated })} />
-        </ButtonBase>
+          <MenuRounded />
+        </IconButton>
       </Tooltip>
 
       <Menu
