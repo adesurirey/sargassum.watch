@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ReportsDecoratorTest < Draper::TestCase
+class GeoJSONDecoratorTest < Draper::TestCase
   test "should format collection as a valid geoJSON" do
     create_list(:report, 10, :clear)
     create_list(:report, 10, :moderate)
@@ -20,7 +20,7 @@ class ReportsDecoratorTest < Draper::TestCase
   end
 
   test "should return json" do
-    create_list(:report, 10)
+    create_list(:webcam, 10)
 
     reports = Report.all.decorate
     assert_kind_of String, reports.to_geojson

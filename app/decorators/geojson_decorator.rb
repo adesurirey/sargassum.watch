@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportsDecorator < Draper::CollectionDecorator
+class GeoJSONDecorator < Draper::CollectionDecorator
   def as_geojson
     {
       type:     "FeatureCollection",

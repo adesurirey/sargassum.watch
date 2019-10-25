@@ -23,6 +23,7 @@ class Report < ApplicationRecord
   include LevelvableConcern
   include GeolocatableConcern
   include ReverseGeocodableConcern
+  include CachableGeoJSONConcern
 
   GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at, :source].freeze
 
@@ -31,8 +32,6 @@ class Report < ApplicationRecord
 
   validate :timestamps_are_past
   validates :user_id, presence: true, length: { is: 32 }
-
-  after_commit :create_geojson_cache
 
   default_scope { order(updated_at: :asc) }
 
@@ -63,12 +62,6 @@ class Report < ApplicationRecord
 
     def formatted_levels
       levels.map { |k, v| { value: v, label: k } }
-    end
-
-    def without_cache_callback
-      Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
-      yield
-      Report.set_callback(:commit, :after, :create_geojson_cache, raise: false)
     end
 
     private
@@ -109,9 +102,5 @@ class Report < ApplicationRecord
   def timestamps_are_past
     errors.add(:created_at) if created_at.present? && created_at > Time.current
     errors.add(:updated_at) if updated_at.present? && updated_at > Time.current
-  end
-
-  def create_geojson_cache
-    self.class.create_geojson_cache
   end
 end
