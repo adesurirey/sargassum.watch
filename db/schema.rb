@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_082100) do
+ActiveRecord::Schema.define(version: 2019_10_25_183331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 2019_10_03_082100) do
     t.integer "last_created_reports_count", default: 0, null: false
     t.integer "total_created_reports_count", default: 0, null: false
     t.text "parsing_failures", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "webcams", force: :cascade do |t|
+    t.string "name"
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.integer "kind", null: false
+    t.string "youtube_id"
+    t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

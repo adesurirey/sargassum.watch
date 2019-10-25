@@ -22,6 +22,7 @@
 class Report < ApplicationRecord
   include LevelvableConcern
   include GeolocatableConcern
+  include ReverseGeocodableConcern
 
   GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at, :source].freeze
 
@@ -30,8 +31,6 @@ class Report < ApplicationRecord
 
   validate :timestamps_are_past
   validates :user_id, presence: true, length: { is: 32 }
-
-  before_create :reverse_geocode, if: :should_geocode?
 
   after_commit :create_geojson_cache
 
@@ -105,15 +104,6 @@ class Report < ApplicationRecord
     end
   end
 
-  reverse_geocoded_by :latitude, :longitude do |report, results|
-    next unless results.any?
-
-    # Nominatim-specific result handling.
-    address = results.first.data["address"]
-    # First key in hash is often a precise place name.
-    report.name = address[address.keys.first] if address.present?
-  end
-
   private
 
   def timestamps_are_past
@@ -123,9 +113,5 @@ class Report < ApplicationRecord
 
   def create_geojson_cache
     self.class.create_geojson_cache
-  end
-
-  def should_geocode?
-    name.blank?
   end
 end
