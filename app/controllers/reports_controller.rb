@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  skip_before_action :authenticate_user, only: :index
+  before_action :authenticate_user, only: :create
 
   def index
     render json: Report.cached_geojson
