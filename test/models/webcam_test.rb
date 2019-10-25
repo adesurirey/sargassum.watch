@@ -84,6 +84,48 @@ class WebcamTest < ActiveSupport::TestCase
     assert_equal init_name, webcam.name
   end
 
+  test "should return all webcams as geoJSON" do
+    create_list(:webcam, 10)
+
+    geojson = Webcam.cached_geojson
+    assert_kind_of String, geojson
+
+    geojson = Oj.load geojson
+    assert_equal 10, geojson["features"].size
+  end
+
+  test "should update geoJSON cache" do
+    assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do
+      create(:webcam)
+    end
+
+    webcam = build(:webcam, :youtube)
+
+    assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do
+      assert webcam.save
+    end
+
+    assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do
+      assert webcam.update(name: "New name")
+    end
+
+    assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do
+      assert webcam.destroy
+    end
+  end
+
+  test "should not update geoJSON cache" do
+    Webcam.without_cache_callback do
+      assert_no_enqueued_jobs only: CreateWebcamsGeoJSONCacheJob do
+        create(:webcam)
+      end
+    end
+
+    assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do
+      create(:webcam)
+    end
+  end
+
   private
 
   def map_errors(record, attribute)

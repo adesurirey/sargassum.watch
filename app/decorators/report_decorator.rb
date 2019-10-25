@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-class ReportDecorator < Draper::Decorator
+class ReportDecorator < ApplicationDecorator
   delegate_all
+
+  def self.collection_decorator_class
+    GeoJSONDecorator
+  end
 
   def as_geojson
     {
@@ -19,10 +23,6 @@ class ReportDecorator < Draper::Decorator
         source:     source,
       },
     }
-  end
-
-  def to_geojson
-    as_geojson.to_json
   end
 
   def numeric_level

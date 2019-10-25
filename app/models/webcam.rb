@@ -18,11 +18,30 @@
 class Webcam < ApplicationRecord
   include GeolocatableConcern
   include ReverseGeocodableConcern
+  include CachableGeoJSONConcern
 
   enum kind: { youtube: 0, image: 1 }, _suffix: true
 
   validates :kind, presence: true
   validate :validate_source
+
+  class << self
+    def cached_geojson
+      Rails.cache.fetch(cache_key(all)) do
+        all.decorate.to_geojson
+      end
+    end
+
+    def create_geojson_cache
+      CreateWebcamsGeoJSONCacheJob.perform_later
+    end
+
+    private
+
+    def cache_key(webcams)
+      { serializer: "webcams", stat_record: webcams.maximum(:updated_at) }
+    end
+  end
 
   private
 
