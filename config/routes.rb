@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
 
   resources :reports, only: [:index, :create], defaults: { format: :json }
+  resources :webcams, only: [:index], defaults: { format: :json }
   resources :settings, only: [:create], defaults: { format: :json }
 
 
