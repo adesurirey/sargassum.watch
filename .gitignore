@@ -17,10 +17,6 @@
 /storage/*
 !/storage/.keep
 
-# Ignore heavy files used for seeding
-/db/data/*
-!/db/data/.keep
-
 /public/assets
 .byebug_history
 
