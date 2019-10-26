@@ -45,5 +45,6 @@ sentry-cli releases set-commits --auto $TAG
 git tag $TAG && git push origin tag $TAG
 
 heroku config:set RELEASE=$TAG --app $HEROKU_APP
+heroku run rails db:migrate --app $HEROKU_APP
 
 echo "👌 Done."
