@@ -11,9 +11,10 @@ namespace :one_shot do
       Webcam.create!(webcams)
     end
 
-    Webcam.create_geojson_cache
+    ScrapWebcamsJob.perform_later
 
     puts "Done.".light_green
     puts "#{Webcam.count} webcams created".underline
+    puts "Scrapper will have created about 20 more webcams in a few minutes..."
   end
 end

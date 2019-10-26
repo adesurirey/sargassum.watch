@@ -89,6 +89,8 @@ Webcam.without_cache_callback do
   Webcam.create!(webcams)
 end
 
+ScrapWebcamsJob.perform_now
+
 puts ""
 puts "Done.".light_green
 puts ""
