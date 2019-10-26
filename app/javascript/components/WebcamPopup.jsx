@@ -1,5 +1,5 @@
 import React, { useEffect, memo } from 'react';
-import { string, func } from 'prop-types';
+import { number, string, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +12,7 @@ import YoutubeVideo from './YoutubeVideo';
 import LiveImage from './LiveImage';
 
 const propTypes = {
+  id: number.isRequired,
   youtubeId: string,
   liveImageUrl: string,
   onClose: func.isRequired,
@@ -36,11 +37,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const WebcamPopup = ({ youtubeId, liveImageUrl, ...popupProps }) => {
+const WebcamPopup = ({ id, youtubeId, liveImageUrl, ...popupProps }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-
-  const id = youtubeId || liveImageUrl.split('/')[3];
   const createModalView = useModalView(`/webcams/${id}`);
 
   useEffect(createModalView, [id]);
