@@ -13,7 +13,7 @@ ActiveAdmin.register Report do
 
   filter :user_id
   filter :level, as: :select, collection: -> { Report.levels }
-  filter :source
+  filter :source, as: :select, collection: -> { Report.pluck(:source).uniq.compact }
   filter :name
   filter :created_at
   filter :updated_at

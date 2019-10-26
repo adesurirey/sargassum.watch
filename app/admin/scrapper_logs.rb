@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register ScrapperLog do
-  menu label: "Scrapper logs", priority: 3
+  menu label: "Scrapper logs", priority: 4
 
   actions :all, except: [:new, :edit, :destroy]
 
