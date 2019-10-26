@@ -9,6 +9,7 @@ class CreateWebcams < ActiveRecord::Migration[6.0]
       t.integer :kind, null: false
       t.string :youtube_id
       t.string :url
+      t.string :source
 
       t.timestamps
     end

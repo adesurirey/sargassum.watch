@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_183331) do
     t.integer "kind", null: false
     t.string "youtube_id"
     t.string "url"
+    t.string "source"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

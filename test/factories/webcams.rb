@@ -9,6 +9,7 @@
 #  latitude   :float            not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  url        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -23,6 +24,7 @@ FactoryBot.define do
     kind { :youtube }
     youtube_id { SecureRandom.hex }
     url { nil }
+    source { nil }
 
     trait :youtube do
       kind { :youtube }
@@ -34,6 +36,10 @@ FactoryBot.define do
       kind { :image }
       youtube_id { nil }
       url { "http://webcams.com/live.jpg" }
+    end
+
+    trait :scrapped do
+      source { "http://webcamsdemexico.com" }
     end
   end
 end

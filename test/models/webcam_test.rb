@@ -9,6 +9,7 @@
 #  latitude   :float            not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  url        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -52,7 +53,7 @@ class WebcamTest < ActiveSupport::TestCase
     assert_includes map_errors(webcam, :longitude), :greater_than_or_equal_to
   end
 
-  test "should have a corresponding source" do
+  test "should have a kind corresponding media source" do
     webcam = build(:webcam, :youtube, youtube_id: nil)
     assert_not webcam.valid?
     assert_includes map_errors(webcam, :youtube_id), :blank
@@ -60,6 +61,12 @@ class WebcamTest < ActiveSupport::TestCase
     webcam = build(:webcam, :image, url: nil)
     assert_not webcam.valid?
     assert_includes map_errors(webcam, :url), :blank
+  end
+
+  test "can have a source string" do
+    webcam = build(:webcam, :youtube)
+    webcam.source = "http://webcamsdemexico.com"
+    assert webcam.valid?
   end
 
   test "should return a valid geoJSON coordinates array" do
