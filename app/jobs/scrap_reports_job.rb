@@ -67,7 +67,7 @@ class ScrapReportsJob < ApplicationJob
   end
 
   def refresh_reports_cache
-    CreateReportsGeoJSONCacheJob.perform_later if @created_reports_count.positive?
+    Report.create_geojson_cache if @created_reports_count.positive?
   end
 
   def reschedule

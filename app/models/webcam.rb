@@ -24,8 +24,11 @@ class Webcam < ApplicationRecord
   enum kind: { youtube: 0, image: 1 }, _suffix: true
 
   validates :kind, presence: true
+  validates :name, presence: true, uniqueness: true, if: :scrapped?
   validates :youtube_id, presence: true, uniqueness: true, if: :youtube_kind?
   validates :url, presence: true, uniqueness: true, if: :image_kind?
+
+  scope :scrapped, -> { where(source: WebcamScrapper::URL) }
 
   class << self
     def cached_geojson
@@ -38,10 +41,22 @@ class Webcam < ApplicationRecord
       CreateWebcamsGeoJSONCacheJob.perform_later
     end
 
+    def find_or_initialize_for_scrapper(attributes)
+      already_scrapped(attributes) || new(attributes)
+    end
+
     private
 
     def cache_key(webcams)
       { serializer: "webcams", stat_record: webcams.maximum(:updated_at) }
     end
+
+    def already_scrapped(attributes)
+      find_by(attributes.slice(:name))
+    end
+  end
+
+  def scrapped?
+    source == WebcamScrapper::URL
   end
 end
