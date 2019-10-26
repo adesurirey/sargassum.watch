@@ -6,7 +6,7 @@ class ScrapReportsJob < ApplicationJob
   def perform(kind, year = Time.current.year)
     @kind = kind
     @attributes = report_attibutes
-    @kml = Scrapper.call(kind: kind, year: year, attributes: @attributes)
+    @kml = ReportScrapper.call(kind: kind, year: year, attributes: @attributes)
     @placemarks = after_last_dataset(@kml.placemarks)
     @created_reports_count = 0
 

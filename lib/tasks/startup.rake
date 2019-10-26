@@ -10,7 +10,7 @@ end
 
 def seed(year, kind) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   attributes = report_attibutes(kind)
-  kml = Scrapper.call(kind: kind, year: year, attributes: attributes)
+  kml = ReportScrapper.call(kind: kind, year: year, attributes: attributes)
   reports = kml.placemarks.map { |mark| Report.new(mark) }
   features = ReportsDecorator.decorate(reports).map(&:as_geojson)
 

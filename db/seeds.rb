@@ -47,7 +47,7 @@ end
 
 def seed(year, kind)
   attributes = report_attibutes(kind)
-  kml = Scrapper.call(kind: kind, year: year, attributes: attributes)
+  kml = ReportScrapper.call(kind: kind, year: year, attributes: attributes)
   random_seed(kml.placemarks, kind)
   report_parser_results(kml)
 end

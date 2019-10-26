@@ -89,7 +89,7 @@ class ScrapReportsJobTest < ActiveJob::TestCase
   private
 
   def stub_scrapper(kind)
-    url = Scrapper::URLS[Time.current.year][kind]
+    url = ReportScrapper::URLS[Time.current.year][kind]
 
     stub_request(:get, url)
       .to_return(
