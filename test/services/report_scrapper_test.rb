@@ -2,11 +2,11 @@
 
 require "test_helper"
 
-class ScrapperTest < ActiveSupport::TestCase
+class ReportScrapperTest < ActiveSupport::TestCase
   test "should return a KML instance from Google maps" do
     request = stub_scrapper(kind: :with, year: 2019)
 
-    kml = Scrapper.call(kind: :with, year: 2019)
+    kml = ReportScrapper.call(kind: :with, year: 2019)
     assert_requested request
 
     assert_kind_of Assets::KML, kml
@@ -15,7 +15,7 @@ class ScrapperTest < ActiveSupport::TestCase
   test "should accept custom kml placemarks attributes" do
     stub_scrapper(kind: :with, year: 2019)
 
-    kml = Scrapper.call(kind: :with, year: 2019, attributes: { level: :na })
+    kml = ReportScrapper.call(kind: :with, year: 2019, attributes: { level: :na })
 
     assert_equal :na, kml.placemarks.first[:level]
   end
@@ -23,7 +23,7 @@ class ScrapperTest < ActiveSupport::TestCase
   private
 
   def stub_scrapper(kind:, year:)
-    url = Scrapper::URLS[year][kind]
+    url = ReportScrapper::URLS[year][kind]
 
     stub_request(:get, url)
       .to_return(

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Scrapper
+class ReportScrapper
   URLS = {
     2019 => {
       with:    "https://www.google.com/maps/d/kml?mid=1jQbixC2zZfrxgRTmZYULzDvHPwGmbsZh&forcekml=1",
