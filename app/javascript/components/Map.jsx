@@ -37,7 +37,7 @@ import Eyes from '../images/sargassum.watch-logo@2x.png';
 
 const api = new Api();
 
-const { webcams, mapStyle } = gon;
+const { mapStyle } = gon;
 
 const propTypes = {
   navigate: func.isRequired,
@@ -138,7 +138,7 @@ class Map extends Component {
 
     map.addSource(WEBCAMS_SOURCE_ID, {
       type: 'geojson',
-      data: webcams,
+      data: '/webcams.json',
       cluster: true,
       clusterMaxZoom: 14,
       clusterRadius: 40,
