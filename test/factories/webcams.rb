@@ -35,7 +35,7 @@ FactoryBot.define do
     trait :image do
       kind { :image }
       youtube_id { nil }
-      url { "http://webcams.com/live.jpg" }
+      url { "http://webcams.com/#{SecureRandom.hex}.jpg" }
     end
 
     trait :scrapped do
