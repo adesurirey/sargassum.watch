@@ -49,7 +49,6 @@ ActiveAdmin.register_page "Dashboard" do
       end
       column do
         panel "👀 Last webcam create" do
-
           h2.h1 do
             l(last_webcam.created_at, format: :short)
           end
@@ -57,7 +56,6 @@ ActiveAdmin.register_page "Dashboard" do
       end
       column do
         panel "👀 Last webcam update" do
-
           h2.h1 do
             l(last_webcam.updated_at, format: :short)
           end
