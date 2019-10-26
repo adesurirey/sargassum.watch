@@ -7,6 +7,9 @@ ActiveAdmin.register Webcam do
 
   permit_params :name, :latitude, :longitude, :kind, :source, :url, :youtube_id
 
+  scope :all, default: true
+  scope :scrapped
+
   filter :name
   filter :kind, as: :select, collection: -> { Webcam.kinds }
   filter :source, as: :select, collection: -> { Webcam.pluck(:source).uniq.compact }
