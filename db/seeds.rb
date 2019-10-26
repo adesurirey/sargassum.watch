@@ -22,13 +22,10 @@ def report_attibutes(kind)
   }
 end
 
-def skip_callback
-  Report.skip_callback(:commit, :after, :create_geojson_cache, raise: false)
-end
-
 def create_reports(placemarks)
-  skip_callback
-  Report.create!(placemarks)
+  Report.without_cache_callback do
+    Report.create!(placemarks)
+  end
 end
 
 def random_level(kind)
@@ -55,12 +52,13 @@ def seed(year, kind)
   report_parser_results(kml)
 end
 
-puts "[1/2] Cleaning db..."
+puts "[1/3] Cleaning db..."
 
 Report.delete_all
 Dataset.delete_all
+Webcam.delete_all
 
-puts "[2/2] Seeding reports..."
+puts "[2/3] Seeding reports..."
 
 start_time = Time.zone.now
 
@@ -82,3 +80,16 @@ puts "#{Report.clear.count} clear reports"
 puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
+
+puts "[3/3] Seeding webcams..."
+
+webcams = YAML.load_file(Rails.root.join("db", "data", "webcams.yml"))
+
+Webcam.without_cache_callback do
+  Webcam.create!(webcams)
+end
+
+puts ""
+puts "Done.".light_green
+puts ""
+puts "#{Webcam.count} webcams created".underline
