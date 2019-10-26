@@ -7,7 +7,6 @@ class PagesController < ApplicationController
     gon.push(
       levels:     Report.formatted_levels,
       quickLooks: QUICK_LOOKS,
-      webcams:    ENV.fetch("WEBCAMS_URL"),
       mapStyle:   map_style,
       contact:    ENV.fetch("CONTACT_EMAIL") { "hello@sargassum.watch" },
       firstVisit: first_visit?,
