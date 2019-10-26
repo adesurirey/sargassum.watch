@@ -22,6 +22,10 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include ActiveJob::TestHelper
   include TestCoordinatesHelper
+
+  def teardown
+    WebMock.reset!
+  end
 end
 
 class ActionDispatch::IntegrationTest
@@ -29,6 +33,7 @@ class ActionDispatch::IntegrationTest
 
   def teardown
     Rails.cache.clear
+    WebMock.reset!
   end
 
   def body
