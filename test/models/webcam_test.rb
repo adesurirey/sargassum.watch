@@ -63,6 +63,18 @@ class WebcamTest < ActiveSupport::TestCase
     assert_includes map_errors(webcam, :url), :blank
   end
 
+  test "should have a uniq media source" do
+    webcam = create(:webcam, :youtube)
+    new_webcam = build(:webcam, :youtube, youtube_id: webcam.youtube_id)
+    assert_not new_webcam.valid?
+    assert_includes map_errors(new_webcam, :youtube_id), :taken
+
+    webcam = create(:webcam, :image)
+    new_webcam = build(:webcam, :image, url: webcam.url)
+    assert_not new_webcam.valid?
+    assert_includes map_errors(new_webcam, :url), :taken
+  end
+
   test "can have a source string" do
     webcam = build(:webcam, :youtube)
     webcam.source = "http://webcamsdemexico.com"

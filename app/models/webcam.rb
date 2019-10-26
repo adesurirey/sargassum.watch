@@ -24,7 +24,8 @@ class Webcam < ApplicationRecord
   enum kind: { youtube: 0, image: 1 }, _suffix: true
 
   validates :kind, presence: true
-  validate :validate_source
+  validates :youtube_id, presence: true, uniqueness: true, if: :youtube_kind?
+  validates :url, presence: true, uniqueness: true, if: :image_kind?
 
   class << self
     def cached_geojson
@@ -41,17 +42,6 @@ class Webcam < ApplicationRecord
 
     def cache_key(webcams)
       { serializer: "webcams", stat_record: webcams.maximum(:updated_at) }
-    end
-  end
-
-  private
-
-  def validate_source
-    case kind&.to_sym
-    when :youtube
-      errors.add(:youtube_id, :blank) if youtube_id.blank?
-    when :image
-      errors.add(:url, :blank) if url.blank?
     end
   end
 end
