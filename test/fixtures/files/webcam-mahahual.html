@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9105531-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-9105531-2');
+</script>
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@webcamsdemexico">
+
+<meta name="twitter:title" content="Mahahual">
+<meta name="twitter:description" content="Vista panorámica del pueblo ecoturístico de Mahahual">
+<meta name="twitter:image" content="http://webcamsdemexico.net/mahahual1/live.jpg">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+	<title>Mahahual, Mahahual, Quintana Roo - Webcams de México</title>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	      <link href="css/rdstyles.css" rel="stylesheet" />
+
+
+   <link href="css/hamburgers.css" rel="stylesheet" />
+   <link href="css/icons.css" rel="stylesheet" />
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+	<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<!--	<script src="Scripts/jquery-2.2.4.min.js"  ></script> -->
+  <script src="Scripts/jQuery.mmenu-master/dist/jquery.mmenu.all.js"></script>
+   <link href="Scripts/jQuery.mmenu-master/dist/jquery.mmenu.all.css" rel="stylesheet" />
+
+	<script type="text/javascript" src="Scripts/menu.js"></script>
+
+
+  <script type="text/javascript" src="Scripts/imgreload?c=45"></script>
+
+
+   <!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="Scripts/fancy/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="Scripts/fancy/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+
+
+  <script type='text/javascript' src='Scripts/jquery.tipsy.js'></script>
+	<link rel="stylesheet" href="css/tipsy.css" type="text/css" />
+
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="css/wdm.datepicker.css">
+
+   <script>
+   $.datepicker.regional['es'] = {
+	 closeText: 'Cerrar',
+	 prevText: 'Anterior',
+	 nextText: 'Siguiente',
+	 currentText: 'Hoy',
+	 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	 monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	 dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	 dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	 dayNamesMin: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
+	 weekHeader: 'Sm',
+	 dateFormat: 'yy-mm-dd',
+	 firstDay: 0,
+	 isRTL: false,
+	 showMonthAfterYear: false,
+	 yearSuffix: ''
+	 };
+	 $.datepicker.setDefaults($.datepicker.regional['es']);
+
+  $(function() {
+
+			$( "#datepicker" ).datepicker({
+					beforeShowDay: function (date) {
+				   //getDate() returns the day (0-31)
+				   hoy = new Date(1572098167000);
+
+				   if (date.getTime() > (hoy.getTime() - (10 * 24 * 3600 * 1000)) && date.getTime() < hoy.getTime()) {
+					   return [true, ''];
+				   }
+				   return [false, ''];
+		    }
+			});
+
+	});
+
+	$(function() {    $('#toolbar a').tipsy({fade:true});  }); $(function() {    $('#social-links a').tipsy({fade:true, gravity: 's'});  });
+
+  </script>
+
+
+
+
+<style>
+
+
+
+	.child a{
+		color:white;
+		text-decoration: none;
+
+	}
+
+	.child a:hover{
+		color:#FC0;
+		text-decoration: underline;;
+
+	}
+
+
+
+	#live{
+		position: relative;
+    padding-bottom: 75%;
+    height: 0;
+    overflow: hidden;
+	}
+
+	#live iframe {
+	    position: absolute;
+	    top:0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+
+
+	.fancybox-title a{
+		color: #FFF;
+		text-decoration:none;
+
+	}
+
+	.fancybox-title a:hover{
+
+		text-decoration:underline;
+
+	}
+
+
+
+	#backlinksdiv p{
+    margin:10px 0 0 0 ;
+    padding:10px;
+    background: #FFF9D7;
+    text-align: center;
+		text-transform: uppsercase;
+		font-size: 1.2em;
+		font-weight: bold;
+
+	}
+
+	#backlinksdiv p a{
+		text-decoration: none;
+		font-weight: bolder;
+
+
+	}
+
+
+</style>
+</head>
+
+<body >
+
+   <div id="my-page">
+
+      <header id="my-header" >
+              <div id="hiddensearchdiv">
+            <form id="searchform" action="search.php" method="get" >
+                <input type="text" name="s" id="s" placeholder="Buscar" />
+                <a href="#" id="cancelbtn"><span class="icon-cross"></span></a>
+            </form>
+      </div>
+
+    <div class="content-wrapper" id="header-first-row">
+
+      <div class="fr-box" id="fr-col1">
+          <div id="my-icon" class="hamburger hamburger--collapse" >
+				   <div class="hamburger-box">
+				      <div class="hamburger-inner"></div>
+				   </div>
+				 </div>
+		  </div>
+
+      <div class="fr-box" id="fr-col2">
+       <a href="./"><img src="assets/wdmlogo.png" /></a>
+      </div>
+
+      <div class="fr-box" id="fr-col3">
+
+          <div id="searchdiv">
+                  <form id="searchform" action="search.php" method="get" >
+                      <input type="text" name="s" id="s" placeholder="Buscar" />
+                  </form>
+            </div>
+
+            <a href="#" original-title="" id="searchbtn"><span class="icon-search" ></span></a>
+             <div id="social-links">
+
+                <a href="https://facebook.com/webcamsdemexico" original-title="Hazte fan en Facebook"><span class="icon-facebook2"  target="_blank"></span></a>
+                <a href="https://twitter.com/webcamsdemexico" original-title="Síguenos en Twitter"><span class="icon-twitter2" target="_blank" ></span></a>
+                <a href="https://www.instagram.com/webcamsdemexico/" original-title="Síguenos en Instagram"><span class="icon-instagram" target="_blank" ></span></a>
+                <a href="https://youtube.com/webcamsdemexico" original-title="Míranos en Youtube"><span class="icon-youtube"  target="_blank"></span></a>
+                <a href="contacto" original-title="Envíanos un mensaje" ><span class="icon-envelop"></span></a>
+
+            </div>
+
+
+      </div>
+
+    </div>
+
+    <nav id="desktop-nav">
+        <div class="content-wrapper">
+          <ul>
+           <li><a href='./'><span>Home</span></a></li>
+           <li class=''><a href='#' id="webcamsbtn"><span>Webcams</span></a></li>
+           <li class=''><a href='#' id="estadosbtn"><span>Estados</span></a></li>
+                      <li class=''><a href='videoteca'><span>Videoteca</span></a></li>
+           <li class=''><a href='streams'><span>Streams</span></a></li>
+           <li class=''><a href='contacto'><span>Contacto</span></a></li>
+        </ul>
+        </div>
+    </nav>
+
+
+      </header>
+
+      <section id="my-content" class="content">
+      	<div class="content-wrapper">
+
+
+
+
+
+            <div id="first-row-container">
+
+                    <div id="player" class="shadow" >
+                          <div id="tlPlayer"></div>
+                          <div id="imgPlayer">
+
+                              <div id="camDesc">
+                                <h1 id="tituloCam">Mahahual</h1>
+                                  <span>Vista panorámica del pueblo ecoturístico de Mahahual                                  <br />Cámara instalada en <a href="https://40-canones.com/" target="_blank" >La Posada de los 40 Cañones</a>                                  <br />Patrocinada por <a href="http://www.tumahahual.com/es/mahahual/organizaciones/item/la-asociacion-de-hoteles-cabanas-y-hostales-de-mahahual" target="_blank" >Asociación de Hoteles, Cabañas y Hostales de Mahahual</a>                                  </span>
+                              </div>
+                              <div id="live">
+                                 <img src="http://webcamsdemexico.net/mahahual1/live.jpg" border="0" id="liveimg" name="liveimg" />                              </div>
+                          </div>
+
+                          <div id="toolbar" class="shadow">
+                                  <a href="#" id="livebtn" name="livebtn" original-title="En tiempo real"><img border="0" src="assets/treal.png" alt="" style="margin-top:5px; height:26px; width:auto;" id="trealimg" /></a>
+                                                                    <a href="#" id="nfobtn" name="nfobtn" original-title="Información"><span class="icon-info"></span></a>
+                                  <a href="http://www.webcamsdemexico.com/assets/ref_mahahual1.jpg" id="refbtn" name="refbtn" class="fancybox" original-title="Referencias geográficas"><span class="icon-eye"></span></a>
+                                  <a href="http://www.webcamsdemexico.com/assets/rango_mahahual1.jpg" id="rangonbtn" name="rangonbtn" class="fancybox" title="Rango visual"><span class="icon-compass2"></span></a>
+
+                                  <a href="#" id="last24" name="last24" original-title="Últimas 24 hrs" ><span class="icon-history"></span></a>
+                                  <a href="#" id="albabtn" name="albabtn" original-title="Amanecer" ><span class="icon-sunrise"></span></a>
+                                  <a href="#" id="ocasobtn" name="ocasobtn"  original-title="Atardecer"><span class="icon-dusk"></span></a>
+                                  <a href="#" id="fullbtn" name="fullbtn"  original-title="Todo el día"><span class="icon-fullday"></span></a>
+
+                                  <a href="#" id="calendarbtn" name="calendarbtn" original-title="Histórico"><span class="icon-Calendar-Time"></span></a>
+
+                                  <div id="calendar-options">
+                                      <input type="text" id="datepicker" readonly placeholder="Fecha" />
+                                        <label>Periodo: <select id="periodo" >
+                                                  <optgroup label="Timelapses">
+                                                      <option value="a">Amanecer</option>
+                                                      <option value="o">Atardecer</option>
+                                                      <option value="f">Todo el día</option>
+                                                  </optgroup>
+                                                  <optgroup label="Archivo de imágenes">
+                                                        <option value="0100">01:00</option>
+                                                        <option value="0200">02:00</option>
+                                                        <option value="0300">03:00</option>
+                                                        <option value="0400">04:00</option>
+                                                        <option value="0500">05:00</option>
+                                                        <option value="0600">06:00</option>
+                                                        <option value="0700">07:00</option>
+                                                        <option value="0800">08:00</option>
+                                                        <option value="0900">09:00</option>
+                                                        <option value="1000">10:00</option>
+                                                        <option value="1100">11:00</option>
+                                                        <option value="1200">12:00</option>
+                                                        <option value="1300">13:00</option>
+                                                        <option value="1400">14:00</option>
+                                                        <option value="1500">15:00</option>
+                                                        <option value="1600">16:00</option>
+                                                        <option value="1700">17:00</option>
+                                                        <option value="1800">18:00</option>
+                                                        <option value="1900">19:00</option>
+                                                        <option value="2000">20:00</option>
+                                                        <option value="2100">21:00</option>
+                                                        <option value="2200">22:00</option>
+                                                        <option value="2300">23:00</option>
+                                                  </optgroup>
+                                              </select></label>
+
+                                              <input type="button" value="ver" id="verbtn"/>
+
+                                  </div>
+
+
+
+                                  <a href="https://twitter.com/intent/tweet?text=Mahahual en tiempo real. http%3A%2F%2Fwebcamsdemexico.com%2Fwebcam-mahahual" id="" name="" target="_blank" original-title="Compartir en Twitter"><span class="icon-twitter-circle"></span></a>
+                                  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwebcamsdemexico.com%2Fwebcam-mahahual" onclick="window.open('http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwebcamsdemexico.com%2Fwebcam-mahahual', 'newWindow', 'width=626,height=436'); return false;" id="" name="" target="_blank" original-title="Compartir en Facebook"><span class="icon-facebook3"></span></a>
+                                  <a href="https://plus.google.com/share?url=" onclick="window.open('https://plus.google.com/share?url=Mahahual en tiempo real. http%3A%2F%2Fwebcamsdemexico.com%2Fwebcam-mahahual', 'newWindow', 'width=626,height=436'); return false;"href="#" id="" name="" target="_blank" original-title="Compartir en Google+"><span class="icon-google-plus3"></span></a>
+                                  <a href="whatsapp://send?text=Mahahual en tiempo real. http%3A%2F%2Fwebcamsdemexico.com%2Fwebcam-mahahual" data-action="share/whatsapp/share"><span class="icon-whatsapp2"></span></a>
+
+
+                              </div>
+
+                     </div>
+
+
+
+                  <div id="camAd" >
+                         <div id="camAdBox1" class="">
+                         <div id="hostAdContainer" class="shadow">
+                                                    <div class="ad-box" id="hostLogo" >
+                            <a href="https://40-canones.com/" target="_blank">
+                              <img src="hostlogos/logo40canones.png" id="logoimg"/>
+                            </a>
+                          </div>
+
+                          <div  class="ad-box" id="hostTnsContainer">
+
+                             <a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_1.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_1.jpg" alt="" /></a><a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_2.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_2.jpg" alt="" /></a><a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_3.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_3.jpg" alt="" /></a><a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_4.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_4.jpg" alt="" /></a><a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_5.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_5.jpg" alt="" /></a><a class="fancybox tn" rel="group" href="hostadimgs/mahahual1_1.jpg" title="" targeturl=""><img src="hostadimgs/tn_mahahual1_1.jpg" alt="" /></a>
+
+                          </div>
+
+                                          </div>
+                         </div>
+
+                                            <div id="camAdBox2" class="shadow">
+
+                      </div>
+
+
+
+                   </div>
+
+                  <div class="weatherDiv" style="background-color: white;" >
+                      <a class="weatherwidget-io" href="https://forecast7.com/es/18d72n87d71/mahahual/" data-label_1="MAHAHUAL" data-label_2="METEO" data-icons="Climacons Animated" data-days="3" data-theme="clear" >MAHAHUAL METEO</a> <script> !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js'); </script>
+                  </div>
+
+
+            </div>
+
+          <div id="div24"></div>
+
+
+          <div class="miniCardsContainer">
+                <a href="#" class="miniCard mc_timelapses" style=""  id="sunrise">
+
+          <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="assets/tn_notfound.jpg" alt="Image" /></div></span>
+          <div class="miniCardCaption"> Amanecer<br/><span class='estado'></span></div>
+        </a>
+
+                 <a href="#" class="miniCard mc_timelapses" style="" id="sunset">
+          <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="assets/tn_notfound.jpg" alt="Image" /></div></span>
+          <div class="miniCardCaption"> Atardecer<br/><span class='estado'></span></div>
+        </a>
+                <a href="#" class="miniCard mc_timelapses" style="" id="allday">
+          <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/mahahual1/2019-10-25/tn-1200.jpg" alt="Image" /></div></span>
+          <div class="miniCardCaption"> Todo el día<br/><span class='estado'></span></div>
+        </a>
+
+                <a href="#" class="miniCard mc_timelapses" style="" id="last2">
+          <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/mahahual1/2019-10-26/tn-0600.jpg" alt="Image" /></div></span>
+          <div class="miniCardCaption"> Últimas 2 horas<br/><span class='estado'></span></div>
+        </a>
+
+
+      </div>
+
+
+
+
+         <h2 style="margin:30px 5px 10px 15px;">Cámaras relacionadas</h2>
+          <div class="miniCardsContainer">
+
+          <a href="webcam-cancun" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/cancun1/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Cancún Panorámica<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-punta-cancun" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/cancun2/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Cancún Punta Cancún<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-cancun-playa" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/cancun3/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Cancún Playa<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-cozumel" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/cozumel1/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Cozumel Muelle<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-isla-mujeres" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/islamujeres1/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Isla Mujeres<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-playa-del-carmen" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/playacar1/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Playa del Carmen Panorámica<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-playa-del-carmen-quinta-avenida" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsdemexico.net/playacar2/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Playa del Carmen Quinta Avenida<br/><span class='estado'>Quintana Roo</span></div>
+	</a><a href="webcam-puerto-morelos" class="miniCard mc_mismoEstado" style="">
+
+	  <span class="miniCardTn" style="float:left;"><div class="croppedImg"><img src="http://webcamsmexico.net/puertomorelos1/live_tn.jpg" alt="Image" /></div></span>
+
+	  <div class="miniCardCaption">Puerto Morelos<br/><span class='estado'>Quintana Roo</span></div>
+	</a>          </div>
+
+
+
+        </div>
+
+
+      </section>
+
+
+      <section id="my-footer">
+      	    <footer>
+      <section class="content-wrapper" style="padding: 10px;">
+
+
+        <article id="footerdesc">
+          <br/>
+          PROIMAMEX S.A. DE C.V. 2011 - 2018. Todos los derechos reservados. <a href="aviso-de-privacidad"  style="color:#C8C8C8" target="_blank">Aviso de privacidad. </a>
+        </article>
+
+          <article id="footersocial" >
+                 <a href="https://facebook.com/webcamsdemexico" original-title="Hazte fan en Facebook" target="_blank"><span class="icon-facebook" ></span></a>
+                  <a href="https://twitter.com/webcamsdemexico" original-title="Síguenos en Twitter" target="_blank"><span class="icon-twitter" ></span></a>
+                  <a href="https://www.instagram.com/webcamsdemexico/" original-title="Síguenos en Instagram" target="_blank"><span class="icon-instagram"  ></span></a>
+                  <a href="https://youtube.com/webcamsdemexico" original-title="Míranos en Youtube" target="_blank"><span class="icon-youtube" ></span></a>
+                  <a href="contacto" original-title="Contacto"><span class="icon-envelop" ></span></a>
+
+          </article>
+
+
+
+      </section>
+
+    </footer>
+
+      </section>
+
+
+
+
+   </div>
+
+
+
+
+ <nav id="my-menu">
+
+          <ul>
+            <li><a href='./'><span>Home</span></a></li>
+            <li class=''><span id="">Webcams</span>
+               <ul>
+	<li class="" ><span>Acapulco</span>
+		<ul>
+			<li><a href="webcam-acapulco"><span>Bahía</span></a></li>
+			<li><a href="webcam-acapulco-playa"><span>Playa</span></a></li>
+			<li><a href="webcam-acapulco-marina"><span>Marina</span></a></li>
+			<li><a href="webcam-acapulco-panoramica"><span>Panorámica</span></a></li>
+			<li><a href="webcam-acapulco-papagayo"><span>Parque Papagayo</span></a></li>
+			<li><a href="webcam-acapulco-quebrada"><span>Quebrada</span></a></li>
+			<li><a href="webcam-acapulco-condesa"><span>Condesa</span></a></li>
+			<li><a href="webcam-acapulco-playa-el-morro"><span>Playa El Morro</span></a></li>
+			<li><a href="webcam-acapulco-puertomarques-tirolesa-xtasea"><span>Tirolesa Xtasea</span></a></li>
+			<li class='last'><a href="webcam-acapulco-pie-de-la-cuesta"><span>Pie de la Cuesta</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-alamos"><span>Álamos</span></a>	</li>
+	<li class="" ><a href="webcam-amealco"><span>Amealco</span></a>	</li>
+	<li class="" ><a href="webcam-chihuahua-barrancas-del-cobre"><span>Barrancas del Cobre</span></a>	</li>
+	<li class="" ><a href="webcam-bernal"><span>Bernal</span></a>	</li>
+	<li class="" ><span>Cabo San Lucas</span>
+		<ul>
+			<li><a href="webcam-cabo-san-lucas"><span>Cabo San Lucas</span></a></li>
+			<li><a href="webcam-cabo-san-lucas-panoramica"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-cabo-san-lucas-playa-el-medano"><span>Playa El Médano</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-cadereyta-de-montes"><span>Cadereyta de Montes</span></a>	</li>
+	<li class="" ><span>Campeche</span>
+		<ul>
+			<li><a href="webcam-campeche-panoramica"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-campeche-centro"><span>Centro</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Cancún</span>
+		<ul>
+			<li><a href="webcam-cancun"><span>Panorámica</span></a></li>
+			<li><a href="webcam-punta-cancun"><span>Punta Cancún</span></a></li>
+			<li><a href="webcam-cancun-playa"><span>Playa</span></a></li>
+			<li><a href="webcam-punta-cancun-poniente"><span>Punta Cancún Poniente</span></a></li>
+			<li><a href="webcam-punta-cancun-faro"><span>Punta Cancún Faro</span></a></li>
+			<li><a href="webcam-cancun-playa-hotel-presidente"><span>Playa Hotel Presidente</span></a></li>
+			<li><a href="webcam-cancun-park-royal"><span>Park Royal</span></a></li>
+			<li class='last'><a href="webcam-cancun-grand-park-royal"><span>Grand Park Royal</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-chihuahua-catedral"><span>Chihuahua</span></a>	</li>
+	<li class="" ><span>Ciudad de México</span>
+		<ul>
+			<li><a href="webcam-mexico-zocalo"><span>Zócalo</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-este"><span>Latino Este</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-oeste"><span>Latino Oeste</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-norte"><span>Latino Norte</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-sur"><span>Latino Sur</span></a></li>
+			<li><a href="webcam-mexico-reforma-angel"><span>Ángel</span></a></li>
+			<li><a href="webcam-mexico-revolucion"><span>Revolución</span></a></li>
+			<li><a href="webcam-mexico-santa-fe"><span>Santa Fe</span></a></li>
+			<li><a href="webcam-mexico-chapultepec"><span>Chapultepec</span></a></li>
+			<li><a href="webcam-mexico-aeropuerto-panoramica"><span>Aeropuerto Panorámica</span></a></li>
+			<li><a href="webcam-mexico-basilica-de-guadalupe"><span>Basílica de Guadalupe</span></a></li>
+			<li><a href="webcam-mexico-chapultepec-auditorio"><span>Chapultepec Auditorio</span></a></li>
+			<li><a href="webcam-bellas-artes"><span>Bellas Artes</span></a></li>
+			<li><a href="webcam-mexico-garibaldi"><span>Garibaldi</span></a></li>
+			<li><a href="webcam-mexico-aeropuerto"><span>Aeropuerto</span></a></li>
+			<li class='last'><a href="webcam-mexico-satelite"><span>Satélite</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-comala"><span>Comala</span></a>	</li>
+	<li class="" ><span>Cozumel</span>
+		<ul>
+			<li><a href="webcam-cozumel"><span>Muelle</span></a></li>
+			<li><a href="webcam-cozumel-poniente"><span>Poniente</span></a></li>
+			<li><a href="webcam-playa-cozumel"><span>Playa Hotel Presidente</span></a></li>
+			<li class='last'><a href="webcam-cozumel-secrets-aura"><span>Playa Secrets Aura</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Durango</span>
+		<ul>
+			<li><a href="webcam-durango-plaza"><span>Plaza</span></a></li>
+			<li class='last'><a href="webcam-durango-panoramica"><span>Panorámica</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-gran-telescopio-milimetrico"><span>GTM</span></a>	</li>
+	<li class="" ><span>Guadalajara</span>
+		<ul>
+			<li><a href="webcam-guadalajara"><span>Minerva</span></a></li>
+			<li class='last'><a href="webcam-guadalajara-plaza-de-armas"><span>Plaza de Armas</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-guanajuato"><span>Guanajuato</span></a>	</li>
+	<li class="" ><a href="webcam-guaymas"><span>Guaymas</span></a>	</li>
+	<li class="" ><a href="webcam-hermosillo"><span>Hermosillo</span></a>	</li>
+	<li class="" ><span>Huatulco</span>
+		<ul>
+			<li><a href="webcam-huatulco-bahia-de-santa-cruz"><span>Santa Cruz</span></a></li>
+			<li class='last'><a href="webcam-huatulco-bahia-de-tangolunda"><span>Tangolunda</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-isla-mujeres"><span>Isla Mujeres</span></a>	</li>
+	<li class="" ><span>Ixtapa</span>
+		<ul>
+			<li><a href="webcam-ixtapa"><span>Panoramica</span></a></li>
+			<li><a href="webcam-ixtapa-playa"><span>Playa</span></a></li>
+			<li><a href="webcam-ixtapa-playa-poniente"><span>Playa Poniente</span></a></li>
+			<li class='last'><a href="webcam-ixtapa-centro"><span>Centro</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-jalpan"><span>Jalpan</span></a>	</li>
+	<li class="" ><a href="webcam-la-paz"><span>La Paz</span></a>	</li>
+	<li class="" ><a href="webcam-leon-centro"><span>León</span></a>	</li>
+	<li class="" ><a href="webcam-loreto"><span>Loreto</span></a>	</li>
+	<li class="" ><a href="webcam-mahahual"><span>Mahahual</span></a>	</li>
+	<li class="" ><span>Manzanillo</span>
+		<ul>
+			<li><a href="webcam-manzanillo-playa-la-audiencia"><span>Playa La Audiencia</span></a></li>
+			<li><a href="webcam-manzanillo-panoramica"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-manzanillo-centro"><span>Centro</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Mazatlán</span>
+		<ul>
+			<li><a href="webcam-mazatlan"><span>Mazatlán</span></a></li>
+			<li><a href="webcam-mazatlan-dorada"><span>Zona Dorada</span></a></li>
+			<li><a href="webcam-mazatlan-playa-hotel-playa"><span>Mazatlán Playa Hotel Playa</span></a></li>
+			<li class='last'><a href="webcam-mazatlan-playa"><span>Mazatlán Playa</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Monterrey</span>
+		<ul>
+			<li><a href="webcam-monterrey"><span>Monterrey San Jerónimo</span></a></li>
+			<li class='last'><a href="webcam-monterrey-pabellon-m"><span>Monterrey Pabellon M</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-mulege"><span>Mulegé</span></a>	</li>
+	<li class="" ><a href="webcam-nuevo-vallarta"><span>Nuevo Vallarta</span></a>	</li>
+	<li class="" ><a href="webcam-oaxaca-santo-domingo"><span>Oaxaca</span></a>	</li>
+	<li class="" ><span>Pachuca</span>
+		<ul>
+			<li><a href="webcam-pachuca"><span>Plaza de la Independencia Sur</span></a></li>
+			<li class='last'><a href="webcam-pachuca-norte"><span>Plaza de la Independencia Norte</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Pátzcuaro</span>
+		<ul>
+			<li><a href="webcam-patzcuaro"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-patzcuaro-centro"><span>Plaza</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-pico-de-orizaba"><span>Pico de Orizaba</span></a>	</li>
+	<li class="" ><span>Playa del Carmen</span>
+		<ul>
+			<li><a href="webcam-playa-del-carmen"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-playa-del-carmen-quinta-avenida"><span>Quinta Avenida</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Popocatépetl</span>
+		<ul>
+			<li><a href="webcam-popocatepetl"><span>Popocatépetl SNR</span></a></li>
+			<li><a href="webcam-popocatepetl-amecameca"><span>Amecameca</span></a></li>
+			<li class='last'><a href="webcam-popocatepetl-iztaccihuatl"><span>Hacienda Panoaya</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Puebla</span>
+		<ul>
+			<li><a href="webcam-puebla-la-noria"><span>Puebla Norte</span></a></li>
+			<li><a href="webcam-puebla-centro"><span>Centro</span></a></li>
+			<li class='last'><a href="webcam-puebla-panoramica-volcanes"><span>Volcanes</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-puerto-escondido"><span>Puerto Escondido</span></a>	</li>
+	<li class="" ><a href="webcam-puerto-morelos"><span>Puerto Morelos</span></a>	</li>
+	<li class="" ><span>Puerto Vallarta</span>
+		<ul>
+			<li><a href="webcam-puerto-vallarta-sur"><span>Puerto Vallarta Sur</span></a></li>
+			<li><a href="webcam-puerto-vallarta-playa"><span>Playa</span></a></li>
+			<li class='last'><a href="webcam-puerto-vallarta-conchas-chinas"><span>Conchas Chinas</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-queretaro-plaza"><span>Querétaro</span></a>	</li>
+	<li class="" ><span>Real de Catorce</span>
+		<ul>
+			<li><a href="webcam-real-de-catorce"><span>Centro</span></a></li>
+			<li class='last'><a href="webcam-real-de-catorce-panoramica"><span>Panorámica</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-san-carlos"><span>San Carlos</span></a>	</li>
+	<li class="" ><a href="webcam-san-cristobal-de-las-casas"><span>San Cristóbal de las Casas</span></a>	</li>
+	<li class="" ><a href="webcam-san-joaquin"><span>San Joaquín</span></a>	</li>
+	<li class="" ><a href="webcam-san-luis-potosi"><span>San Luis Potosí</span></a>	</li>
+	<li class="" ><a href="webcam-san-miguel-de-allende"><span>San Miguel de Allende</span></a>	</li>
+	<li class="" ><a href="webcam-sombrerete"><span>Sombrerete</span></a>	</li>
+	<li class="" ><a href="webcam-tacambaro"><span>Tacámbaro</span></a>	</li>
+	<li class="" ><a href="webcam-tampico"><span>Tampico Miramar</span></a>	</li>
+	<li class="" ><span>Taxco</span>
+		<ul>
+			<li><a href="webcam-taxco"><span>Taxco</span></a></li>
+			<li class='last'><a href="webcam-taxco-centro"><span>Taxco Centro</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-tepoztlan"><span>Tepoztlán</span></a>	</li>
+	<li class="" ><a href="webcam-tequisquiapan"><span>Tequisquiapan</span></a>	</li>
+	<li class="" ><a href="webcam-tlaxcala"><span>Tlaxcala</span></a>	</li>
+	<li class="" ><a href="webcam-todos-santos"><span>Todos Santos</span></a>	</li>
+	<li class="" ><span>Uruapan</span>
+		<ul>
+			<li><a href="webcam-uruapan-panoramica"><span>Panorámica</span></a></li>
+			<li class='last'><a href="webcam-uruapan-plaza"><span>Centro</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-veracruz"><span>Veracruz</span></a>	</li>
+	<li class="" ><a href="webcam-villa-de-alvarez"><span>Villa de Álvarez</span></a>	</li>
+	<li class="" ><span>Volcán de Colima</span>
+		<ul>
+			<li><a href="webcam-volcan-de-colima"><span>Volcán de Colima</span></a></li>
+			<li class='last'><a href="webcam-volcan-de-colima-panoramica"><span>Panorámica</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><span>Xcaret</span>
+		<ul>
+			<li><a href="webcam-xcaret"><span>Xcaret</span></a></li>
+			<li class='last'><a href="webcam-hotel-xcaret-mexico"><span>Hotel Xcaret México</span></a></li>
+		</ul>
+	</li>
+	<li class="" ><a href="webcam-xel-ha"><span>Xel-Há</span></a>	</li>
+	<li class="" ><span>Zacatecas</span>
+		<ul>
+			<li><a href="webcam-zacatecas"><span>Zacatecas</span></a></li>
+			<li class='last'><a href="webcam-zacatecas-centro-historico"><span>Zacatecas Centro</span></a></li>
+		</ul>
+	</li>
+</ul>            </li>
+            <li class=''><span id="">Estados</span>
+                  <ul>
+	<li class=""><span>Baja California Sur</span>
+		<ul>
+			<li><a href="webcam-cabo-san-lucas"><span>Cabo San Lucas</span></a></li>
+			<li><a href="webcam-cabo-san-lucas-panoramica"><span>Cabo San Lucas - Panorámica</span></a></li>
+			<li><a href="webcam-cabo-san-lucas-playa-el-medano"><span>Cabo San Lucas - Playa El Médano</span></a></li>
+			<li><a href="webcam-la-paz"><span>La Paz</span></a></li>
+			<li><a href="webcam-loreto"><span>Loreto</span></a></li>
+			<li><a href="webcam-mulege"><span>Mulegé</span></a></li>
+			<li class='last'><a href="webcam-todos-santos"><span>Todos Santos</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Campeche</span>
+		<ul>
+			<li><a href="webcam-campeche-panoramica"><span>Campeche - Panorámica</span></a></li>
+			<li class='last'><a href="webcam-campeche-centro"><span>Campeche - Centro</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Chiapas</span>
+		<ul>
+			<li class='last'><a href="webcam-san-cristobal-de-las-casas"><span>San Cristóbal de las Casas</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Chihuahua</span>
+		<ul>
+			<li><a href="webcam-chihuahua-barrancas-del-cobre"><span>Barrancas del Cobre</span></a></li>
+			<li class='last'><a href="webcam-chihuahua-catedral"><span>Chihuahua</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Ciudad de México</span>
+		<ul>
+			<li><a href="webcam-mexico-zocalo"><span>Zócalo</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-este"><span>Latino Este</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-oeste"><span>Latino Oeste</span></a></li>
+			<li><a href="webcam-mexico-aeropuerto"><span>Aeropuerto</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-norte"><span>Latino Norte</span></a></li>
+			<li><a href="webcam-mexico-latinoamericana-sur"><span>Latino Sur</span></a></li>
+			<li><a href="webcam-mexico-reforma-angel"><span>Ángel</span></a></li>
+			<li><a href="webcam-mexico-revolucion"><span>Revolución</span></a></li>
+			<li><a href="webcam-mexico-chapultepec"><span>Chapultepec</span></a></li>
+			<li><a href="webcam-mexico-aeropuerto-panoramica"><span>Aeropuerto Panorámica</span></a></li>
+			<li><a href="webcam-mexico-basilica-de-guadalupe"><span>Basílica de Guadalupe</span></a></li>
+			<li><a href="webcam-mexico-santa-fe"><span>Santa Fe</span></a></li>
+			<li><a href="webcam-mexico-chapultepec-auditorio"><span>Chapultepec Auditorio</span></a></li>
+			<li><a href="webcam-bellas-artes"><span>Bellas Artes</span></a></li>
+			<li class='last'><a href="webcam-mexico-garibaldi"><span>Garibaldi</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Colima</span>
+		<ul>
+			<li><a href="webcam-volcan-de-colima"><span>Carrizalillo - Volcán de Colima</span></a></li>
+			<li><a href="webcam-volcan-de-colima-panoramica"><span>Colima - Panorámica</span></a></li>
+			<li><a href="webcam-comala"><span>Comala</span></a></li>
+			<li><a href="webcam-manzanillo-playa-la-audiencia"><span>Manzanillo - Playa La Audiencia</span></a></li>
+			<li><a href="webcam-manzanillo-panoramica"><span>Manzanillo - Panorámica</span></a></li>
+			<li><a href="webcam-manzanillo-centro"><span>Manzanillo - Centro</span></a></li>
+			<li class='last'><a href="webcam-villa-de-alvarez"><span>Villa de Álvarez</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Durango</span>
+		<ul>
+			<li><a href="webcam-durango-plaza"><span>Durango - Plaza</span></a></li>
+			<li class='last'><a href="webcam-durango-panoramica"><span>Durango - Panorámica</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Estado de México</span>
+		<ul>
+			<li><a href="webcam-popocatepetl-amecameca"><span>Amecameca</span></a></li>
+			<li><a href="webcam-popocatepetl-iztaccihuatl"><span>Amecameca - Hacienda Panoaya</span></a></li>
+			<li class='last'><a href="webcam-mexico-satelite"><span>Tlalnepantla - Satélite</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Guanajuato</span>
+		<ul>
+			<li><a href="webcam-guanajuato"><span>Guanajuato</span></a></li>
+			<li><a href="webcam-leon-centro"><span>León - Centro</span></a></li>
+			<li class='last'><a href="webcam-san-miguel-de-allende"><span>San Miguel de Allende</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Guerrero</span>
+		<ul>
+			<li><a href="webcam-acapulco"><span>Acapulco - Bahía</span></a></li>
+			<li><a href="webcam-acapulco-playa"><span>Acapulco - Playa</span></a></li>
+			<li><a href="webcam-acapulco-marina"><span>Acapulco - Marina</span></a></li>
+			<li><a href="webcam-acapulco-panoramica"><span>Acapulco - Panorámica</span></a></li>
+			<li><a href="webcam-acapulco-papagayo"><span>Acapulco - Parque Papagayo</span></a></li>
+			<li><a href="webcam-acapulco-quebrada"><span>Acapulco - Quebrada</span></a></li>
+			<li><a href="webcam-acapulco-condesa"><span>Acapulco - Condesa</span></a></li>
+			<li><a href="webcam-acapulco-playa-el-morro"><span>Acapulco - Playa El Morro</span></a></li>
+			<li><a href="webcam-acapulco-puertomarques-tirolesa-xtasea"><span>Acapulco - Tirolesa Xtasea</span></a></li>
+			<li><a href="webcam-acapulco-pie-de-la-cuesta"><span>Acapulco - Pie de la Cuesta</span></a></li>
+			<li><a href="webcam-ixtapa"><span>Ixtapa - Panoramica</span></a></li>
+			<li><a href="webcam-ixtapa-playa"><span>Ixtapa - Playa</span></a></li>
+			<li><a href="webcam-ixtapa-centro"><span>Ixtapa - Centro</span></a></li>
+			<li><a href="webcam-ixtapa-playa-poniente"><span>Ixtapa - Playa Poniente</span></a></li>
+			<li><a href="webcam-taxco"><span>Taxco</span></a></li>
+			<li class='last'><a href="webcam-taxco-centro"><span>Taxco - Taxco Centro</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Hidalgo</span>
+		<ul>
+			<li><a href="webcam-pachuca"><span>Pachuca - Plaza de la Independencia Sur</span></a></li>
+			<li class='last'><a href="webcam-pachuca-norte"><span>Pachuca - Plaza de la Independencia Norte</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Jalisco</span>
+		<ul>
+			<li><a href="webcam-guadalajara"><span>Guadalajara - Minerva</span></a></li>
+			<li><a href="webcam-guadalajara-plaza-de-armas"><span>Guadalajara - Plaza de Armas</span></a></li>
+			<li><a href="webcam-puerto-vallarta-sur"><span>Puerto Vallarta - Puerto Vallarta Sur</span></a></li>
+			<li><a href="webcam-puerto-vallarta-playa"><span>Puerto Vallarta - Playa</span></a></li>
+			<li class='last'><a href="webcam-puerto-vallarta-conchas-chinas"><span>Puerto Vallarta - Conchas Chinas</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Michoacán</span>
+		<ul>
+			<li><a href="webcam-patzcuaro"><span>Pátzcuaro - Panorámica</span></a></li>
+			<li><a href="webcam-patzcuaro-centro"><span>Pátzcuaro - Plaza</span></a></li>
+			<li><a href="webcam-tacambaro"><span>Tacámbaro</span></a></li>
+			<li><a href="webcam-uruapan-panoramica"><span>Uruapan - Panorámica</span></a></li>
+			<li class='last'><a href="webcam-uruapan-plaza"><span>Uruapan - Centro</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Morelos</span>
+		<ul>
+			<li class='last'><a href="webcam-tepoztlan"><span>Tepoztlán</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Nayarit</span>
+		<ul>
+			<li class='last'><a href="webcam-nuevo-vallarta"><span>Nuevo Vallarta</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Nuevo León</span>
+		<ul>
+			<li><a href="webcam-monterrey"><span>Monterrey - Monterrey San Jerónimo</span></a></li>
+			<li class='last'><a href="webcam-monterrey-pabellon-m"><span>Monterrey - Monterrey Pabellon M</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Oaxaca</span>
+		<ul>
+			<li><a href="webcam-huatulco-bahia-de-santa-cruz"><span>Huatulco - Santa Cruz</span></a></li>
+			<li><a href="webcam-huatulco-bahia-de-tangolunda"><span>Huatulco - Tangolunda</span></a></li>
+			<li><a href="webcam-oaxaca-santo-domingo"><span>Oaxaca - Santo Domingo</span></a></li>
+			<li class='last'><a href="webcam-puerto-escondido"><span>Puerto Escondido</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Puebla</span>
+		<ul>
+			<li><a href="webcam-puebla-la-noria"><span>Puebla - Puebla Norte</span></a></li>
+			<li><a href="webcam-puebla-centro"><span>Puebla - Centro</span></a></li>
+			<li><a href="webcam-puebla-panoramica-volcanes"><span>Puebla - Volcanes</span></a></li>
+			<li><a href="webcam-popocatepetl"><span>San Nicolás de los Ranchos - Popocatépetl SNR</span></a></li>
+			<li><a href="webcam-gran-telescopio-milimetrico"><span>Volcán Sierra Negra - GTM</span></a></li>
+			<li class='last'><a href="webcam-pico-de-orizaba"><span>Volcán Sierra Negra - Pico de Orizaba</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Querétaro</span>
+		<ul>
+			<li><a href="webcam-amealco"><span>Amealco</span></a></li>
+			<li><a href="webcam-bernal"><span>Bernal</span></a></li>
+			<li><a href="webcam-cadereyta-de-montes"><span>Cadereyta de Montes</span></a></li>
+			<li><a href="webcam-jalpan"><span>Jalpan</span></a></li>
+			<li><a href="webcam-queretaro-plaza"><span>Querétaro - Querétaro Plaza</span></a></li>
+			<li><a href="webcam-san-joaquin"><span>San Joaquín</span></a></li>
+			<li class='last'><a href="webcam-tequisquiapan"><span>Tequisquiapan</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Quintana Roo</span>
+		<ul>
+			<li><a href="webcam-cancun"><span>Cancún - Panorámica</span></a></li>
+			<li><a href="webcam-punta-cancun"><span>Cancún - Punta Cancún</span></a></li>
+			<li><a href="webcam-cancun-playa"><span>Cancún - Playa</span></a></li>
+			<li><a href="webcam-punta-cancun-poniente"><span>Cancún - Punta Cancún Poniente</span></a></li>
+			<li><a href="webcam-cancun-park-royal"><span>Cancún - Park Royal</span></a></li>
+			<li><a href="webcam-cancun-grand-park-royal"><span>Cancún - Grand Park Royal</span></a></li>
+			<li><a href="webcam-punta-cancun-faro"><span>Cancún - Punta Cancún Faro</span></a></li>
+			<li><a href="webcam-cancun-playa-hotel-presidente"><span>Cancún - Playa Hotel Presidente</span></a></li>
+			<li><a href="webcam-cozumel"><span>Cozumel - Muelle</span></a></li>
+			<li><a href="webcam-cozumel-poniente"><span>Cozumel - Poniente</span></a></li>
+			<li><a href="webcam-cozumel-secrets-aura"><span>Cozumel - Playa Secrets Aura</span></a></li>
+			<li><a href="webcam-playa-cozumel"><span>Cozumel - Playa Hotel Presidente</span></a></li>
+			<li><a href="webcam-isla-mujeres"><span>Isla Mujeres</span></a></li>
+			<li><a href="webcam-mahahual"><span>Mahahual</span></a></li>
+			<li><a href="webcam-playa-del-carmen"><span>Playa del Carmen - Panorámica</span></a></li>
+			<li><a href="webcam-playa-del-carmen-quinta-avenida"><span>Playa del Carmen - Quinta Avenida</span></a></li>
+			<li><a href="webcam-puerto-morelos"><span>Puerto Morelos</span></a></li>
+			<li><a href="webcam-xcaret"><span>Xcaret</span></a></li>
+			<li><a href="webcam-hotel-xcaret-mexico"><span>Xcaret - Hotel Xcaret México</span></a></li>
+			<li class='last'><a href="webcam-xel-ha"><span>Xel-Há</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>San Luis Potosí</span>
+		<ul>
+			<li><a href="webcam-real-de-catorce"><span>Real de Catorce - Centro</span></a></li>
+			<li><a href="webcam-real-de-catorce-panoramica"><span>Real de Catorce - Panorámica</span></a></li>
+			<li class='last'><a href="webcam-san-luis-potosi"><span>San Luis Potosí</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Sinaloa</span>
+		<ul>
+			<li><a href="webcam-mazatlan-dorada"><span>Mazatlán - Zona Dorada</span></a></li>
+			<li><a href="webcam-mazatlan"><span>Mazatlán</span></a></li>
+			<li><a href="webcam-mazatlan-playa-hotel-playa"><span>Mazatlán - Mazatlán Playa Hotel Playa</span></a></li>
+			<li class='last'><a href="webcam-mazatlan-playa"><span>Mazatlán - Mazatlán Playa</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Sonora</span>
+		<ul>
+			<li><a href="webcam-alamos"><span>Álamos</span></a></li>
+			<li><a href="webcam-guaymas"><span>Guaymas</span></a></li>
+			<li><a href="webcam-hermosillo"><span>Hermosillo</span></a></li>
+			<li class='last'><a href="webcam-san-carlos"><span>San Carlos</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Tamaulipas</span>
+		<ul>
+			<li class='last'><a href="webcam-tampico"><span>Tampico Miramar - Tampico</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Tlaxcala</span>
+		<ul>
+			<li class='last'><a href="webcam-tlaxcala"><span>Tlaxcala</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Veracruz</span>
+		<ul>
+			<li class='last'><a href="webcam-veracruz"><span>Veracruz</span></a></li>
+		</ul>
+	</li>
+	<li class=""><span>Zacatecas</span>
+		<ul>
+			<li><a href="webcam-sombrerete"><span>Sombrerete</span></a></li>
+			<li><a href="webcam-zacatecas"><span>Zacatecas</span></a></li>
+			<li class='last'><a href="webcam-zacatecas-centro-historico"><span>Zacatecas - Zacatecas Centro</span></a></li>
+		</ul>
+	</li>
+</ul>            </li>
+                        <li class=''><a href='videoteca'><span>Videoteca</span></a></li>
+            <li class=''><a href='streams'><span>Streams</span></a></li>
+            <li class=''><a href='contacto'><span>Contacto</span></a></li>
+          </ul>
+
+
+
+		</nav>
+
+
+
+
+
+
+<script>
+
+	var CID = 45;
+  var imgURL = 'http://webcamsdemexico.net/mahahual1/live.jpg';
+  var f24;
+
+   $(document).ready(function() {
+
+
+
+		initMenu();
+
+		$('#calendar-options').animate({width: 'toggle'},0);
+
+
+		$(".fancybox").fancybox({
+					afterLoad: function() {
+						this.openEffect = 'elastic';
+						this.openSpeed  = 150;
+						this.closeEffect = 'elastic';
+						this.closeSpeed  = 150;
+						this.closeClick = true;
+						if(!this.title == "") {this.title = '<a href=\''+this.targeturl+'\' target=\'_blank\'>' + this.title + '</a>'; }
+					},
+					padding:0
+		});
+
+
+
+		$(".fancyContact").fancybox({
+			scrolling : 'no',
+			minWidth: 800,
+			minHeight : 620,
+			padding:0,
+			openEffect: 'elastic', // this option is for v1.3.4
+			closeEffect: 'elastic', // this option is for v1.3.4
+		});
+
+
+	}); //fin del $(document).ready
+
+
+
+  function scrollToElement(el, ms){
+    var speed = (ms) ? ms : 600;
+    $('html,body').animate({
+        scrollTop: $(el).offset().top
+    }, speed);
+	}
+
+
+
+
+	function getTl(tiempo, fecha){
+
+		var optns = "a=" + tiempo;
+		if(fecha != undefined)	optns += "&f="+ fecha;
+		$('#live').html("");
+		$('#live').html("<iframe class=\"tlIframe\" width=\"100%\" height=\"100%\" src=\"timelapse?"+optns +"&c="+CID+"\" frameborder=\"0\" scrolling=\"no\"></iframe>");
+		//$('#tlPlayer').html("<iframe class=\"tlIframe\" width=\"100%\" height=\"100%\" src=\"timelapse.php?"+optns +"&c="+CID+"\" frameborder=\"0\" scrolling=\"no\"></iframe>");
+		scrollToElement('#live',600);
+	}
+
+	$('#livebtn').click(function(event){
+		event.preventDefault();
+		$('#live').html("");
+		$('#live').html('<img src="http://webcamsdemexico.net/mahahual1/live.jpg" border="0" id="liveimg" name="liveimg" />');
+		clearTimeout(recargar);
+		recargar = setTimeout("imageReload()", periodo * 1000);
+		//$('#tlPlayer').html("");
+		$('#vivoimg').attr('src','assets/vivo2.png');
+		$('this').css('oolor','#F93D3D');
+
+
+	});
+
+
+	$('#albabtn').click(function(event){
+		 event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("a");
+	});
+
+	$('#ocasobtn').click(function(event){
+		event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("o");
+	});
+
+	$('#fullbtn').click(function(event){
+		event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("f");
+	});
+
+
+	$("#last24").click(function(evento){
+			evento.preventDefault();
+
+			if($("#div24").html() == ""){
+				$("#div24").load("24hrs.php?c=45",
+					function(){
+							f24 = setInterval(initFancy24, 1000);
+							scrollToElement('#div24',600);
+					} );
+
+			}
+
+
+
+	});
+
+
+		function initFancy24(){
+			//alert('voy a inicializar fancy24');
+			$(".fancybox24").fancybox({
+				openEffect : 'elastic',
+				openSpeed : 150,
+				closeEffect : 'elastic',
+				closeSpeed : 150,
+				closeClick : true,
+				padding:0
+			});
+			clearInterval(f24);
+		}
+
+	$("#tempbtn").click(function(event){
+		event.preventDefault();
+			$(".fancybox24").fancybox({
+				openEffect : 'elastic',
+				openSpeed : 150,
+				closeEffect : 'elastic',
+				closeSpeed : 150,
+				closeClick : true,
+				padding:0
+			});
+	})
+
+
+
+	$('#sunrise').click(function(event){
+		 event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("a");
+	});
+
+	$('#sunset').click(function(event){
+		event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("o");
+	});
+
+	$('#allday').click(function(event){
+		event.preventDefault();
+		 clearTimeout(recargar);
+		getTl("f");
+	});
+
+	$('#last2').click(function(event){
+		event.preventDefault();
+		clearTimeout(recargar);
+		startHour =6;startMinute = 56;fecha = '2019-10-26';		//$('#tlPlayer').html("<iframe class=\"tlIframe\" src=\"timelapse?a=c&c="+CID+"&f="+fecha+"&h="+startHour+"&m="+startMinute+"&i=60&s=2\" frameborder=\"0\"  scrolling=\"no\"></iframe>");
+		$('#live').html("");
+		$('#live').html("<iframe class=\"tlIframe\" width=\"100%\" height=\"100%\" src=\"timelapse?a=c&c="+CID+"&f="+fecha+"&h="+startHour+"&m="+startMinute+"&i=60&s=2\" frameborder=\"0\"  scrolling=\"no\"></iframe>");
+		scrollToElement('#live',600);
+
+
+	});
+
+
+	$('#calendarbtn').click(function(event){
+		event.preventDefault();
+		$('#calendar-options').animate({width: 'toggle'},200);
+
+	});
+
+
+	$('#verbtn').click(function(event){
+		event.preventDefault();
+
+
+
+			if($('#datepicker').val() == '' || $('#verbtn').attr('href') == '#'){
+				$('#datepicker').datepicker( "show" );
+			}
+			else{
+				per = $('#periodo').val();
+				if( per == 'a' || per == 'o' || per == 'f'){
+
+					getTl($('#periodo').val(), $('#datepicker').val());
+					$('#calendar-options').animate({width: 'toggle'},200);
+				}
+				else{
+					$("#fotohistorica").attr('href','http://webcamsdemexico.net/mahahual1/'+ $('#datepicker').val() + '/xga/' + $('#periodo').val() + '.jpg');
+					$("#fotohistorica").click();
+				}
+
+
+			}
+
+
+	});
+
+/*	$("#imgPlayer").hover(
+ 		function(){ $("#camDesc span").slideDown() },
+		function(){ $("#camDesc span").slideUp()}
+	);
+*/
+	function ocultarDesc(){
+		$("#camDesc").slideUp();
+		clearInterval(hideInfo);
+	}
+
+	$('#nfobtn').click(function(event){
+		event.preventDefault();
+		$("#camDesc").slideToggle();
+	});
+
+	var hideInfo = setInterval(ocultarDesc, 7000);
+
+
+	//$('#livebtn').click();
+
+
+
+</script>
+
+
+
+</body>
+</html>
