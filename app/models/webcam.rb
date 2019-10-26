@@ -9,6 +9,7 @@
 #  latitude   :float            not null
 #  longitude  :float            not null
 #  name       :string
+#  source     :string
 #  url        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
