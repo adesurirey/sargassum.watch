@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="400px" viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>LOGO</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="100%" fx="50%" fy="100%" r="100%" id="radialGradient-1">
+            <stop stop-color="#FC385B" offset="0%"></stop>
+            <stop stop-color="#EE884B" offset="37.2134692%"></stop>
+            <stop stop-color="#FFC65B" offset="66.2006999%"></stop>
+            <stop stop-color="#1EDD88" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="65.4411765%" gradientTransform="translate(0.500000,0.500000),scale(1.000000,0.764045),rotate(90.000000),scale(1.000000,0.767755),translate(-0.500000,-0.500000)" id="radialGradient-2">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="67.3279494%"></stop>
+            <stop stop-color="#FFFFFF" offset="78.6363237%"></stop>
+            <stop stop-color="#F2F2F2" offset="83.9997367%"></stop>
+            <stop stop-color="#A8A8A8" offset="95.4946454%"></stop>
+            <stop stop-color="#A2A2A2" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="56.987625%" y1="55.2428733%" x2="74.5863229%" y2="92.5050692%" id="linearGradient-3">
+            <stop stop-color="#622F00" offset="0%"></stop>
+            <stop stop-color="#8E640B" offset="36.842302%"></stop>
+            <stop stop-color="#F0C000" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="55.1978889%" gradientTransform="translate(0.500000,0.500000),scale(1.000000,0.989394),rotate(61.441141),scale(1.000000,0.984577),translate(-0.500000,-0.500000)" id="radialGradient-4">
+            <stop stop-color="#522B02" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#522B02" stop-opacity="0" offset="91.5723765%"></stop>
+            <stop stop-color="#522B02" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="56.9926599%" y1="55.2428733%" x2="74.6040384%" y2="92.5050692%" id="linearGradient-5">
+            <stop stop-color="#622F00" offset="0%"></stop>
+            <stop stop-color="#8E640B" offset="36.842302%"></stop>
+            <stop stop-color="#F0C000" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" gradientTransform="translate(0.500000,0.500000),scale(0.857143,1.000000),rotate(90.000000),scale(1.000000,1.115224),translate(-0.500000,-0.500000)" id="radialGradient-6">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="62.147785%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.898492133" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" gradientTransform="translate(0.500000,0.500000),scale(0.900000,1.000000),rotate(90.000000),scale(1.000000,1.115224),translate(-0.500000,-0.500000)" id="radialGradient-7">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="62.147785%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.898492133" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="LOGO" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="url(#radialGradient-1)" x="0" y="0" width="400" height="400" rx="50"></rect>
+        <g id="1f440" transform="translate(40.000000, 101.000000)">
+            <g id="Group" transform="translate(160.000000, 98.546713) scale(-1, 1) rotate(-180.000000) translate(-160.000000, -98.546713) ">
+                <path d="M75.2941176,-3.18323146e-12 C33.7140484,-3.18323146e-12 0,44.129218 0,98.5467128 C0,152.974062 33.7140484,197.093426 75.2941176,197.093426 C116.874187,197.093426 150.588235,152.974062 150.588235,98.5467128 C150.588235,44.129218 116.874187,-3.18323146e-12 75.2941176,-3.18323146e-12 Z" id="Path" fill="url(#radialGradient-2)" fill-rule="nonzero"></path>
+                <path d="M244.705882,-3.18323146e-12 C203.125813,-3.18323146e-12 169.411765,44.129218 169.411765,98.5467128 C169.411765,152.974062 203.125813,197.093426 244.705882,197.093426 C286.285952,197.093426 320,152.974062 320,98.5467128 C320,44.129218 286.285952,-3.18323146e-12 244.705882,-3.18323146e-12 Z" id="Path" fill="url(#radialGradient-2)" fill-rule="nonzero"></path>
+                <g id="Group-5" transform="translate(9.965398, 38.311419)">
+                    <g id="Group" transform="translate(6.643599, 8.193772)" fill="#1C2023" fill-rule="nonzero">
+                        <path d="M59.050519,29.5640138 C59.050519,13.2348235 45.8330445,-1.13686838e-13 29.5252595,-1.13686838e-13 C13.2174745,-1.13686838e-13 0,13.2348235 0,29.5640138 C0,45.8932042 13.2174745,59.1280277 29.5252595,59.1280277 C45.8330445,59.1280277 59.050519,45.8932042 59.050519,29.5640138" id="Path"></path>
+                        <path d="M227.606594,29.5640138 C227.606594,13.2348235 214.379277,-3.58824082e-13 198.081334,-3.58824082e-13 C181.783391,-3.58824082e-13 168.556075,13.2348235 168.556075,29.5640138 C168.556075,45.8932042 181.783391,59.1280277 198.081334,59.1280277 C214.379277,59.1280277 227.606594,45.8932042 227.606594,29.5640138" id="Path"></path>
+                    </g>
+                    <g id="Group-4" transform="translate(36.539792, 37.093426) scale(1, -1) translate(-36.539792, -37.093426) translate(0.000000, 0.553633)">
+                        <ellipse id="Oval" stroke="url(#linearGradient-3)" stroke-width="10" cx="36.2137639" cy="36.3183391" rx="33.4628988" ry="34.0103806"></ellipse>
+                        <ellipse id="Oval-Copy-5" stroke="url(#radialGradient-4)" stroke-width="3" cx="36.1522491" cy="36.5397924" rx="37.6522491" ry="38.0397924"></ellipse>
+                    </g>
+                    <g id="Group-3" transform="translate(205.951557, 37.647059) scale(1, -1) translate(-205.951557, -37.647059) translate(169.411765, 1.107266)">
+                        <ellipse id="Oval-Copy" stroke="url(#linearGradient-5)" stroke-width="10" cx="36.2240164" cy="36.3183391" rx="33.4731514" ry="34.0103806"></ellipse>
+                        <ellipse id="Oval-Copy-5" stroke="url(#radialGradient-4)" stroke-width="3" cx="36.1522491" cy="36.5397924" rx="37.6522491" ry="38.0397924"></ellipse>
+                    </g>
+                    <g id="Group-2" transform="translate(4.429066, 40.304498)">
+                        <ellipse id="Oval-Copy-2" fill="url(#radialGradient-6)" transform="translate(184.359862, 15.501730) rotate(46.000000) translate(-184.359862, -15.501730) " cx="184.359862" cy="15.5017301" rx="11.6262976" ry="9.96539792"></ellipse>
+                        <ellipse id="Oval-Copy-3" fill="url(#radialGradient-7)" transform="translate(15.501730, 15.501730) rotate(46.000000) translate(-15.501730, -15.501730) " cx="15.5017301" cy="15.5017301" rx="11.0726644" ry="9.96539792"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
