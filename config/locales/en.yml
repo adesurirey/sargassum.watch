@@ -32,3 +32,13 @@
 en:
   title: 'Sargassum stranding live map, webcams and beach reporting'
   description: 'Explore worldwide beach statuses since 2018. Get daily, weekly and monthly sargassum stranding trends. Watch live beach webcams. Report your beach status.'
+  dataset:
+    reports:
+      name: 'Pellagic Sargassum Watch Database'
+      description: 'Crowdsourced beach monitoring regarding pellagic sargassum invasion. This database contains reports rating the pressence of sargassum seaweeds on worldwide beaches.'
+      keywords:
+        - 'BIOLOGY > PLANT > PELLAGIC SARGASSUM'
+        - 'ENVIRONMENT > ENVIRONMENTAL PHENOMENA > SARGASSUM STRANDING'
+        - 'ENVIRONMENT > ENVIRONMENTAL PHENOMENA > SARGASSUM BEACHING'
+        - 'ENVIRONMENT > ENVIRONMENTAL PHENOMENA > SARGASSUM INVASION'
+      variable: 'Sargassum Presence'

@@ -1,3 +1,12 @@
 fr:
   title: 'Carte des échouages de sargasses, webcams et signalement en direct'
   description: "Explorez les signalements de sargasse sur les plages du monde depuis 2018. Obtenez les dernières tendances. Visionnez les webcams en direct. Signalez l'état de votre plage."
+  dataset:
+    reports:
+      name: 'Données de Surveillance des Échouages de Sargasses'
+      description: 'Surveillance des échouages de sargasses par la population. Cette base de données contient des rapports évaluant la présence des algues de type sargasse sur les plages du monde entier.'
+      keywords:
+        - 'BIOLOGIE > PLANTE > SARGASSE'
+        - 'ENVIRONEMENT > PHÉNOMÈNE ENVIRONNEMENTAL > ÉCHOUAGE DE SARGASSES'
+        - 'ENVIRONEMENT > PHÉNOMÈNE ENVIRONNEMENTAL > INVASION DE SARGASSES'
+      variable: 'Présence de sargasses'

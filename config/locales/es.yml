@@ -1,3 +1,12 @@
 es:
   title: 'Mapa de los varamientos de sargazos, webcams e informes en directo'
   description: 'Explore los informes de sargazos en las playas del mundo desde 2018. Obtenga las últimas tendencias. Vea las webcams en directo. Reporte el estado de su playa.'
+  dataset:
+    reports:
+      name: 'Datos de Monitoreo de Varamientos de Sargazos'
+      description: 'Monitoreo de varamientos de sargazos por la población. Esta fuente de datos contiene informes que evalúan la presencia de algas sargazo en playas de todo el mundo.'
+      keywords:
+        - 'BIOLOGÍA > PLANTA > SARGAZO'
+        - 'MEDIO AMBIENTE > FENOMENO AMBIENTAL > VARAMIENTO DEL SARGAZO'
+        - 'MEDIO AMBIENTE > FENOMENO AMBIENTAL > INVASIÓN DE SARGAZOS'
+      variable: 'Presencia de sargazos'
