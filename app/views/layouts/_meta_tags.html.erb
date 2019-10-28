@@ -7,6 +7,70 @@
 <title><%= t("title") %></title>
 <meta name="description" content="<%= t("description") %>" data-react-helmet="true" />
 
+<!-- organization structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "sargassum.watch",
+  "alternateName": "Sargassum Watch",
+  "url": "<%= request.base_url %>",
+  "logo": "<%= image_url("sargassum-watch-logo.png") %>",
+  "sameAs": "https://www.twitter.com/@sargassum_watch"
+}
+</script>
+
+<!-- reports structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "<%= t('dataset.reports.name') %>",
+  "description": "<%= t('dataset.reports.description') %>",
+  "url": "<%= request.base_url + request.path %>",
+  "keywords": <%= raw t('dataset.reports.keywords') %>,
+  "variableMeasured": "<%= t('dataset.reports.variable') %>",
+  "creator":{
+    "@type": "Organization",
+    "sameAs": "<%= request.base_url %>",
+    "name": "sargassum.watch",
+  },
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "JSON",
+      "contentUrl": "<%= reports_url %>"
+    }
+  ],
+  "temporalCoverage": "2018-01-01/<%= Date.current.strftime("%Y-%m-%d") %>",
+  "dateModified": "<%= Date.current.strftime("%Y-%m-%d") %>",
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+
+<!-- viewport -->
+<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
+
+<!-- links -->
+<link rel="canonical" href="<%= request.base_url + request.path %>" data-react-helmet="true" />
+
+<% I18n.available_locales.each do |locale| %>
+  <link
+    rel="alternate"
+    href="<%= root_url(locale: locale == I18n.default_locale ? nil : locale) %>"
+    hrefLang="<%= locale %>"
+    data-react-helmet="true"
+  />
+<% end %>
+
+<!-- favicons -->
+<%= favicon_link_tag 'favicon-16x16.png', size:"16x16" %>
+<%= favicon_link_tag 'favicon-32x32.png', size:"32x32" %>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#ffc40d">
+<meta name="theme-color" content="#ffffff">
+
 <!-- Facebook Open Graph data -->
 <meta property="og:title" content="<%= t("title") %>" data-react-helmet="true" />
 <meta property="og:type" content="website" />
@@ -26,39 +90,3 @@
 <meta name="twitter:description" content="<%= t("description") %>" data-react-helmet="true" />
 <meta name="twitter:creator" content="@sargassum_watch" />
 <meta name="twitter:image:src" content="<%= image_url("sargassum-impacted-beaches.png") %>" />
-
-<!-- favicons -->
-<%= favicon_link_tag 'favicon-16x16.png', size:"16x16" %>
-<%= favicon_link_tag 'favicon-32x32.png', size:"32x32" %>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="msapplication-TileColor" content="#ffc40d">
-<meta name="theme-color" content="#ffffff">
-
-<!-- viewport -->
-<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
-
-<!-- links -->
-<link rel="canonical" href="<%= request.base_url + request.path %>" data-react-helmet="true" />
-
-<% I18n.available_locales.each do |locale| %>
-  <link
-    rel="alternate"
-    href="<%= root_url(locale: locale == I18n.default_locale ? nil : locale) %>"
-    hrefLang="<%= locale %>"
-    data-react-helmet="true"
-  />
-<% end %>
-
-<!-- structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ResearchProject",
-  "name": "sargassum.watch",
-  "alternateName": "sargassum.watch",
-  "url": "<%= request.base_url %>",
-  "logo": "<%= image_url("sargassum-watch-logo.png") %>",
-  "sameAs": "https://www.twitter.com/@sargassum_watch"
-}
-</script>
