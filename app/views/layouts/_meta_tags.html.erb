@@ -49,3 +49,16 @@
     data-react-helmet="true"
   />
 <% end %>
+
+<!-- structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "sargassum.watch",
+  "alternateName": "sargassum.watch",
+  "url": "<%= request.base_url %>",
+  "logo": "<%= image_url("sargassum-watch-logo.png") %>",
+  "sameAs": "https://www.twitter.com/@sargassum_watch"
+}
+</script>
