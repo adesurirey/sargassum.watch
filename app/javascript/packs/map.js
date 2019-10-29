@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import '../i18n';
 import configureErrorNotifier from '../utils/configureErrorNotifier';
+import registerServiceWorker from '../utils/registerServiceWorker';
 import App from '../components/App';
 
 configureErrorNotifier();
@@ -14,6 +15,8 @@ if (root) {
     ReactDOM.render(<App />, document.body.appendChild(root));
   });
 }
+
+registerServiceWorker();
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

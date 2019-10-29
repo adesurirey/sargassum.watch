@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :webcams, only: [:index], defaults: { format: :json }
   resources :settings, only: [:create], defaults: { format: :json }
 
+  get :service_worker, to: 'service_worker#service_worker', defaults: { format: :js }
+  get :manifest, to: 'service_worker#manifest', defaults: { format: :json }
+  get :offline, to: 'pages#home'
+
 
   # Sidekiq Web UI, only for admins.
   middleware = Rack::Auth::Basic
