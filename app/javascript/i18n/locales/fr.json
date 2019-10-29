@@ -1,9 +1,9 @@
 {
   "translation": {
-    "title": "Carte des échouages de sargasses, webcams et signalement en direct",
-    "description": "Explorez les signalements de sargasse sur les plages du monde depuis 2018. Obtenez les dernières tendances. Visionnez les webcams en direct. Signalez l'état de votre plage.",
+    "title": "Invasion d'algues sargasses : carte et webcams en direct",
+    "description": "Obtenez les denières nouvelles des plages du monde entier et surveillez les échouages de sargasses grâce aux tendances hebdomadaires, mensuelles et aux webcams en direct.",
     "welcome": "bienvenue",
-    "Welcome": "sargassum.watch vous permet de suivre l'évolution des échouages de sargasse dans le monde",
+    "Welcome": "sargassum.watch vous permet de suivre les invasions de sargasses dans le monde entier",
     "Zoom on the map to reveal clean beaches": "Zoomez sur la carte pour faire apparaitre les plages propres",
     "Click on the eyes to watch live beach webcams": "Cliquez sur les yeux pour visionner les webcams en direct des plages",
     "Report the presence of sargasses at your position": "Signalez la présence de sargasses à votre position avec le bouton bleu",
@@ -51,7 +51,7 @@
     "mexico": "Quintana Roo, Mexique",
     "tulum": "Tulum, Mexique",
     "Live": "En direct",
-    "Live is off": "Le direct est arrêté",
+    "Live is off": "Hors ligne",
     "Fullscreen": "Plein écran",
     "Exit fullscreen": "Sortir de plein écran",
     "Map settings": "Paramètres de la carte",

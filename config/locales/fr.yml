@@ -1,6 +1,6 @@
 fr:
-  title: 'Carte des échouages de sargasses, webcams et signalement en direct'
-  description: "Explorez les signalements de sargasse sur les plages du monde depuis 2018. Obtenez les dernières tendances. Visionnez les webcams en direct. Signalez l'état de votre plage."
+  title: "Invasion d'algues sargasses : carte et webcams en direct"
+  description: 'Obtenez les denières nouvelles des plages du monde entier et surveillez les échouages de sargasses grâce aux tendances hebdomadaires, mensuelles et aux webcams en direct.'
   dataset:
     reports:
       name: 'Données de Surveillance des Échouages de Sargasses'
