@@ -136,7 +136,7 @@ const Mapbox = forwardRef(
         onClick={handleClick}
         asyncRender
       >
-        {loading && <Spinner delay={200} />}
+        {loading && <Spinner delay={50} />}
 
         <Geocoder
           mapRef={ref}
