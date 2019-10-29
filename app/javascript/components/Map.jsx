@@ -176,6 +176,10 @@ class Map extends Component {
   };
 
   onReportsIdle = () => {
+    if (this.state.loading) {
+      return this.handleReportsIdle();
+    }
+
     this.handleLayersInteractivity();
     this.setRenderedFeatures();
   };
