@@ -3,6 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Fade } from '@material-ui/core';
 
+import useDelayedLoading from '../hooks/useDelayedLoading';
 import Logo from '../images/sargassum-watch-logo.svg';
 
 const useStyles = makeStyles(theme => ({
@@ -11,18 +12,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc(100vh - 36px)',
-    },
   },
 }));
 
 const SplashScreen = () => {
+  const loading = useDelayedLoading(200);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Fade in appear unmountOnExit>
+      <Fade in={loading} unmountOnExit>
         <img src={Logo} alt="sargassum.watch logo" width={80} />
       </Fade>
     </div>

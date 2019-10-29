@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { oneOf, number } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
 import { Fade } from '@material-ui/core';
+
+import useDelayedLoading from '../hooks/useDelayedLoading';
 
 const propTypes = {
   delay: number,
@@ -64,22 +66,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Spinner = ({ delay, variant }) => {
-  const [loading, setLoading] = useState(false);
-  const timerRef = useRef();
+  const loading = useDelayedLoading(delay);
   const classes = useStyles();
 
-  useEffect(
-    () => () => {
-      clearTimeout(timerRef.current);
-    },
-    [],
-  );
-
-  timerRef.current = setTimeout(() => {
-    setLoading(true);
-  }, delay);
-
   const size = sizes[variant];
+
+  const circleProps = {
+    cx: SIZE,
+    cy: SIZE,
+    r: (SIZE - THIKENESS) / 2,
+    fill: 'none',
+    strokeWidth: THIKENESS,
+  };
 
   return (
     <div className={classes.container}>
@@ -93,22 +91,8 @@ const Spinner = ({ delay, variant }) => {
             className={classes.svg}
             viewBox={`${SIZE / 2} ${SIZE / 2} ${SIZE} ${SIZE}`}
           >
-            <circle
-              className={classes.circle}
-              cx={SIZE}
-              cy={SIZE}
-              r={(SIZE - THIKENESS) / 2}
-              fill="none"
-              strokeWidth={THIKENESS}
-            />
-            <circle
-              className={classes.dash}
-              cx={SIZE}
-              cy={SIZE}
-              r={(SIZE - THIKENESS) / 2}
-              fill="none"
-              strokeWidth={THIKENESS}
-            />
+            <circle className={classes.circle} {...circleProps} />
+            <circle className={classes.dash} {...circleProps} />
           </svg>
         </div>
       </Fade>
