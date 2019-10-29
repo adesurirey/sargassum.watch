@@ -53,11 +53,7 @@ const Spinner = ({ fullscreen, delay, ...circularProgressProps }) => {
   return (
     <div className={clsx(classes.root, fullscreen && classes.fullscreen)}>
       <Fade in={loading} unmountOnExit>
-        <CircularProgress
-          color="inherit"
-          size={36}
-          {...circularProgressProps}
-        />
+        <CircularProgress color="inherit" {...circularProgressProps} />
       </Fade>
     </div>
   );

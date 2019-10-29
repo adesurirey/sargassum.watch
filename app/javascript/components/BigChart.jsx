@@ -61,6 +61,7 @@ const BigChart = ({ loading, data, interval }) => {
   return (
     <Grid item xs={12} className={classes.container}>
       {loading && <Spinner delay={200} size={16} />}
+
       <ResponsiveContainer height={height}>
         <AreaChart
           data={data}

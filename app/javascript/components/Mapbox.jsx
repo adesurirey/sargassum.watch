@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { forwardRef } from 'react';
-import { object, oneOf, arrayOf, func, string } from 'prop-types';
+import { bool, object, oneOf, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
 
 import { useTheme } from '@material-ui/styles';
@@ -12,6 +12,7 @@ import {
   WEBCAMS_CLUSTERS_LAYER_ID,
   WEBCAMS_POINTS_LAYER_ID,
 } from '../layers';
+import Spinner from './Spinner';
 import Geocoder from './Geocoder';
 import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
@@ -19,6 +20,7 @@ import ZoomControl from './ZoomControl';
 
 const propTypes = {
   className: string,
+  loading: bool.isRequired,
   viewport: object.isRequired,
   style: oneOf(['map', 'satellite']).isRequired,
   user: object,
@@ -71,6 +73,7 @@ const Mapbox = forwardRef(
   (
     {
       className,
+      loading,
       viewport,
       style,
       user,
@@ -133,6 +136,8 @@ const Mapbox = forwardRef(
         onClick={handleClick}
         asyncRender
       >
+        {loading && <Spinner delay={200} />}
+
         <Geocoder
           mapRef={ref}
           containerRef={geocoderContainerRef}
