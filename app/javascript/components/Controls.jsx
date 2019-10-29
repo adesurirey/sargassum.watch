@@ -1,15 +1,11 @@
 import React, { lazy } from 'react';
 import { func, object, bool, string } from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 import { interval } from '../utils/propTypes';
 import ReportButton from './ReportButton';
 import MapSettings from './MapSettings';
 import ResponsiveDrawer from './ResponsiveDrawer';
-import ControlsPanel from './ControlsPanel';
-import IntervalControls from './IntervalControls';
-import Chart from './Chart';
-import Legend from './Legend';
+import ChartControls from './ChartControls';
 import Footer from './Footer';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
@@ -46,48 +42,39 @@ const Controls = ({
   onStyleChange,
   onWebcamsToggle,
   onViewportChange,
-}) => {
-  const { t } = useTranslation();
+}) => (
+  <>
+    <GeocoderContainer
+      loaded={loaded}
+      ref={geocoderContainerRef}
+      onViewportChange={onViewportChange}
+    />
 
-  return (
-    <>
-      <GeocoderContainer
+    <ReportButton
+      visible={loaded}
+      loading={geolocating}
+      onClick={onReportClick}
+    />
+
+    <MapSettings
+      loaded={loaded}
+      style={style}
+      onStyleChange={onStyleChange}
+      onWebcamsToggle={onWebcamsToggle}
+    />
+
+    <ResponsiveDrawer chartProps={renderedFeatures}>
+      <ChartControls
         loaded={loaded}
-        ref={geocoderContainerRef}
-        onViewportChange={onViewportChange}
+        interval={interval}
+        onIntervalChange={onIntervalChange}
+        renderedFeatures={renderedFeatures}
       />
 
-      <ReportButton
-        visible={loaded}
-        loading={geolocating}
-        onClick={onReportClick}
-      />
-
-      <MapSettings
-        loaded={loaded}
-        style={style}
-        onStyleChange={onStyleChange}
-        onWebcamsToggle={onWebcamsToggle}
-      />
-
-      <ResponsiveDrawer chartProps={renderedFeatures}>
-        <ControlsPanel title={t('Reports in the area')}>
-          <IntervalControls
-            loaded={loaded}
-            selectedInterval={interval}
-            onChange={onIntervalChange}
-          />
-          <Chart {...renderedFeatures} />
-          <Legend />
-        </ControlsPanel>
-
-        <ControlsPanel>
-          <Footer navigate={navigate} />
-        </ControlsPanel>
-      </ResponsiveDrawer>
-    </>
-  );
-};
+      <Footer navigate={navigate} />
+    </ResponsiveDrawer>
+  </>
+);
 
 export default Controls;
 

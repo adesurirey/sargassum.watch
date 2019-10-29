@@ -4,6 +4,7 @@ import { func } from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
+import ControlsPanel from './ControlsPanel';
 import LanguageSwitch from './LanguageSwitch';
 import About from './About';
 import TwitterButton from './TwitterButton';
@@ -25,12 +26,14 @@ const Footer = ({ navigate }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} className={classes.root}>
-      <LanguageSwitch navigate={navigate} />
-      <About />
-      <TwitterButton />
-      <Credits />
-    </Grid>
+    <ControlsPanel>
+      <Grid item xs={12} className={classes.root}>
+        <LanguageSwitch navigate={navigate} />
+        <About />
+        <TwitterButton />
+        <Credits />
+      </Grid>
+    </ControlsPanel>
   );
 };
 
