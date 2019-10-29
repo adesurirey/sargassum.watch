@@ -5,6 +5,7 @@ import React, { forwardRef } from 'react';
 import { bool, object, oneOf, arrayOf, func, string } from 'prop-types';
 import MapGL from 'react-map-gl';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/styles';
 
 import {
@@ -90,6 +91,7 @@ const Mapbox = forwardRef(
     ref,
   ) => {
     const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const colorScheme = theme.palette.type;
     const styles = getStyles(colorScheme);
 
@@ -136,7 +138,7 @@ const Mapbox = forwardRef(
         onClick={handleClick}
         asyncRender
       >
-        {loading && <Spinner delay={50} />}
+        {loading && isSmallScreen && <Spinner delay={50} />}
 
         <Geocoder
           mapRef={ref}
