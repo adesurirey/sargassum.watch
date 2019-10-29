@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import withTheme from '../styles/withTheme';
 import GlobalErrorBoundary from './GlobalErrorBoundary';
 import MetaTags from './MetaTags';
-import Spinner from './Spinner';
+import SplashScreen from './SplashScreen';
 import Analytics from './Analytics';
 import LanguageRedirect from './LanguageRedirect';
 
@@ -14,7 +14,7 @@ const Map = lazy(() => import('./Map'));
 const App = () => (
   <GlobalErrorBoundary>
     <MetaTags />
-    <Suspense fallback={<Spinner fullscreen delay={0} />}>
+    <Suspense fallback={<SplashScreen />}>
       <Intro />
       <Router>
         <Analytics default>
