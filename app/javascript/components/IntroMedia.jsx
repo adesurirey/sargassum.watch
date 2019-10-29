@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const sourceUrl =
-  'https://en.wikipedia.org/wiki/File:Oistins_shoreline_Barbados.jpg';
+  'https://www.flickr.com/photos/theactionitems/6363488127/in/photostream/';
 
 const IntroMedia = () => {
   const classes = useStyles();
