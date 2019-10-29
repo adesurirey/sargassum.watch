@@ -6,6 +6,7 @@ import ReportButton from './ReportButton';
 import MapSettings from './MapSettings';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import ChartControls from './ChartControls';
+import LastReports from './LastReports';
 import Footer from './Footer';
 
 const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
@@ -70,6 +71,8 @@ const Controls = ({
         onIntervalChange={onIntervalChange}
         renderedFeatures={renderedFeatures}
       />
+
+      <LastReports loaded={loaded} {...renderedFeatures} />
 
       <Footer navigate={navigate} />
     </ResponsiveDrawer>

@@ -2,7 +2,7 @@ import React from 'react';
 import { node } from 'prop-types';
 
 import { makeStyles } from '@material-ui/styles';
-import { Drawer, Grid } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 
 const propTypes = {
   children: node.isRequired,
@@ -24,11 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
 
   container: {
-    height: '100%',
     width: '100%',
-    margin: 0,
+    height: '100%',
     paddingTop: theme.spacing(1) / 2,
     overflowY: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -43,9 +45,7 @@ const LeftDrawer = ({ children }) => {
       anchor="left"
       variant="permanent"
     >
-      <Grid classes={{ container: classes.container }} container spacing={1}>
-        {children}
-      </Grid>
+      <div className={classes.container}>{children}</div>
     </Drawer>
   );
 };
