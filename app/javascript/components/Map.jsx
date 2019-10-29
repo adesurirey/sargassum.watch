@@ -66,6 +66,7 @@ class Map extends Component {
 
     this.state = {
       loaded: false,
+      loading: true,
       geolocating: false,
       viewport: {
         ...center,
@@ -164,6 +165,7 @@ class Map extends Component {
     });
 
     this.setState({
+      loading: false,
       interactiveLayerIds: [webcamsClustersLayer.id, webcamsPointsLayer.id],
     });
   };
@@ -416,6 +418,7 @@ class Map extends Component {
 
     const {
       loaded,
+      loading,
       viewport,
       style,
       interactiveLayerIds,
@@ -446,6 +449,7 @@ class Map extends Component {
           ref={this.mapRef}
           geocoderContainerRef={this.geocoderContainerRef}
           className={classes.map}
+          loading={loading}
           viewport={viewport}
           style={style}
           popup={popup}
