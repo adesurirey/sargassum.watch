@@ -1,6 +1,6 @@
 es:
-  title: 'Mapa de los varamientos de sargazos, webcams e informes en directo'
-  description: 'Explore los informes de sargazos en las playas del mundo desde 2018. Obtenga las últimas tendencias. Vea las webcams en directo. Reporte el estado de su playa.'
+  title: 'Invasión de algas sargazos: mapa y webcams en vivo'
+  description: 'Recibe las últimas noticias de las playas de todo el mundo y observa los varamientos de sargazos con tendencias semanales, mensuales y webcams en vivo.'
   dataset:
     reports:
       name: 'Datos de Monitoreo de Varamientos de Sargazos'
