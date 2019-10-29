@@ -85,7 +85,7 @@ const LiveImage = ({ url }) => {
 
   const notFoundMessage = (
     <div className={classes.notFound}>
-      <Spinner delay={100} size={16} />
+      <Spinner variant="small" delay={100} />
     </div>
   );
 
