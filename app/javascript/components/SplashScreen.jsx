@@ -21,7 +21,7 @@ const SplashScreen = () => {
 
   return (
     <div className={classes.root}>
-      <Fade in={loading} unmountOnExit>
+      <Fade in={loading}>
         <img src={Logo} alt="sargassum.watch logo" width={80} />
       </Fade>
     </div>
