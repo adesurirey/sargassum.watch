@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
   root: {
     display: 'inline-block',
-    animation: '$circular-rotate 1s linear infinite',
+    animation: '$circular-rotate 500ms linear infinite',
   },
 
   svg: {
