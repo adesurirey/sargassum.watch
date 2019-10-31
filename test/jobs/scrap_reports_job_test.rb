@@ -89,7 +89,8 @@ class ScrapReportsJobTest < ActiveJob::TestCase
   private
 
   def stub_scrapper(kind)
-    url = SargassumMonitoringScrapper::URLS[Time.current.year][kind]
+    mid = SargassumMonitoringScrapper::MIDS[Time.current.year][kind]
+    url = "https://www.google.com/maps/d/kml?mid=#{mid}&forcekml=1"
 
     stub_request(:get, url)
       .to_return(
