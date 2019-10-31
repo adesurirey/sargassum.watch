@@ -5,7 +5,7 @@ class ScrapWebcamsJob < ApplicationJob
 
   def perform
     @webcams = Webcam.scrapped
-    @results = WebcamScrapper.call
+    @results = WebcamsDeMexicoScrapper.call
 
     Webcam.transaction do
       update_or_delete_obsolete_webcams!

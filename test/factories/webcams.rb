@@ -39,7 +39,7 @@ FactoryBot.define do
     end
 
     trait :scrapped do
-      source { WebcamScrapper::URL }
+      source { WebcamsDeMexicoScrapper::URL }
     end
   end
 end

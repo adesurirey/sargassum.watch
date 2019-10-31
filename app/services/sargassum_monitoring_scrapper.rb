@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportScrapper
+class SargassumMonitoringScrapper
   URLS = {
     2019 => {
       with:    "https://www.google.com/maps/d/kml?mid=1jQbixC2zZfrxgRTmZYULzDvHPwGmbsZh&forcekml=1",

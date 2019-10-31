@@ -28,7 +28,7 @@ class Webcam < ApplicationRecord
   validates :youtube_id, presence: true, uniqueness: true, if: :youtube_kind?
   validates :url, presence: true, uniqueness: true, if: :image_kind?
 
-  scope :scrapped, -> { where(source: WebcamScrapper::URL) }
+  scope :scrapped, -> { where(source: WebcamsDeMexicoScrapper::URL) }
 
   class << self
     def cached_geojson
@@ -57,6 +57,6 @@ class Webcam < ApplicationRecord
   end
 
   def scrapped?
-    source == WebcamScrapper::URL
+    source == WebcamsDeMexicoScrapper::URL
   end
 end

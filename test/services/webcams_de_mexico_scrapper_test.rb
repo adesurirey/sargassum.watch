@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class WebcamScrapperTest < ActiveSupport::TestCase
+class WebcamsDeMexicoScrapperTest < ActiveSupport::TestCase
   setup do
     @base_request = stub_webcamsdemexico_html
     @coordinates_request = stub_webcamsdemexico_json
@@ -13,7 +13,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
   end
 
   test "should request all resources once" do
-    WebcamScrapper.call
+    WebcamsDeMexicoScrapper.call
 
     assert_requested @base_request
     assert_requested @coordinates_request
@@ -24,7 +24,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
   end
 
   test "should return results as webcams attributes" do
-    results = WebcamScrapper.call
+    results = WebcamsDeMexicoScrapper.call
 
     assert_kind_of Array, results
     assert_equal 2, results.size
@@ -36,7 +36,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
     assert_kind_of String, youtube[:youtube_id]
     assert_kind_of Float, youtube[:latitude]
     assert_kind_of Float, youtube[:longitude]
-    assert_equal WebcamScrapper::URL, youtube[:source]
+    assert_equal WebcamsDeMexicoScrapper::URL, youtube[:source]
 
     image = results.last
     assert_kind_of Hash, image
@@ -45,13 +45,13 @@ class WebcamScrapperTest < ActiveSupport::TestCase
     assert_kind_of String, image[:url]
     assert_kind_of Float, image[:latitude]
     assert_kind_of Float, image[:longitude]
-    assert_equal WebcamScrapper::URL, image[:source]
+    assert_equal WebcamsDeMexicoScrapper::URL, image[:source]
   end
 
   private
 
   def stub_webcamsdemexico_html
-    url = WebcamScrapper::URL
+    url = WebcamsDeMexicoScrapper::URL
 
     stub_request(:get, url)
       .to_return(
@@ -61,7 +61,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
   end
 
   def stub_webcamsdemexico_json
-    url = WebcamScrapper::URL + WebcamScrapper::COORDINATES_PATH
+    url = WebcamsDeMexicoScrapper::URL + WebcamsDeMexicoScrapper::COORDINATES_PATH
 
     stub_request(:get, url)
       .to_return(

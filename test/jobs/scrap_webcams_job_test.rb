@@ -7,7 +7,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     mock_scrapper
 
     assert_difference "Webcam.count", 1 do
-      WebcamScrapper.stub(:call, @mock) do
+      WebcamsDeMexicoScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
     end
@@ -21,7 +21,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     assert_not_equal @scrapper_results.first[:youtube_id], webcam.youtube_id
 
     assert_no_difference "Webcam.count" do
-      WebcamScrapper.stub(:call, @mock) do
+      WebcamsDeMexicoScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
     end
@@ -34,7 +34,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     Webcam.create!(@scrapper_results.first)
 
     assert_no_difference "Webcam.count" do
-      WebcamScrapper.stub(:call, @mock) do
+      WebcamsDeMexicoScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
     end
@@ -45,7 +45,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     create(:webcam, :scrapped)
 
     assert_difference "Webcam.count", -1 do
-      WebcamScrapper.stub(:call, @mock) do
+      WebcamsDeMexicoScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
     end
@@ -55,7 +55,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     mock_scrapper
 
     assert_difference "Webcam.count", 1 do
-      WebcamScrapper.stub(:call, @mock) do
+      WebcamsDeMexicoScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
     end
@@ -83,7 +83,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
         youtube_id: SecureRandom.hex,
         latitude:   Faker::Address.latitude,
         longitude:  Faker::Address.longitude,
-        source:     WebcamScrapper::URL,
+        source:     WebcamsDeMexicoScrapper::URL,
       },
     ]
   end

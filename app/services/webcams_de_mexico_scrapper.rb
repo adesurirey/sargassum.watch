@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WebcamScrapper
+class WebcamsDeMexicoScrapper
   URL = "http://www.webcamsdemexico.com"
   COORDINATES_PATH = "/Scripts/data.json"
   TEXT_ARRAY_REGEX = /\[.+\]/m.freeze
