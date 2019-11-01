@@ -89,7 +89,7 @@ Webcam.without_cache_callback do
   Webcam.create!(webcams)
 end
 
-ScrapWebcamsJob.perform_now
+ScrapWebcamsDeMexicoJob.perform_now
 
 puts ""
 puts "Done.".light_green

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ScrapWebcamsJob < ApplicationJob
+class ScrapWebcamsDeMexicoJob < ApplicationJob
   queue_as :default
 
   def perform
@@ -48,6 +48,6 @@ class ScrapWebcamsJob < ApplicationJob
   end
 
   def reschedule
-    ScrapWebcamsJob.set(wait_until: 1.day.from_now).perform_later
+    ScrapWebcamsDeMexicoJob.set(wait_until: 1.day.from_now).perform_later
   end
 end

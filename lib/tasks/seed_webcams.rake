@@ -11,7 +11,7 @@ namespace :one_shot do
       Webcam.create!(webcams)
     end
 
-    ScrapWebcamsJob.perform_later
+    ScrapWebcamsDeMexicoJob.perform_later
 
     puts "Done.".light_green
     puts "#{Webcam.count} webcams created".underline

@@ -2,13 +2,13 @@
 
 require "test_helper"
 
-class ScrapWebcamsJobTest < ActiveJob::TestCase
+class ScrapWebcamsDeMexicoJobTest < ActiveJob::TestCase
   test "should create webcams from scrapper" do
     mock_scrapper
 
     assert_difference "Webcam.count", 1 do
       WebcamsDeMexicoScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
+        ScrapWebcamsDeMexicoJob.perform_now
       end
     end
   end
@@ -22,7 +22,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
 
     assert_no_difference "Webcam.count" do
       WebcamsDeMexicoScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
+        ScrapWebcamsDeMexicoJob.perform_now
       end
     end
 
@@ -35,7 +35,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
 
     assert_no_difference "Webcam.count" do
       WebcamsDeMexicoScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
+        ScrapWebcamsDeMexicoJob.perform_now
       end
     end
   end
@@ -46,7 +46,7 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
 
     assert_difference "Webcam.count", -1 do
       WebcamsDeMexicoScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
+        ScrapWebcamsDeMexicoJob.perform_now
       end
     end
   end
@@ -56,13 +56,13 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
 
     assert_difference "Webcam.count", 1 do
       WebcamsDeMexicoScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
+        ScrapWebcamsDeMexicoJob.perform_now
       end
     end
 
     assert_enqueued_jobs 2
     assert_enqueued_with(job: CreateWebcamsGeoJSONCacheJob)
-    assert_enqueued_with(job: ScrapWebcamsJob)
+    assert_enqueued_with(job: ScrapWebcamsDeMexicoJob)
     assert_in_delta 1, 1.day.from_now.to_i, enqueued_jobs.last[:at]
   end
 

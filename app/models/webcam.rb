@@ -52,7 +52,7 @@ class Webcam < ApplicationRecord
     end
 
     def already_scrapped(attributes)
-      find_by(attributes.slice(:name))
+      find_by(attributes.slice(:name, :source))
     end
   end
 
