@@ -69,7 +69,7 @@ class ScrapSargassumMonitoringJobTest < ActiveJob::TestCase
       ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
-    scrapper_log = ScrapperLog.last
+    scrapper_log.reload
     assert_equal "na", scrapper_log.level
     assert_equal 0, scrapper_log.last_created_reports_count
     assert_equal 60, scrapper_log.total_created_reports_count

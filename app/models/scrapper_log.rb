@@ -29,6 +29,16 @@ class ScrapperLog < ApplicationRecord
   after_validation :sum_created_reports
 
   class << self
+    def create_or_update!(attributes)
+      scrapper_log = find_by_file_name(attributes[:file_name])&.tap do |log|
+        log.assign_attributes(attributes)
+      end
+
+      scrapper_log ||= new(attributes)
+
+      scrapper_log.save!
+    end
+
     def create_or_update_from_kml!(kml:, created_reports_count:, level:)
       scrapper_log = find_or_initialize_by_kml(kml)
 

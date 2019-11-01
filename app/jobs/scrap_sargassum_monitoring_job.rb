@@ -12,7 +12,7 @@ class ScrapSargassumMonitoringJob < ApplicationJob
 
     Report.transaction do
       create_reports!
-      create_or_update_parser_log!
+      create_or_update_scrapper_log!
     end
 
     teardown
@@ -53,7 +53,7 @@ class ScrapSargassumMonitoringJob < ApplicationJob
     end
   end
 
-  def create_or_update_parser_log!
+  def create_or_update_scrapper_log!
     ScrapperLog.create_or_update_from_kml!(
       kml:                   @kml,
       created_reports_count: @created_reports_count,

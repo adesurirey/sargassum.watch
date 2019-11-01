@@ -52,8 +52,8 @@ class Report < ApplicationRecord
       current_for_user(params) || new(params)
     end
 
-    def find_or_initialize_for_scrapper(placemark)
-      already_scrapped(placemark) || new(placemark)
+    def find_or_initialize_for_scrapper(attributes)
+      already_scrapped(attributes) || new(attributes)
     end
 
     def create_geojson_cache
@@ -89,11 +89,10 @@ class Report < ApplicationRecord
         .tap { |report| report&.assign_attributes(params) }
     end
 
-    def already_scrapped(placemark)
-      fail ArgumentError, "Placemark has no level" unless placemark[:level].present?
+    def already_scrapped(attributes)
+      fail ArgumentError, "Report has no level" unless attributes[:level].present?
 
-      attributes = placemark.slice(:created_at, :level, :latitude, :longitude)
-      find_by(attributes)
+      find_by(attributes.slice(:created_at, :level, :latitude, :longitude, :source))
     end
   end
 
