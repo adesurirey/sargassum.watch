@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ScrapReportsJob < ApplicationJob
+class ScrapSargassumMonitoringJob < ApplicationJob
   queue_as :default
 
   def perform(kind, year = Time.current.year)
@@ -71,6 +71,6 @@ class ScrapReportsJob < ApplicationJob
   end
 
   def reschedule
-    ScrapReportsJob.set(wait_until: 12.hours.from_now).perform_later(@kind)
+    ScrapSargassumMonitoringJob.set(wait_until: 12.hours.from_now).perform_later(@kind)
   end
 end

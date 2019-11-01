@@ -69,8 +69,8 @@ namespace :one_shot do
                    Time.current.at_noon
                  end
 
-    ScrapReportsJob.set(wait_until: wait_until).perform_later(:with)
-    ScrapReportsJob.set(wait_until: wait_until).perform_later(:without)
+    ScrapSargassumMonitoringJob.set(wait_until: wait_until).perform_later(:with)
+    ScrapSargassumMonitoringJob.set(wait_until: wait_until).perform_later(:without)
 
     puts "Done."
     puts "#{Dataset.count} datasets created.".underline

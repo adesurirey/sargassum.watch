@@ -2,12 +2,12 @@
 
 require "test_helper"
 
-class ScrapReportsJobTest < ActiveJob::TestCase
+class ScrapSargassumMonitoringJobTest < ActiveJob::TestCase
   test "should create n/a reports form google map placemarks" do
     request = stub_scrapper(:with)
 
     assert_difference "Report.count", 60 do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
     assert_requested request
@@ -19,7 +19,7 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     request = stub_scrapper(:without)
 
     assert_difference "Report.count", 60 do
-      ScrapReportsJob.perform_now(:without)
+      ScrapSargassumMonitoringJob.perform_now(:without)
     end
 
     assert_requested request
@@ -31,11 +31,11 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     stub_scrapper(:with)
 
     assert_difference "Report.count", 60 do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
     assert_no_difference "Report.count" do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
   end
 
@@ -43,13 +43,13 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     stub_scrapper(:with)
 
     assert_difference "Report.count", 60 do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
     Dataset.pack_reports!(name: "All", reports: Report.all)
 
     assert_no_difference "Report.count" do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
   end
 
@@ -57,7 +57,7 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     stub_scrapper(:with)
 
     assert_difference "ScrapperLog.count", +1 do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
     scrapper_log = ScrapperLog.last
@@ -66,7 +66,7 @@ class ScrapReportsJobTest < ActiveJob::TestCase
     assert_equal 60, scrapper_log.total_created_reports_count
 
     assert_no_difference "ScrapperLog.count" do
-      ScrapReportsJob.perform_now(:with)
+      ScrapSargassumMonitoringJob.perform_now(:with)
     end
 
     scrapper_log = ScrapperLog.last
@@ -78,11 +78,11 @@ class ScrapReportsJobTest < ActiveJob::TestCase
   test "should reschedule itself and only enqueue 1 geoJSON cache creation job" do
     stub_scrapper(:with)
 
-    ScrapReportsJob.perform_now(:with)
+    ScrapSargassumMonitoringJob.perform_now(:with)
 
     assert_enqueued_jobs 2
     assert_enqueued_with(job: CreateReportsGeoJSONCacheJob)
-    assert_enqueued_with(job: ScrapReportsJob)
+    assert_enqueued_with(job: ScrapSargassumMonitoringJob)
     assert_in_delta 1, 12.hours.from_now.to_i, enqueued_jobs.last[:at]
   end
 
