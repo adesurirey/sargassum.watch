@@ -37,7 +37,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   source: {
-    color: theme.palette.action.disabled,
+    flexWrap: 'nowrap',
+    color: theme.palette.text.secondary,
   },
 }));
 
