@@ -8,8 +8,10 @@ import SplashScreen from './SplashScreen';
 import Analytics from './Analytics';
 import LanguageRedirect from './LanguageRedirect';
 
-const Intro = lazy(() => import('./Intro'));
-const Map = lazy(() => import('./Map'));
+import retry from '../utils/retry';
+
+const Intro = lazy(() => retry(() => import('./Intro')));
+const Map = lazy(() => retry(() => import('./Map')));
 
 const App = () => (
   <GlobalErrorBoundary>

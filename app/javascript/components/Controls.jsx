@@ -12,7 +12,11 @@ import Chart from './Chart';
 import Legend from './Legend';
 import Footer from './Footer';
 
-const GeocoderContainer = lazy(() => import('./GeocoderContainer'));
+import retry from '../utils/retry';
+
+const GeocoderContainer = lazy(() =>
+  retry(() => import('./GeocoderContainer')),
+);
 
 const propTypes = {
   geocoderContainerRef: object,
