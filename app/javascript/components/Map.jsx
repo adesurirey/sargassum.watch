@@ -6,6 +6,7 @@ import _uniqBy from 'lodash/uniqBy';
 import _pull from 'lodash/pull';
 import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
+import retry from '../utils/retry';
 
 import {
   REPORTS_SOURCE_ID,
@@ -262,8 +263,7 @@ class Map extends Component {
 
     this.setState({ loaded: true });
 
-    api
-      .getReports()
+    retry(api.getReports)
       .then(({ data: { features } }) =>
         this.setState({ features }, this.initMap),
       )
@@ -341,8 +341,7 @@ class Map extends Component {
   onReportSubmit = level => {
     const { user } = this.state;
 
-    api
-      .createReport({ level, ...user })
+    retry(() => api.createReport({ level, ...user }))
       .then(({ data: feature }) => this.onReportSuccess(feature))
       .catch(error => this.onError(error, user));
   };
