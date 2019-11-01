@@ -71,6 +71,7 @@ namespace :one_shot do
 
     ScrapSargassumMonitoringJob.set(wait_until: wait_until).perform_later(:with)
     ScrapSargassumMonitoringJob.set(wait_until: wait_until).perform_later(:without)
+    ScrapViajefestJob.perform_later
 
     puts "Done."
     puts "#{Dataset.count} datasets created.".underline
