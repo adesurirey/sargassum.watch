@@ -171,6 +171,8 @@ class Map extends Component {
   };
 
   reinitializeMap = () => {
+    if (!this.state.loaded) return;
+
     const map = this.getMap();
     map.once('idle', this.initMap);
   };
