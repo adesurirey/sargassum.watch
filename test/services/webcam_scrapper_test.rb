@@ -48,6 +48,30 @@ class WebcamScrapperTest < ActiveSupport::TestCase
     assert_equal WebcamScrapper::URL, image[:source]
   end
 
+  test "should raise when source doesn't respond" do
+    @base_request = stub_webcamsdemexico_html_error
+
+    assert_raises WebcamScrapper::RequestError do
+      WebcamScrapper.call
+    end
+  end
+
+  test "should raise when webcam doesn't respond" do
+    @cancun_request = stub_cancun_error
+
+    assert_raises WebcamScrapper::RequestError do
+      WebcamScrapper.call
+    end
+  end
+
+  test "should ignore deleted resources" do
+    @cancun_youtube_thumbnail_request = stub_cancun_youtube_thumbnail_error
+
+    results = WebcamScrapper.call
+
+    assert_equal 1, results.size
+  end
+
   private
 
   def stub_webcamsdemexico_html
@@ -58,6 +82,12 @@ class WebcamScrapperTest < ActiveSupport::TestCase
         status: 200,
         body:   file_fixture("webcamsdemexico.html").read,
       )
+  end
+
+  def stub_webcamsdemexico_html_error
+    url = WebcamScrapper::URL
+
+    stub_request(:get, url).to_return(status: 403)
   end
 
   def stub_webcamsdemexico_json
@@ -80,6 +110,13 @@ class WebcamScrapperTest < ActiveSupport::TestCase
       )
   end
 
+  def stub_cancun_error
+    url = "http://webcamsdemexico.com/webcam-cancun"
+
+    stub_request(:get, url)
+      .to_return(status: 404)
+  end
+
   def stub_mahahual
     url = "http://webcamsdemexico.com/webcam-mahahual"
 
@@ -94,6 +131,12 @@ class WebcamScrapperTest < ActiveSupport::TestCase
     url = "https://img.youtube.com/vi/5Fti8SDUaLo/mqdefault.jpg"
 
     stub_request(:get, url).to_return(status: 200)
+  end
+
+  def stub_cancun_youtube_thumbnail_error
+    url = "https://img.youtube.com/vi/5Fti8SDUaLo/mqdefault.jpg"
+
+    stub_request(:get, url).to_return(status: 404)
   end
 
   def stub_mahahual_image
