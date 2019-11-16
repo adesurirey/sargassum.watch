@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WebcamScrapper
+  RequestError = Class.new(StandardError)
+
   URL = "http://www.webcamsdemexico.com"
   COORDINATES_PATH = "/Scripts/data.json"
   TEXT_ARRAY_REGEX = /\[.+\]/m.freeze
@@ -102,8 +104,10 @@ class WebcamScrapper
   end
 
   def url_exists?(url)
-    response = Faraday.get url
-    response.status == 200
+    request(url)
+    true
+  rescue RequestError
+    false
   end
 
   def youtube_video_exists?(id)
@@ -111,6 +115,12 @@ class WebcamScrapper
   end
 
   def request(url)
-    Faraday.get url
+    Faraday.get(url).tap do |response|
+      request_error!(url, response.status) if response.status != 200
+    end
+  end
+
+  def request_error!(url, status)
+    fail RequestError, "#{url} responded with #{status}"
   end
 end
