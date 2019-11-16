@@ -8,6 +8,8 @@ sudo: required
 before_install:
   - sudo apt-get update
   - sudo apt-get install google-chrome-stable
+  - nvm install 12.12
+  - npm install -g yarn
 addons:
   postgresql: '9.6'
 before_script:
