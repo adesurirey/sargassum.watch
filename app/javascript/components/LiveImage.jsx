@@ -59,6 +59,7 @@ const useStyles = makeStyles(theme => ({
 
 const LiveImage = ({ url }) => {
   const [loaded, setLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [timestamp, setTimestamp] = useState(Date.now());
   const [isFullscreen, setFullscreen] = useState(false);
 
@@ -80,7 +81,12 @@ const LiveImage = ({ url }) => {
 
   const onError = () => {
     setLoaded(false);
-    logException('Live image not found', [['live_image_url', url]]);
+
+    if (!hasError) {
+      // Only log not found errors once per image.
+      logException('Live image not found', [['live_image_url', url]]);
+      setHasError(true);
+    }
   };
 
   const notFoundMessage = (
