@@ -30,7 +30,7 @@ gem "autoprefixer-rails"
 gem "gon"
 gem "jbuilder", "~> 2.7"
 gem "sassc-rails"
-gem "webpacker", "~> 4.0"
+gem "webpacker", "~> 4.2"
 
 # Utils
 gem "bootsnap", ">= 1.4.2", require: false
