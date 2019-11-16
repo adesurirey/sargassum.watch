@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Fade } from '@material-ui/core';
 
 import useDelayedLoading from '../hooks/useDelayedLoading';
+import LocalErrorBoundary from './LocalErrorBoundary';
 
 const propTypes = {
   delay: number,
@@ -80,23 +81,25 @@ const Spinner = ({ delay, variant }) => {
   };
 
   return (
-    <div className={classes.container}>
-      <Fade in={loading}>
-        <div
-          className={classes.root}
-          style={{ width: size, height: size }}
-          role="progressbar"
-        >
-          <svg
-            className={classes.svg}
-            viewBox={`${SIZE / 2} ${SIZE / 2} ${SIZE} ${SIZE}`}
+    <LocalErrorBoundary>
+      <div className={classes.container}>
+        <Fade in={loading}>
+          <div
+            className={classes.root}
+            style={{ width: size, height: size }}
+            role="progressbar"
           >
-            <circle className={classes.circle} {...circleProps} />
-            <circle className={classes.dash} {...circleProps} />
-          </svg>
-        </div>
-      </Fade>
-    </div>
+            <svg
+              className={classes.svg}
+              viewBox={`${SIZE / 2} ${SIZE / 2} ${SIZE} ${SIZE}`}
+            >
+              <circle className={classes.circle} {...circleProps} />
+              <circle className={classes.dash} {...circleProps} />
+            </svg>
+          </div>
+        </Fade>
+      </div>
+    </LocalErrorBoundary>
   );
 };
 

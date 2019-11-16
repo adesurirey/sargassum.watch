@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import * as Sentry from '@sentry/browser';
 
-import GlobalErrorScreen from './GlobalErrorScreen';
-
-class GlobalErrorBoundary extends Component {
+class LocalErrorBoundary extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      eventId: null,
+      hasError: false,
     };
   }
 
@@ -19,21 +17,19 @@ class GlobalErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     Sentry.withScope(scope => {
       scope.setExtras(errorInfo);
-      scope.setExtra('errorBoundary', 'global');
+      scope.setExtra('errorBoundary', 'local');
 
-      const eventId = Sentry.captureException(error);
-
-      this.setState({ eventId });
+      Sentry.captureException(error);
     });
   }
 
   render() {
     if (this.state.hasError) {
-      return <GlobalErrorScreen />;
+      return null;
     }
 
     return this.props.children;
   }
 }
 
-export default GlobalErrorBoundary;
+export default LocalErrorBoundary;
