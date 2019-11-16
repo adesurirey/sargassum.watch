@@ -19,13 +19,13 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
-GlobalVars:
+Style/GlobalVars:
   AllowedVariables:
     - $redis
     - $elasticsearch
     - $rollout
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Layout/AlignHash:
