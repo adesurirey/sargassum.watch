@@ -9,7 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.29",
     "@rails/webpacker": "^4.2.0",
     "@reach/router": "^1.2.1",
-    "@sentry/browser": "^5.7.1",
+    "@sentry/browser": "^5.9.0",
     "axios": "^0.19.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "cheap-ruler": "^2.5.1",
