@@ -81,7 +81,7 @@ const Spinner = ({ delay, variant }) => {
 
   return (
     <div className={classes.container}>
-      <Fade in={loading} unmountOnExit>
+      <Fade in={loading}>
         <div
           className={classes.root}
           style={{ width: size, height: size }}
