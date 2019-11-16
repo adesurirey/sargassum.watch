@@ -7873,17 +7873,17 @@ react-map-gl-geocoder@^2.0.11:
     prop-types "^15.7.2"
     viewport-mercator-project "6.1.1"
 
-react-map-gl@^5.0.12:
-  version "5.0.12"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-5.0.12.tgz#6f94d4570fab339a936262c51c43c2493004b014"
-  integrity sha512-b2+OU/U8T8kAGoSP3GXBkSWQKkBHq8IyZYMUCBEFZ9gH7dyRtCwjy9Vanzek7PmZs668q2+896fYQ3Z9eO6X0A==
+react-map-gl@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-5.1.2.tgz#45f4be0fb8f9cb3810752c2203b22a70e1177c96"
+  integrity sha512-bskZCUhyc+SgvtMIF6xB5IOvrlwc7RVRUKW4VcapOPTtpgVHpLS0H+nPqI5Drr4A0dr0oJMAWHDqGn/LmS4dMw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     mapbox-gl "^1.0.0"
     mjolnir.js "^2.2.0"
     prop-types "^15.7.2"
     react-virtualized-auto-sizer "^1.0.2"
-    viewport-mercator-project "^6.1.0"
+    viewport-mercator-project "^6.2.1"
 
 react-resize-detector@^2.3.0:
   version "2.3.0"
@@ -9580,10 +9580,18 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-viewport-mercator-project@6.1.1, viewport-mercator-project@^6.1.0:
+viewport-mercator-project@6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/viewport-mercator-project/-/viewport-mercator-project-6.1.1.tgz#d7b2cb3cb772b819f1daab17cf4019102a9102a6"
   integrity sha512-nI0GEmXnESwZxWSJuaQkdCnvOv6yckUfqqFbNB8KWVbQY3eUExVM4ZziqCVVs5mNznLjDF1auj6HLW5D5DKcng==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    gl-matrix "^3.0.0"
+
+viewport-mercator-project@^6.2.1:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/viewport-mercator-project/-/viewport-mercator-project-6.2.2.tgz#f524819ad53fcc009b46136a59f73461bfcf1604"
+  integrity sha512-vs9pjDZxDwoiEqr+GgdpRAUogEQRoZ9D9COVLSr4+h/WdcUWhYN36SQr3n5jaTKrl/wlfdRj+TYU8wTk05grbg==
   dependencies:
     "@babel/runtime" "^7.0.0"
     gl-matrix "^3.0.0"
