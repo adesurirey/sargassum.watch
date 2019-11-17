@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     margin: 0,
     paddingTop: theme.spacing(1) / 2,
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 }));
 
