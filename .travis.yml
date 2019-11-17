@@ -9,7 +9,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install google-chrome-stable
   - nvm install 12.12
-  - npm install -g yarn
+  - npm i -g yarn
 addons:
   postgresql: '9.6'
 before_script:
@@ -17,7 +17,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - psql -c 'create database sargassum_watch_test;' -U postgres
-  - yarn
+  - yarn install
 script:
   - yarn run lint
   - bundle exec rubocop
