@@ -81,7 +81,6 @@ const ReportButton = ({ visible, loading, onClick }) => {
         title={label}
         TransitionComponent={Zoom}
         disableHoverListener
-        PopperProps={{ keepMounted: true }}
         placement="top-end"
       >
         <Fab

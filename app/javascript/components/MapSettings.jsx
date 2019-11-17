@@ -82,11 +82,7 @@ const MapSettings = ({ loaded, style, onStyleChange, onWebcamsToggle }) => {
           transitionDelay: theme.transitions.duration.enteringScreen + 250,
         }}
       >
-        <Tooltip
-          title={title}
-          TransitionComponent={Zoom}
-          PopperProps={{ keepMounted: true }}
-        >
+        <Tooltip title={title} TransitionComponent={Zoom}>
           <Fab
             aria-label={title}
             aria-controls="map-settings"
