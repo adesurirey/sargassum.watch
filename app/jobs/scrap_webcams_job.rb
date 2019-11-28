@@ -4,11 +4,9 @@ class ScrapWebcamsJob < ApplicationJob
   queue_as :default
 
   def perform
-    @webcams = Webcam.scrapped
     @results = WebcamScrapper.call
 
     Webcam.transaction do
-      update_or_delete_obsolete_webcams!
       create_webcams!
     end
 
@@ -16,18 +14,6 @@ class ScrapWebcamsJob < ApplicationJob
   end
 
   private
-
-  def update_or_delete_obsolete_webcams!
-    @webcams.each do |webcam|
-      match = @results.find { |result| result[:name] == webcam.name }
-
-      if match.present?
-        Webcam.without_cache_callback { webcam.update!(match) }
-      else
-        Webcam.without_cache_callback { webcam.destroy! }
-      end
-    end
-  end
 
   def create_webcams!
     @results.each do |result|
