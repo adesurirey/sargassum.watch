@@ -13,38 +13,11 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     end
   end
 
-  test "should update webcams from scrapper" do
-    mock_scrapper
-    webcam = create(:webcam, :scrapped, name: @scrapper_results.first[:name])
-
-    assert_equal @scrapper_results.first[:name], webcam.name
-    assert_not_equal @scrapper_results.first[:youtube_id], webcam.youtube_id
-
-    assert_no_difference "Webcam.count" do
-      WebcamScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
-      end
-    end
-
-    assert_equal @scrapper_results.first[:youtube_id], webcam.reload.youtube_id
-  end
-
   test "should not duplicate scrapped webcams" do
     mock_scrapper
     Webcam.create!(@scrapper_results.first)
 
     assert_no_difference "Webcam.count" do
-      WebcamScrapper.stub(:call, @mock) do
-        ScrapWebcamsJob.perform_now
-      end
-    end
-  end
-
-  test "should delete obsolete webcams" do
-    mock_scrapper([])
-    create(:webcam, :scrapped)
-
-    assert_difference "Webcam.count", -1 do
       WebcamScrapper.stub(:call, @mock) do
         ScrapWebcamsJob.perform_now
       end
