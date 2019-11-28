@@ -57,7 +57,7 @@ class Webcam < ApplicationRecord
   end
 
   def available?
-    Faraday.get(url || youtube_thumbnail_url).status == 200
+    Faraday.get(url.presence || youtube_thumbnail_url).status == 200
   end
 
   def scrapped?
