@@ -56,7 +56,19 @@ class Webcam < ApplicationRecord
     end
   end
 
+  def available?
+    Faraday.get(url || youtube_thumbnail_url).status == 200
+  end
+
   def scrapped?
     source == WebcamScrapper::URL
+  end
+
+  private
+
+  def youtube_thumbnail_url
+    return unless youtube_id
+
+    "https://img.youtube.com/vi/#{youtube_id}/mqdefault.jpg"
   end
 end

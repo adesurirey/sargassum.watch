@@ -145,7 +145,40 @@ class WebcamTest < ActiveSupport::TestCase
     end
   end
 
+  test "should return webcam availability" do
+    available_youtube = create(:webcam, :youtube)
+    unavailable_youtube = create(:webcam, :youtube)
+
+    available_image = create(:webcam, :image)
+
+    youtube_available = stub_youtube_not_found(unavailable_youtube.youtube_id)
+    youtube_unavailable = stub_youtube_found(available_youtube.youtube_id)
+    image_available = stub_image_found(available_image.url)
+
+    assert available_youtube.available?
+    assert available_image.available?
+    assert_not unavailable_youtube.available?
+
+    assert_requested youtube_available
+    assert_requested youtube_unavailable
+    assert_requested image_available
+  end
+
   private
+
+  def stub_youtube_found(id)
+    stub_request(:get, "https://img.youtube.com/vi/#{id}/mqdefault.jpg")
+      .to_return(status: 200)
+  end
+
+  def stub_youtube_not_found(id)
+    stub_request(:get, "https://img.youtube.com/vi/#{id}/mqdefault.jpg")
+      .to_return(status: 404)
+  end
+
+  def stub_image_found(url)
+    stub_request(:get, url).to_return(status: 200)
+  end
 
   def map_errors(record, attribute)
     record.errors.details[attribute].map { |e| e[:error] }
