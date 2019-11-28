@@ -5,9 +5,9 @@ class CheckWebcamsJob < ApplicationJob
 
   def perform
     Webcam.find_each do |webcam|
-      next if webcam.available?
-
-      Webcam.without_cache_callback { webcam.destroy }
+      Webcam.without_cache_callback do
+        webcam.available? ? webcam.touch : webcam.destroy
+      end
     end
 
     teardown
