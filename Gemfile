@@ -8,7 +8,7 @@ ruby "2.6.5"
 gem "rails", "~> 6.0.0"
 
 # Server
-gem "puma", "~> 3.11"
+gem "puma", "~> 3.12"
 
 # DB & adapters
 gem "pg", ">= 0.18", "< 2.0"
