@@ -8,8 +8,11 @@ class CheckWebcamsJobTest < ActiveJob::TestCase
     clear_enqueued_jobs
 
     webcams.each_with_index do |webcam, index|
-      stub_request(:get, /#{webcam.youtube_id}/)
-        .to_return(status: index.zero? ? 404 : 200)
+      if index.zero?
+        stub_youtube_unavailable(webcam.youtube_id)
+      else
+        stub_youtube_available(webcam.youtube_id)
+      end
     end
 
     assert_difference "Webcam.count", -1 do

@@ -12,6 +12,7 @@ Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 require "test_geocoder_stubs"
 require "test_coordinates_helper"
 require "test_headers_helper"
+require "test_youtube_helper"
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -22,6 +23,7 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include ActiveJob::TestHelper
   include TestCoordinatesHelper
+  include TestYoutubeHelper
 
   def teardown
     WebMock.reset!

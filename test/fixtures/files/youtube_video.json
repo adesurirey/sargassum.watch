@@ -1,0 +1,50 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "\"p4VTdlkQv3HQeTEaXgvLePAydmU/1l2egZTcUR12Xi3GQ3xKwCbvaEM\"",
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  },
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "\"p4VTdlkQv3HQeTEaXgvLePAydmU/YGyh3IcrnHbWI7JdA_4upUaBbO4\"",
+      "id": "5xjGvayEmUo",
+      "snippet": {
+        "publishedAt": "2019-11-24T21:40:33.000Z",
+        "channelId": "UColBcWm6ybTbQnNuQS8JaKg",
+        "title": "Playa del Carmen. La Quinta Avenida en streaming",
+        "description": "Playa del Carmen. La Quinta Avenida Vista desde el Hotel Lunata en vivo",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5xjGvayEmUo/default_live.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5xjGvayEmUo/mqdefault_live.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5xjGvayEmUo/hqdefault_live.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/5xjGvayEmUo/sddefault_live.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "webcamsdemexico",
+        "categoryId": "24",
+        "liveBroadcastContent": "live",
+        "localized": {
+          "title": "Playa del Carmen. La Quinta Avenida en streaming",
+          "description": "Playa del Carmen. La Quinta Avenida Vista desde el Hotel Lunata en vivo"
+        }
+      }
+    }
+  ]
+}

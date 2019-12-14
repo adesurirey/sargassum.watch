@@ -151,9 +151,9 @@ class WebcamTest < ActiveSupport::TestCase
 
     available_image = create(:webcam, :image)
 
-    youtube_available = stub_youtube_not_found(unavailable_youtube.youtube_id)
-    youtube_unavailable = stub_youtube_found(available_youtube.youtube_id)
-    image_available = stub_image_found(available_image.url)
+    youtube_unavailable = stub_youtube_unavailable(unavailable_youtube.youtube_id)
+    youtube_available = stub_youtube_available(available_youtube.youtube_id)
+    image_available = stub_image_available(available_image.url)
 
     assert available_youtube.available?
     assert available_image.available?
@@ -166,17 +166,7 @@ class WebcamTest < ActiveSupport::TestCase
 
   private
 
-  def stub_youtube_found(id)
-    stub_request(:get, "https://img.youtube.com/vi/#{id}/mqdefault.jpg")
-      .to_return(status: 200)
-  end
-
-  def stub_youtube_not_found(id)
-    stub_request(:get, "https://img.youtube.com/vi/#{id}/mqdefault.jpg")
-      .to_return(status: 404)
-  end
-
-  def stub_image_found(url)
+  def stub_image_available(url)
     stub_request(:get, url).to_return(status: 200)
   end
 

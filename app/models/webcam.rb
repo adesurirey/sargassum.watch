@@ -57,7 +57,11 @@ class Webcam < ApplicationRecord
   end
 
   def available?
-    Faraday.get(url.presence || youtube_thumbnail_url).status == 200
+    if youtube_kind?
+      youtube_live?
+    else
+      image_live?
+    end
   end
 
   def scrapped?
@@ -66,9 +70,11 @@ class Webcam < ApplicationRecord
 
   private
 
-  def youtube_thumbnail_url
-    return unless youtube_id
+  def image_live?
+    Faraday.get(url.presence).status == 200
+  end
 
-    "https://img.youtube.com/vi/#{youtube_id}/mqdefault.jpg"
+  def youtube_live?
+    Yt::Video.new(id: youtube_id).live_broadcast_content == "live"
   end
 end
