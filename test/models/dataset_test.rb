@@ -30,8 +30,6 @@ class DatasetTest < ActiveSupport::TestCase
 
     assert set.valid?
     assert set.save
-
-    assert_equal Report.all.decorate.map(&:as_geojson), set.features
   end
 
   test "should have a name" do
