@@ -24,6 +24,7 @@ gem "sidekiq-failures", "~> 1.0"
 
 # HTTP
 gem "faraday"
+gem "yt"
 
 # Frontend
 gem "autoprefixer-rails"

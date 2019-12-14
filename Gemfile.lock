@@ -367,6 +367,8 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yt (0.32.5)
+      activesupport
     zeitwerk (2.2.1)
 
 PLATFORMS
@@ -411,6 +413,7 @@ DEPENDENCIES
   webdrivers
   webmock
   webpacker (~> 4.2)
+  yt
 
 RUBY VERSION
    ruby 2.6.5p114
