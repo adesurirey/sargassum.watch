@@ -23,6 +23,7 @@ gem "sidekiq"
 gem "sidekiq-failures", "~> 1.0"
 
 # HTTP
+gem "aws-sdk-s3", require: false
 gem "faraday"
 gem "yt"
 

@@ -18,6 +18,7 @@ AllCops:
     - 'tmp/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+    - 'db/migrate/20191215144502_create_active_storage_tables.active_storage.rb'
 
 Style/GlobalVars:
   AllowedVariables:
