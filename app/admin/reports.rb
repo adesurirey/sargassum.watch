@@ -56,13 +56,12 @@ ActiveAdmin.register Report do
           created_at: params[:red_sargazo][:created_at],
           updated_at: params[:red_sargazo][:created_at],
           source:     "https://www.facebook.com/RedSargazo",
+          skip_cache: true,
         )
       end
 
       Report.transaction do
-        Report.without_cache_callback do
-          Report.create!(reports)
-        end
+        Report.create!(reports)
       end
 
       CreateReportsGeoJSONCacheJob.perform_later

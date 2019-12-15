@@ -16,16 +16,15 @@ end
 
 def report_attibutes(kind)
   {
-    level:   kind == :with ? :critical : :clear,
-    user_id: SecureRandom.hex,
-    source:  "http://sargassummonitoring.com",
+    level:      kind == :with ? :critical : :clear,
+    user_id:    SecureRandom.hex,
+    source:     "http://sargassummonitoring.com",
+    skip_cache: true,
   }
 end
 
 def create_reports(placemarks)
-  Report.without_cache_callback do
-    Report.create!(placemarks)
-  end
+  Report.create!(placemarks)
 end
 
 def random_level(kind)
@@ -84,10 +83,8 @@ puts "#{Report.critical.count} critical reports"
 puts "[3/3] Seeding webcams..."
 
 webcams = YAML.load_file(Rails.root.join("db", "data", "webcams.yml"))
-
-Webcam.without_cache_callback do
-  Webcam.create!(webcams)
-end
+webcams.map! { |webcam| webcam.merge(skip_cache: true) }
+Webcam.create!(webcams)
 
 ScrapWebcamsJob.perform_now
 

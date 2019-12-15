@@ -235,10 +235,8 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test "should not update geoJSON cache" do
-    Report.without_cache_callback do
-      assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
-        create(:report)
-      end
+    assert_no_enqueued_jobs only: CreateReportsGeoJSONCacheJob do
+      create(:report, skip_cache: true)
     end
 
     assert_enqueued_with job: CreateReportsGeoJSONCacheJob do
@@ -272,10 +270,12 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal original, Report.original.first
   end
 
-  test "should have a photo attachment" do
+  test "can have a photo attachment" do
     report = build(:report)
-
     assert_not report.photo.attached?
+
+    report = build(:report, :with_photo)
+    assert report.photo.attached?
   end
 
   test "should be updatable" do
