@@ -25,8 +25,6 @@ class Report < ApplicationRecord
   include ReverseGeocodableConcern
   include CachableGeoJSONConcern
 
-  GEO_ATTRIBUTES = [:id, :name, :level, :latitude, :longitude, :updated_at, :source].freeze
-
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
@@ -46,7 +44,7 @@ class Report < ApplicationRecord
   class << self
     def cached_geojson
       datasets = Dataset.where(end_at: 1.year.ago.beginning_of_day..DateTime.current)
-      reports = all.select(GEO_ATTRIBUTES)
+      reports = all.with_attached_photo
 
       Rails.cache.fetch(cache_key(datasets, reports)) do
         Assets::GeoJSON.generate(datasets: datasets, reports: reports)
