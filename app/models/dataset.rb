@@ -33,15 +33,25 @@ class Dataset < ApplicationRecord
       return unless reports.any?
 
       transaction do
-        create!(
-          name:     name,
-          start_at: reports.min_by(&:updated_at).updated_at,
-          end_at:   reports.max_by(&:updated_at).updated_at,
-          features: reports.decorate.map(&:as_geojson),
-        )
-
-        reports.delete_all
+        create_form_reports!(name, reports)
+        destroy_reports!(reports)
       end
+    end
+
+    private
+
+    def create_form_reports!(name, reports)
+      create!(
+        name:     name,
+        start_at: reports.min_by(&:updated_at).updated_at,
+        end_at:   reports.max_by(&:updated_at).updated_at,
+        features: reports.decorate.map(&:as_geojson),
+      )
+    end
+
+    def destroy_reports!(reports)
+      reports.each { |report| report.skip_cache = true }
+      reports.destroy_all
     end
   end
 

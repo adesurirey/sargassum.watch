@@ -77,6 +77,7 @@ class ScrapReportsJobTest < ActiveJob::TestCase
 
   test "should reschedule itself and only enqueue 1 geoJSON cache creation job" do
     stub_scrapper(:with)
+    clear_enqueued_jobs
 
     ScrapReportsJob.perform_now(:with)
 

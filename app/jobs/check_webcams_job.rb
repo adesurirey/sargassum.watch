@@ -5,8 +5,12 @@ class CheckWebcamsJob < ApplicationJob
 
   def perform
     Webcam.find_each do |webcam|
-      Webcam.without_cache_callback do
-        webcam.available? ? webcam.touch : webcam.destroy
+      webcam.skip_cache = true
+
+      if webcam.available?
+        webcam.touch
+      else
+        webcam.destroy
       end
     end
 

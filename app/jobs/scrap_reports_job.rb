@@ -22,9 +22,10 @@ class ScrapReportsJob < ApplicationJob
 
   def report_attibutes
     {
-      level:   report_level,
-      user_id: SecureRandom.hex,
-      source:  "http://sargassummonitoring.com",
+      level:      report_level,
+      user_id:    SecureRandom.hex,
+      source:     "http://sargassummonitoring.com",
+      skip_cache: true,
     }
   end
 
@@ -48,7 +49,7 @@ class ScrapReportsJob < ApplicationJob
       report = Report.find_or_initialize_for_scrapper(placemark)
       next unless report.new_record?
 
-      Report.without_cache_callback { report.save! }
+      report.save!
       @created_reports_count += 1
     end
   end
