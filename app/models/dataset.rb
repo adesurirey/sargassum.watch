@@ -49,9 +49,8 @@ class Dataset < ApplicationRecord
       )
     end
 
-    def destroy_reports!(reports)
-      reports.each { |report| report.skip_cache = true }
-      reports.destroy_all
+    def destroy_reports!(reports_collection)
+      reports_collection.select("reports.*, true as skip_cache").destroy_all
     end
   end
 
