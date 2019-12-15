@@ -20,7 +20,8 @@ class ScrapWebcamsJob < ApplicationJob
       webcam = Webcam.find_or_initialize_for_scrapper(result)
       next unless webcam.new_record?
 
-      Webcam.without_cache_callback { webcam.save! }
+      webcam.skip_cache = true
+      webcam.save!
     end
   end
 

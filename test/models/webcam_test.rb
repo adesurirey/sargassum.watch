@@ -134,10 +134,8 @@ class WebcamTest < ActiveSupport::TestCase
   end
 
   test "should not update geoJSON cache" do
-    Webcam.without_cache_callback do
-      assert_no_enqueued_jobs only: CreateWebcamsGeoJSONCacheJob do
-        create(:webcam)
-      end
+    assert_no_enqueued_jobs only: CreateWebcamsGeoJSONCacheJob do
+      create(:webcam, skip_cache: true)
     end
 
     assert_enqueued_with job: CreateWebcamsGeoJSONCacheJob do

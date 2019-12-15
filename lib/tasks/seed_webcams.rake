@@ -6,10 +6,8 @@ namespace :one_shot do
     puts "Seeding webcams..."
 
     webcams = YAML.load_file(Rails.root.join("db", "data", "webcams.yml"))
-
-    Webcam.without_cache_callback do
-      Webcam.create!(webcams)
-    end
+    webcams.map! { |webcam| webcam.merge(skip_cache: true) }
+    Webcam.create!(webcams)
 
     ScrapWebcamsJob.perform_later
 
