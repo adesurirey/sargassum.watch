@@ -40,6 +40,15 @@ FactoryBot.define do
       level  { :critical }
     end
 
+    trait :with_photo do
+      photo do
+        fixture_file_upload(
+          Rails.root.join("test", "fixtures", "files", "photo.jpg"),
+          "image/jpg",
+        )
+      end
+    end
+
     trait :sugiton do
       name { "Calanque de Sugiton" }
       latitude { 43.217595 }

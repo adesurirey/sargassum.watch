@@ -9,6 +9,10 @@ require "minitest/mock"
 
 Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end
+
 require "test_geocoder_stubs"
 require "test_coordinates_helper"
 require "test_headers_helper"
