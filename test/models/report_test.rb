@@ -272,6 +272,12 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal original, Report.original.first
   end
 
+  test "should have a photo attachment" do
+    report = build(:report)
+
+    assert_not report.photo.attached?
+  end
+
   private
 
   def report_params(attributes)
