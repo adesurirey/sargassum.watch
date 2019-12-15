@@ -30,7 +30,10 @@ class Report < ApplicationRecord
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
-  has_one_attached :photo, dependent: :nullify
+  MAX_UPDATE_TIME = 1.hour
+  MAX_UPDATE_KM   = 0.1
+
+  has_one_attached :photo, dependent: false
 
   validate :timestamps_are_past
   validates :user_id, presence: true, length: { is: 32 }
@@ -97,6 +100,12 @@ class Report < ApplicationRecord
       attributes = placemark.slice(:created_at, :level, :latitude, :longitude)
       find_by(attributes)
     end
+  end
+
+  def can_update?(params)
+    user_id == params[:user_id] &&
+      distance_from([params[:latitude], params[:longitude]]) <= MAX_UPDATE_KM &&
+      Time.current < updated_at + MAX_UPDATE_TIME
   end
 
   private
