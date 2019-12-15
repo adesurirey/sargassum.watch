@@ -94,6 +94,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Feature", body["type"]
     assert_kind_of Integer, body["properties"]["id"]
     assert_not_nil body["properties"]["name"]
+    assert body["properties"]["canUpdate"]
   end
 
   test "create should update users report already created at same place within 24h" do
@@ -110,6 +111,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :ok
     assert_equal id, body["properties"]["id"]
+    assert body["properties"]["canUpdate"]
   end
 
   test "create should return unprocessable entity errors" do
