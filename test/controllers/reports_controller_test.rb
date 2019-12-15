@@ -134,10 +134,41 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "can't be blank", body["errors"]["user_id"].first
   end
 
+  test "update should attach a photo to a report" do
+    report = create(:report)
+    params = report.attributes.merge(photo: photo_upload)
+
+    patch report_path(report.id),
+          params:  report_params { params },
+          headers: auth_headers(report.user_id)
+
+    assert_response :ok
+    assert report.reload.photo.attached?
+    assert body["properties"]["canUpdate"]
+  end
+
+  test "update should return forbidden when report isn't updatable" do
+    report = create(:report, updated_at: 2.days.ago)
+    params = report.attributes.merge(photo: photo_upload)
+
+    patch report_path(report.id),
+          params:  report_params { params },
+          headers: auth_headers(report.user_id)
+
+    assert_response :forbidden
+  end
+
   private
 
   def report_params
     { report: yield }
+  end
+
+  def photo_upload
+    fixture_file_upload(
+      Rails.root.join("test", "fixtures", "files", "photo.jpg"),
+      "image/jpg",
+    )
   end
 
   def assert_same_http_header(name, msg = nil, &block)
