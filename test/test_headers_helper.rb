@@ -15,9 +15,7 @@ module TestHeadersHelper
     }
   end
 
-  def auth_headers
-    json_headers.merge(
-      "X-Fingerprint" => SecureRandom.hex,
-    )
+  def auth_headers(user_id = SecureRandom.hex)
+    json_headers.merge("X-Fingerprint" => user_id)
   end
 end
