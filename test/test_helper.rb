@@ -18,9 +18,24 @@ require "test_coordinates_helper"
 require "test_headers_helper"
 require "test_youtube_helper"
 
+module RemoveUploadedFiles
+  def after_teardown
+    super
+    remove_uploaded_files
+  end
+
+  private
+
+  def remove_uploaded_files
+    FileUtils.rm_rf(Rails.root.join("tmp", "storage"))
+  end
+end
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors)
+
+  prepend RemoveUploadedFiles
 
   fixtures :all
 
@@ -35,6 +50,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  prepend RemoveUploadedFiles
+
   include TestHeadersHelper
 
   def teardown
