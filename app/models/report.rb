@@ -30,6 +30,8 @@ class Report < ApplicationRecord
   MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
   MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
 
+  has_one_attached :photo, dependent: :nullify
+
   validate :timestamps_are_past
   validates :user_id, presence: true, length: { is: 32 }
 
