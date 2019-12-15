@@ -91,6 +91,7 @@ class DatasetTest < ActiveSupport::TestCase
 
     reports = query.call
     assert_equal 3, reports.size
+    clear_enqueued_jobs
 
     assert_nothing_raised do
       Dataset.pack_reports!(name: "All frozen reports", reports: reports)
@@ -102,6 +103,9 @@ class DatasetTest < ActiveSupport::TestCase
     assert_equal first_report.updated_at, set.start_at
     assert_equal last_report.updated_at, set.end_at
     assert_equal 0, query.call.size
+
+    assert_enqueued_jobs 1
+    assert_enqueued_with(job: CreateReportsGeoJSONCacheJob)
   end
 
   test "should not destroy reports when creation fails" do
