@@ -278,6 +278,32 @@ class ReportTest < ActiveSupport::TestCase
     assert_not report.photo.attached?
   end
 
+  test "should be updatable" do
+    report = create(:report)
+    params = report_params(
+      user_id:   report.user_id,
+      latitude:  report.latitude,
+      longitude: report.longitude + 0.0005,
+    )
+
+    assert report.can_update?(params)
+  end
+
+  test "should not be updatable" do
+    report = create(:report)
+    params = report_params(
+      user_id:   report.user_id,
+      latitude:  report.latitude,
+      longitude: report.longitude,
+    )
+
+    assert_not report.can_update?(params.merge(user_id: SecureRandom.hex))
+    assert_not report.can_update?(params.merge(longitude: report.longitude + 1))
+
+    report.update!(updated_at: 1.day.ago)
+    assert_not report.can_update?(params)
+  end
+
   private
 
   def report_params(attributes)
