@@ -31,6 +31,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_kind_of String, properties["name"]
     assert_kind_of Integer, properties["level"]
     assert_kind_of String, properties["humanLevel"]
+    assert_kind_of String, properties["photo"]
     assert_kind_of String, properties["updatedAt"]
   end
 

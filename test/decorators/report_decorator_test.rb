@@ -4,7 +4,7 @@ require "test_helper"
 
 class ReportDecoratorTest < Draper::TestCase
   test "should return a valid geoJSON feature" do
-    report = create(:report, source: "somesource.com").decorate
+    report = create(:report, :with_photo, source: "somesource.com").decorate
 
     feature = report.as_geojson
 
@@ -24,8 +24,10 @@ class ReportDecoratorTest < Draper::TestCase
     assert_equal report.name, properties[:name]
     assert_equal report.numeric_level, properties[:level]
     assert_equal report.level, properties[:humanLevel]
-    assert_equal report.updated_at.httpdate, properties[:updatedAt]
+    assert_match "http://localhost:3000", properties[:photo]
+    assert_match "photo.jpg", properties[:photo]
     assert_equal report.source, properties[:source]
+    assert_equal report.updated_at.httpdate, properties[:updatedAt]
   end
 
   test "should return json" do
@@ -43,5 +45,11 @@ class ReportDecoratorTest < Draper::TestCase
     report = create(:report, source: nil).decorate
 
     assert_equal "", report.as_geojson[:properties][:source]
+  end
+
+  test "should not return empty string when no photo attached" do
+    report = create(:report, photo: nil).decorate
+
+    assert_equal "", report.as_geojson[:properties][:photo]
   end
 end
