@@ -21,8 +21,8 @@ class ReportsController < ApplicationController
   def update
     @report = Report.find(params[:id])
 
-    if @report.can_update?(report_params)
-      @report.photo.attach(report_params[:photo])
+    if @report.can_update?(updatable_params)
+      @report.photo.attach(params[:photo])
       render_report(:ok, can_update: true)
     else
       head :forbidden
@@ -41,7 +41,12 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report)
-          .permit(:latitude, :longitude, :level, :photo)
+          .permit(:latitude, :longitude, :level)
+          .merge(user_id: user_id)
+  end
+
+  def updatable_params
+    params.permit(:latitude, :longitude)
           .merge(user_id: user_id)
   end
 end

@@ -1,5 +1,5 @@
 import React, { useEffect, memo } from 'react';
-import { oneOfType, string, number, func } from 'prop-types';
+import { oneOfType, string, number, bool, func } from 'prop-types';
 import { Popup } from 'react-map-gl';
 import { useTranslation } from 'react-i18next';
 
@@ -16,13 +16,19 @@ const propTypes = {
   id: oneOfType([number, string]).isRequired,
   humanLevel: string.isRequired,
   name: string.isRequired,
-  updatedAt: string.isRequired,
   source: string,
+  photo: string,
+  updatedAt: string.isRequired,
+  canUpdate: bool,
+  onUpdate: func,
   onClose: func.isRequired,
 };
 
 const defaultProps = {
+  photo: null,
   source: null,
+  canUpdate: false,
+  onUpdate: undefined,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -47,8 +53,11 @@ const PointPopup = ({
   id,
   humanLevel,
   name,
-  updatedAt,
+  photo,
   source,
+  updatedAt,
+  canUpdate,
+  onUpdate,
   ...popupProps
 }) => {
   const { t } = useTranslation();
@@ -56,6 +65,10 @@ const PointPopup = ({
   const createModalView = useModalView(`/reports/${id}`);
 
   useEffect(createModalView, [id]);
+
+  const onFileUpload = event => {
+    onUpdate({ id, photo: event.target.files[0] });
+  };
 
   return (
     <Popup {...popupProps}>
@@ -65,6 +78,21 @@ const PointPopup = ({
         onClose={popupProps.onClose}
       >
         <Grid container alignItems="center">
+          {(!!photo || canUpdate) && (
+            <div
+              style={{
+                width: '100%',
+                height: 100,
+                backgroundImage: !!photo ? `url(${photo})` : 'unset',
+                backgroundSize: 'cover',
+                backgroundPostion: 'center',
+              }}
+            >
+              {!photo && canUpdate && (
+                <input type="file" onChange={onFileUpload} />
+              )}
+            </div>
+          )}
           <LegendPoint
             humanLevel={humanLevel}
             className={classes.icon}

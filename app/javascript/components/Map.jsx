@@ -245,7 +245,7 @@ class Map extends Component {
     this.setState({ interactiveLayerIds });
   };
 
-  onError(error, coordinates = null) {
+  onError = (error, coordinates = null) => {
     const { t } = this.props;
     const { latitude, longitude } = coordinates || this.state.viewport;
 
@@ -256,7 +256,7 @@ class Map extends Component {
         longitude,
       },
     });
-  }
+  };
 
   onLoaded = () => {
     if (this.state.loaded) return;
@@ -332,16 +332,34 @@ class Map extends Component {
           ),
           feature,
         ],
-        popup: toPointPopup(feature),
+        popup: toPointPopup(feature, { onUpdate: this.onReportUpdate }),
         user: null,
       }),
       this.setMapData,
     );
 
+  onReportUpdate = report => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        api
+          .updateReport({
+            ...report,
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          })
+          .then(({ data: feature }) => this.onReportSuccess(feature))
+          .catch(this.onError);
+      },
+      this.onGeolocationFailed,
+      { enableHighAccuracy: true, timeout: 4000 },
+    );
+  };
+
   onReportSubmit = level => {
     const { user } = this.state;
 
-    retry(() => api.createReport({ level, ...user }))
+    api
+      .createReport({ level, ...user })
       .then(({ data: feature }) => this.onReportSuccess(feature))
       .catch(error => this.onError(error, user));
   };
@@ -402,6 +420,7 @@ class Map extends Component {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => this.onGeolocated(coords),
       this.onGeolocationFailed,
+      { enableHighAccuracy: true, timeout: 4000 },
     );
   };
 
