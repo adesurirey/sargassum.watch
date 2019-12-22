@@ -2,7 +2,10 @@
 
 class SettingsController < ApplicationController
   def create
-    cookies[key] = setting_params[key]
+    setting_params.each do |key, value|
+      cookies[key] = value
+    end
+
     head :ok
   end
 
@@ -10,9 +13,5 @@ class SettingsController < ApplicationController
 
   def setting_params
     params.require(:setting).permit(:map_style)
-  end
-
-  def key
-    setting_params.keys.first
   end
 end
