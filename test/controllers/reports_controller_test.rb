@@ -136,10 +136,10 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "update should attach a photo to a report" do
     report = create(:report)
-    params = report.attributes.merge(photo: photo_upload)
+    params = report.attributes.slice("latitude", "longitude").merge(photo: photo_upload)
 
     patch report_path(report.id),
-          params:  report_params { params },
+          params:  params,
           headers: auth_headers(report.user_id)
 
     assert_response :ok
@@ -152,7 +152,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     params = report.attributes.merge(photo: photo_upload)
 
     patch report_path(report.id),
-          params:  report_params { params },
+          params:  params,
           headers: auth_headers(report.user_id)
 
     assert_response :forbidden
