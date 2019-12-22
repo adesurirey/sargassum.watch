@@ -2,6 +2,7 @@
 
 class ReportsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update]
+  before_action :set_report, only: [:update]
 
   def index
     render json: Report.cached_geojson
@@ -11,19 +12,16 @@ class ReportsController < ApplicationController
     @report = Report.find_or_initialize_for_user(report_params)
 
     if @report.save
-      status = @report.id_previously_changed? ? :created : :ok
-      render_report(status, can_update: true)
+      render_report(status: report_status, can_update: true)
     else
-      render json: { errors: @report.errors.as_json }, status: :unprocessable_entity
+      render_errors
     end
   end
 
   def update
-    @report = Report.find(params[:id])
-
-    if @report.can_update?(report_params)
-      @report.photo.attach(report_params[:photo])
-      render_report(:ok, can_update: true)
+    if @report.can_update?(update_params)
+      @report.photo.attach(params[:photo])
+      render_report(can_update: true)
     else
       head :forbidden
     end
@@ -31,7 +29,19 @@ class ReportsController < ApplicationController
 
   private
 
-  def render_report(status, can_update: false)
+  def set_report
+    @report = Report.find(params[:id])
+  end
+
+  def report_status
+    if @report.id_previously_changed?
+      :created
+    else
+      :ok
+    end
+  end
+
+  def render_report(status: :ok, can_update: false)
     json = @report.decorate.as_geojson.deep_merge!(
       properties: { canUpdate: can_update },
     )
@@ -39,9 +49,18 @@ class ReportsController < ApplicationController
     render json: json, status: status
   end
 
+  def render_errors
+    render json: { errors: @report.errors.as_json }, status: :unprocessable_entity
+  end
+
   def report_params
     params.require(:report)
-          .permit(:latitude, :longitude, :level, :photo)
+          .permit(:latitude, :longitude, :level)
+          .merge(user_id: user_id)
+  end
+
+  def update_params
+    params.permit(:latitude, :longitude)
           .merge(user_id: user_id)
   end
 end
