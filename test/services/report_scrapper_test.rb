@@ -3,6 +3,12 @@
 require "test_helper"
 
 class ReportScrapperTest < ActiveSupport::TestCase
+  test "should return an URL" do
+    url = ReportScrapper.url(year: 2019, kind: :with)
+
+    assert_equal ENV.fetch("REPORT_SCRAPPER_URL_2019_WITH"), url
+  end
+
   test "should return a KML instance from Google maps" do
     request = stub_scrapper(kind: :with, year: 2019)
 
@@ -23,7 +29,7 @@ class ReportScrapperTest < ActiveSupport::TestCase
   private
 
   def stub_scrapper(kind:, year:)
-    url = ReportScrapper::URLS[year][kind]
+    url = ReportScrapper.url(year: year, kind: kind)
 
     stub_request(:get, url)
       .to_return(
