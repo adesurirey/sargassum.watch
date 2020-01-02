@@ -32,3 +32,4 @@ yarn-debug.log*
 coverage
 .sentryclirc
 .env*
+!.env.example
