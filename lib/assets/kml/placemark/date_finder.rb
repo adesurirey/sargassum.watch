@@ -35,7 +35,7 @@ module Assets
 
         def try_no_day_date
           @name[DATE_REGEX_NO_DAY].tap do |date|
-            date&.prepend("15/")
+            date&.prepend("01/")
           end
         end
 
