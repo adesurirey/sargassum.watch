@@ -89,12 +89,13 @@ class ScrapReportsJobTest < ActiveJob::TestCase
   private
 
   def stub_scrapper(kind)
-    url = ReportScrapper.url(year: Time.current.year, kind: kind)
+    @year ||= Time.current.year
+    @url  ||= ReportScrapper.url(year: @year, kind: kind)
+    @body ||= begin
+      kml = file_fixture("valid_placemarks.kml").read
+      kml.gsub(Assets::KML::Placemark::DateFinder::DATE_REGEX, "01/01/#{@year}")
+    end
 
-    stub_request(:get, url)
-      .to_return(
-        status: 200,
-        body:   file_fixture("valid_placemarks.kml").read,
-      )
+    stub_request(:get, @url).to_return(status: 200, body: @body)
   end
 end
