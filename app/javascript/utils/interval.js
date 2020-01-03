@@ -1,8 +1,8 @@
 import { parse as parseSearch } from 'query-string';
-import _range from 'lodash/range';
-import _groupBy from 'lodash/groupBy';
-import _countBy from 'lodash/countBy';
-import _sortBy from 'lodash/sortBy';
+import range from 'lodash/range';
+import groupBy from 'lodash/groupBy';
+import countBy from 'lodash/countBy';
+import sortBy from 'lodash/sortBy';
 
 import {
   getWeek,
@@ -85,12 +85,12 @@ const intervalGranularity = interval => {
   switch (unit) {
     case 'day':
     case 'month':
-      ticks = _range(1, value + 1).map(count =>
+      ticks = range(1, value + 1).map(count =>
         advanceInTime(startDate, unit, count),
       );
       break;
     case 'week':
-      ticks = _range(7, value * 7 + 1, 7).map(count =>
+      ticks = range(7, value * 7 + 1, 7).map(count =>
         advanceInTime(startDate, 'day', count),
       );
       break;
@@ -111,13 +111,13 @@ const getRelatedInterval = interval => {
 };
 
 const featuresPerInterval = (features, interval) => {
-  let data = _groupBy(features, getRelatedInterval(interval));
+  let data = groupBy(features, getRelatedInterval(interval));
   data = Object.entries(data).map(([time, intervalFeatures]) => ({
     time,
-    ..._countBy(intervalFeatures, 'properties.humanLevel'),
+    ...countBy(intervalFeatures, 'properties.humanLevel'),
   }));
 
-  return _sortBy(data, 'time');
+  return sortBy(data, 'time');
 };
 
 const intervalEndFormatter = unit => {
