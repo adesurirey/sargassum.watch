@@ -1,12 +1,11 @@
 import React, { useEffect, memo } from 'react';
-import { number, string, func } from 'prop-types';
-import { Popup } from 'react-map-gl';
+import { number, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 
 import useModalView from '../hooks/useModalView';
-import Tooltip from './Tooltip';
+import Popup from './Popup';
 import LiveIcon from './LiveIcon';
 import YoutubeVideo from './YoutubeVideo';
 import LiveImage from './LiveImage';
@@ -15,7 +14,6 @@ const propTypes = {
   id: number.isRequired,
   youtubeId: string,
   liveImageUrl: string,
-  onClose: func.isRequired,
 };
 
 const defaultProps = {
@@ -24,13 +22,6 @@ const defaultProps = {
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: 320,
-    [theme.breakpoints.down('sm')]: {
-      width: `calc(100vw - ${theme.spacing(4)}px)`,
-    },
-  },
-
   title: {
     display: 'flex',
     alignItems: 'center',
@@ -45,21 +36,17 @@ const WebcamPopup = ({ id, youtubeId, liveImageUrl, ...popupProps }) => {
   useEffect(createModalView, [id]);
 
   return (
-    <Popup {...popupProps} offsetTop={100} tipSize={0}>
-      <Tooltip
-        className={classes.root}
-        title={
-          <div className={classes.title}>
-            <LiveIcon />
-            {t('Live')}
-          </div>
-        }
-        compact
-        onClose={popupProps.onClose}
-      >
-        {youtubeId && <YoutubeVideo id={youtubeId} />}
-        {liveImageUrl && <LiveImage url={liveImageUrl} />}
-      </Tooltip>
+    <Popup
+      {...popupProps}
+      title={
+        <div className={classes.title}>
+          <LiveIcon />
+          {t('Live')}
+        </div>
+      }
+    >
+      {youtubeId && <YoutubeVideo id={youtubeId} />}
+      {liveImageUrl && <LiveImage url={liveImageUrl} />}
     </Popup>
   );
 };

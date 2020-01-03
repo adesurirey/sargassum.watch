@@ -3,11 +3,11 @@ import { bool, string, arrayOf, shape, number, oneOf } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 
 import { tickFormatter } from '../utils/interval';
 import { currentLanguage } from '../utils/i18n';
-import Tooltip from './Tooltip';
 import LegendPoint from './LegendPoint';
 
 const propTypes = {
@@ -32,6 +32,19 @@ const defaultProps = {
 const useStyles = makeStyles(theme => ({
   root: {
     width: 160,
+    background: fade(theme.palette.background.paper, 0.9),
+  },
+  content: {
+    padding: theme.spacing(1),
+    '&:last-child': {
+      paddingBottom: theme.spacing(1),
+    },
+  },
+  title: {
+    fontWeight: 700,
+    fontSize: '0.85rem',
+    lineHeight: '1.1',
+    paddingBottom: theme.spacing(1),
   },
   point: {
     marginRight: theme.spacing(1),
@@ -51,30 +64,34 @@ const ChartTooltip = ({ active, payload, label, unit }) => {
   const title = tickFormatter(label, unit, t, language, 'long');
 
   return (
-    <Tooltip className={classes.root} title={title}>
-      {payload.map(({ dataKey, value }) => (
-        <Grid
-          key={dataKey}
-          container
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Grid container alignItems="center">
-              <LegendPoint
-                humanLevel={dataKey}
-                className={classes.point}
-                size="inherit"
-              />
-              <Typography variant="caption">{t(dataKey)}</Typography>
+    <Card className={classes.root}>
+      <CardContent className={classes.content}>
+        <Typography className={classes.title}>{title}</Typography>
+
+        {payload.map(({ dataKey, value }) => (
+          <Grid
+            key={dataKey}
+            container
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Grid container alignItems="center">
+                <LegendPoint
+                  humanLevel={dataKey}
+                  className={classes.point}
+                  size="inherit"
+                />
+                <Typography variant="caption">{t(dataKey)}</Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="caption">{value}</Typography>
             </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="caption">{value}</Typography>
-          </Grid>
-        </Grid>
-      ))}
-    </Tooltip>
+        ))}
+      </CardContent>
+    </Card>
   );
 };
 

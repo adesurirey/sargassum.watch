@@ -1,28 +1,47 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { Popup } from 'react-map-gl';
+import { string, func } from 'prop-types';
 
+import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
-import Tooltip from './Tooltip';
+import Popup from './Popup';
+import PopupCloseButton from './PopupCloseButton';
 
 const propTypes = {
   text: string.isRequired,
-  title: string,
+  onClose: func.isRequired,
 };
 
 const defaultProps = {
   text: string.isRequired,
-  title: null,
 };
 
-const TextPopup = ({ title, text, ...popupProps }) => (
-  <Popup {...popupProps}>
-    <Tooltip title={title}>
-      <Typography variant="body2">{text}</Typography>
-    </Tooltip>
-  </Popup>
-);
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(1, 1, 1, 2),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  typography: {
+    paddingRight: theme.spacing(1),
+  },
+}));
+
+const TextPopup = ({ text, ...popupProps }) => {
+  const classes = useStyles();
+
+  return (
+    <Popup {...popupProps}>
+      <div className={classes.root}>
+        <Typography variant="body2" classes={{ root: classes.typography }}>
+          {text}
+        </Typography>
+        <PopupCloseButton onClose={popupProps.onClose} />
+      </div>
+    </Popup>
+  );
+};
 
 export default TextPopup;
 

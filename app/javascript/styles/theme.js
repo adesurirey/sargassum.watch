@@ -49,12 +49,6 @@ export default {
       lineHeight: '1.3',
     },
 
-    h3: {
-      fontWeight: 700,
-      fontSize: '0.8rem',
-      lineHeight: '1.1',
-    },
-
     button: {
       textTransform: 'none',
     },

@@ -68,7 +68,7 @@ const LevelSubmit = ({ value, label, onClick, disabled }) => {
       <Tooltip
         title={t(`${label} detailed`)}
         TransitionComponent={Zoom}
-        enterDelay={700}
+        enterDelay={225}
       >
         <Fab
           classes={{

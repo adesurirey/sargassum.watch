@@ -34,6 +34,7 @@ import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
+import SmartPopup from './SmartPopup';
 import Eyes from '../images/eyes.png';
 
 const api = new Api();
@@ -245,18 +246,13 @@ class Map extends Component {
     this.setState({ interactiveLayerIds });
   };
 
-  onError(error, coordinates = null) {
-    const { t } = this.props;
-    const { latitude, longitude } = coordinates || this.state.viewport;
-
+  onError = error => {
     this.setState({
       popup: {
-        text: textFromError(error, t),
-        latitude,
-        longitude,
+        text: textFromError(error, this.props.t),
       },
     });
-  }
+  };
 
   onLoaded = () => {
     if (this.state.loaded) return;
@@ -267,7 +263,7 @@ class Map extends Component {
       .then(({ data: { features } }) =>
         this.setState({ features }, this.initMap),
       )
-      .catch(error => this.onError(error));
+      .catch(this.onError);
   };
 
   onViewportChange = viewportChange => {
@@ -343,7 +339,7 @@ class Map extends Component {
 
     retry(() => api.createReport({ level, ...user }))
       .then(({ data: feature }) => this.onReportSuccess(feature))
-      .catch(error => this.onError(error, user));
+      .catch(this.onError);
   };
 
   handleUserPosition = () => {
@@ -467,6 +463,7 @@ class Map extends Component {
           onWebcamsClusterClick={this.onWebcamsClusterClick}
           onWebcamFeatureClick={this.onWebcamFeatureClick}
         />
+        {popup && <SmartPopup {...popup} onClose={this.dismissPopup} />}
       </div>
     );
   }

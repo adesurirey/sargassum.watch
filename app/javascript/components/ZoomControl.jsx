@@ -17,11 +17,11 @@ const useStyles = makeStyles(theme => ({
 
 const ZoomControl = () => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
 
   return (
-    matches && (
+    isWideScreen && (
       <div className={classes.root}>
         <NavigationControl showCompass={false} />
       </div>
