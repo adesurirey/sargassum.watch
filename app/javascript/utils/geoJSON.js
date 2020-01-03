@@ -5,7 +5,7 @@ const featureCollection = features => ({
   buffer: 0,
 });
 
-const toPopup = (variant, feature) => {
+const toPopup = (variant, feature, other) => {
   const {
     geometry: {
       coordinates: [longitude, latitude],
@@ -18,11 +18,13 @@ const toPopup = (variant, feature) => {
     latitude,
     longitude,
     ...properties,
+    ...other,
   };
 };
 
-const toPointPopup = feature => toPopup('point', feature);
+const toPointPopup = (feature, other = {}) => toPopup('point', feature, other);
 
-const toWebcamPopup = feature => toPopup('webcam', feature);
+const toWebcamPopup = (feature, other = {}) =>
+  toPopup('webcam', feature, other);
 
 export { featureCollection, toPointPopup, toWebcamPopup };
