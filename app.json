@@ -1,0 +1,76 @@
+{
+  "name": "sargassum.watch",
+  "scripts": {
+    "postdeploy": "scripts/heroku_postdeploy.sh"
+  },
+  "env": {
+    "APP_ENV": {
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "required": true
+    },
+    "ADMIN_USERNAME": {
+      "required": true
+    },
+    "HEROKU_API_KEY": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "MAPBOX_API_ACCESS_TOKEN": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2018_WITH": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2018_WITHOUT": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2019_WITH": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2019_WITHOUT": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2020_WITH": {
+      "required": true
+    },
+    "REPORT_SCRAPPER_URL_2020_WITHOUT": {
+      "required": true
+    },
+    "SENTRY_PRIVATE_DSN": {
+      "required": true
+    },
+    "SENTRY_PUBLIC_DSN": {
+      "required": true
+    },
+    "YOUTUBE_API_KEY": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "addons": ["rediscloud", "heroku-postgresql", "memcachedcloud"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-cli"
+    }
+  ]
+}

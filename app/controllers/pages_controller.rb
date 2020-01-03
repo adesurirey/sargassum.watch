@@ -19,7 +19,7 @@ class PagesController < ApplicationController
     gon.push(
       appENV:               ENV.fetch("APP_ENV"),
       sentryPublicDSN:      ENV.fetch("SENTRY_PUBLIC_DSN"),
-      release:              ENV.fetch("RELEASE"),
+      release:              ENV.fetch("RELEASE") { nil },
       mapboxApiAccessToken: ENV.fetch("MAPBOX_API_ACCESS_TOKEN"),
     )
   end
