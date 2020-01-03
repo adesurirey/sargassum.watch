@@ -24,8 +24,10 @@ const propTypes = {
 };
 
 const defaultProps = {
-  dateOptions: { day: 'numeric', month: 'long' },
+  dateOptions: { day: 'numeric', month: 'long', year: 'numeric' },
 };
+
+const getNow = () => Date.now();
 
 const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
   const { t, i18n } = useTranslation();
@@ -37,9 +39,6 @@ const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
   const locale = locales[language];
 
   const defaultFormatter = buildFormatter(locale);
-
-  const getToday = () => new Date();
-  const getNow = () => Date.now();
 
   const formatter = (value, unit, suffix, epochSeconds, nextFormatter) => {
     switch (unit) {
@@ -55,12 +54,8 @@ const SmartTimeAgo = ({ date: time, dateOptions, ...typographyProps }) => {
           nextFormatter,
           getNow,
         );
-      default: {
-        if (date.getFullYear() < getToday().getFullYear()) {
-          options.year = 'numeric';
-        }
+      default:
         return date.toLocaleDateString(language, options);
-      }
     }
   };
 

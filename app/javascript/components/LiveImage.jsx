@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   notFound: {
     position: 'relative',
     padding: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
 
   button: {

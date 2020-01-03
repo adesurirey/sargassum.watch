@@ -1,5 +1,5 @@
 import React from 'react';
-import { oneOf, number, func } from 'prop-types';
+import { oneOf, func } from 'prop-types';
 
 import PointPopup from './PointPopup';
 import WebcamPopup from './WebcamPopup';
@@ -8,8 +8,6 @@ import TextPopup from './TextPopup';
 
 const propTypes = {
   variant: oneOf(['text', 'point', 'webcam', 'report']),
-  latitude: number.isRequired,
-  longitude: number.isRequired,
   onClose: func.isRequired,
 };
 

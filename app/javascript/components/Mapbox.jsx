@@ -15,7 +15,6 @@ import {
 } from '../layers';
 import Spinner from './Spinner';
 import Geocoder from './Geocoder';
-import SmartPopup from './SmartPopup';
 import UserMarker from './UserMarker';
 import ZoomControl from './ZoomControl';
 
@@ -25,7 +24,6 @@ const propTypes = {
   viewport: object.isRequired,
   style: oneOf(['map', 'satellite']).isRequired,
   user: object,
-  popup: object,
   interactiveLayerIds: arrayOf(string).isRequired,
   geocoderContainerRef: object,
   dismissPopup: func.isRequired,
@@ -38,7 +36,6 @@ const propTypes = {
 
 const defaultProps = {
   className: null,
-  popup: null,
   user: null,
   geocoderContainerRef: null,
 };
@@ -78,7 +75,6 @@ const Mapbox = forwardRef(
       viewport,
       style,
       user,
-      popup,
       interactiveLayerIds,
       geocoderContainerRef,
       dismissPopup,
@@ -139,7 +135,6 @@ const Mapbox = forwardRef(
         asyncRender
       >
         {loading && isSmallScreen && <Spinner delay={50} />}
-
         <Geocoder
           mapRef={ref}
           containerRef={geocoderContainerRef}
@@ -147,19 +142,7 @@ const Mapbox = forwardRef(
           latitude={viewport.latitude}
           onChange={onViewportChange}
         />
-
-        {popup && (
-          <SmartPopup
-            {...popup}
-            onClose={dismissPopup}
-            closeButton={false}
-            closeOnClick={false}
-            captureClick
-          />
-        )}
-
         {user && <UserMarker {...user} />}
-
         <ZoomControl />
       </MapGL>
     );

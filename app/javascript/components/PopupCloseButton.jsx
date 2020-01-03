@@ -11,36 +11,29 @@ const propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    height: '100%',
-    borderRadius: '0 4px 0 0',
-  },
-
-  sizeSmall: {
-    fontSize: theme.typography.fontSize,
-    padding: theme.spacing(1),
+  closeButton: {
+    margin: theme.spacing(-0.5, -0.5, -0.5),
+    padding: theme.spacing(0.5),
+    color: theme.palette.grey[500],
   },
 }));
 
-const TooltipCloseButton = ({ onClose }) => {
+const PopupCloseButton = ({ onClose }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <IconButton
       aria-label={t('close')}
-      classes={{ root: classes.root, sizeSmall: classes.sizeSmall }}
-      onClick={onClose}
       size="small"
+      classes={{ root: classes.closeButton }}
+      onClick={onClose}
     >
       <CloseRounded fontSize="inherit" />
     </IconButton>
   );
 };
 
-export default TooltipCloseButton;
+export default PopupCloseButton;
 
-TooltipCloseButton.propTypes = propTypes;
+PopupCloseButton.propTypes = propTypes;

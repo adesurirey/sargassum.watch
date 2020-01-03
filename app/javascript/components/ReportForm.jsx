@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { func } from 'prop-types';
 
-import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
 import useEvent from '../hooks/useEvent';
 import LevelSubmit from './LevelSubmit';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(1, 0, 2, 0),
+    display: 'flex',
+    justifyContent: 'space-evenly',
+  },
+}));
 
 const levels = gon.levels.filter(level => level.label !== 'na');
 
@@ -15,6 +23,7 @@ const propTypes = {
 const ReportForm = ({ onSubmit }) => {
   const [loading, setLoading] = useState(false);
   const createEvent = useEvent();
+  const classes = useStyles();
 
   const handleClick = value => {
     setLoading(true);
@@ -28,7 +37,7 @@ const ReportForm = ({ onSubmit }) => {
   };
 
   return (
-    <Grid container justify="center" spacing={3}>
+    <div className={classes.root}>
       {levels.map(level => (
         <LevelSubmit
           key={level.value}
@@ -37,7 +46,7 @@ const ReportForm = ({ onSubmit }) => {
           disabled={loading}
         />
       ))}
-    </Grid>
+    </div>
   );
 };
 

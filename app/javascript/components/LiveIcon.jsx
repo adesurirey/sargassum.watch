@@ -17,11 +17,11 @@ const useStyles = makeStyles(theme => ({
 
   fixed: {
     position: 'absolute',
-    fontSize: 8,
+    fontSize: 10,
   },
 
   pulsating: {
-    fontSize: 14,
+    fontSize: 16,
     animation: '$pulsating 2000ms ease-in-out infinite',
   },
 
