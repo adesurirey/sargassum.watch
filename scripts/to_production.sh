@@ -7,6 +7,7 @@ which heroku >/dev/null || (echo "You must have the heroku-cli installed, config
 which sentry-cli >/dev/null || (echo "You must have the sentry-cli installed and configured." && exit 1)
 
 HEROKU_APP="sargassum-watch"
+HEROKU_STAGING_APP="sargassum-watch-staging"
 TIMESTAMP=`date +"%s"`
 TAG="${USER}@${TIMESTAMP}"
 
@@ -27,7 +28,7 @@ if [ $CURRENT_HEAD != $ORIGIN_HEAD ]; then
   exit 1
 fi
 
-read -p "👉 Deploy to production? (y/N) " confirmed
+read -p "👉 Deploy staging to production? (y/N) " confirmed
 
 if [ $confirmed != "y" ]; then
   echo "✋ Aborted."
@@ -36,8 +37,8 @@ fi
 
 sentry-cli releases new $TAG
 
-echo "🚀 git push production master..."
-git push production master
+echo "🚀 heroku pipelines:promote -a ${HEROKU_STAGING_APP}"
+heroku pipelines:promote -a ${HEROKU_STAGING_APP}
 
 sentry-cli releases finalize $TAG
 sentry-cli releases set-commits --auto $TAG
@@ -45,6 +46,5 @@ sentry-cli releases set-commits --auto $TAG
 git tag $TAG && git push origin tag $TAG
 
 heroku config:set RELEASE=$TAG --app $HEROKU_APP
-heroku run rails db:migrate --app $HEROKU_APP
 
 echo "👌 Done."
