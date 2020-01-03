@@ -3,7 +3,13 @@ import { string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
-import { Tooltip, IconButton, Modal, Backdrop } from '@material-ui/core';
+import {
+  CardMedia,
+  Tooltip,
+  IconButton,
+  Modal,
+  Backdrop,
+} from '@material-ui/core';
 import { Fullscreen, FullscreenExit } from '@material-ui/icons';
 
 import useException from '../hooks/useException';
@@ -13,15 +19,16 @@ const propTypes = {
   url: string.isRequired,
 };
 
+const HEIGHT = 180;
+
 const useStyles = makeStyles(theme => ({
-  img: {
+  media: {
     display: loaded => (loaded ? 'block' : 'none'),
   },
 
-  notFound: {
+  spinner: {
     position: 'relative',
-    padding: theme.spacing(3),
-    marginBottom: theme.spacing(2),
+    height: HEIGHT,
   },
 
   button: {
@@ -90,24 +97,24 @@ const LiveImage = ({ url }) => {
     }
   };
 
-  const notFoundMessage = (
-    <div className={classes.notFound}>
-      <Spinner variant="small" delay={100} />
+  const spinner = (
+    <div className={classes.spinner}>
+      <Spinner variant="small" delay={225} />
     </div>
   );
 
   const image = (
     <>
-      <img
+      <CardMedia
+        className={classes.media}
+        component="img"
+        height={isFullscreen ? '100%' : HEIGHT}
         src={`${url}?d=${timestamp}`}
-        alt={t('Live is off')}
-        width="100%"
-        height="auto"
-        className={classes.img}
+        title={t('Live')}
         onLoad={onLoad}
         onError={onError}
       />
-      {!loaded && notFoundMessage}
+      {!loaded && spinner}
     </>
   );
 
