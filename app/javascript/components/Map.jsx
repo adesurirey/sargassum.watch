@@ -37,6 +37,11 @@ import Controls from './Controls';
 import SmartPopup from './SmartPopup';
 import Eyes from '../images/eyes.png';
 
+const GEOLOCATION_OPTIONS = {
+  enableHighAccuracy: true,
+  timeout: 10000,
+};
+
 const api = new Api();
 
 const { mapStyle } = gon;
@@ -100,6 +105,23 @@ class Map extends Component {
     return new Promise(resolve => {
       this.setState(state, resolve);
     });
+  }
+
+  geolocate(callback) {
+    const { t } = this.props;
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        callback(coords);
+      },
+      () => {
+        this.setState({
+          popup: { text: t('Location not found') },
+          geolocating: false,
+        });
+      },
+      GEOLOCATION_OPTIONS,
+    );
   }
 
   zoom({ zoom, minDuration = 1000, ...coordinates }) {
@@ -328,16 +350,30 @@ class Map extends Component {
           ),
           feature,
         ],
-        popup: toPointPopup(feature),
+        popup: toPointPopup(feature, { onUpdate: this.onReportUpdate }),
         user: null,
       }),
       this.setMapData,
     );
 
+  onReportUpdate = report => {
+    this.geolocate(coords => {
+      api
+        .updateReport({
+          ...report,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+        })
+        .then(({ data: feature }) => this.onReportSuccess(feature))
+        .catch(this.onError);
+    });
+  };
+
   onReportSubmit = level => {
     const { user } = this.state;
 
-    retry(() => api.createReport({ level, ...user }))
+    api
+      .createReport({ level, ...user })
       .then(({ data: feature }) => this.onReportSuccess(feature))
       .catch(this.onError);
   };
@@ -363,7 +399,7 @@ class Map extends Component {
     });
   };
 
-  onGeolocated = async ({ latitude, longitude }) => {
+  onReporterGeolocated = async ({ latitude, longitude }) => {
     const map = this.getMap();
     const { viewport } = this.state;
     const user = { latitude, longitude };
@@ -379,26 +415,10 @@ class Map extends Component {
     this.zoom({ zoom: 19, ...user });
   };
 
-  onGeolocationFailed = () => {
-    const { t } = this.props;
-
-    this.setState(({ viewport }) => ({
-      popup: {
-        text: t('Location not found'),
-        latitude: viewport.latitude,
-        longitude: viewport.longitude,
-      },
-      geolocating: false,
-    }));
-  };
-
   onReportClick = () => {
-    this.setState({ geolocating: true });
-
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => this.onGeolocated(coords),
-      this.onGeolocationFailed,
-    );
+    this.setState({ geolocating: true }, () => {
+      this.geolocate(this.onReporterGeolocated);
+    });
   };
 
   onStyleChange = style => {
