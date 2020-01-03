@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { object, func } from 'prop-types';
 import { FlyToInterpolator } from 'react-map-gl';
-import _debounce from 'lodash/debounce';
-import _uniqBy from 'lodash/uniqBy';
-import _pull from 'lodash/pull';
+import debounce from 'lodash/debounce';
+import uniqBy from 'lodash/uniqBy';
+import pull from 'lodash/pull';
 import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 import retry from '../utils/retry';
@@ -92,7 +92,7 @@ class Map extends Component {
     this.mapRef = React.createRef();
     this.geocoderContainerRef = React.createRef();
 
-    this.onReportsIdle = _debounce(this.onReportsIdle, 600);
+    this.onReportsIdle = debounce(this.onReportsIdle, 600);
   }
 
   componentDidMount() {
@@ -223,7 +223,7 @@ class Map extends Component {
     });
 
     if (features) {
-      features = _uniqBy(features, 'properties.id');
+      features = uniqBy(features, 'properties.id');
 
       this.setState(({ interval }) => ({
         renderedFeatures: {
@@ -260,7 +260,7 @@ class Map extends Component {
     if (zoom >= POINTS_MIN_ZOOM_LEVEL && !pointsLayerInteractive) {
       interactiveLayerIds.push(REPORTS_POINTS_LAYER_ID);
     } else if (zoom < POINTS_MIN_ZOOM_LEVEL && pointsLayerInteractive) {
-      _pull(interactiveLayerIds, REPORTS_POINTS_LAYER_ID);
+      pull(interactiveLayerIds, REPORTS_POINTS_LAYER_ID);
     } else {
       return;
     }
