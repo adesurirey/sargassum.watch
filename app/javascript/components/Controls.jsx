@@ -1,9 +1,10 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { func, object, bool, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { interval } from '../utils/propTypes';
 import ReportButton from './ReportButton';
+import GeocoderContainer from './GeocoderContainer';
 import MapSettings from './MapSettings';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import ControlsPanel from './ControlsPanel';
@@ -11,12 +12,6 @@ import IntervalControls from './IntervalControls';
 import Chart from './Chart';
 import Legend from './Legend';
 import Footer from './Footer';
-
-import retry from '../utils/retry';
-
-const GeocoderContainer = lazy(() =>
-  retry(() => import('./GeocoderContainer')),
-);
 
 const propTypes = {
   geocoderContainerRef: object,
