@@ -4,9 +4,7 @@
     "postdeploy": "scripts/heroku_postdeploy.sh"
   },
   "env": {
-    "APP_ENV": {
-      "required": true
-    },
+    "APP_ENV": "review",
     "ADMIN_PASSWORD": {
       "required": true
     },
