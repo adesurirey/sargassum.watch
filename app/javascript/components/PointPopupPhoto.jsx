@@ -1,20 +1,22 @@
 import React, { useState, useEffect, memo } from 'react';
-import { string, func } from 'prop-types';
+import { string, bool, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CardMedia, IconButton, LinearProgress } from '@material-ui/core';
-import { AddAPhotoRounded } from '@material-ui/icons';
+import { AddAPhotoRounded, EditRounded } from '@material-ui/icons';
 
 const propTypes = {
   photo: string,
+  canUpdate: bool,
   onChange: func,
 };
 
 const defaultProps = {
   photo: null,
+  canUpdate: false,
   onChange: undefined,
 };
 
@@ -27,8 +29,24 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     width: '100%',
+    padding: 0,
     borderRadius: 0,
+    opacity: ({ hasSource }) => (hasSource ? 0 : 1),
+    transition: theme.transitions.create(['opacity']),
+    '&:hover': {
+      opacity: 1,
+    },
   },
+  buttonColor: ({ hasSource }) =>
+    hasSource && {
+      color: theme.palette.common.white,
+      '&:hover': {
+        backgroundColor: fade(
+          theme.palette.common.white,
+          theme.palette.action.hoverOpacity,
+        ),
+      },
+    },
   icon: {
     paddingBottom: 58, // Lengend is 54px height + 4px margin
   },
@@ -39,13 +57,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     backgroundColor: fade(theme.palette.primary.light, 0.38),
   },
-
   progressBar: {
     backgroundColor: theme.palette.primary.main,
   },
 }));
 
-const PointPopupPhoto = ({ photo, onChange }) => {
+const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
   const [source, setSource] = useState(photo);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -59,8 +76,10 @@ const PointPopupPhoto = ({ photo, onChange }) => {
     return () => clearTimeout(timer);
   }, [photo]);
 
-  const classes = useStyles();
+  const classes = useStyles({ hasSource: !!source });
   const { t } = useTranslation();
+
+  const ActionIcon = !source ? AddAPhotoRounded : EditRounded;
 
   const handleChange = event => {
     const file = event.target.files[0];
@@ -75,7 +94,7 @@ const PointPopupPhoto = ({ photo, onChange }) => {
       className={clsx(classes.root, classes.fullHeight)}
       image={source}
     >
-      {!source && (
+      {canUpdate && !sending && (
         <div className={classes.fullHeight}>
           <input
             id="add-a-photo"
@@ -92,10 +111,11 @@ const PointPopupPhoto = ({ photo, onChange }) => {
               classes={{
                 root: clsx(classes.button, classes.fullHeight),
                 label: classes.icon,
+                colorPrimary: classes.buttonColor,
               }}
               aria-label={t('Add a photo')}
             >
-              <AddAPhotoRounded />
+              <ActionIcon />
             </IconButton>
           </label>
         </div>
