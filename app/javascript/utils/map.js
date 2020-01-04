@@ -7,7 +7,7 @@ const bboxAround = ({ longitude, latitude }, squareMeters) => {
 };
 
 const validateWaterPresence = (map, { latitude, longitude }) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (['development', 'review'].includes(gon.appENV)) {
     return true;
   }
 

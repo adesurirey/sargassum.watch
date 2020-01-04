@@ -107,7 +107,7 @@ Rails.application.configure do
 
   Raven.configure do |config|
     config.dsn = ENV.fetch("SENTRY_PRIVATE_DSN")
-    config.environments = ["production", "staging"]
+    config.environments = ["production", "staging", "review"]
     config.current_environment = ENV.fetch("APP_ENV")
     config.release = ENV.fetch("RELEASE") { nil }
   end if defined?(Raven)
