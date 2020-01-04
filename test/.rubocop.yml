@@ -3,7 +3,7 @@ inherit_from: ../.rubocop.yml
 Metrics/ClassLength:
   Max: 250
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 140
 
 Style/ClassAndModuleChildren:
