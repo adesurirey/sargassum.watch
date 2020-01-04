@@ -50,8 +50,12 @@ const YoutubeVideo = ({ id }) => {
   const classes = useStyles();
   const logException = useException();
 
-  const onError = () =>
-    logException('Youtube video error', [['youtube_id', id]]);
+  const onError = event => {
+    logException('Youtube video error', [
+      ['youtube_id', id],
+      ['youtube_error_code', event.data],
+    ]);
+  };
 
   return (
     <YouTube
