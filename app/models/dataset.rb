@@ -33,14 +33,14 @@ class Dataset < ApplicationRecord
       return unless reports.any?
 
       transaction do
-        create_form_reports!(name, reports)
+        create_from_reports!(name, reports)
         destroy_reports!(reports)
       end
     end
 
     private
 
-    def create_form_reports!(name, reports)
+    def create_from_reports!(name, reports)
       create!(
         name:     name,
         start_at: reports.min_by(&:updated_at).updated_at,
