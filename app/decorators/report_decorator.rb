@@ -38,11 +38,29 @@ class ReportDecorator < ApplicationDecorator
     # geoJSON format doesn't support null value
     return "" unless photo.attached?
 
-    Rails.application.routes.url_helpers.url_for(photo)
+    Rails.application.routes.url_helpers.url_for(optimized_photo)
   end
 
   def source
     # geoJSON format doesn't support null value
     object.source || ""
+  end
+
+  private
+
+  # When the browser hits the variant URL, Active Storage will lazily transform the
+  # original blob into the specified format and redirect to its new service location.
+  #
+  def optimized_photo
+    photo.variant(
+      # Strip the image of any profiles, comments or these PNG chunks:
+      # bKGD, cHRM, EXIF, gAMA, iCCP, iTXt, sRGB, tEXt, zCCP, zTXt, date
+      strip:           true,
+      # Resize to maximum 3x fullscreen display dimensions
+      resize_to_limit: [2556, 1620],
+      # Convert to progressive JPEG
+      convert:         "jpg",
+      saver:           { interlace: "Line" },
+    )
   end
 end
