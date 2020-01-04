@@ -48,24 +48,28 @@ const PointPopup = ({
     setIsFullScreen(false);
   };
 
-  const hasPhoto = !!photo || canUpdate;
+  const showPhoto = !!photo || canUpdate;
 
   return (
     <Popup
       {...popupProps}
       title={name}
-      isFullHeight={hasPhoto}
+      isFullHeight={showPhoto}
       isFullScreen={isFullScreen}
       onExitFullScreen={handleExitFullScreen}
     >
-      {hasPhoto && (
-        <PointPopupPhoto photo={photo} onChange={handlePhotoChange} />
+      {showPhoto && (
+        <PointPopupPhoto
+          photo={photo}
+          canUpdate={canUpdate}
+          onChange={handlePhotoChange}
+        />
       )}
       <PointPopupLegend
         humanLevel={humanLevel}
         source={source}
         updatedAt={updatedAt}
-        hasPhoto={hasPhoto}
+        hasPhoto={showPhoto}
         isFullScreen={isFullScreen}
         onFullScreen={setIsFullScreen}
       />
