@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { oneOfType, string, number, bool, func } from 'prop-types';
 
 import useModalView from '../hooks/useModalView';
@@ -35,18 +35,29 @@ const PointPopup = ({
   onUpdate,
   ...popupProps
 }) => {
-  const createModalView = useModalView(`/reports/${id}`);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
+  const createModalView = useModalView(`/reports/${id}`);
   useEffect(createModalView, [id]);
 
   const handlePhotoChange = photo => {
     onUpdate({ id, photo });
   };
 
+  const handleExitFullScreen = () => {
+    setIsFullScreen(false);
+  };
+
   const hasPhoto = !!photo || canUpdate;
 
   return (
-    <Popup {...popupProps} title={name}>
+    <Popup
+      {...popupProps}
+      title={name}
+      isFullHeight={hasPhoto}
+      isFullScreen={isFullScreen}
+      onExitFullScreen={handleExitFullScreen}
+    >
       {hasPhoto && (
         <PointPopupPhoto photo={photo} onChange={handlePhotoChange} />
       )}
@@ -54,7 +65,9 @@ const PointPopup = ({
         humanLevel={humanLevel}
         source={source}
         updatedAt={updatedAt}
-        absolute={hasPhoto}
+        hasPhoto={hasPhoto}
+        isFullScreen={isFullScreen}
+        onFullScreen={setIsFullScreen}
       />
     </Popup>
   );
