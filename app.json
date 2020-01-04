@@ -13,12 +13,25 @@
     "ADMIN_USERNAME": {
       "required": true
     },
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "AWS_BUCKET": {
+      "required": true
+    },
+    "AWS_REGION": {
+      "required": true
+    },
     "HEROKU_API_KEY": {
       "required": true
     },
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "HOST": "http://i-will-be-replaced-by-postdeploy-script.com",
     "MAPBOX_API_ACCESS_TOKEN": {
       "required": true
     },
