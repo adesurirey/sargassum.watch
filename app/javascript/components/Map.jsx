@@ -416,6 +416,8 @@ class Map extends Component {
   };
 
   onReportClick = () => {
+    this.dismissPopup();
+
     this.setState({ geolocating: true }, () => {
       this.geolocate(this.onReporterGeolocated);
     });

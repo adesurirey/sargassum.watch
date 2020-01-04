@@ -95,12 +95,18 @@ const Mapbox = forwardRef(
       const layerId = feature.layer.id;
 
       switch (layerId) {
-        case REPORTS_POINTS_LAYER_ID:
-          return onReportFeatureClick(feature);
-        case WEBCAMS_CLUSTERS_LAYER_ID:
-          return onWebcamsClusterClick(feature);
-        case WEBCAMS_POINTS_LAYER_ID:
-          return onWebcamFeatureClick(feature);
+        case REPORTS_POINTS_LAYER_ID: {
+          onReportFeatureClick(feature);
+          break;
+        }
+        case WEBCAMS_CLUSTERS_LAYER_ID: {
+          onWebcamsClusterClick(feature);
+          break;
+        }
+        case WEBCAMS_POINTS_LAYER_ID: {
+          onWebcamFeatureClick(feature);
+          break;
+        }
         default:
           throw new Error(`Unhandled layer click: ${layerId}`);
       }
@@ -111,8 +117,10 @@ const Mapbox = forwardRef(
       // so we check here that the click was trageting the map.
       if (!target.classList.contains('overlays')) return;
 
-      dismissPopup();
-      features && features[0] && dispatchClick(features[0]);
+      if (features && features[0]) {
+        dismissPopup();
+        dispatchClick(features[0]);
+      }
     };
 
     return (
