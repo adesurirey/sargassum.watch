@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { number, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -28,25 +28,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const WebcamPopup = ({ id, youtubeId, liveImageUrl, ...popupProps }) => {
-  const { t } = useTranslation();
+const WebcamTitle = () => {
   const classes = useStyles();
-  const createModalView = useModalView(`/webcams/${id}`);
+  const { t } = useTranslation();
 
+  return (
+    <div className={classes.title}>
+      <LiveIcon />
+      {t('Live')}
+    </div>
+  );
+};
+
+const WebcamPopup = ({ id, youtubeId, liveImageUrl, ...popupProps }) => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const createModalView = useModalView(`/webcams/${id}`);
   useEffect(createModalView, [id]);
+
+  let media;
+  if (youtubeId) {
+    media = <YoutubeVideo id={youtubeId} />;
+  } else if (liveImageUrl) {
+    media = (
+      <LiveImage
+        url={liveImageUrl}
+        isFullScreen={isFullScreen}
+        onFullScreen={setIsFullScreen}
+      />
+    );
+  } else {
+    throw new Error(`Webcam ${id} has no valid source`);
+  }
+
+  const handleExitFullScreen = () => {
+    setIsFullScreen(false);
+  };
 
   return (
     <Popup
       {...popupProps}
-      title={
-        <div className={classes.title}>
-          <LiveIcon />
-          {t('Live')}
-        </div>
-      }
+      isFullHeight
+      isFullScreen={isFullScreen}
+      onExitFullScreen={handleExitFullScreen}
+      title={<WebcamTitle />}
     >
-      {youtubeId && <YoutubeVideo id={youtubeId} />}
-      {liveImageUrl && <LiveImage url={liveImageUrl} />}
+      {media}
     </Popup>
   );
 };

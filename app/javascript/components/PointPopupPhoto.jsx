@@ -18,13 +18,7 @@ const defaultProps = {
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    height: 180,
-  },
-  control: {
-    height: '100%',
-  },
-  label: {
+  fullHeight: {
     height: '100%',
   },
   button: {
@@ -53,9 +47,9 @@ const PointPopupPhoto = ({ photo, onChange }) => {
   };
 
   return (
-    <CardMedia className={classes.root} image={photo}>
+    <CardMedia className={classes.fullHeight} image={photo}>
       {!photo && (
-        <div className={classes.control}>
+        <div className={classes.fullHeight}>
           <input
             id="add-a-photo"
             type="file"
@@ -63,7 +57,7 @@ const PointPopupPhoto = ({ photo, onChange }) => {
             onChange={handleChange}
             hidden
           />
-          <label htmlFor="add-a-photo" className={classes.label}>
+          <label htmlFor="add-a-photo" className={classes.fullHeight}>
             <IconButton
               component="div"
               centerRipple={false}
