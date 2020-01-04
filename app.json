@@ -1,7 +1,7 @@
 {
   "name": "sargassum.watch",
   "scripts": {
-    "postdeploy": "scripts/heroku_postdeploy.sh"
+    "postdeploy": "scripts/heroku_review_postdeploy.sh"
   },
   "env": {
     "APP_ENV": "review",

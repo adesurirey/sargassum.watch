@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 namespace :heroku do
-  desc "prepare heroku staging"
-  task bootstrap: :environment do
-    fail "Invalid environment error" unless ENV.fetch("APP_ENV") == "review"
+  desc "Run pre release tasks"
+  task release: :environment do
+    Rake::Task["db:migrate"].invoke
 
-    Rake::Task["db:schema:load"].invoke
+    return if ENV.fetch("APP_ENV") == "production"
+
     Rake::Task["db:seed"].invoke
   end
 end

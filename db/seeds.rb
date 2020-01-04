@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+fail "Invalid environment error" if ENV.fetch("APP_ENV") == "production"
+
 def puts_errors(kml)
   kml.errors.each do |error|
     puts "— #{error}".yellow
