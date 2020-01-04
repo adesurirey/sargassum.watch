@@ -1,8 +1,9 @@
+// Look at GeocoderContainer.jsx for CSS overrides
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { Component, memo } from 'react';
 import { shape, instanceOf, number, func } from 'prop-types';
-import GeocoderGL from 'react-map-gl-geocoder';
+import MapboxGeocoder from 'react-map-gl-geocoder';
 import { useTranslation } from 'react-i18next';
 
 import useEvent from '../hooks/useEvent';
@@ -30,7 +31,7 @@ const Geocoder = ({ longitude, latitude, onChange, ...refs }) => {
   };
 
   return (
-    <GeocoderGL
+    <MapboxGeocoder
       {...refs}
       mapboxApiAccessToken={gon.mapboxApiAccessToken}
       proximity={{ longitude, latitude }}
