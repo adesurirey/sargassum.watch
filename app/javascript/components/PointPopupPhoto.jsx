@@ -8,6 +8,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CardMedia, IconButton, LinearProgress } from '@material-ui/core';
 import { AddAPhotoRounded, EditRounded } from '@material-ui/icons';
 
+import useEvent from '../hooks/useEvent';
+
 const propTypes = {
   photo: string,
   canUpdate: bool,
@@ -81,12 +83,20 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
 
   const ActionIcon = !source ? AddAPhotoRounded : EditRounded;
 
+  const createEvent = useEvent();
+
   const handleChange = event => {
     const file = event.target.files[0];
 
     setSending(true);
     setSource(URL.createObjectURL(file));
     onChange(file);
+
+    createEvent({
+      category: 'Reporting',
+      action: 'Uploaded a photo',
+      label: 'Report photo upload',
+    });
   };
 
   return (
