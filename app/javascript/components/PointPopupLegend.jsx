@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     margin: `${theme.spacing(1)}px auto`,
     width: 320 - theme.spacing(2),
     padding: theme.spacing(1, 2),
-    borderRadius: theme.spacing(0.5),
+    borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.background.paper, 0.8),
   },
   isFullScreen: {
