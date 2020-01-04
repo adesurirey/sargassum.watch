@@ -56,6 +56,7 @@ puts "[1/3] Cleaning db..."
 Report.delete_all
 Dataset.delete_all
 Webcam.delete_all
+ScrapperLog.delete_all
 
 puts "[2/3] Seeding reports..."
 
@@ -82,6 +83,7 @@ puts "#{Report.moderate.count} moderate reports"
 puts "#{Report.na.count} na reports"
 puts "#{Report.critical.count} critical reports"
 
+puts ""
 puts "[3/3] Seeding webcams..."
 
 webcams = YAML.load_file(Rails.root.join("db", "data", "webcams.yml"))
