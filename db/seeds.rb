@@ -53,48 +53,42 @@ def seed(year, kind)
   report_parser_results(kml)
 end
 
-puts "[1/3] Cleaning db..."
+puts "[1/4] Cleaning db..."
 
 Report.delete_all
 Dataset.delete_all
 Webcam.delete_all
 ScrapperLog.delete_all
 
-puts "[2/3] Seeding reports..."
-
-start_time = Time.zone.now
+puts "[2/4] Seeding reports..."
 
 last_year = Time.current.year - 1
-
 seed(last_year, :with)
 seed(last_year, :without)
 
 current_year = Time.current.year
-
 seed(current_year, :with)
 seed(current_year, :without)
 
-elapsed_time = (Time.zone.now - start_time).round
+puts ""
+puts "Done, #{Report.count} reports created:".light_green
+puts "- #{Report.clear.count} clear reports".green
+puts "- #{Report.moderate.count} moderate reports".green
+puts "- #{Report.na.count} na reports".green
+puts "- #{Report.critical.count} critical reports".green
 
 puts ""
-puts "Done in #{elapsed_time} seconds.".light_green
-puts ""
-puts "#{Report.count} reports created".underline
-puts "#{Report.clear.count} clear reports"
-puts "#{Report.moderate.count} moderate reports"
-puts "#{Report.na.count} na reports"
-puts "#{Report.critical.count} critical reports"
+puts "[3/4] Packing reports..."
+Dataset.pack_reports!(name: "Seeds", reports: Report.all)
+
+puts "Done: #{Dataset.count} dataset created".light_green
 
 puts ""
-puts "[3/3] Seeding webcams..."
-
+puts "[4/4] Seeding webcams..."
 webcams = YAML.load_file(Rails.root.join("db", "data", "webcams.yml"))
 webcams.map! { |webcam| webcam.merge(skip_cache: true) }
 Webcam.create!(webcams)
 
 ScrapWebcamsJob.perform_now
 
-puts ""
-puts "Done.".light_green
-puts ""
-puts "#{Webcam.count} webcams created".underline
+puts "Done: #{Webcam.count} webcams created".light_green
