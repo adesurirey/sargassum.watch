@@ -28,7 +28,6 @@ gem "faraday"
 gem "yt"
 
 # Frontend
-gem "autoprefixer-rails"
 gem "gon"
 gem "jbuilder", "~> 2.7"
 gem "sassc-rails"
