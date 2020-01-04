@@ -65,11 +65,7 @@ const LevelSubmit = ({ value, label, onClick, disabled }) => {
 
   return (
     <Grid item>
-      <Tooltip
-        title={t(`${label} detailed`)}
-        TransitionComponent={Zoom}
-        enterDelay={225}
-      >
+      <Tooltip title={t(`${label} detailed`)} TransitionComponent={Zoom}>
         <Fab
           classes={{
             root: clsx(classes.fab, classes[label]),
