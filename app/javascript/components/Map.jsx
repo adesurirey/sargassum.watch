@@ -186,11 +186,11 @@ class Map extends Component {
       map.addImage('eyes', image);
       map.addLayer(webcamsClustersLayer);
       map.addLayer(webcamsPointsLayer);
-    });
 
-    this.setState({
-      loading: false,
-      interactiveLayerIds: [webcamsClustersLayer.id, webcamsPointsLayer.id],
+      this.setState({
+        loading: false,
+        interactiveLayerIds: [webcamsClustersLayer.id, webcamsPointsLayer.id],
+      });
     });
   };
 
