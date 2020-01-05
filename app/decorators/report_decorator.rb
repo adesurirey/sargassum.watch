@@ -56,6 +56,8 @@ class ReportDecorator < ApplicationDecorator
       # Strip the image of any profiles, comments or these PNG chunks:
       # bKGD, cHRM, EXIF, gAMA, iCCP, iTXt, sRGB, tEXt, zCCP, zTXt, date
       strip:           true,
+      # Rotate pictures according to EXIF
+      auto_orient:     true,
       # Resize to maximum 3x fullscreen display dimensions
       resize_to_limit: [2556, 1620],
       # Convert to progressive JPEG
