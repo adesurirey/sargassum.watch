@@ -62,7 +62,8 @@ class ReportDecorator < ApplicationDecorator
       resize_to_limit: [2556, 1620],
       # Convert to progressive JPEG
       convert:         "jpg",
-      saver:           { interlace: "Line" },
+      quality:         85,
+      saver:           { interlace: "Plane" },
     )
   end
 end
