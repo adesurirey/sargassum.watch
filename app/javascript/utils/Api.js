@@ -3,9 +3,11 @@ import axios from 'axios';
 import csrfToken from './csrfToken';
 import Fingerprint from '../utils/Fingerprint';
 
-export const API_BASE = '/api/v1';
-
+// Fingerprint can take up to 500ms to generate,
+// you should start its computation as soon as possible.
 const fingerprint = new Fingerprint();
+
+export const API_BASE = '/api/v1';
 
 export default class {
   constructor() {
@@ -13,16 +15,18 @@ export default class {
   }
 
   _setDefaultHeaders() {
-    axios.default.headers = { accept: 'application/json' };
+    axios.default.headers = {
+      accept: 'application/json',
+    };
   }
 
   _auth() {
-    return {
-      headers: {
-        'X-CSRF-Token': csrfToken(),
-        'X-Fingerprint': fingerprint.hash,
-      },
+    const headers = {
+      'X-CSRF-Token': csrfToken(),
+      'X-Fingerprint': fingerprint.result,
     };
+
+    return { headers };
   }
 
   getReports() {

@@ -6,23 +6,29 @@
 
 import Fingerprint2 from 'fingerprintjs2';
 
+const options = {};
+
 export default class {
   constructor() {
-    this.hash = null;
+    // Result should stay undefined until computed so it will
+    // be ignored form headers or body objects sent to the api.
+    this.result = undefined;
 
     this._init();
   }
 
-  _setHash = () =>
-    Fingerprint2.getV18(result => {
-      this.hash = result;
-    });
-
   _init() {
     if (window.requestIdleCallback) {
-      requestIdleCallback(this._setHash);
+      requestIdleCallback(this._compute);
     } else {
-      setTimeout(this._setHash, 500);
+      setTimeout(this._compute, 500);
     }
   }
+
+  _compute = () => {
+    Fingerprint2.get(options, components => {
+      const values = components.map(component => component.value);
+      this.result = Fingerprint2.x64hash128(values.join(''), 31);
+    });
+  };
 }
