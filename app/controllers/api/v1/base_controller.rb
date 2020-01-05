@@ -26,10 +26,15 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def unprocessable_entity(record)
-    render json: { errors: record.errors.as_json }, status: :unprocessable_entity
-  end
+    errors = record.errors.as_json
 
+    Raven.capture_message(
+      "Unprocessable entity #{record.class}",
+      record: record.as_json,
+      errors: errors,
+    )
 
+    render json: { errors: errors }, status: :unprocessable_entity
   end
 
   def render_error(message, status)
