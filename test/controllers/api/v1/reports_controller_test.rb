@@ -124,14 +124,13 @@ class Api::V1::ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "can't be blank", body["errors"]["level"].first
   end
 
-  test "create should return unprocessable without user id" do
-    params = report_params { coordinates_hash(:sugiton) }
+  test "create should not error without a x-fingerprint header" do
+    params = report_params { coordinates_hash(:sugiton).merge(level: "moderate") }
 
-    assert_no_difference "Report.count" do
+    assert_difference "Report.count", 1 do
       post api_v1_reports_path, params: params, headers: json_headers
     end
-    assert_response :unprocessable_entity
-    assert_equal "can't be blank", body["errors"]["user_id"].first
+    assert_response :success
   end
 
   test "update should attach a photo to a report" do
