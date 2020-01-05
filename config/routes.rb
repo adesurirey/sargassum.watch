@@ -3,10 +3,13 @@ Rails.application.routes.draw do
     root to: 'pages#home'
   end
 
-  resources :reports, only: [:index, :create, :update], defaults: { format: :json }
-  resources :webcams, only: [:index], defaults: { format: :json }
-  resources :settings, only: [:create], defaults: { format: :json }
-
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :reports, only: [:index, :create, :update]
+      resources :webcams, only: [:index]
+      resources :settings, only: [:create]
+    end
+  end
 
   # Sidekiq Web UI, only for admins.
   middleware = Rack::Auth::Basic

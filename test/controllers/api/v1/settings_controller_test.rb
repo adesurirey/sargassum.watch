@@ -2,12 +2,12 @@
 
 require "test_helper"
 
-class SettingsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::SettingsControllerTest < ActionDispatch::IntegrationTest
   test "should create a setting cookie" do
-    post settings_path,
+    post api_v1_settings_path,
          params:  { setting: { map_style: "satellite" } },
          headers: json_headers
 
-    assert_response :ok
+    assert_response :created
   end
 end
