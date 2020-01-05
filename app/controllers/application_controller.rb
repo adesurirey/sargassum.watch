@@ -7,6 +7,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_js_environment
+    gon.push(
+      appENV:               ENV.fetch("APP_ENV"),
+      sentryPublicDSN:      ENV.fetch("SENTRY_PUBLIC_DSN"),
+      release:              ENV.fetch("RELEASE") { nil },
+      mapboxApiAccessToken: ENV.fetch("MAPBOX_API_ACCESS_TOKEN"),
+    )
+  end
+
   def set_admin_timezone
     Time.zone = "Paris"
   end

@@ -1,37 +1,29 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  before_action :push_environment
+  before_action :set_js_environment, only: [:home]
+  before_action :set_first_visit, only: [:home]
+  before_action :set_map_style, only: [:home]
 
   def home
     gon.push(
       levels:     Report.formatted_levels,
       quickLooks: QUICK_LOOKS,
-      mapStyle:   map_style,
+      mapStyle:   @map_style,
+      firstVisit: @first_visit,
       contact:    ENV.fetch("CONTACT_EMAIL") { "hello@sargassum.watch" },
-      firstVisit: first_visit?,
     )
   end
 
   private
 
-  def push_environment
-    gon.push(
-      appENV:               ENV.fetch("APP_ENV"),
-      sentryPublicDSN:      ENV.fetch("SENTRY_PUBLIC_DSN"),
-      release:              ENV.fetch("RELEASE") { nil },
-      mapboxApiAccessToken: ENV.fetch("MAPBOX_API_ACCESS_TOKEN"),
-    )
-  end
-
-  def first_visit?
-    return false if cookies[:known_user]
+  def set_first_visit
+    @first_visit = cookies[:known_user].blank?
 
     cookies.permanent[:known_user] = 1
-    true
   end
 
-  def map_style
-    cookies[:map_style] || "map"
+  def set_map_style
+    @map_style = cookies[:map_style] || "map"
   end
 end
