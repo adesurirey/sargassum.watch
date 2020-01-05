@@ -3,8 +3,9 @@ import axios from 'axios';
 import csrfToken from './csrfToken';
 import Fingerprint from '../utils/Fingerprint';
 
+export const API_BASE = '/api/v1';
+
 const fingerprint = new Fingerprint();
-const accept = 'application/json';
 
 export default class {
   constructor() {
@@ -12,7 +13,7 @@ export default class {
   }
 
   _setDefaultHeaders() {
-    axios.default.headers = { accept };
+    axios.default.headers = { accept: 'application/json' };
   }
 
   _auth() {
@@ -25,11 +26,11 @@ export default class {
   }
 
   getReports() {
-    return axios.get('/reports');
+    return axios.get(`${API_BASE}/reports`);
   }
 
   createReport(report) {
-    return axios.post('/reports', { report }, this._auth());
+    return axios.post(`${API_BASE}/reports`, { report }, this._auth());
   }
 
   updateReport(report) {
@@ -38,10 +39,10 @@ export default class {
       data.append(key, value);
     });
 
-    return axios.patch(`/reports/${report.id}`, data, this._auth());
+    return axios.patch(`${API_BASE}/reports/${report.id}`, data, this._auth());
   }
 
   createSetting(setting) {
-    return axios.post('/settings', { setting }, this._auth());
+    return axios.post(`${API_BASE}/settings`, { setting }, this._auth());
   }
 }

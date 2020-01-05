@@ -25,6 +25,7 @@ guard :minitest, spring: "bin/rails test" do
 
   watch(%r{^test/(.*)\/?(.*)_test\.rb$})
 
+  watch("app/controllers/api/v1/base_controller.rb") { "test/controllers/api/v1" }
   watch("app/controllers/application_controller.rb") { "test/controllers" }
 
   watch(%r{^test/test_helper\.rb$})  { "test" }

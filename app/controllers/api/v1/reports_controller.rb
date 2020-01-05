@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportsController < ApplicationController
+class Api::V1::ReportsController < Api::V1::BaseController
   before_action :authenticate_user, only: [:create, :update]
   before_action :set_report, only: [:update]
 
@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
     if @report.save
       render_report(status: report_status, can_update: true)
     else
-      render_errors
+      unprocessable_entity(@report)
     end
   end
 
@@ -47,10 +47,6 @@ class ReportsController < ApplicationController
     )
 
     render json: json, status: status
-  end
-
-  def render_errors
-    render json: { errors: @report.errors.as_json }, status: :unprocessable_entity
   end
 
   def report_params

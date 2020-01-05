@@ -29,7 +29,7 @@ import {
 } from '../utils/geoJSON';
 import { getInterval, featuresInInterval } from '../utils/interval';
 import { validateWaterPresence, isSamePosition } from '../utils/map';
-import Api from '../utils/Api';
+import Api, { API_BASE } from '../utils/Api';
 import textFromError from '../utils/textFromError';
 
 import Mapbox from './Mapbox';
@@ -163,7 +163,7 @@ class Map extends Component {
 
     map.addSource(WEBCAMS_SOURCE_ID, {
       type: 'geojson',
-      data: '/webcams.json',
+      data: `${API_BASE}/webcams.json`,
       cluster: true,
       clusterMaxZoom: 14,
       clusterRadius: 40,

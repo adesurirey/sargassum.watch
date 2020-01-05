@@ -2,13 +2,13 @@
 
 require "test_helper"
 
-class ReportsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::ReportsControllerTest < ActionDispatch::IntegrationTest
   test "index should return all reports as a geoJSON" do
     create_list(:report, 10, :clear)
     create_list(:report, 10, :moderate)
     create_list(:report, 10, :critical)
 
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     assert_response :success
 
     assert_equal "FeatureCollection", body["type"]
@@ -37,25 +37,25 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "index should return geoJSON from cache" do
     create_list(:report, 10, :clear)
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     etag = response.headers["etag"]
 
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     assert_equal etag, response.headers["etag"]
 
     create(:report)
 
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     assert_not_equal etag, response.headers["etag"]
   end
 
   test "index should regenerate cached geoJSON" do
     create_list(:report, 10, :clear)
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     etag = response.headers["etag"]
     create(:report)
 
-    get reports_path, headers: json_headers
+    get api_v1_reports_path, headers: json_headers
     assert_not_equal etag, response.headers["etag"]
   end
 
@@ -63,7 +63,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     clear = report_params { coordinates_hash(:sugiton).merge(level: "clear") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.clear.count", 1 do
-        post reports_path, params: clear, headers: auth_headers
+        post api_v1_reports_path, params: clear, headers: auth_headers
       end
     end
     assert_response :created
@@ -71,7 +71,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     moderate = report_params { coordinates_hash(:morgiou).merge(level: "moderate") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.moderate.count", 1 do
-        post reports_path, params: moderate, headers: auth_headers
+        post api_v1_reports_path, params: moderate, headers: auth_headers
       end
     end
     assert_response :created
@@ -79,7 +79,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     critical = report_params { coordinates_hash(:podestat).merge(level: "critical") }
     assert_difference "Report.count", 1 do
       assert_difference "Report.critical.count", 1 do
-        post reports_path, params: critical, headers: auth_headers
+        post api_v1_reports_path, params: critical, headers: auth_headers
       end
     end
     assert_response :created
@@ -87,7 +87,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "create should return created report as a geoJSON feature" do
     params = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
-    post reports_path, params: params, headers: auth_headers
+    post api_v1_reports_path, params: params, headers: auth_headers
 
     assert_response :success
     assert_equal %w[type geometry properties], body.keys
@@ -99,14 +99,14 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "create should update users report already created at same place within 24h" do
     moderate = report_params { coordinates_hash(:sugiton).merge(level: "moderate") }
-    post reports_path, params: moderate, headers: auth_headers
+    post api_v1_reports_path, params: moderate, headers: auth_headers
     assert_response :created
     id = body["properties"]["id"]
 
     critical = report_params { coordinates_hash(:sugiton).merge(level: "critical") }
     assert_no_difference "Report.count" do
       assert_difference "Report.critical.count", 1 do
-        post reports_path, params: critical, headers: auth_headers
+        post api_v1_reports_path, params: critical, headers: auth_headers
       end
     end
     assert_response :ok
@@ -118,7 +118,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     params = report_params { coordinates_hash(:sugiton) }
 
     assert_no_difference "Report.count" do
-      post reports_path, params: params, headers: auth_headers
+      post api_v1_reports_path, params: params, headers: auth_headers
     end
     assert_response :unprocessable_entity
     assert_equal "can't be blank", body["errors"]["level"].first
@@ -128,7 +128,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     params = report_params { coordinates_hash(:sugiton) }
 
     assert_no_difference "Report.count" do
-      post reports_path, params: params, headers: json_headers
+      post api_v1_reports_path, params: params, headers: json_headers
     end
     assert_response :unprocessable_entity
     assert_equal "can't be blank", body["errors"]["user_id"].first
@@ -138,7 +138,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     report = create(:report)
     params = report.attributes.slice("latitude", "longitude").merge(photo: photo_upload)
 
-    patch report_path(report.id),
+    patch api_v1_report_path(report.id),
           params:  params,
           headers: auth_headers(report.user_id)
 
@@ -151,7 +151,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     report = create(:report, updated_at: 2.days.ago)
     params = report.attributes.merge(photo: photo_upload)
 
-    patch report_path(report.id),
+    patch api_v1_report_path(report.id),
           params:  params,
           headers: auth_headers(report.user_id)
 
