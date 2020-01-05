@@ -9,12 +9,14 @@ class Api::V1::BaseController < ActionController::API
 
   rescue_from StandardError,                with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from PG::ConnectionBad,            with: :service_unavailable
 
   private
 
   def internal_server_error(exception)
-    log_exception(exception)
+    Raven.capture_exception(exception)
+
+    Rails.logger.error "#{exception.class}: #{exception.message}"
+    Rails.logger.error exception.backtrace.join("\n")
 
     render_error "Internal server error", :internal_server_error
   end
@@ -23,21 +25,11 @@ class Api::V1::BaseController < ActionController::API
     render_error exception.message, :not_found
   end
 
-  def service_unavailable(exception)
-    log_exception(exception)
-
-    render_error "Service unavailable", :service_unavailable
-  end
-
   def unprocessable_entity(record)
     render json: { errors: record.errors.as_json }, status: :unprocessable_entity
   end
 
-  def log_exception(exception)
-    Raven.capture_exception(exception)
 
-    Rails.logger.error "#{exception.class}: #{exception.message}"
-    Rails.logger.error exception.backtrace.join("\n")
   end
 
   def render_error(message, status)
