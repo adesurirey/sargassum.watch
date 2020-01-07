@@ -412,7 +412,7 @@ class Map extends Component {
 
     map.once('idle', this.handleUserPosition);
 
-    this.zoom({ zoom: 19, ...user });
+    this.zoom({ zoom: 16, ...user });
   };
 
   onReportClick = () => {
