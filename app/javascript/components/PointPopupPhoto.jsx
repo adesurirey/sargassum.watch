@@ -1,5 +1,6 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, memo } from 'react';
 import { string, bool, func } from 'prop-types';
+import { useUpdateEffect } from 'react-use';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -69,13 +70,27 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  useEffect(() => {
-    setSent(true);
-    const timer = setTimeout(() => {
+  useUpdateEffect(() => {
+    // When the browser hits the variant URL, Active Storage will lazily transform the
+    // original blob into the specified format and redirect to its new service location,
+    // this could take some time.
+    setSource(photo);
+
+    // Wait for original blob transformation and loading before showing success.
+    const timerSuccess = setTimeout(() => {
+      setSent(true);
+    }, 3000);
+
+    // Reset sending UI.
+    const timerReset = setTimeout(() => {
       setSending(false);
       setSent(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timerSuccess);
+      clearTimeout(timerReset);
+    };
   }, [photo]);
 
   const classes = useStyles({ hasSource: !!source });
