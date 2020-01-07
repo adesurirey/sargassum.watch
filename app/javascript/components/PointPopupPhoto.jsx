@@ -6,10 +6,12 @@ import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { CardMedia, IconButton, LinearProgress } from '@material-ui/core';
+import { CardMedia, IconButton } from '@material-ui/core';
 import { AddAPhotoRounded, EditRounded } from '@material-ui/icons';
 
 import useEvent from '../hooks/useEvent';
+
+import Spinner from './Spinner';
 
 const propTypes = {
   photo: string,
@@ -50,47 +52,27 @@ const useStyles = makeStyles(theme => ({
         ),
       },
     },
-  icon: {
-    paddingBottom: 58, // Lengend is 54px height + 4px margin
-  },
-  progress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    backgroundColor: fade(theme.palette.primary.light, 0.38),
-  },
-  progressBar: {
-    backgroundColor: theme.palette.primary.main,
+  padded: {
+    paddingBottom: 62, // Lengend is 54px height + 2 * 4px margin
   },
 }));
 
 const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
   const [source, setSource] = useState(photo);
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useUpdateEffect(() => {
-    // When the browser hits the variant URL, Active Storage will lazily transform the
+    // Uploaded photo variant received:
+    // when the browser hits the variant URL, Active Storage will lazily transform the
     // original blob into the specified format and redirect to its new service location,
     // this could take some time.
     setSource(photo);
 
-    // Wait for original blob transformation and loading before showing success.
-    const timerSuccess = setTimeout(() => {
-      setSent(true);
-    }, 3000);
-
-    // Reset sending UI.
-    const timerReset = setTimeout(() => {
-      setSending(false);
-      setSent(false);
-    }, 4000);
-
-    return () => {
-      clearTimeout(timerSuccess);
-      clearTimeout(timerReset);
-    };
+    // Wait for photo variant to be generated and loaded before showing success.
+    // This will toggle an hidden img in the dom, which will call us back when the image
+    // will be fully loaded, time to show success!
+    setLoading(true);
   }, [photo]);
 
   const classes = useStyles({ hasSource: !!source });
@@ -114,6 +96,12 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
     });
   };
 
+  // Original blob transformation and loading completed, can show upload success.
+  const handleUploadedPhotoLoad = () => {
+    setSending(false);
+    setLoading(false);
+  };
+
   return (
     <CardMedia
       className={clsx(classes.root, classes.fullHeight)}
@@ -135,7 +123,7 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
               centerRipple={false}
               classes={{
                 root: clsx(classes.button, classes.fullHeight),
-                label: classes.icon,
+                label: classes.padded,
                 colorPrimary: classes.buttonColor,
               }}
               aria-label={t('Add a photo')}
@@ -147,11 +135,15 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
       )}
 
       {sending && (
-        <LinearProgress
-          variant={sent ? 'determinate' : 'indeterminate'}
-          value={sent ? 100 : undefined}
-          classes={{ root: classes.progress, bar: classes.progressBar }}
+        <Spinner
+          variant="medium"
+          delay={100}
+          containerClassName={classes.padded}
         />
+      )}
+
+      {loading && (
+        <img hidden alt="" src={photo} onLoad={handleUploadedPhotoLoad} />
       )}
     </CardMedia>
   );

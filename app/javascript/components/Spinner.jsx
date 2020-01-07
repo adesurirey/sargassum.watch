@@ -1,5 +1,6 @@
 import React from 'react';
-import { oneOf, number } from 'prop-types';
+import { oneOf, number, string } from 'prop-types';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import { Fade } from '@material-ui/core';
@@ -9,12 +10,14 @@ import LocalErrorBoundary from './LocalErrorBoundary';
 
 const propTypes = {
   delay: number,
-  variant: oneOf(['small', 'large']),
+  variant: oneOf(['small', 'medium', 'large']),
+  containerClassName: string,
 };
 
 const defaultProps = {
   delay: 1000,
   variant: 'large',
+  containerClassName: null,
 };
 
 const SIZE = 44;
@@ -22,7 +25,8 @@ const THIKENESS = 3.6;
 
 const sizes = {
   small: 16,
-  large: 50,
+  medium: 24,
+  large: 62,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -66,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Spinner = ({ delay, variant }) => {
+const Spinner = ({ delay, variant, containerClassName }) => {
   const loading = useDelayedLoading(delay);
   const classes = useStyles();
 
@@ -82,7 +86,7 @@ const Spinner = ({ delay, variant }) => {
 
   return (
     <LocalErrorBoundary>
-      <div className={classes.container}>
+      <div className={clsx(classes.container, containerClassName)}>
         <Fade in={loading}>
           <div
             className={classes.root}
