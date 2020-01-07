@@ -31,7 +31,7 @@ const defaultProps = {
   onExitFullScreen: undefined,
 };
 
-const [MAX_WIDTH, MAX_HEIGHT] = [320, 216];
+export const [MAX_WIDTH, MAX_HEIGHT, HEADER_MAX_HEIGHT] = [320, 216, 36];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'translate(0px, 0px) !important', // Cancel dragged position
   },
   header: {
-    maxHeight: 36,
+    maxHeight: HEADER_MAX_HEIGHT,
     margin: 0,
     padding: theme.spacing(1, 1, 1, 2),
     display: 'flex',
@@ -84,6 +84,8 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(1),
   },
   content: {
+    position: 'relative',
+    height: ({ isFullHeight }) => (isFullHeight ? '100%' : 'auto'),
     padding: '0 !important',
   },
 }));
