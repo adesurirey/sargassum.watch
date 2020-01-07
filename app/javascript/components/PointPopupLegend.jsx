@@ -8,6 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Typography, Grid, Link } from '@material-ui/core';
 import { AccessTime, LinkRounded } from '@material-ui/icons';
 
+import { MAX_WIDTH } from './Popup';
 import LegendPoint from './LegendPoint';
 import SmartTimeAgo from './SmartTimeAgo';
 import FullscreenControl from './FullscreenControl';
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     bottom: 0,
     margin: `${theme.spacing(1)}px auto`,
-    width: 320 - theme.spacing(2),
+    width: MAX_WIDTH - theme.spacing(2),
     padding: theme.spacing(1, 2),
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.background.paper, 0.8),
