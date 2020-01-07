@@ -19,15 +19,9 @@ const defaultProps = {
   isFullScreen: false,
 };
 
-const HEIGHT = '100%';
-
 const useStyles = makeStyles(theme => ({
   media: {
     display: ({ loaded }) => (loaded ? 'block' : 'none'),
-  },
-
-  spinner: {
-    height: HEIGHT,
   },
 
   control: {
@@ -38,6 +32,7 @@ const useStyles = makeStyles(theme => ({
       isFullScreen ? theme.spacing(2) : theme.spacing(1),
     transition: theme.transitions.create(['margin']),
     color: theme.palette.common.white,
+    zIndex: 1,
     '&:hover': {
       backgroundColor: fade(
         theme.palette.common.white,
@@ -81,10 +76,18 @@ const LiveImage = ({ url, isFullScreen, onFullScreen }) => {
 
   return (
     <>
+      {!loaded && (
+        <Spinner
+          variant="medium"
+          delay={225}
+          containerClassName={classes.spinner}
+        />
+      )}
+
       <CardMedia
         className={classes.media}
         component="img"
-        height={HEIGHT}
+        height="100%"
         src={`${url}?d=${timestamp}`}
         onLoad={onLoad}
         onError={onError}
@@ -96,12 +99,6 @@ const LiveImage = ({ url, isFullScreen, onFullScreen }) => {
         toggled={isFullScreen}
         onToggle={onFullScreen}
       />
-
-      {!loaded && (
-        <div className={classes.spinner}>
-          <Spinner variant="small" delay={225} />
-        </div>
-      )}
     </>
   );
 };
