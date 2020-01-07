@@ -8,16 +8,16 @@ const propTypes = {
   children: node.isRequired,
 };
 
-export const width = 380;
+export const WIDTH = 380;
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexShrink: 0,
-    width,
+    width: WIDTH,
   },
 
   paper: {
-    width,
+    width: WIDTH,
     paddingTop: 72,
     background: theme.palette.grey[100],
     border: 0,

@@ -16,7 +16,7 @@ import { LayersRounded } from '@material-ui/icons';
 import ControlsDivider from './ControlsDivider';
 import StyleControl from './StyleControl';
 import WebcamsControl from './WebcamsControl';
-import { width as leftDrawerWidth } from './LeftDrawer';
+import { WIDTH as LEFT_DRAWER_WIDTH } from './LeftDrawer';
 
 const propTypes = {
   loaded: bool.isRequired,
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   fab: {
     position: 'absolute',
     top: 0,
-    left: leftDrawerWidth,
+    left: LEFT_DRAWER_WIDTH,
     margin: theme.spacing(2),
     zIndex: 1,
     boxShadow: theme.shadows[4],

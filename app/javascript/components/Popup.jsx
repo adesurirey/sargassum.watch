@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       maxWidth: MAX_WIDTH * 3,
-      height: `calc(100% - ${theme.spacing(6)}px) !important`,
+      height: [[`calc(100% - ${theme.spacing(6)}px)`], '!important'],
       maxHeight: MAX_HEIGHT * 3,
       margin: theme.spacing(3),
       borderRadius: theme.shape.borderRadius,
@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
       maxHeight: '100vh',
       margin: 0,
     },
-    transform: 'translate(0px, 0px) !important', // Cancel dragged position
+    transform: [['none'], '!important'], // Cancel dragged position
   },
   header: {
     maxHeight: HEADER_MAX_HEIGHT,
@@ -77,6 +77,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     [theme.breakpoints.up('md')]: {
+      // No dragging on fullscreen
       cursor: ({ isFullScreen }) => (isFullScreen ? 'default' : 'move'),
     },
   },
@@ -84,9 +85,9 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(1),
   },
   content: {
-    position: 'relative',
+    position: 'relative', // For absolute positioning inside
     height: ({ isFullHeight }) => (isFullHeight ? '100%' : 'auto'),
-    padding: '0 !important',
+    padding: [[0], '!important'],
   },
 }));
 
@@ -110,14 +111,13 @@ const Popup = ({
 }) => {
   const theme = useTheme();
   const isWideScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const classes = useStyles({ isFullHeight, isFullScreen });
 
   const handleEscapeKeyDown = () => {
     if (isFullScreen && onExitFullScreen) {
       onExitFullScreen();
     }
   };
-
-  const classes = useStyles({ isFullHeight, isFullScreen });
 
   return (
     <Dialog
