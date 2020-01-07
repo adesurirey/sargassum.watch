@@ -58,27 +58,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
-  const [source, setSource] = useState(photo);
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useUpdateEffect(() => {
     // Uploaded photo variant received:
-    // when the browser hits the variant URL, Active Storage will lazily transform the
+    // When the browser hits the variant URL, Active Storage will lazily transform the
     // original blob into the specified format and redirect to its new service location,
     // this could take some time.
-    setSource(photo);
-
-    // Wait for photo variant to be generated and loaded before showing success.
-    // This will toggle an hidden img in the dom, which will call us back when the image
-    // will be fully loaded, time to show success!
     setLoading(true);
   }, [photo]);
 
-  const classes = useStyles({ hasSource: !!source });
+  const classes = useStyles({ hasSource: !!photo });
   const { t } = useTranslation();
 
-  const ActionIcon = !source ? AddAPhotoRounded : EditRounded;
+  const ActionIcon = !photo ? AddAPhotoRounded : EditRounded;
 
   const createEvent = useEvent();
 
@@ -86,7 +80,6 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
     const file = event.target.files[0];
 
     setSending(true);
-    setSource(URL.createObjectURL(file));
     onChange(file);
 
     createEvent({
@@ -103,10 +96,7 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
   };
 
   return (
-    <CardMedia
-      className={clsx(classes.root, classes.fullHeight)}
-      image={source}
-    >
+    <CardMedia className={clsx(classes.root, classes.fullHeight)} image={photo}>
       {canUpdate && !sending && (
         <div className={classes.fullHeight}>
           <input
