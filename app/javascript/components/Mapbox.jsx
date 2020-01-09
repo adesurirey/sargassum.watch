@@ -24,6 +24,7 @@ const propTypes = {
   viewport: object.isRequired,
   style: oneOf(['map', 'satellite']).isRequired,
   user: object,
+  userIsReporting: bool,
   interactiveLayerIds: arrayOf(string).isRequired,
   geocoderContainerRef: object,
   dismissPopup: func.isRequired,
@@ -37,6 +38,7 @@ const propTypes = {
 const defaultProps = {
   className: null,
   user: null,
+  userIsReporting: false,
   geocoderContainerRef: null,
 };
 
@@ -75,6 +77,7 @@ const Mapbox = forwardRef(
       viewport,
       style,
       user,
+      userIsReporting,
       interactiveLayerIds,
       geocoderContainerRef,
       dismissPopup,
@@ -150,7 +153,7 @@ const Mapbox = forwardRef(
           latitude={viewport.latitude}
           onChange={onViewportChange}
         />
-        {user && <UserMarker {...user} />}
+        {userIsReporting && <UserMarker {...user} />}
         <ZoomControl />
       </MapGL>
     );

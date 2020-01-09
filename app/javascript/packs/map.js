@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import '../i18n';
-import configureErrorNotifier from '../utils/configureErrorNotifier';
+import '../config/i18n';
+import configureErrorNotifier from '../config/configureErrorNotifier';
 import App from '../components/App';
 
 configureErrorNotifier();
