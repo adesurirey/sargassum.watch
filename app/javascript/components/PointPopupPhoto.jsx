@@ -27,7 +27,7 @@ const defaultProps = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    position: 'relative',
+    filter: ({ sending }) => (sending ? 'opacity(0.5)' : 'none'),
   },
   fullHeight: {
     height: '100%',
@@ -52,12 +52,18 @@ const useStyles = makeStyles(theme => ({
         ),
       },
     },
+  spinner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
   padded: {
     paddingBottom: 62, // Lengend is 54px height + 2 * 4px margin
   },
 }));
 
 const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
+  const [source, setSource] = useState(photo);
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -65,23 +71,18 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
     // Uploaded photo variant received:
     // When the browser hits the variant URL, Active Storage will lazily transform the
     // original blob into the specified format and redirect to its new service location,
-    // this could take some time.
+    // this could take some time. Here we set the component as loading to hold sending
+    // state UI until the hoto is received and fully loaded.
     setLoading(true);
   }, [photo]);
 
-  const classes = useStyles({ hasSource: !!photo });
+  const classes = useStyles({ hasSource: !!source, sending });
   const { t } = useTranslation();
 
-  const ActionIcon = !photo ? AddAPhotoRounded : EditRounded;
+  const ActionIcon = !source ? AddAPhotoRounded : EditRounded;
 
   const createEvent = useEvent();
-
-  const handleChange = event => {
-    const file = event.target.files[0];
-
-    setSending(true);
-    onChange(file);
-
+  const createPhotoUploadEvent = () => {
     createEvent({
       category: 'Reporting',
       action: 'Uploaded a photo',
@@ -89,53 +90,81 @@ const PointPopupPhoto = ({ photo, canUpdate, onChange }) => {
     });
   };
 
+  const handleChange = event => {
+    const file = event.target.files[0];
+
+    setSource(URL.createObjectURL(file));
+    setSending(true);
+
+    onChange(file);
+
+    createPhotoUploadEvent();
+  };
+
   // Original blob transformation and loading completed, can show upload success.
   const handleUploadedPhotoLoad = () => {
+    // Release preview object URL
+    URL.revokeObjectURL(source);
+    // Display uploaded photo variant
+    setSource(photo);
+
+    // Reset UI
     setSending(false);
     setLoading(false);
   };
 
   return (
-    <CardMedia className={clsx(classes.root, classes.fullHeight)} image={photo}>
-      {canUpdate && !sending && (
-        <div className={classes.fullHeight}>
-          <input
-            id="add-a-photo"
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-            hidden
-          />
-          <label htmlFor="add-a-photo" className={classes.fullHeight}>
-            <IconButton
-              component="div"
-              color="primary"
-              centerRipple={false}
-              classes={{
-                root: clsx(classes.button, classes.fullHeight),
-                label: classes.padded,
-                colorPrimary: classes.buttonColor,
-              }}
-              aria-label={t('Add a photo')}
-            >
-              <ActionIcon />
-            </IconButton>
-          </label>
-        </div>
-      )}
+    <>
+      <CardMedia
+        className={clsx(classes.root, classes.fullHeight)}
+        image={source}
+      >
+        {canUpdate && !sending && (
+          <div className={classes.fullHeight}>
+            <input
+              id="add-a-photo"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              hidden
+            />
+            <label htmlFor="add-a-photo" className={classes.fullHeight}>
+              <IconButton
+                component="div"
+                color="primary"
+                centerRipple={false}
+                classes={{
+                  root: clsx(classes.button, classes.fullHeight),
+                  label: classes.padded,
+                  colorPrimary: classes.buttonColor,
+                }}
+                aria-label={t('Add a photo')}
+              >
+                <ActionIcon />
+              </IconButton>
+            </label>
+          </div>
+        )}
+      </CardMedia>
 
       {sending && (
         <Spinner
           variant="medium"
           delay={100}
-          containerClassName={classes.padded}
+          containerClassName={clsx(classes.spinner, classes.padded)}
         />
       )}
 
       {loading && (
-        <img hidden alt="" src={photo} onLoad={handleUploadedPhotoLoad} />
+        <img
+          hidden
+          alt=""
+          src={photo}
+          importance="high"
+          onLoad={handleUploadedPhotoLoad}
+        />
       )}
-    </CardMedia>
+    </>
   );
 };
 
