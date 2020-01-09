@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import { oneOfType, string, number, bool, func } from 'prop-types';
+import { oneOfType, string, number, func } from 'prop-types';
 
 import useModalView from '../hooks/useModalView';
 import Popup from './Popup';
@@ -13,16 +13,19 @@ const propTypes = {
   source: string,
   photo: string,
   updatedAt: string.isRequired,
-  canUpdate: bool,
+  canUpdateUntil: string,
   onUpdate: func,
 };
 
 const defaultProps = {
   photo: null,
   source: null,
-  canUpdate: false,
+  canUpdateUntil: null,
   onUpdate: undefined,
 };
+
+const isUpdatable = canUpdateUntil =>
+  !!canUpdateUntil && new Date(canUpdateUntil).getTime() > Date.now();
 
 const PointPopup = ({
   id,
@@ -31,14 +34,25 @@ const PointPopup = ({
   photo,
   source,
   updatedAt,
-  canUpdate,
+  canUpdateUntil,
   onUpdate,
   ...popupProps
 }) => {
+  const [canUpdate, setCanUpdate] = useState(isUpdatable(canUpdateUntil));
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const createModalView = useModalView(`/reports/${id}`);
   useEffect(createModalView, [id]);
+
+  useEffect(() => {
+    if (!canUpdate) return;
+
+    const timer = setInterval(() => {
+      setCanUpdate(isUpdatable(canUpdateUntil));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [canUpdate, canUpdateUntil]);
 
   const handlePhotoChange = photo => {
     onUpdate({ id, photo });

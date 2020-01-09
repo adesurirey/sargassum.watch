@@ -39,9 +39,7 @@ export default class {
 
   updateReport(report) {
     const data = new FormData();
-    Object.entries(report).forEach(([key, value]) => {
-      data.append(key, value);
-    });
+    data.append('photo', report.photo);
 
     return axios.patch(`${API_BASE}/reports/${report.id}`, data, this._auth());
   }
