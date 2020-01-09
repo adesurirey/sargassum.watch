@@ -1,3 +1,5 @@
+import popupTypes from '../config/popupTypes';
+
 const featureCollection = features => ({
   type: 'FeatureCollection',
   features,
@@ -22,9 +24,10 @@ const toPopup = (variant, feature, other) => {
   };
 };
 
-const toPointPopup = (feature, other = {}) => toPopup('point', feature, other);
+const toPointPopup = (feature, other = {}) =>
+  toPopup(popupTypes.point, feature, other);
 
 const toWebcamPopup = (feature, other = {}) =>
-  toPopup('webcam', feature, other);
+  toPopup(popupTypes.webcam, feature, other);
 
 export { featureCollection, toPointPopup, toWebcamPopup };

@@ -29,8 +29,9 @@ import {
 } from '../utils/geoJSON';
 import { getInterval, featuresInInterval } from '../utils/interval';
 import { validateWaterPresence, isSamePosition } from '../utils/map';
-import Api, { API_BASE } from '../utils/Api';
 import textFromError from '../utils/textFromError';
+import popupTypes from '../config/popupTypes';
+import Api, { API_BASE } from '../services/Api';
 
 import Mapbox from './Mapbox';
 import Controls from './Controls';
@@ -389,7 +390,7 @@ class Map extends Component {
 
     let popup = { ...user };
     if (isNearWater) {
-      popup.variant = 'report';
+      popup.variant = popupTypes.report;
       popup.onSubmit = this.onReportSubmit;
     } else {
       popup.text = t('Please get closer to the beach');
@@ -413,7 +414,6 @@ class Map extends Component {
     }
 
     map.once('idle', this.handleUserPosition);
-
     this.zoom({ zoom: 16, ...user });
   };
 
@@ -454,6 +454,9 @@ class Map extends Component {
       user,
     } = this.state;
 
+    const userIsReporting =
+      user && popup && popup.variant === popupTypes.report;
+
     return (
       <div className={classes.root}>
         <Controls
@@ -479,6 +482,7 @@ class Map extends Component {
           style={style}
           popup={popup}
           user={user}
+          userIsReporting={userIsReporting}
           interactiveLayerIds={interactiveLayerIds}
           dismissPopup={this.dismissPopup}
           onViewportChange={this.onViewportChange}

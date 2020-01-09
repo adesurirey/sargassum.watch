@@ -6,8 +6,10 @@ import WebcamPopup from './WebcamPopup';
 import ReportPopup from './ReportPopup';
 import TextPopup from './TextPopup';
 
+import popupTypes from '../config/popupTypes';
+
 const propTypes = {
-  variant: oneOf(['text', 'point', 'webcam', 'report']),
+  variant: oneOf(Object.values(popupTypes)),
   onClose: func.isRequired,
 };
 
@@ -17,11 +19,11 @@ const defaultProps = {
 
 const SmartPopup = ({ variant, ...popupProps }) => {
   switch (variant) {
-    case 'point':
+    case popupTypes.point:
       return <PointPopup {...popupProps} />;
-    case 'webcam':
+    case popupTypes.webcam:
       return <WebcamPopup {...popupProps} />;
-    case 'report':
+    case popupTypes.report:
       return <ReportPopup {...popupProps} />;
     default:
       return <TextPopup {...popupProps} />;

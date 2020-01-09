@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import csrfToken from './csrfToken';
-import Fingerprint from '../utils/Fingerprint';
+import Fingerprint from './Fingerprint';
+import getCSRFToken from '../utils/getCSRFToken';
 
 // Fingerprint can take up to 500ms to generate,
 // you should start its computation as soon as possible.
@@ -22,7 +22,7 @@ export default class {
 
   _auth() {
     const headers = {
-      'X-CSRF-Token': csrfToken(),
+      'X-CSRF-Token': getCSRFToken(),
       'X-Fingerprint': fingerprint.result,
     };
 

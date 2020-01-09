@@ -1,7 +1,7 @@
 import { useEffect, useRef, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import defaultLanguage from '../i18n/fallbackLng';
+import defaultLanguage from '../config/i18n/fallbackLng';
 import getParams from '../utils/getParams';
 import {
   currentLanguage,
