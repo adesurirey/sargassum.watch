@@ -33,7 +33,7 @@
     "react-map-gl": "^5.2.0",
     "react-map-gl-geocoder": "^2.0.11",
     "react-timeago": "^4.4.0",
-    "react-use": "^13.14.1",
+    "react-use": "^13.14.3",
     "react-youtube": "^7.9.0",
     "recharts": "^1.8.5",
     "typeface-open-sans": "^0.0.75"
