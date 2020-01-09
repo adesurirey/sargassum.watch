@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.7.4",
-    "@material-ui/core": "^4.8.0",
+    "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.36",
+    "@material-ui/lab": "^4.0.0-alpha.39",
     "@rails/webpacker": "^4.2.2",
     "@reach/router": "^1.2.1",
     "@sentry/browser": "^5.11.0",
