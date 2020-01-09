@@ -29,7 +29,9 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
-    "HOST": "http://i-will-be-replaced-by-postdeploy-script.com",
+    "HOST": {
+      "required": true
+    },
     "MAPBOX_API_ACCESS_TOKEN": {
       "required": true
     },
