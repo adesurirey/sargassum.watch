@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    zIndex: 1,
   },
   left: {
     fontSize: theme.typography.caption.fontSize,
