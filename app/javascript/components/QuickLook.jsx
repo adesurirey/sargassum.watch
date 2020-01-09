@@ -69,7 +69,6 @@ const QuickLook = ({ loaded, onViewportChange }) => {
           aria-label={title}
           aria-controls="quick-look-menu"
           aria-haspopup="true"
-          className={classes.button}
           disableTouchRipple
           onClick={onClick}
         >

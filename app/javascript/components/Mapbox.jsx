@@ -1,5 +1,4 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import React, { forwardRef } from 'react';
 import { bool, object, oneOf, arrayOf, func, string } from 'prop-types';
@@ -14,7 +13,6 @@ import {
   WEBCAMS_POINTS_LAYER_ID,
 } from '../layers';
 import Spinner from './Spinner';
-import Geocoder from './Geocoder';
 import UserMarker from './UserMarker';
 import ZoomControl from './ZoomControl';
 
@@ -26,7 +24,6 @@ const propTypes = {
   user: object,
   userIsReporting: bool,
   interactiveLayerIds: arrayOf(string).isRequired,
-  geocoderContainerRef: object,
   dismissPopup: func.isRequired,
   onViewportChange: func.isRequired,
   onLoaded: func.isRequired,
@@ -39,7 +36,6 @@ const defaultProps = {
   className: null,
   user: null,
   userIsReporting: false,
-  geocoderContainerRef: null,
 };
 
 const settings = {
@@ -79,7 +75,6 @@ const Mapbox = forwardRef(
       user,
       userIsReporting,
       interactiveLayerIds,
-      geocoderContainerRef,
       dismissPopup,
       onViewportChange,
       onLoaded,
@@ -146,13 +141,6 @@ const Mapbox = forwardRef(
         asyncRender
       >
         {loading && isSmallScreen && <Spinner delay={50} />}
-        <Geocoder
-          mapRef={ref}
-          containerRef={geocoderContainerRef}
-          longitude={viewport.longitude}
-          latitude={viewport.latitude}
-          onChange={onViewportChange}
-        />
         {userIsReporting && <UserMarker {...user} />}
         <ZoomControl />
       </MapGL>

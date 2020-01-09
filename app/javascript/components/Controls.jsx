@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { interval } from '../utils/propTypes';
 import ReportButton from './ReportButton';
-import GeocoderContainer from './GeocoderContainer';
+import Geocoder from './Geocoder';
 import MapSettings from './MapSettings';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import ControlsPanel from './ControlsPanel';
@@ -50,10 +50,11 @@ const Controls = ({
 
   return (
     <>
-      <GeocoderContainer
+      <Geocoder
         loaded={loaded}
-        ref={geocoderContainerRef}
-        onViewportChange={onViewportChange}
+        // longitude={viewport.longitude}
+        // latitude={viewport.latitude}
+        onChange={onViewportChange}
       />
 
       <ReportButton

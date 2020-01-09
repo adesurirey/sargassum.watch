@@ -91,7 +91,6 @@ class Map extends Component {
     };
 
     this.mapRef = React.createRef();
-    this.geocoderContainerRef = React.createRef();
 
     this.onReportsIdle = debounce(this.onReportsIdle, 600);
   }
@@ -454,7 +453,6 @@ class Map extends Component {
     return (
       <div className={classes.root}>
         <Controls
-          geocoderContainerRef={this.geocoderContainerRef}
           loaded={loaded}
           geolocating={geolocating}
           interval={interval}
@@ -469,7 +467,6 @@ class Map extends Component {
         />
         <Mapbox
           ref={this.mapRef}
-          geocoderContainerRef={this.geocoderContainerRef}
           className={classes.map}
           loading={loading}
           viewport={viewport}
