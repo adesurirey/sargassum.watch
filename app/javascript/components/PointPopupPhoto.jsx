@@ -16,13 +16,12 @@ import Spinner from './Spinner';
 const propTypes = {
   photo: string,
   canUpdate: bool,
-  onChange: func,
+  onChange: func.isRequired,
 };
 
 const defaultProps = {
   photo: null,
   canUpdate: false,
-  onChange: undefined,
 };
 
 const useStyles = makeStyles(theme => ({
