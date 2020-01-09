@@ -298,7 +298,9 @@ class Map extends Component {
   };
 
   onReportFeatureClick = feature =>
-    this.setState({ popup: toPointPopup(feature) });
+    this.setState({
+      popup: toPointPopup(feature, { onUpdate: this.onReportUpdate }),
+    });
 
   onWebcamsClusterClick = ({
     properties: { cluster_id: clusterId },
