@@ -82,8 +82,8 @@ class DatasetTest < ActiveSupport::TestCase
     assert_not_empty set.errors.details[:features]
   end
 
-  test "should create from a reports and destroy packed reports" do
-    query = -> { Report.where("created_at < ?", Report::MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME) }
+  test "should create from a reports collection and destroy packed reports" do
+    query = -> { Report.all }
 
     first_report = create(:report, created_at: 1.month.ago)
     create(:report, created_at: 2.week.ago)

@@ -133,22 +133,6 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal report, results.first
   end
 
-  test "should find a nearby report created by same user on same day and update it" do
-    report = create(:report, :sugiton, :critical)
-    coords = coordinates_hash(:sugiton_beach)
-    params = report_params(
-      longitude: coords[:longitude],
-      latitude:  coords[:latitude],
-      user_id:   report.user_id,
-      level:     "clear",
-    )
-
-    result = Report.find_or_initialize_for_user(params)
-
-    assert_equal report, result
-    assert result.level_changed?
-  end
-
   test "should find an already scrapped report by placemark attributes" do
     report = create(:report, :sugiton, :critical)
 
@@ -163,22 +147,6 @@ class ReportTest < ActiveSupport::TestCase
     result = Report.find_or_initialize_for_scrapper(placemark)
 
     assert_equal report, result
-  end
-
-  test "should initialize a valid new record from params" do
-    report = create(:report, :sugiton, :critical)
-    coords = coordinates_hash(:morgiou)
-    params = report_params(
-      longitude: coords[:longitude],
-      latitude:  coords[:latitude],
-      user_id:   report.user_id,
-      level:     :clear,
-    )
-
-    result = Report.find_or_initialize_for_user(params)
-
-    assert result.new_record?
-    assert result.valid?
   end
 
   test "should initialize a new record by placemark attributes" do
@@ -280,28 +248,20 @@ class ReportTest < ActiveSupport::TestCase
 
   test "should be updatable" do
     report = create(:report)
-    params = report_params(
-      user_id:   report.user_id,
-      latitude:  report.latitude,
-      longitude: report.longitude + 0.0005,
-    )
-
-    assert report.can_update?(params)
+    assert report.can_update?(report.user_id)
   end
 
   test "should not be updatable" do
     report = create(:report)
-    params = report_params(
-      user_id:   report.user_id,
-      latitude:  report.latitude,
-      longitude: report.longitude,
-    )
-
-    assert_not report.can_update?(params.merge(user_id: SecureRandom.hex))
-    assert_not report.can_update?(params.merge(longitude: report.longitude + 1))
+    assert_not report.can_update?(SecureRandom.hex)
 
     report.update!(updated_at: 1.day.ago)
-    assert_not report.can_update?(params)
+    assert_not report.can_update?(report.user_id)
+  end
+
+  test "should return max update date" do
+    report = create(:report)
+    assert_equal report.updated_at + Report::MAX_UPDATE_TIME, report.can_update_until
   end
 
   private

@@ -25,11 +25,7 @@ class Report < ApplicationRecord
   include ReverseGeocodableConcern
   include CachableGeoJSONConcern
 
-  MIN_DISTANCE_FROM_LAST_REPORT_IN_KM   = 1
-  MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME = Time.current.beginning_of_day
-
   MAX_UPDATE_TIME = 1.hour
-  MAX_UPDATE_KM   = 0.1
 
   has_one_attached :photo, dependent: false
 
@@ -49,10 +45,6 @@ class Report < ApplicationRecord
       Rails.cache.fetch(cache_key(datasets, reports)) do
         Assets::GeoJSON.generate(datasets: datasets, reports: reports)
       end
-    end
-
-    def find_or_initialize_for_user(params)
-      current_for_user(params) || new(params)
     end
 
     def find_or_initialize_for_scrapper(placemark)
@@ -80,18 +72,6 @@ class Report < ApplicationRecord
       [datasets.maximum(:updated_at), reports.maximum(:updated_at)].max
     end
 
-    def current_for_user(params)
-      user_id, latitude, longitude = params.values_at(:user_id, :latitude, :longitude)
-
-      where(
-        user_id:    user_id,
-        created_at: MIN_DISTANCE_FROM_LAST_REPORT_IN_TIME..,
-      )
-        .near([latitude, longitude], MIN_DISTANCE_FROM_LAST_REPORT_IN_KM, units: :km)
-        .first
-        .tap { |report| report&.assign_attributes(params) }
-    end
-
     def already_scrapped(placemark)
       fail ArgumentError, "Placemark has no level" unless placemark[:level].present?
 
@@ -100,10 +80,12 @@ class Report < ApplicationRecord
     end
   end
 
-  def can_update?(params)
-    user_id == params[:user_id] &&
-      distance_from([params[:latitude], params[:longitude]]) <= MAX_UPDATE_KM &&
-      Time.current < updated_at + MAX_UPDATE_TIME
+  def can_update?(user_id_param)
+    user_id == user_id_param && Time.current < can_update_until
+  end
+
+  def can_update_until
+    updated_at + MAX_UPDATE_TIME
   end
 
   private

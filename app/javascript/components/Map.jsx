@@ -360,16 +360,10 @@ class Map extends Component {
     );
 
   onReportUpdate = report => {
-    this.geolocate(coords => {
-      api
-        .updateReport({
-          ...report,
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        })
-        .then(({ data: feature }) => this.onReportSuccess(feature))
-        .catch(this.onError);
-    });
+    api
+      .updateReport(report)
+      .then(({ data: feature }) => this.onReportSuccess(feature))
+      .catch(this.onError);
   };
 
   onReportSubmit = level => {
