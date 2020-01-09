@@ -1,49 +1,54 @@
-// Look at GeocoderContainer.jsx for CSS overrides
-import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import React, { memo } from 'react';
 
-import React, { Component, memo } from 'react';
-import { shape, instanceOf, number, func } from 'prop-types';
-import MapboxGeocoder from 'react-map-gl-geocoder';
-import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/styles';
 
-import useEvent from '../hooks/useEvent';
-import { currentLanguage } from '../utils/i18n';
+import QuickLook from './QuickLook';
 
-const propTypes = {
-  mapRef: shape({ current: instanceOf(Component) }).isRequired,
-  containerRef: shape({ current: instanceOf(Element) }).isRequired,
-  longitude: number.isRequired,
-  latitude: number.isRequired,
-  onChange: func.isRequired,
-};
+const useStyles = makeStyles(theme => ({
+  root: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 72,
+    width: 380,
+    zIndex: theme.zIndex.drawer + 1,
+    padding: theme.spacing(2),
+    display: 'flex',
+    background: theme.palette.background.paper,
+    borderBottomStyle: 'solid',
+    borderBottomWidth: 1,
+    borderBottomColor: theme.palette.grey[200],
+    [theme.breakpoints.down('sm')]: {
+      height: theme.spacing(8),
+      width: '100%',
+      padding: theme.spacing(1),
+      background: 'transparent',
+      borderBottomWidth: 0,
+    },
+  },
 
-const Geocoder = ({ longitude, latitude, onChange, ...refs }) => {
-  const { i18n, t } = useTranslation();
-  const createEvent = useEvent();
-  const language = currentLanguage(i18n);
+  quickLookContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    paddingLeft: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: theme.zIndex.drawer + 2,
+  },
+}));
 
-  const onResult = ({ result: { place_name } }) => {
-    createEvent({
-      category: 'Navigation',
-      action: 'Searched a place',
-      label: `Searched ${place_name}`,
-    });
-  };
+const Geocoder = ({ loaded, onChange }) => {
+  const classes = useStyles();
 
   return (
-    <MapboxGeocoder
-      {...refs}
-      mapboxApiAccessToken={gon.mapboxApiAccessToken}
-      proximity={{ longitude, latitude }}
-      onResult={onResult}
-      onViewportChange={onChange}
-      placeholder={t('Search...')}
-      language={language}
-      clearAndBlurOnEsc
-    />
+    <div className={classes.root}>
+      <div className={classes.quickLookContainer}>
+        <QuickLook loaded={loaded} onViewportChange={onChange} />
+      </div>
+    </div>
   );
 };
 
 export default memo(Geocoder);
-
-Geocoder.propTypes = propTypes;
