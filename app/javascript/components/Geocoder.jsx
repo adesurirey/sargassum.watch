@@ -85,7 +85,7 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
   const { i18n, t } = useTranslation();
   const language = currentLanguage(i18n);
 
-  const { inputValue, options, onInputChange } = useGeocoder({
+  const { loading, inputValue, onInputChange, options } = useGeocoder({
     language,
     center,
   });
@@ -132,9 +132,20 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
       </div>
 
       <Autocomplete
+        debug
         id="search"
         classes={{ root: classes.autocomplete, inputRoot: classes.input }}
         disabled={!loaded}
+        loading={loading}
+        loadingText={t('Loading...')}
+        autoComplete
+        autoHighlight
+        includeInputInList
+        clearOnEscape
+        clearText={t('Clear')}
+        closeText={t('Close')}
+        openText={t('Open')}
+        noOptionsText={t('No options')}
         inputValue={inputValue}
         renderInput={params => (
           <TextField
@@ -162,11 +173,6 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
           </div>
         )}
         groupBy={option => (!!option.zoom ? t('Popular search') : null)}
-        autoComplete
-        autoHighlight
-        includeInputInList
-        freeSolo
-        clearOnEscape
         onInputChange={onInputChange}
         onChange={handleResult}
       />
