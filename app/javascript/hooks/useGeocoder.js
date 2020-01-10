@@ -1,9 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import throttle from 'lodash/throttle';
+import omit from 'lodash/omit';
+import { useTranslation } from 'react-i18next';
 
 const apiURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
-const { mapboxApiAccessToken } = gon;
+const { mapboxApiAccessToken, quickLooks } = gon;
+const popularResults = omit(quickLooks, ['_all']);
 
 const useGeocoder = ({ language, center = [] }) => {
   const [inputValue, setInputValue] = useState('');
@@ -13,6 +16,17 @@ const useGeocoder = ({ language, center = [] }) => {
   // Avoid mutating fetch function when center changes,
   // that would lead to performance issues.
   proximity.current = center.join(',');
+
+  const { t } = useTranslation();
+  const defaultOptions = useMemo(
+    () =>
+      Object.values(popularResults).map(option => ({
+        ...option,
+        text: t(option.text),
+        place_name: t(option.place_name),
+      })),
+    [t],
+  );
 
   const handleInputChange = (_event, value) => {
     setInputValue(value);
@@ -39,7 +53,7 @@ const useGeocoder = ({ language, center = [] }) => {
 
     // Input was reset
     if (inputValue === '') {
-      setOptions([]);
+      setOptions(defaultOptions);
       return;
     }
 
@@ -55,7 +69,7 @@ const useGeocoder = ({ language, center = [] }) => {
     return () => {
       active = false;
     };
-  }, [inputValue, fetch]);
+  }, [inputValue, fetch, defaultOptions]);
 
   return {
     options,

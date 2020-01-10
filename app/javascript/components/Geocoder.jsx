@@ -99,7 +99,7 @@ const Geocoder = ({ loaded, center, getMap, onChange }) => {
         autoHighlight
         includeInputInList
         freeSolo
-        disableOpenOnFocus
+        // disableOpenOnFocus
         clearOnEscape
         renderInput={params => (
           <TextField {...params} label={t('Search...')} fullWidth />
@@ -112,6 +112,7 @@ const Geocoder = ({ loaded, center, getMap, onChange }) => {
             )}
           </div>
         )}
+        groupBy={option => (!!option.zoom ? t('Popular search') : null)}
         onInputChange={onInputChange}
         onChange={handleResult}
       />
