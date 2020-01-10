@@ -11,17 +11,11 @@ QUICK_LOOKS = {
     center: [-61, 14.67],
     zoom:   8.74,
   },
-  quitana:     {
-    text:   "Quintana Roo",
-    place_name:   "Quintana Roo, Mexico",
-    center: [-87.92, 19.60],
-    zoom:   6.26,
-  },
-  tulum:      {
-    text:       "Tulum",
-    place_name: "Tulum, Quintana Roo, Mexico",
-    center:     [-87.43, 20.22],
-    zoom:       8.62,
+  quitana:    {
+    text:       "Quintana Roo",
+    place_name: "Quintana Roo, Mexico",
+    center:     [-87.92, 19.60],
+    zoom:       6.26,
   },
   florida:    {
     text:       "Florida",
