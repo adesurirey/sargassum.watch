@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { FlyToInterpolator } from 'react-map-gl';
 
 import { makeStyles } from '@material-ui/styles';
+import { Autocomplete } from '@material-ui/lab';
 import { TextField, Typography } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { ExpandMoreRounded } from '@material-ui/icons';
 
 import { currentLanguage } from '../utils/i18n';
 import useGeocoder from '../hooks/useGeocoder';
 import useGeocoderResult from '../hooks/useGeocoderResult';
 import useEvent from '../hooks/useEvent';
+import { WIDTH as LEFT_DRAWER_WIDTH } from './LeftDrawer';
 import Logo from './Logo';
 
 const propTypes = {
@@ -29,22 +31,24 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 0,
     left: 0,
-    height: 72,
-    width: 380,
     zIndex: theme.zIndex.drawer + 1,
-    padding: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
     background: theme.palette.background.paper,
-    borderBottomStyle: 'solid',
-    borderBottomWidth: 1,
-    borderBottomColor: theme.palette.grey[200],
+    [theme.breakpoints.up('md')]: {
+      height: 72,
+      width: LEFT_DRAWER_WIDTH,
+      padding: theme.spacing(2),
+      borderBottomStyle: 'solid',
+      borderBottomWidth: 1,
+      borderBottomColor: theme.palette.grey[200],
+    },
     [theme.breakpoints.down('sm')]: {
-      height: theme.spacing(8),
-      width: '100%',
+      width: `calc(100% - ${theme.spacing(2)}px)`,
+      margin: theme.spacing(1),
       padding: theme.spacing(1),
-      background: 'transparent',
-      borderBottomWidth: 0,
+      borderRadius: theme.shape.borderRadius,
+      boxShadow: theme.shadows[4],
     },
   },
   logoContainer: {
@@ -56,12 +60,35 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     zIndex: theme.zIndex.drawer + 2,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1),
+    },
   },
   autocomplete: {
     width: '100%',
   },
   input: {
     paddingLeft: theme.spacing(6),
+  },
+  paper: {
+    maxHeight: '50vh',
+    boxShadow: theme.shadows[4],
+    margin: theme.spacing(1.25, 0),
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(2, -1),
+    },
+    '& > ul': {
+      maxHeight: '50vh',
+    },
+  },
+  listbox: {
+    padding: 0,
+  },
+  result: {
+    width: '100%',
+  },
+  text: {
+    fontWeight: theme.typography.fontWeightBold,
   },
 }));
 
@@ -132,12 +159,17 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
       </div>
 
       <Autocomplete
-        debug
         id="search"
-        classes={{ root: classes.autocomplete, inputRoot: classes.input }}
+        classes={{
+          root: classes.autocomplete,
+          inputRoot: classes.input,
+          paper: classes.paper,
+          listbox: classes.listbox,
+        }}
         disabled={!loaded}
         loading={loading}
         loadingText={t('Loading...')}
+        popupIcon={<ExpandMoreRounded />}
         autoComplete
         autoHighlight
         includeInputInList
@@ -165,10 +197,14 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
           typeof option === 'string' ? option : option.text
         }
         renderOption={option => (
-          <div>
-            <Typography>{option.text}</Typography>
+          <div className={classes.result}>
+            <Typography className={classes.text} noWrap>
+              {option.text}
+            </Typography>
             {option.place_name && option.place_name !== option.text && (
-              <Typography variant="body2">{option.place_name}</Typography>
+              <Typography noWrap variant="body2">
+                {option.place_name}
+              </Typography>
             )}
           </div>
         )}
