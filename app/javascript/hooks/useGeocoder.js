@@ -9,6 +9,7 @@ const { mapboxApiAccessToken, quickLooks } = gon;
 const popularResults = omit(quickLooks, ['_all']);
 
 const useGeocoder = ({ language, center = [] }) => {
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
   const proximity = useRef(null);
@@ -35,6 +36,8 @@ const useGeocoder = ({ language, center = [] }) => {
   const fetch = useMemo(
     () =>
       throttle((input, callback) => {
+        setLoading(true);
+
         axios
           .get(`${apiURL}/${input}.json`, {
             params: {
@@ -43,7 +46,12 @@ const useGeocoder = ({ language, center = [] }) => {
               proximity: proximity.current,
             },
           })
-          .then(({ data }) => callback(data.features));
+          .then(({ data }) => {
+            callback(data.features);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       }, 200),
     [language],
   );
@@ -72,9 +80,10 @@ const useGeocoder = ({ language, center = [] }) => {
   }, [inputValue, fetch, defaultOptions]);
 
   return {
+    loading,
     inputValue,
-    options,
     onInputChange: handleInputChange,
+    options,
   };
 };
 
