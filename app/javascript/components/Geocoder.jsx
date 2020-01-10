@@ -111,14 +111,14 @@ const initialPosition = {
 const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
   const { i18n, t } = useTranslation();
   const language = currentLanguage(i18n);
+  const createEvent = useEvent();
+  const classes = useStyles();
 
   const { loading, inputValue, onInputChange, options } = useGeocoder({
     language,
     center,
   });
   const getViewport = useGeocoderResult(getMap);
-
-  const createEvent = useEvent();
 
   const handleResult = (_event, result) => {
     if (!result) return;
@@ -150,7 +150,46 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
     });
   };
 
-  const classes = useStyles();
+  const getOptionLabel = option =>
+    typeof option === 'string' ? option : option.text;
+
+  const groupBy = option => {
+    if (!!option.zoom) {
+      // Only quick looks have a zoom prop.
+      // Group key is used as group title.
+      return t('Popular search');
+    }
+    // Don't group search results.
+    return null;
+  };
+
+  const filterOptions = x => x;
+
+  const renderInput = params => (
+    <TextField
+      {...params}
+      aria-label={t('Search...')}
+      placeholder={t('Search...')}
+      InputProps={{
+        ...params.InputProps,
+        disableUnderline: true,
+      }}
+      fullWidth
+    />
+  );
+
+  const renderOption = option => (
+    <div className={classes.result}>
+      <Typography className={classes.text} noWrap>
+        {option.text}
+      </Typography>
+      {option.place_name && option.place_name !== option.text && (
+        <Typography noWrap variant="body2" color="textSecondary">
+          {option.place_name}
+        </Typography>
+      )}
+    </div>
+  );
 
   return (
     <div className={classes.root}>
@@ -159,7 +198,10 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
       </div>
 
       <Autocomplete
-        id="search"
+        autoComplete
+        autoHighlight
+        includeInputInList
+        clearOnEscape
         classes={{
           root: classes.autocomplete,
           inputRoot: classes.input,
@@ -170,45 +212,17 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
         loading={loading}
         loadingText={t('Loading...')}
         popupIcon={<ExpandMoreRounded />}
-        autoComplete
-        autoHighlight
-        includeInputInList
-        clearOnEscape
-        clearText={t('Clear')}
-        closeText={t('Close')}
         openText={t('Open')}
+        closeText={t('Close')}
+        clearText={t('Clear')}
         noOptionsText={t('No options')}
         inputValue={inputValue}
-        renderInput={params => (
-          <TextField
-            {...params}
-            aria-label={t('Search...')}
-            placeholder={t('Search...')}
-            InputProps={{
-              ...params.InputProps,
-              disableUnderline: true,
-            }}
-            fullWidth
-          />
-        )}
+        renderInput={renderInput}
         options={options}
-        filterOptions={x => x}
-        getOptionLabel={option =>
-          typeof option === 'string' ? option : option.text
-        }
-        renderOption={option => (
-          <div className={classes.result}>
-            <Typography className={classes.text} noWrap>
-              {option.text}
-            </Typography>
-            {option.place_name && option.place_name !== option.text && (
-              <Typography noWrap variant="body2">
-                {option.place_name}
-              </Typography>
-            )}
-          </div>
-        )}
-        groupBy={option => (!!option.zoom ? t('Popular search') : null)}
+        filterOptions={filterOptions}
+        getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
+        groupBy={groupBy}
         onInputChange={onInputChange}
         onChange={handleResult}
       />
