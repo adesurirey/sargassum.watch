@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { bool, arrayOf, number, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { FlyToInterpolator } from 'react-map-gl';
 
 import { makeStyles } from '@material-ui/styles';
 import { TextField, Typography } from '@material-ui/core';
@@ -10,13 +11,13 @@ import { currentLanguage } from '../utils/i18n';
 import useGeocoder from '../hooks/useGeocoder';
 import useGeocoderResult from '../hooks/useGeocoderResult';
 import useEvent from '../hooks/useEvent';
-import QuickLook from './QuickLook';
+import Logo from './Logo';
 
 const propTypes = {
   loaded: bool,
   center: arrayOf(number.isRequired).isRequired,
   getMap: func.isRequired,
-  onChange: func.isRequired,
+  onViewportChange: func.isRequired,
 };
 
 const defaultProps = {
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: theme.zIndex.drawer + 1,
     padding: theme.spacing(2),
     display: 'flex',
+    alignItems: 'center',
     background: theme.palette.background.paper,
     borderBottomStyle: 'solid',
     borderBottomWidth: 1,
@@ -45,24 +47,48 @@ const useStyles = makeStyles(theme => ({
       borderBottomWidth: 0,
     },
   },
-
-  quickLookContainer: {
+  logoContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
     height: '100%',
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
     zIndex: theme.zIndex.drawer + 2,
   },
+  autocomplete: {
+    width: '100%',
+  },
+  input: {
+    paddingLeft: theme.spacing(6),
+  },
 }));
 
-const Geocoder = ({ loaded, center, getMap, onChange }) => {
+const TRANSITION_PROPS = {
+  transitionInterpolator: new FlyToInterpolator(),
+  transitionDuration: 3000,
+};
+
+const {
+  center: [initialLongitude, initialLatitude],
+  zoom: initialZoom,
+} = gon.quickLooks._all;
+
+const initialPosition = {
+  longitude: initialLongitude,
+  latitude: initialLatitude,
+  zoom: initialZoom,
+};
+
+const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
   const { i18n, t } = useTranslation();
   const language = currentLanguage(i18n);
 
-  const { options, onInputChange } = useGeocoder({ language, center });
+  const { inputValue, options, onInputChange } = useGeocoder({
+    language,
+    center,
+  });
   const getViewport = useGeocoderResult(getMap);
 
   const createEvent = useEvent();
@@ -70,7 +96,10 @@ const Geocoder = ({ loaded, center, getMap, onChange }) => {
   const handleResult = (_event, result) => {
     if (!result) return;
 
-    onChange(getViewport(result));
+    onViewportChange({
+      ...getViewport(result),
+      ...TRANSITION_PROPS,
+    });
 
     createEvent({
       category: 'Navigation',
@@ -79,31 +108,51 @@ const Geocoder = ({ loaded, center, getMap, onChange }) => {
     });
   };
 
+  const handleLogoClick = event => {
+    onInputChange(event, '');
+
+    onViewportChange({
+      ...initialPosition,
+      ...TRANSITION_PROPS,
+    });
+
+    createEvent({
+      category: 'Navigation',
+      action: 'Clicked logo',
+      label: 'Logo click',
+    });
+  };
+
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div className={classes.quickLookContainer}>
-        <QuickLook loaded={loaded} onViewportChange={onChange} />
+      <div className={classes.logoContainer}>
+        <Logo loaded={loaded} onClick={handleLogoClick} />
       </div>
+
       <Autocomplete
         id="search"
-        style={{ width: '100%' }}
+        classes={{ root: classes.autocomplete, inputRoot: classes.input }}
         disabled={!loaded}
+        inputValue={inputValue}
+        renderInput={params => (
+          <TextField
+            {...params}
+            aria-label={t('Search...')}
+            placeholder={t('Search...')}
+            InputProps={{
+              ...params.InputProps,
+              disableUnderline: true,
+            }}
+            fullWidth
+          />
+        )}
+        options={options}
+        filterOptions={x => x}
         getOptionLabel={option =>
           typeof option === 'string' ? option : option.text
         }
-        filterOptions={x => x}
-        options={options}
-        autoComplete
-        autoHighlight
-        includeInputInList
-        freeSolo
-        // disableOpenOnFocus
-        clearOnEscape
-        renderInput={params => (
-          <TextField {...params} label={t('Search...')} fullWidth />
-        )}
         renderOption={option => (
           <div>
             <Typography>{option.text}</Typography>
@@ -113,6 +162,11 @@ const Geocoder = ({ loaded, center, getMap, onChange }) => {
           </div>
         )}
         groupBy={option => (!!option.zoom ? t('Popular search') : null)}
+        autoComplete
+        autoHighlight
+        includeInputInList
+        freeSolo
+        clearOnEscape
         onInputChange={onInputChange}
         onChange={handleResult}
       />

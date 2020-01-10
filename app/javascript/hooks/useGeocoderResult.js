@@ -1,10 +1,8 @@
-import { FlyToInterpolator } from 'react-map-gl';
 import WebMercatorViewport from 'viewport-mercator-project';
 
 import useException from './useException';
 
 const DEFAULT_ZOOM = 16;
-const TRANSITION_DURATION = 3000;
 
 const bboxExceptions = {
   fr: {
@@ -91,8 +89,6 @@ const useGeocoderResult = getMap => {
       longitude,
       latitude,
       zoom,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionDuration: TRANSITION_DURATION,
     };
   };
 

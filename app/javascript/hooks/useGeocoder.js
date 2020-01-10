@@ -72,6 +72,7 @@ const useGeocoder = ({ language, center = [] }) => {
   }, [inputValue, fetch, defaultOptions]);
 
   return {
+    inputValue,
     options,
     onInputChange: handleInputChange,
   };
