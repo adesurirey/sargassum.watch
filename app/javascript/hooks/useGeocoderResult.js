@@ -82,7 +82,7 @@ const useGeocoderResult = getMap => {
       center: [longitude, latitude],
     } = result;
 
-    // Popular results already have a zoom prop
+    // Quick look fake results already have a zoom prop
     const zoom = result.zoom || getZoom(result);
 
     return {

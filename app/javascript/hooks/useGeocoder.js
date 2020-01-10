@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 
-const apiURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
+const API_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 const { mapboxApiAccessToken, quickLooks } = gon;
 const popularResults = omit(quickLooks, ['_all']);
 
@@ -39,11 +39,11 @@ const useGeocoder = ({ language, center = [] }) => {
         setLoading(true);
 
         axios
-          .get(`${apiURL}/${input}.json`, {
+          .get(`${API_URL}/${input}.json`, {
             params: {
               access_token: mapboxApiAccessToken,
-              language,
               proximity: proximity.current,
+              language,
             },
           })
           .then(({ data }) => {
