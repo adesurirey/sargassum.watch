@@ -52,7 +52,7 @@ const Controls = ({
         loaded={loaded}
         center={center}
         getMap={getMap}
-        onChange={onViewportChange}
+        onViewportChange={onViewportChange}
       />
 
       <ReportButton
