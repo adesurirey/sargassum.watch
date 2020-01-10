@@ -5,6 +5,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const useException = () => {
   const logException = (message, extras = []) => {
     if (!isProduction) {
+      console.warn('sentry:', message, { extras });
       return;
     }
 

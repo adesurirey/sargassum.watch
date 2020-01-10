@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object, bool, string } from 'prop-types';
+import { func, object, array, bool, string } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { interval } from '../utils/propTypes';
@@ -14,13 +14,14 @@ import Legend from './Legend';
 import Footer from './Footer';
 
 const propTypes = {
-  geocoderContainerRef: object,
   loaded: bool.isRequired,
   geolocating: bool.isRequired,
   interval,
+  center: array.isRequired,
   renderedFeatures: object.isRequired,
   style: string.isRequired,
   navigate: func.isRequired,
+  getMap: func.isRequired,
   onIntervalChange: func.isRequired,
   onReportClick: func.isRequired,
   onStyleChange: func.isRequired,
@@ -28,18 +29,15 @@ const propTypes = {
   onViewportChange: func.isRequired,
 };
 
-const defaultProps = {
-  geocoderContainerRef: null,
-};
-
 const Controls = ({
-  geocoderContainerRef,
   loaded,
   geolocating,
   interval,
+  center,
   renderedFeatures,
   style,
   navigate,
+  getMap,
   onIntervalChange,
   onReportClick,
   onStyleChange,
@@ -52,8 +50,8 @@ const Controls = ({
     <>
       <Geocoder
         loaded={loaded}
-        // longitude={viewport.longitude}
-        // latitude={viewport.latitude}
+        center={center}
+        getMap={getMap}
         onChange={onViewportChange}
       />
 
@@ -92,4 +90,3 @@ const Controls = ({
 export default Controls;
 
 Controls.propTypes = propTypes;
-Controls.defaultProps = defaultProps;

@@ -447,6 +447,8 @@ class Map extends Component {
       user,
     } = this.state;
 
+    const center = [viewport.longitude, viewport.latitude];
+
     const userIsReporting =
       user && popup && popup.variant === popupTypes.report;
 
@@ -457,8 +459,10 @@ class Map extends Component {
           geolocating={geolocating}
           interval={interval}
           renderedFeatures={renderedFeatures}
+          center={center}
           style={style}
           navigate={navigate}
+          getMap={this.getMap}
           onIntervalChange={this.onIntervalChange}
           onReportClick={this.onReportClick}
           onStyleChange={this.onStyleChange}
