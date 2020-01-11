@@ -78,7 +78,6 @@ const Intro = () => {
       open={isOpen}
       onClose={onClose}
       aria-label={t('welcome')}
-      keepMounted
       maxWidth="xs"
       classes={{ paper: classes.paper }}
     >
