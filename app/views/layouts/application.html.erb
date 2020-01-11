@@ -3,6 +3,10 @@
   <head>
     <%= render 'layouts/meta_tags' %>
 
+    <link rel="preload" href="<%= asset_pack_path 'media/files/open-sans-latin-400.woff2' %>" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="<%= asset_pack_path 'media/files/open-sans-latin-600.woff2' %>" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="<%= asset_pack_path 'media/files/open-sans-latin-700.woff2' %>" as="font" type="font/woff2" crossorigin />
+
     <%= stylesheet_pack_tag "map", media: "all" %>
 
     <%= csrf_meta_tags %>
