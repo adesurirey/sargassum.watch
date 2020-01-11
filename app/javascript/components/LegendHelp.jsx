@@ -12,9 +12,12 @@ const propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
+  button: {
+    fontSize: 'inherit',
+  },
   popover: {
-    maxWidth: 260,
-    padding: theme.spacing(1),
+    maxWidth: 220,
+    padding: theme.spacing(1, 2),
   },
 }));
 
@@ -34,10 +37,12 @@ const LegendHelp = ({ humanLevel }) => {
         aria-label={t('help')}
         aria-controls={humanLevel}
         aria-haspopup="true"
+        classes={{ sizeSmall: classes.button }}
         size="small"
+        color="inherit"
         onClick={onClick}
       >
-        <HelpOutlineRounded fontSize="inherit" color="disabled" />
+        <HelpOutlineRounded fontSize="inherit" />
       </IconButton>
 
       <Popover

@@ -39,8 +39,8 @@ export default {
 
     h1: {
       fontWeight: 700,
-      fontSize: '1.1rem',
-      lineHeight: '1.3',
+      fontSize: '1rem',
+      lineHeight: '1.5',
     },
 
     h2: {

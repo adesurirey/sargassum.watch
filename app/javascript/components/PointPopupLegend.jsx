@@ -10,6 +10,7 @@ import { AccessTime, LinkRounded } from '@material-ui/icons';
 
 import { MAX_WIDTH } from './Popup';
 import LegendPoint from './LegendPoint';
+import LegendHelp from './LegendHelp';
 import SmartTimeAgo from './SmartTimeAgo';
 import FullscreenControl from './FullscreenControl';
 
@@ -91,6 +92,7 @@ const PointPopupLegend = ({
           />
           <Typography variant="caption" noWrap>
             {t(humanLevel)}
+            {humanLevel === 'na' && <LegendHelp humanLevel={humanLevel} />}
           </Typography>
         </Grid>
 
