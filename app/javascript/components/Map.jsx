@@ -69,7 +69,6 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
-    const center = getViewport(window.location.hash);
     const interval = getInterval(window.location.search);
 
     this.state = {
@@ -77,7 +76,7 @@ class Map extends Component {
       loading: true,
       geolocating: false,
       viewport: {
-        ...center,
+        ...getViewport(window.location.hash),
         transitionInterpolator: new FlyToInterpolator(),
       },
       style: mapStyle,
