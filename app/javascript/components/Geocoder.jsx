@@ -9,6 +9,7 @@ import { TextField, Typography } from '@material-ui/core';
 import { ExpandMoreRounded } from '@material-ui/icons';
 
 import { currentLanguage } from '../utils/i18n';
+import { initialPosition } from '../utils/geography';
 import useGeocoder from '../hooks/useGeocoder';
 import useGeocoderResult from '../hooks/useGeocoderResult';
 import useEvent from '../hooks/useEvent';
@@ -95,17 +96,6 @@ const useStyles = makeStyles(theme => ({
 const TRANSITION_PROPS = {
   transitionInterpolator: new FlyToInterpolator(),
   transitionDuration: 3000,
-};
-
-const {
-  center: [initialLongitude, initialLatitude],
-  zoom: initialZoom,
-} = gon.quickLooks._all;
-
-const initialPosition = {
-  longitude: initialLongitude,
-  latitude: initialLatitude,
-  zoom: initialZoom,
 };
 
 const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
