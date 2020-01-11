@@ -5,6 +5,6 @@ namespace :heroku do
   task release: :environment do
     Rake::Task["db:migrate"].invoke
 
-    Rake::Task["db:seed"].invoke if ENV.fetch("APP_ENV") != "production"
+    Rake::Task["db:seed"].invoke if ENV.fetch("APP_ENV") == "review" && !ENV["SEEDED"]
   end
 end
