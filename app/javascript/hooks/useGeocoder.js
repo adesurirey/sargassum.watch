@@ -66,7 +66,7 @@ const useGeocoder = ({ language, center = [] }) => {
     }
 
     // Don't fetch before min input length
-    if (inputValue.length < 3) {
+    if (inputValue.length < 2) {
       return;
     }
 
