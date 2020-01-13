@@ -113,7 +113,7 @@ const Mapbox = forwardRef(
     const handleClick = ({ target, features }) => {
       // Cannot prevent event propagation on map childrens,
       // so we check here that the click was trageting the map.
-      if (!target.classList.contains('overlays')) return;
+      if (!target.classList || !target.classList.contains('overlays')) return;
 
       if (features && features[0]) {
         dismissPopup();
