@@ -48,8 +48,6 @@ const useGeocoder = ({ language, center = [] }) => {
           })
           .then(({ data }) => {
             callback(data.features);
-          })
-          .finally(() => {
             setLoading(false);
           });
       }, 200),
