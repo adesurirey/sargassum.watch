@@ -121,7 +121,7 @@ const Geocoder = ({ loaded, center, getMap, onViewportChange }) => {
     createEvent({
       category: 'Navigation',
       action: 'Searched a place',
-      label: `Searched ${result.place_name}`,
+      label: `Searched ${result.place_name || result.text}`,
     });
   };
 
