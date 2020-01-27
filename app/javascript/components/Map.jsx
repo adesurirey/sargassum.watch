@@ -340,6 +340,8 @@ class Map extends Component {
     );
 
     navigate(`?interval=${interval.id}${window.location.hash}`);
+
+    api.createSetting({ interval: interval.id });
   };
 
   onReportSuccess = feature =>
