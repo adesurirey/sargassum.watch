@@ -18,12 +18,24 @@ const intervals = [
   { id: '7_days', value: 7, unit: 'day' },
 ];
 
-const getInterval = search => {
-  const params = parseSearch(search);
-  const interval =
-    params.interval && intervals.find(({ id }) => id === params.interval);
+const defaultInterval = intervals[0];
 
-  return interval || intervals[0];
+const findInterval = intervalId =>
+  intervals.find(({ id }) => id === intervalId);
+
+const getInterval = search => {
+  // First look in params
+  const params = parseSearch(search);
+  let intervalId = params.interval;
+
+  // Fallback on cookie
+  if (!intervalId) {
+    intervalId = gon.interval;
+  }
+
+  // Falback on default
+  const interval = intervalId && findInterval(intervalId);
+  return interval || defaultInterval;
 };
 
 const toString = ({ value, unit }) => `${value} ${unit}${value > 1 && 's'}`;

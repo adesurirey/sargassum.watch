@@ -12,6 +12,6 @@ class Api::V1::SettingsController < Api::V1::BaseController
   private
 
   def setting_params
-    params.require(:setting).permit(:map_style)
+    params.require(:setting).permit(:map_style, :interval)
   end
 end
