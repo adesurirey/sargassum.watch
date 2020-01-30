@@ -32,6 +32,7 @@ class ReportScrapperTest < ActiveSupport::TestCase
     url = ReportScrapper.url(year: year, kind: kind)
 
     stub_request(:get, url)
+      .with(headers: { "User-Agent" => ClientConcern::USER_AGENT })
       .to_return(
         status: 200,
         body:   file_fixture("valid_placemarks.kml").read,

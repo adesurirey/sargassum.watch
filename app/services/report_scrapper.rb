@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportScrapper
+  include ClientConcern
+
   attr_reader :kml
 
   class << self
@@ -32,7 +34,7 @@ class ReportScrapper
   end
 
   def request
-    Faraday.get @url
+    Faraday.get @url, nil, headers
   end
 
   def to_kml(response)
