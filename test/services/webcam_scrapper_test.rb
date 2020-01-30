@@ -78,6 +78,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
     url = WebcamScrapper::URL
 
     stub_request(:get, url)
+      .with(headers: { "User-Agent" => ClientConcern::USER_AGENT })
       .to_return(
         status: 200,
         body:   file_fixture("webcamsdemexico.html").read,

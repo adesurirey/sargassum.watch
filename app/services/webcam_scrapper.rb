@@ -3,6 +3,8 @@
 class WebcamScrapper
   RequestError = Class.new(StandardError)
 
+  include ClientConcern
+
   URL = "http://www.webcamsdemexico.com"
   COORDINATES_PATH = "/Scripts/data.json"
   TEXT_ARRAY_REGEX = /\[.+\]/m.freeze
@@ -115,7 +117,7 @@ class WebcamScrapper
   end
 
   def request(url)
-    Faraday.get(url).tap do |response|
+    Faraday.get(url, nil, headers).tap do |response|
       request_error!(url, response.status) if response.status != 200
     end
   end
