@@ -162,6 +162,17 @@ class WebcamTest < ActiveSupport::TestCase
     assert_requested image_available
   end
 
+  test "should retry when live image request" do
+    webcam = create(:webcam, :image)
+
+    request = stub_request(:get, webcam.url)
+              .to_return(status: 503).times(1).then
+              .to_return(status: 200)
+
+    assert webcam.available?
+    assert_requested request, times: 2
+  end
+
   private
 
   def stub_image_available(url)

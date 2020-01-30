@@ -57,10 +57,11 @@ class Webcam < ApplicationRecord
   end
 
   def available?
-    if youtube_kind?
-      youtube_live?
+    case kind.to_sym
+    when :youtube then youtube_live?
+    when :image then image_live?
     else
-      image_live?
+      fail StandardError, "Unhandled webcam kind: #{kind}"
     end
   end
 
@@ -71,7 +72,11 @@ class Webcam < ApplicationRecord
   private
 
   def image_live?
-    Faraday.get(url.presence).status == 200
+    request = -> { Faraday.get(url) }
+    return true if request.call.status == 200
+
+    sleep(1)
+    request.call.status == 200
   end
 
   def youtube_live?
