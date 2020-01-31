@@ -9,17 +9,15 @@ const fingerprint = new Fingerprint();
 
 export const API_BASE = '/api/v1';
 
+const api = axios.create({
+  baseURL: API_BASE,
+});
+
+api.defaults.headers = {
+  accept: 'application/json',
+};
+
 export default class {
-  constructor() {
-    this._setDefaultHeaders();
-  }
-
-  _setDefaultHeaders() {
-    axios.default.headers = {
-      accept: 'application/json',
-    };
-  }
-
   _auth() {
     const headers = {
       'X-CSRF-Token': getCSRFToken(),
@@ -30,21 +28,21 @@ export default class {
   }
 
   getReports() {
-    return axios.get(`${API_BASE}/reports`);
+    return api.get('/reports');
   }
 
   createReport(report) {
-    return axios.post(`${API_BASE}/reports`, { report }, this._auth());
+    return api.post('/reports', { report }, this._auth());
   }
 
   updateReport(report) {
     const data = new FormData();
     data.append('photo', report.photo);
 
-    return axios.patch(`${API_BASE}/reports/${report.id}`, data, this._auth());
+    return api.patch(`/reports/${report.id}`, data, this._auth());
   }
 
   createSetting(setting) {
-    return axios.post(`${API_BASE}/settings`, { setting }, this._auth());
+    return api.post('/settings', { setting }, this._auth());
   }
 }
