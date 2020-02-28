@@ -75,7 +75,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
   private
 
   def stub_webcamsdemexico_html
-    url = WebcamScrapper::URL
+    url = WebcamScrapper::URL + WebcamScrapper::SEARCH_PATH
 
     stub_request(:get, url)
       .with(headers: { "User-Agent" => ClientConcern::USER_AGENT })
@@ -86,7 +86,7 @@ class WebcamScrapperTest < ActiveSupport::TestCase
   end
 
   def stub_webcamsdemexico_html_error
-    url = WebcamScrapper::URL
+    url = WebcamScrapper::URL + WebcamScrapper::SEARCH_PATH
 
     stub_request(:get, url).to_return(status: 403)
   end
