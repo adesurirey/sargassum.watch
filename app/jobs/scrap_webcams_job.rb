@@ -7,6 +7,7 @@ class ScrapWebcamsJob < ApplicationJob
     @results = WebcamScrapper.call
 
     Webcam.transaction do
+      clean_webcams!
       create_webcams!
     end
 
@@ -15,11 +16,14 @@ class ScrapWebcamsJob < ApplicationJob
 
   private
 
+  def clean_webcams!
+    outdated_cams = Webcam.scrapped.where.not(name: @results.pluck(:name))
+    outdated_cams.delete_all
+  end
+
   def create_webcams!
     @results.each do |result|
       webcam = Webcam.find_or_initialize_for_scrapper(result)
-      next unless webcam.new_record?
-
       webcam.skip_cache = true
       webcam.save!
     end

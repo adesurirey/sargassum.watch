@@ -13,6 +13,17 @@ class ScrapWebcamsJobTest < ActiveJob::TestCase
     end
   end
 
+  test "should delete outdated webcams" do
+    mock_scrapper
+    Webcam.create!(@scrapper_results.first.merge(name: "Outdated"))
+
+    assert_difference "Webcam.count", 0 do
+      WebcamScrapper.stub(:call, @mock) do
+        ScrapWebcamsJob.perform_now
+      end
+    end
+  end
+
   test "should not duplicate scrapped webcams" do
     mock_scrapper
     Webcam.create!(@scrapper_results.first)
