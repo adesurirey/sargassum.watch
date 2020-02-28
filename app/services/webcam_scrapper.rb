@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-class WebcamScrapper
+class WebcamScrapper # rubocop:disable Metrics/ClassLength
   RequestError = Class.new(StandardError)
 
   include ClientConcern
 
   URL = "http://www.webcamsdemexico.com"
+  SEARCH_PATH = "/search.php?s=quintana+roo"
   COORDINATES_PATH = "/Scripts/data.json"
   TEXT_ARRAY_REGEX = /\[.+\]/m.freeze
 
@@ -31,11 +32,14 @@ class WebcamScrapper
   end
 
   def scrap_state_webcams
-    html = request(URL).body
+    html = request(URL + SEARCH_PATH).body
     doc = Nokogiri::HTML(html)
 
-    doc.at('span:contains("Quintana Roo")').parent.search("a").each do |element|
-      result = { name: element.text.strip, path: element.attribute("href").value }
+    doc.search("a.miniCard").each do |el|
+      result = {
+        name: el.search("div.miniCardCaption").children.first.text.strip,
+        path: el.attribute("href").value,
+      }
       @results << result
     end
   end
