@@ -81,7 +81,7 @@ class Webcam < ApplicationRecord
 
   def youtube_live?
     Yt::Video.new(id: youtube_id).live_broadcast_content == "live"
-  rescue Yt::Errors::NoItem
+  rescue Yt::Errors::NoItems
     # Video has been deleted
     false
   end
