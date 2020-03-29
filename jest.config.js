@@ -61,6 +61,20 @@ module.exports = {
   globals: {
     gon: {
       appENV: 'production',
+      mapboxApiAccessToken: 'pk.test',
+      quickLooks: {
+        _all: {
+          text: '_all',
+          center: [-73.86, 20.83],
+          zoom: 3.1,
+        },
+        florida: {
+          text: 'Florida',
+          place_name: 'Florida, United States of America',
+          center: [-81.32, 27.28],
+          zoom: 6.02,
+        },
+      },
     },
   },
 
