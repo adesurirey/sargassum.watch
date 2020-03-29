@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 
-const API_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
+export const API_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 const { mapboxApiAccessToken, quickLooks } = gon;
 const popularResults = omit(quickLooks, ['_all']);
 
