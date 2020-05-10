@@ -21,7 +21,7 @@ const defaultProps = {
 };
 
 const SIZE = 44;
-const THIKENESS = 3.6;
+const THICKNESS = 3.6;
 
 const sizes = {
   small: 16,
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-    maxHeight: '100vh', // Fix fullheight positionning on mobile browsers
+    maxHeight: '100vh', // Fix full height positioning on mobile browsers
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -79,9 +79,9 @@ const Spinner = ({ delay, variant, containerClassName }) => {
   const circleProps = {
     cx: SIZE,
     cy: SIZE,
-    r: (SIZE - THIKENESS) / 2,
+    r: (SIZE - THICKNESS) / 2,
     fill: 'none',
-    strokeWidth: THIKENESS,
+    strokeWidth: THICKNESS,
   };
 
   return (

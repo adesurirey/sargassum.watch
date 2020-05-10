@@ -1,5 +1,5 @@
 export default (error, t) => {
-  if (!error.reponse) {
+  if (!error.response) {
     return t('Oops… something wrong happened');
   }
 
